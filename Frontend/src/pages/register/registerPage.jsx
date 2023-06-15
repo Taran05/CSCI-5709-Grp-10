@@ -1,8 +1,8 @@
-import "./register.css";
+import "./registerPage.css";
 import React from "react";
-import RegisterForm from "../../Components/form/registerForm";
+import FormComp from "../../Components/register/form/formComp";
 
-function Register() {
+function RegisterPage() {
   return (
     <div className="App">
       <div className="container">
@@ -13,7 +13,7 @@ function Register() {
               Getting started with Learnly is simple,quick and easy
             </h2>
 
-            <RegisterForm />
+            <FormComp />
           </div>
         </div>
         <div className="right-div">
@@ -24,4 +24,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterPage;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./navbar.css";
+import "./navbarComp.css";
 import Button from "@mui/material/Button";
 import { Link, useLocation } from "react-router-dom";
 
-function Navbar() {
+function NavbarComp() {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
 
@@ -43,4 +43,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarComp;

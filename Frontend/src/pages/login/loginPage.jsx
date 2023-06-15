@@ -1,9 +1,9 @@
-import "../register/register.css";
+import "./loginPage.css";
 import React from "react";
-import LoginForm from "../../Components/form/loginForm";
+import FormComp from "../../Components/login/form/formComp";
 // import FormPropsTextFields from "../../Components/form/registerForm";
 
-function Login() {
+function LoginPage() {
   return (
     <div className="App">
       <div className="container">
@@ -12,7 +12,7 @@ function Login() {
             <h1 className="form-header">Sign In</h1>
             {/* <h2 className="form-header-sub"></h2> */}
 
-            <LoginForm />
+            <FormComp />
           </div>
         </div>
         <div className="right-div">
@@ -23,4 +23,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

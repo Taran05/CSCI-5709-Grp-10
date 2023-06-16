@@ -1,33 +1,30 @@
-import { Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import "./userCardComp.css";
 import { useState } from "react";
 import { useEffect } from "react";
+import lim from "../../../../assets/images/landing/card/101.jpg";
 
-function UserCardComp() {
-  const [currImage, setCurrImage] = useState(0);
-
-  let imageUrls = [
-    "assets/images/landing/start/law.jpg",
-    "assets/images/landing/start/shanks.jpg",
-    "assets/images/landing/start/brook.jpg",
-  ];
-
-  function changeImage() {
-    setCurrImage((currImage + 1) % 3);
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-      changeImage();
-    }, 3000);
-  }, [currImage]);
-
+function UserCardComp({ name, imageSrc, quotes }) {
+  console.log(name, imageSrc, quotes);
   return (
-    <div className="startMessageComp imageContainer">
-      <img
-        className="image"
-        src={require("../../../../" + imageUrls[currImage])}
-      />
+    <div className="userCardComp">
+      <Card className={"card"}>
+        <div className="cardHalfBack"></div>
+        <CardMedia
+          component="img"
+          className={"image"}
+          image={require("../../../../assets/images/landing/card/" + imageSrc)}
+          alt={name}
+        />
+        <CardContent>
+          <Typography variant="h6" className={"name"}>
+            {name}
+          </Typography>
+          <Typography variant="body2" className={"text"}>
+            {quotes}
+          </Typography>
+        </CardContent>
+      </Card>
     </div>
   );
 }

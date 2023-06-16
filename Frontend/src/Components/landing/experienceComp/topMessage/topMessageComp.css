@@ -4,3 +4,9 @@
     padding-right: 15%;
     padding-top: 5%;
 }
+
+.buttonGridItem{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

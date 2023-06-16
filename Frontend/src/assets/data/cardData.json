@@ -1,0 +1,19 @@
+{
+    "101":{
+        "name": "Luffy",
+        "imageSrc": "101.jpg",
+        "quotes": "I will become pirate king"
+    },
+
+    "102":{
+        "name": "Zoro",
+        "imageSrc": "102.jpg",
+        "quotes": "I will become #1 swordsman"
+    },
+    
+    "103":{
+        "name": "Sanji",
+        "imageSrc": "103.jpg",
+        "quotes": "I will fine all blue"
+    }
+}

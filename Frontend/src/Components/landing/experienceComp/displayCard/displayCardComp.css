@@ -1,0 +1,11 @@
+.scrollableContainer {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .scrollableContainer {
+    overflow-x: initial;
+    white-space: normal;
+  }
+}

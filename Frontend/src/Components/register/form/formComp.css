@@ -1,3 +1,7 @@
 .email-field {
   width: 100%;
 }
+.form,
+.right-div {
+  font-family: "Roboto";
+}

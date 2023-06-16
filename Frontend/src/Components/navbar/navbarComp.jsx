@@ -80,7 +80,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
   const styles = {
-    appBarBackground: { background: "#0C134F" },
+    appBarBackground: { background: "#1D267D" },
   };
 
   return (
@@ -96,7 +96,7 @@ function ResponsiveAppBar() {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "PT Serif",
+              fontFamily: "Roboto",
               fontWeight: 700,
               letterSpacing: ".1rem",
               color: "inherit",
@@ -162,7 +162,7 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "PT Serif",
+              fontFamily: "Roboto ",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -176,7 +176,13 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  fontSize: "1rem",
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  fontWeight: "500",
+                }}
               >
                 {page}
               </Button>
@@ -185,12 +191,18 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             <Link to="/login">
-              <Button color="inherit" style={{ color: "white" }}>
+              <Button
+                color="inherit"
+                style={{ color: "white", fontWeight: "1000" }}
+              >
                 Login
               </Button>
             </Link>
             <Link to="/register">
-              <Button color="inherit" style={{ color: "white" }}>
+              <Button
+                color="inherit"
+                style={{ color: "white", fontWeight: "1000" }}
+              >
                 Signup
               </Button>
             </Link>

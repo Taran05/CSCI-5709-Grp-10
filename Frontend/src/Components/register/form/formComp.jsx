@@ -167,12 +167,18 @@ export default function FormComp() {
         variant="contained"
         type="submit"
         sx={{
-          bgcolor: "black",
+          bgcolor: "#1D267D",
           color: "white",
-          padding: "8px 190px",
+          padding: {
+            xs: "8px 75px",
+            md: "8px 190px",
+          },
           fontSize: "1rem",
           marginTop: "3px",
           letterSpacing: "3px",
+          "&:hover": {
+            bgcolor: "#0C134F", // Set your desired hover color here
+          },
         }}
       >
         Submit

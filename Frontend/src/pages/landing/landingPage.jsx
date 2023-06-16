@@ -1,7 +1,8 @@
 import React from "react";
 import StartComp from "../../Components/landing/startComp/startComp";
+import "./landingPage.css";
 
-function LandinPage() {
+function LandingPage() {
   return (
     <div className="landingPage">
       <StartComp />
@@ -9,4 +10,4 @@ function LandinPage() {
   );
 }
 
-export default LandinPage;
+export default LandingPage;

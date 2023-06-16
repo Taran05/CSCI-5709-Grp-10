@@ -1,7 +1,13 @@
 import React from "react";
+import StartComp from "../../Components/landing/startComp/startComp";
+import "./landingPage.css";
 
-function LandinPage() {
-  return null;
+function LandingPage() {
+  return (
+    <div className="landingPage">
+      <StartComp />
+    </div>
+  );
 }
 
-export default LandinPage;
+export default LandingPage;

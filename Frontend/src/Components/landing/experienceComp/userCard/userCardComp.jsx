@@ -1,9 +1,9 @@
 import { Typography } from "@mui/material";
-import "./startPicsComp.css";
+import "./userCardComp.css";
 import { useState } from "react";
 import { useEffect } from "react";
 
-function StartPicsComp() {
+function UserCardComp() {
   const [currImage, setCurrImage] = useState(0);
 
   let imageUrls = [
@@ -32,4 +32,4 @@ function StartPicsComp() {
   );
 }
 
-export default StartPicsComp;
+export default UserCardComp;

@@ -1,0 +1,12 @@
+.imageContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+.image {
+    width: "200px";
+    height: "200px";
+    object-fit: "cover";
+    margin: "10px";
+  }

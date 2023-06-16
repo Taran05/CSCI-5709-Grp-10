@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div className="app">
       <NavbarComp className="nav-div" />
-      <LandinPage />
+
       <Outlet></Outlet>
     </div>
   );

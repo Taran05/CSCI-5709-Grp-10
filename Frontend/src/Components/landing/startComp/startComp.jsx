@@ -10,10 +10,10 @@ function StartComp() {
   return (
     <div className="startComp">
       <Grid container spacing={2} className="grid">
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <StartMessageComp />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <StartPicsComp />
         </Grid>
       </Grid>

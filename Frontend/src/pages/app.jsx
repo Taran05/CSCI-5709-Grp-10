@@ -5,7 +5,7 @@ import NavbarComp from "../Components/navbar/navbarComp";
 const App = () => {
   return (
     <div className="app">
-      <NavbarComp className="nav-div" />
+      <NavbarComp />
       <Outlet></Outlet>
     </div>
   );

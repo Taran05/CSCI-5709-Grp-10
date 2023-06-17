@@ -7,9 +7,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 const theme = createTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 430,
-      md: 640,
+      xs: 330,
+      sm: 380,
+      md: 430,
       lg: 1100,
       xl: 1450,
     },
@@ -19,11 +19,11 @@ const theme = createTheme({
 
 function ContactPage() {
     return (
-    <div className="App">
-      <div className="container">
-        <div className="left-div">
-          <div className="form">
-            <h1 className="form-header">
+    <div className="Contact">
+      <div className="contact-container">
+        <div className="left-form">
+          <div className="contact-form">
+            <h1 className="contact-form-header">
               GET IN
               <span style={{ marginLeft: "6px", color: "#5C469C" }}>
                 TOUCH
@@ -34,7 +34,7 @@ function ContactPage() {
             </ThemeProvider>
           </div>
         </div>
-        <div className="right-div">
+        <div className="right-info">
             <div className="info">  
              <h1 className="info-header">
               CONTACT

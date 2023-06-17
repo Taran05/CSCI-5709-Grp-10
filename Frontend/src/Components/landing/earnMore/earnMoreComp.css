@@ -1,0 +1,49 @@
+.earnMoreComp {
+    background-color: black;
+    padding-top: 90px;
+    padding-bottom: 140px;
+    color: black;
+    border-radius: 25px;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 30px;
+    color: aliceblue;
+}
+
+.discount {
+    background-color: #F48FB1;
+    border-radius: 25px;
+    padding: 10%;
+}
+
+.testimonials {
+    background-color: #B39DDB;
+    border-radius: 25px;
+    padding: 10%;
+}
+
+.country-based {
+    background-color: #8BC34A;
+    border-radius: 25px;
+    padding: 10%;
+    padding-top: 42%;
+    padding-bottom: 42%;
+}
+
+.pay-wish {
+    background-color: #FFAB91;
+    border-radius: 25px;
+    padding: 10%;
+    padding-top: 25%;
+    padding-bottom: 25%;
+}
+
+.smart-automations {
+    background-color: #E0E0E0;
+    border-radius: 25px;
+    padding: 10%;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}

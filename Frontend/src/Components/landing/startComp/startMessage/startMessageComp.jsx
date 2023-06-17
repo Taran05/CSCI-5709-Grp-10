@@ -20,7 +20,7 @@ function StartMessageComp() {
     },
   }));
 
-  const ReedFeedbackButton = styled(Button)(({ theme }) => ({
+  const ReadFeedbackButton = styled(Button)(({ theme }) => ({
     padding: "10px 30px",
     fontWeight: 600,
     color: theme.palette.getContrastText(grey[50]),
@@ -33,6 +33,11 @@ function StartMessageComp() {
   const handleStartMyPage = (e) => {
     navigate("/register");
   };
+
+  const handleFeedbacks = (e) => {
+    navigate("/contact");
+  };
+
   return (
     <div className="startMessageComp">
       <Grid container spacing={4}>
@@ -59,9 +64,12 @@ function StartMessageComp() {
               </StartPageButton>
             </Grid>
             <Grid item sm={6}>
-              <ReedFeedbackButton variant="contained">
+              <ReadFeedbackButton
+              variant="contained"
+              onClick={(e) => handleFeedbacks(e)}
+              >
                 <StickyNote2 /> Feedbacks
-              </ReedFeedbackButton>
+              </ReadFeedbackButton>
             </Grid>
           </Grid>
         </Grid>

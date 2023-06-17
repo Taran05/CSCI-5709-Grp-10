@@ -25,7 +25,6 @@ export default function contactForm() {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const isLargeScreen = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-  const isExtraLargeScreen = useMediaQuery((theme) => theme.breakpoints.down("xl"));
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -73,14 +72,14 @@ export default function contactForm() {
       sx={{
         "& .MuiTextField-root": {
            m: 1,
-           width: isExtraLargeScreen ? "55ch" : isMediumScreen ? "40ch" : isSmallScreen ? "30ch" : isExtraSmallScreen ? "25ch" : "60ch",
+           width: isExtraSmallScreen ? "25ch" : isSmallScreen ? "35ch" : isMediumScreen ? "40ch" : isLargeScreen ? "50ch" : "60ch",
           },
       }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      <div className="form">
+      <div className="contact-form">
         <TextField
           required
           id="outlined-required"
@@ -152,7 +151,7 @@ export default function contactForm() {
             md: "8px 220px",
           },
           fontSize: "1rem",
-          width: isLargeScreen ? "50%" : "100%",
+          width: "50%",
           marginTop: "3px",
           letterSpacing: "3px",
           "&:hover": {

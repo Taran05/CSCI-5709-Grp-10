@@ -8,7 +8,7 @@ import cardDataImp from "../../../../assets/data/cardData.json";
 function DisplayCardComp({ buttonCat }) {
   const [cardData, setCardData] = useState(null);
   const cardList = {
-    Data: [101, 101, 101, 101],
+    Data: [101, 102, 103, 101],
     Product: [102, 102, 102, 102],
     MentalHealth: [103, 103, 103, 103],
     StudyAbroad: [],

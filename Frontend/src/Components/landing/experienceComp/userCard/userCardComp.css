@@ -23,7 +23,7 @@
 
 .image {
   height: 100px;
-  width: 100px;
+  width: 50px;
   object-fit: cover;
   border-radius: 50%;
   position: relative;

@@ -1,11 +1,16 @@
-.displayCardComp .scrollableContainer {
+.displayCardComp {
   overflow-x: auto;
   white-space: nowrap;
+  max-height: 250px;
+  margin-bottom: 10px;
 }
 
-@media (min-width: 600px) {
-  .displayCardComp .scrollableContainer {
-    overflow-x: initial;
-    white-space: normal;
+@media (min-width: 3000px) {
+  .displayCardComp {
+    overflow-x: auto;
+    white-space: nowrap;
+    max-height: 250px;
+    margin-bottom: 10px;
+    siz
   }
 }

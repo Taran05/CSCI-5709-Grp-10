@@ -3,11 +3,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 200px;
+  min-width: 150px;
   max-width: 150px;
   max-height: 200px;
   margin: 0 auto;
   padding: 16px;
-  
+  border: solid black 1px;
   position: relative;
 }
 
@@ -22,7 +24,7 @@
 }
 
 .userCardComp .image {
-  height: 100px;
+  height: 80px;
   width: 80px;
   object-fit: cover;
   border-radius: 50%;
@@ -38,4 +40,8 @@
 .userCardComp .text {
   margin-top: 8px;
   text-align: center;
+}
+
+.userCardComp .MuiCardContent-root.css-46bh2p-MuiCardContent-root{
+  padding: 0px;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import NavbarComp from "../Components/navbar/navbarComp";
-import "../app.css";
+import NavbarComp from "./Components/navbar/navbarComp";
 
 const App = () => {
   return (

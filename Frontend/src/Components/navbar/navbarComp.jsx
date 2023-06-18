@@ -60,7 +60,7 @@ import Button from "@mui/material/Button";
 
 import MenuItem from "@mui/material/MenuItem";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 const pages = ["FAQ"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -136,7 +136,11 @@ function ResponsiveAppBar() {
               }}
             >
               <MenuItem key="Products" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">FAQ</Typography>
+                <Link to="/">
+                  <Button color="inherit" style={{ fontWeight: "1000" }}>
+                    FAQ
+                  </Button>
+                </Link>
               </MenuItem>
               {/* <MenuItem key="Pricing" onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Pricing</Typography>
@@ -145,10 +149,18 @@ function ResponsiveAppBar() {
                 <Typography textAlign="center">Blog</Typography>
               </MenuItem> */}
               <MenuItem key="Blog" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Login</Typography>
+                <Link to="/login">
+                  <Button color="inherit" style={{ fontWeight: "1000" }}>
+                    Login
+                  </Button>
+                </Link>
               </MenuItem>
               <MenuItem key="Blog" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Signup</Typography>
+                <Link to="/register">
+                  <Button color="inherit" style={{ fontWeight: "1000" }}>
+                    Singnup
+                  </Button>
+                </Link>
               </MenuItem>
             </Menu>
           </Box>

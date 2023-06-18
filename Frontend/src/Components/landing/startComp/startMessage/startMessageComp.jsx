@@ -11,6 +11,7 @@ function StartMessageComp() {
   let navigate = useNavigate();
 
   const StartPageButton = styled(Button)(({ theme }) => ({
+    height: "100%",
     padding: "10px 30px",
     fontWeight: 600,
     color: theme.palette.getContrastText(grey[900]),
@@ -21,6 +22,7 @@ function StartMessageComp() {
   }));
 
   const ReadFeedbackButton = styled(Button)(({ theme }) => ({
+    height: "100%",
     padding: "10px 30px",
     fontWeight: 600,
     color: theme.palette.getContrastText(grey[50]),
@@ -59,14 +61,16 @@ function StartMessageComp() {
               <StartPageButton
                 variant="contained"
                 onClick={(e) => handleStartMyPage(e)}
+                fullWidth
               >
                 Start My Page <ArrowForwardIcon AlignHorizontalRight />
               </StartPageButton>
             </Grid>
             <Grid item sm={6}>
               <ReadFeedbackButton
-              variant="contained"
-              onClick={(e) => handleFeedbacks(e)}
+                variant="contained"
+                onClick={(e) => handleFeedbacks(e)}
+                fullWidth
               >
                 <StickyNote2 /> Feedbacks
               </ReadFeedbackButton>

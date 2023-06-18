@@ -5,12 +5,3 @@
   margin-bottom: 10px;
 }
 
-@media (min-width: 3000px) {
-  .displayCardComp {
-    overflow-x: auto;
-    white-space: nowrap;
-    max-height: 250px;
-    margin-bottom: 10px;
-    siz
-  }
-}

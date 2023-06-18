@@ -5,7 +5,7 @@
     padding-top: 5%;
 }
 
-.buttonGridItem{
+.topMessageComp .buttonGridItem{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

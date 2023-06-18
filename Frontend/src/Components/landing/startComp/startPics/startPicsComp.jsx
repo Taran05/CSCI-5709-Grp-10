@@ -23,7 +23,7 @@ function StartPicsComp() {
   }, [currImage]);
 
   return (
-    <div className="startMessageComp imageContainer">
+    <div className="startPicsComp imageContainer">
       <img
         className="image"
         src={require("../../../../" + imageUrls[currImage])}

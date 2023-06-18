@@ -5,11 +5,11 @@ import "./contactForm.css";
 import Button from "@mui/material/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import UseMediaQuery from "@mui/material/useMediaQuery";
 
 import { useNavigate } from "react-router-dom";
 
-export default function contactForm() {
+export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -21,10 +21,12 @@ export default function contactForm() {
 
   const navigate = useNavigate();
 
-  const isExtraSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const isLargeScreen = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isExtraSmallScreen = UseMediaQuery((theme) =>
+    theme.breakpoints.down("xs")
+  );
+  const isSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const isMediumScreen = UseMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -71,9 +73,17 @@ export default function contactForm() {
       component="form"
       sx={{
         "& .MuiTextField-root": {
-           m: 1,
-           width: isExtraSmallScreen ? "25ch" : isSmallScreen ? "35ch" : isMediumScreen ? "40ch" : isLargeScreen ? "50ch" : "60ch",
-          },
+          m: 1,
+          width: isExtraSmallScreen
+            ? "25ch"
+            : isSmallScreen
+            ? "35ch"
+            : isMediumScreen
+            ? "40ch"
+            : isLargeScreen
+            ? "50ch"
+            : "60ch",
+        },
       }}
       noValidate
       autoComplete="off"

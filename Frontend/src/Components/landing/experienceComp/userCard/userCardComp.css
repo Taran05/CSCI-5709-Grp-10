@@ -1,4 +1,4 @@
-.card {
+.userCardComp .card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +11,7 @@
   position: relative;
 }
 
-.cardHalfBack {
+.userCardComp .cardHalfBack {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,21 +21,21 @@
   z-index: 1;
 }
 
-.image {
+.userCardComp .image {
   height: 100px;
-  width: 50px;
+  width: 80px;
   object-fit: cover;
   border-radius: 50%;
   position: relative;
   z-index: 1;
 }
 
-.name {
+.userCardComp .name {
   margin-top: 16px;
   text-align: center;
 }
 
-.text {
+.userCardComp .text {
   margin-top: 8px;
   text-align: center;
 }

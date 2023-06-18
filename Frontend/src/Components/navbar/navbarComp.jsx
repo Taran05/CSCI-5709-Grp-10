@@ -96,7 +96,6 @@ function ResponsiveAppBar() {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "Roboto",
               fontWeight: 700,
               letterSpacing: ".1rem",
               color: "inherit",
@@ -174,7 +173,6 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "Roboto ",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",

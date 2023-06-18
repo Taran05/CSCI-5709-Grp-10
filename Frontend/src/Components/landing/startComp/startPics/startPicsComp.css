@@ -1,12 +1,20 @@
-.imageContainer {
+.startPicsComp {
+  font-family: "PT Serif", serif !important ;
+  height: 100%;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 20%;
+}
+
+.startPicsComp .imageContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
 
-.image {
-    width: "200px";
-    height: "200px";
+.startPicsComp .image {
+    width: 300px;
+    height: 300px;
     object-fit: "cover";
     margin: "10px";
   }

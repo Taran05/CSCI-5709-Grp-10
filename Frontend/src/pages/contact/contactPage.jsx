@@ -16,9 +16,8 @@ const theme = createTheme({
   },
 });
 
-
 function ContactPage() {
-    return (
+  return (
     <div className="Contact">
       <div className="contact-container">
         <div className="left-form">
@@ -30,13 +29,13 @@ function ContactPage() {
               </span>{" "}
             </h1>
             <ThemeProvider theme={theme}>
-            <ContactForm />
+              <ContactForm />
             </ThemeProvider>
           </div>
         </div>
         <div className="right-info">
-            <div className="info">  
-             <h1 className="info-header">
+          <div className="info">
+            <h1 className="info-header">
               CONTACT
               <span style={{ marginLeft: "6px", color: "#aba7b8" }}>
                 US
@@ -44,13 +43,12 @@ function ContactPage() {
             </h1>
             <ThemeProvider theme={theme}>
               <ContactInfo />
-              </ThemeProvider>
-
-            </div>
+            </ThemeProvider>
           </div>
+        </div>
       </div>
     </div>
-    );
+  );
 }
 
 export default ContactPage;

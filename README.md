@@ -1,92 +1,78 @@
-# CSCI 5709 Grp-10
+# Project Proposal
 
+Our project, Learnly, aims to simplify personalized interactions by providing a platform for professionals to manage incoming requests for advice or guidance. It allows individuals to connect with professionals and seek personalized interactions, allowing knowledge and wisdom to be shared in a simplified and seamless manner.
 
+* *Date Created*: 19 June 2023
+* *Last Modification Date*: 19 June 2023
+* *Deployed application URL*: <>
+* *GIT URL*: <https://git.cs.dal.ca/taranjots/csci-5709-grp-10>
 
-## Getting started
+## Authors
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+* [Taranjot Singh (tr548284@dal.ca)](https://git.cs.dal.ca/taranjots)
+* [Shivam Lakhanpal (sh475218@dal.ca)](https://git.cs.dal.ca/slakhanpal)
+* [Amanjot Singh (am854663@dal.ca)](https://git.cs.dal.ca/amanjots)
+* [Shubham Chauhan (shubhamchauhan@dal.ca)](https://git.cs.dal.ca/shubhamc)
+* [Aadith Shameel (ad766375@dal.ca)](https://git.cs.dal.ca/shameel)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Testing
 
-## Add your files
+In the context of my application, the end-to-end tests & coding style tests which I went through are described below:
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### End to End Tests:
 
-```
-cd existing_repo
-git remote add origin https://git.cs.dal.ca/taranjots/csci-5709-grp-10.git
-git branch -M main
-git push -uf origin main
-```
+1. Testing Responsiveness
 
-## Integrate with your tools
+* Test: Resize the browser window to different screen sizes or use a responsive design testing tool to emulate various devices.
 
-- [ ] [Set up project integrations](https://git.cs.dal.ca/taranjots/csci-5709-grp-10/-/settings/integrations)
+* Expectation: Verify that the website layout and components adapt appropriately to different screen sizes, ensuring readability and usability across devices. Elements should resize, reposition, or hide as necessary.
 
-## Collaborate with your team
+Note: Our application does not support responsiveness on 4K screens.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+2. Submitting Message
 
-## Test and Deploy
+* Test: Fill in the necessary fields on the Contact page and click the save button.
 
-Use the built-in continuous integration in GitLab.
+* Expectation:
+    * Verify that a success message is displayed, indicating that the message has been submitted.
+    * Verify that a warning is displayed if the user leaves any field blank.
+    * Validates that the user email is provided in a correct format.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### Coding Style Tests:
 
-***
+1. Code formatting: Ensure that the code follows consistent indentation, spacing, and line wrapping rules. This helps improve code readability and maintainability.
 
-# Editing this README
+* Example: Check that the components use consistent indentation with proper alignment of elements and logical grouping of code blocks.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+2. Naming conventions: Verify that variables, functions, and components follow appropriate naming conventions for clarity and consistency.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+* Example: Ensure that the names of functions and variables in the AvailableCalendar and Sidebar components are descriptive and follow a consistent naming convention, such as camelCase or PascalCase.
 
-## Name
-Choose a self-explaining name for your project.
+3. Modularity and organization: Assess how well the code is structured and organized, promoting maintainability and reusability.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+* Example: Check that the code within the components is logically grouped, with related functions or styles placed together, and that code duplication is minimized.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Deployment
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+To deploy the project environment, We have used Netlify. The steps we followed for the deployment are as follows:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+1. Pushed our code to a GitHub repository.
+2. Created a Netlify account.
+3. Integrated our GitHub account with Netlify.
+4. Selected the repository we want to deploy.
+5. Configured the site settings, such as providing a name for the site, etc.
+6. Clicked on the "Deploy site" button. The site was deployed within a few minutes. The link to the code and the deployed site is also
+   provided above.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Note: Ensure that the code is properly pushed to the GitHub repository before proceeding with the Netlify deployment.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Built With
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+* [Node.js](https://nodejs.org/en/download) - Dependency Management.
+* [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) - Package Management.
+* [React](https://react.dev/learn/installation) - Used it to build the user interface (UI) and manage the
+                                                  application's component-based architecture.
+* [Material-UI](https://mui.com/) - Used it's components like FormControlLabel, ThemeProvider, Checkbox, 
+                                    MenuItem, etc to create a visually appealing and responsive web application.
+                                                                                                                           
+NOTE: We need to have Node.js installed, which includes npm, in order to install and use React and Material-UI in our project.

@@ -46,7 +46,7 @@ export default function contactInfo() {
             sx={{
               color: "#ffffff",
               fontSize: isExtraSmallScreen
-                ? "10px"
+                ? "8px"
                 : isSmallScreen
                 ? "12px"
                 : isMediumScreen

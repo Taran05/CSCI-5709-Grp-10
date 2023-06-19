@@ -31,7 +31,7 @@ function DisplayCardComp({ buttonCat }) {
     <div className="displayCardComp">
       <Grid container spacing={2}>
         {cardList[buttonCat].map((item, index) => (
-          <Grid item sm={3}>
+          <Grid item sm={6} xs={12} md={4} lg={3}>
             <UserCardComp
               name={cardDataImp[item].name}
               quotes={cardDataImp[item].quotes}

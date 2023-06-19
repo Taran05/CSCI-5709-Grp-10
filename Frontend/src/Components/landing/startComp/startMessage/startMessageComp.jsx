@@ -72,7 +72,7 @@ function StartMessageComp() {
                 onClick={(e) => handleFeedbacks(e)}
                 fullWidth
               >
-                <StickyNote2 /> Feedbacks
+                <StickyNote2 /> Contact Us
               </ReadFeedbackButton>
             </Grid>
           </Grid>

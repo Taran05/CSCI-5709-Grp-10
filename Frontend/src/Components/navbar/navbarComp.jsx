@@ -1,50 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import "./navbarComp.css";
-// import Button from "@mui/material/Button";
-// import { Link, useLocation } from "react-router-dom";
-
-// function NavbarComp() {
-//   const location = useLocation();
-//   const [currentPath, setCurrentPath] = useState("");
-
-//   useEffect(() => {
-//     const url = location.pathname;
-//     setCurrentPath(url);
-//     console.log(url);
-//   }, [location]);
-
-//   return (
-//     <div>
-//       <nav className="navbar">
-//         <div className="logo">Learnly</div>
-//         {currentPath === "/login" ? (
-//           <Link to="/register" className="nav-link">
-//             <Button
-//               variant="contained"
-//               sx={{ bgcolor: "black", color: "white" }}
-//               className="login-btn"
-//             >
-//               Register
-//             </Button>
-//           </Link>
-//         ) : (
-//           <Link to="/login" className="nav-link">
-//             <Button
-//               variant="contained"
-//               sx={{ bgcolor: "black", color: "white" }}
-//               className="login-btn"
-//             >
-//               Login
-//             </Button>
-//           </Link>
-//         )}
-//       </nav>
-//     </div>
-//   );
-// }
-
-// export default NavbarComp;
-
 import "./navbarComp.css";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
@@ -60,11 +13,11 @@ import Button from "@mui/material/Button";
 
 import MenuItem from "@mui/material/MenuItem";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const pages = ["FAQ"];
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -72,6 +25,22 @@ function ResponsiveAppBar() {
     setAnchorElNav(event.currentTarget);
   };
 
+  const handleScroll = () => {
+    setAnchorElNav(null);
+
+    // Scroll to the FAQ component
+    setTimeout(() => {
+      const faqElement = document.getElementById("faq-container");
+      if (faqElement) {
+        faqElement.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 0);
+
+    // Navigate to the home page ("/") if not already on it
+    if (navigate && window.location.pathname !== "/") {
+      navigate("/");
+    }
+  };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -134,7 +103,7 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem key="Products" onClick={handleCloseNavMenu}>
+              <MenuItem key="Products" onClick={handleScroll}>
                 <Link to="/">
                   <Button color="inherit" style={{ fontWeight: "1000" }}>
                     FAQ

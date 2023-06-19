@@ -1,12 +1,10 @@
 import React from "react";
 import "./footerComp.css";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-function Footer() {
+function FooterComp() {
   return (
     <footer className="footer" style={{ backgroundColor: "#1D267D" }}>
       <div className="footer-content">
@@ -21,4 +19,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default FooterComp;

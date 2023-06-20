@@ -3,7 +3,7 @@
 Our project, Learnly, aims to simplify personalized interactions by providing a platform for professionals to manage incoming requests for advice or guidance. It allows individuals to connect with professionals and seek personalized interactions, allowing knowledge and wisdom to be shared in a simplified and seamless manner.
 
 * *Date Created*: 19 June 2023
-* *Last Modification Date*: 19 June 2023
+* *Last Modification Date*: 20 June 2023
 * *Deployed application URL*: <>
 * *GIT URL*: <https://git.cs.dal.ca/taranjots/csci-5709-grp-10>
 
@@ -29,14 +29,14 @@ In the context of my application, the end-to-end tests & coding style tests whic
 
 Note: Our application does not support responsiveness on 4K screens.
 
-2. Submitting Message
+2. Submitting Message on Contact Page
 
 * Test: Fill in the necessary fields on the Contact page and click the save button.
 
 * Expectation:
     * Verify that a success message is displayed, indicating that the message has been submitted.
-    * Verify that a warning is displayed if the user leaves any field blank.
-    * Validates that the user email is provided in a correct format.
+    * Verify that an error is displayed if the user leaves any field blank.
+    * Validates that the user email is provided in a correct format and if not, then an error message is displayed.
 
 ### Coding Style Tests:
 

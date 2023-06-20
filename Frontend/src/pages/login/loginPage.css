@@ -1,15 +1,15 @@
-.App {
+.login {
   text-align: center;
 }
-.container {
+.login-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
 }
-.form {
+.login-form {
   padding: 5%;
 }
-.form-header {
+.login-form-header {
   font-size: xx-large;
   display: flex;
   justify-content: center;
@@ -23,15 +23,15 @@
   font-weight: lighter;
   text-align: center;
 }
-.left-div {
+.login-left-div {
   align: left;
 }
 
-.right-div {
+.login-right-div {
 }
 
 @media (max-width: 768px) {
-  .container {
+  .login-container {
     grid-template-columns: 1fr;
   }
 }
@@ -71,12 +71,12 @@
   }
 }
 @media (max-width: 768px) {
-  .container {
+  .login-container {
     flex-direction: column;
   }
 
-  .left-div,
-  .right-div {
+  .login-left-div,
+  .loginright-div {
     width: 100%;
   }
 }

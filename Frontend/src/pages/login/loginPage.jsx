@@ -7,11 +7,11 @@ import myteam from "../../assets/images/landing1.png";
 
 function LoginPage() {
   return (
-    <div className="App">
-      <div className="container">
-        <div className="left-div">
-          <div className="form">
-            <h1 className="form-header">
+    <div className="login">
+      <div className="login-container">
+        <div className="login-left-div">
+          <div className="login-form">
+            <h1 className="login-form-header">
               LOG{" "}
               <span style={{ marginLeft: "2px", color: "#5C469C" }}>IN</span>
             </h1>
@@ -21,7 +21,7 @@ function LoginPage() {
             <FormComp />
           </div>
         </div>
-        <div className="right-div">
+        <div className="login-right-div">
           <img src={myteam} alt="My Team" width="75%" />
         </div>
       </div>

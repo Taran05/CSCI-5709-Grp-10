@@ -1,15 +1,15 @@
-.App {
+.register {
   text-align: center;
 }
-.container {
+.register-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 100vh;
+  min-height: 100vh;
 }
-.form {
+.register-form {
   padding: 5%;
 }
-.form-header {
+.register-form-header {
   font-size: xx-large;
   display: flex;
   justify-content: center;
@@ -17,21 +17,21 @@
   letter-spacing: 3px; /* Adjust the spacing as desired */
 }
 
-.form-header-sub {
+.register-form-header-sub {
   opacity: 0.8;
   font-size: medium;
-  font-weight: bold;
+  font-weight: lighter;
   text-align: center;
 }
-.left-div {
+.register-left-div {
   align: left;
 }
 
-.right-div {
+.register-right-div {
 }
 
 @media (max-width: 768px) {
-  .container {
+  .register-container {
     grid-template-columns: 1fr;
   }
 }
@@ -71,12 +71,12 @@
   }
 }
 @media (max-width: 768px) {
-  .container {
+  .register-container {
     flex-direction: column;
   }
 
-  .left-div,
-  .right-div {
+  .register-left-div,
+  .register-right-div {
     width: 100%;
   }
 }

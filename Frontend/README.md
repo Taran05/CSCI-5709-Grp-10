@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Project Proposal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Our project, Learnly, aims to simplify personalized interactions by providing a platform for professionals to manage incoming requests for advice or guidance. It allows individuals to connect with professionals and seek personalized interactions, allowing knowledge and wisdom to be shared in a simplified and seamless manner.
 
-## Available Scripts
+* *Date Created*: 19 June 2023
+* *Last Modification Date*: 20 June 2023
+* *Deployed application URL*: <>
+* *GIT URL*: <https://git.cs.dal.ca/taranjots/csci-5709-grp-10>
 
-In the project directory, you can run:
+## Authors
 
-### `npm start`
+* [Taranjot Singh (tr548284@dal.ca)](https://git.cs.dal.ca/taranjots)
+* [Shivam Lakhanpal (sh475218@dal.ca)](https://git.cs.dal.ca/slakhanpal)
+* [Amanjot Singh (am854663@dal.ca)](https://git.cs.dal.ca/amanjots)
+* [Shubham Chauhan (shubhamchauhan@dal.ca)](https://git.cs.dal.ca/shubhamc)
+* [Aadith Shameel (ad766375@dal.ca)](https://git.cs.dal.ca/shameel)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Testing
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+In the context of my application, the end-to-end tests & coding style tests which I went through are described below:
 
-### `npm test`
+### End to End Tests:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Testing Responsiveness
 
-### `npm run build`
+* Test: Resize the browser window to different screen sizes or use a responsive design testing tool to emulate various devices.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Expectation: Verify that the website layout and components adapt appropriately to different screen sizes, ensuring readability and usability across devices. Elements should resize, reposition, or hide as necessary.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Note: Our application does not support responsiveness on 4K screens.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Submitting Message on Contact Page
 
-### `npm run eject`
+* Test: Fill in the necessary fields on the Contact page and click the save button.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* Expectation:
+    * Verify that a success message is displayed, indicating that the message has been submitted.
+    * Verify that an error is displayed if the user leaves any field blank.
+    * Validates that the user email is provided in a correct format and if not, then an error message is displayed.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Coding Style Tests:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Code formatting: Ensure that the code follows consistent indentation, spacing, and line wrapping rules. This helps improve code readability and maintainability.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Example: Check that the components use consistent indentation with proper alignment of elements and logical grouping of code blocks.
 
-## Learn More
+2. Naming conventions: Verify that variables, functions, and components follow appropriate naming conventions for clarity and consistency.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Example: Ensure that the names of functions and variables in the AvailableCalendar and Sidebar components are descriptive and follow a consistent naming convention, such as camelCase or PascalCase.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Modularity and organization: Assess how well the code is structured and organized, promoting maintainability and reusability.
 
-### Code Splitting
+* Example: Check that the code within the components is logically grouped, with related functions or styles placed together, and that code duplication is minimized.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Deployment
 
-### Analyzing the Bundle Size
+To deploy the project environment, We have used Netlify. The steps we followed for the deployment are as follows:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Pushed our code to a GitHub repository.
+2. Created a Netlify account.
+3. Integrated our GitHub account with Netlify.
+4. Selected the repository we want to deploy.
+5. Configured the site settings, such as providing a name for the site, etc.
+6. Clicked on the "Deploy site" button. The site was deployed within a few minutes. The link to the code and the deployed site is also
+   provided above.
 
-### Making a Progressive Web App
+Note: Ensure that the code is properly pushed to the GitHub repository before proceeding with the Netlify deployment.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Built With
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* [Node.js](https://nodejs.org/en/download) - Dependency Management.
+* [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) - Package Management.
+* [React](https://react.dev/learn/installation) - Used it to build the user interface (UI) and manage the
+                                                  application's component-based architecture.
+* [Material-UI](https://mui.com/) - Used it's components like FormControlLabel, ThemeProvider, Checkbox, 
+                                    MenuItem, etc to create a visually appealing and responsive web application.
+                                                                                                                           
+NOTE: We need to have Node.js installed, which includes npm, in order to install and use React and Material-UI in our project.

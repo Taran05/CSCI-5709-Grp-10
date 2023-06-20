@@ -11,8 +11,8 @@ function DisplayCardComp({ buttonCat }) {
     Data: [101, 102, 103, 101],
     Product: [102, 102, 102, 102],
     MentalHealth: [103, 103, 103, 103],
-    StudyAbroad: [],
-    Teach: [],
+    StudyAbroad: [101, 103, 103, 101],
+    Teach: [103, 102, 101, 102],
   };
 
   // useEffect(() => {

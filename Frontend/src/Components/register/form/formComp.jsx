@@ -3,15 +3,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./formComp.css";
 import Button from "@mui/material/Button";
-
 import IconButton from "@mui/material/IconButton";
-
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-
 import FormControl from "@mui/material/FormControl";
-
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
@@ -104,6 +100,7 @@ export default function FormComp() {
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
           error={!isFirstNameValid}
+          helperText={!isFirstNameValid && "Please enter your first name"}
         />
         <TextField
           required
@@ -117,6 +114,7 @@ export default function FormComp() {
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
           error={!isLastNameValid}
+          helperText={!isLastNameValid && "Please enter your last name"}
         />
         <TextField
           required
@@ -130,6 +128,13 @@ export default function FormComp() {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           error={!isEmailValid}
+          helperText={
+            !isEmailValid
+              ? email
+                ? "Please enter a valid email address"
+                : "Please enter your email"
+              : ""
+          }
         />
 
         <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
@@ -160,6 +165,9 @@ export default function FormComp() {
             }
             label="Password"
             error={!isPasswordValid}
+            helperText={
+              !isPasswordValid ? "Password must be at least 8 characters" : "ok"
+            }
           />
         </FormControl>
       </div>

@@ -2,7 +2,6 @@
     background-color: black;
     padding-top: 90px;
     padding-bottom: 90px;
-    color: black;
     border-radius: 25px;
 }
 
@@ -24,7 +23,7 @@
     padding: 12%;
 }
 
-.country-based {
+.revenue-sharing {
     background-color: #8BC34A;
     border-radius: 25px;
     padding: 10%;
@@ -58,7 +57,7 @@
         padding: 5%;
         text-align: center;
     }
-    .country-based {
+    .revenue-sharing {
         padding: 5%;
         text-align: center;
     }

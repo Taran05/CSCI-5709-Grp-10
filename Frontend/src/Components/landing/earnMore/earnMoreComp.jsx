@@ -11,7 +11,7 @@ function EarnMoreComp() {
 
         <Box className="heading">
           <Typography variant="h2" component="h2">
-            Creators <strong>earn more</strong> using Learnly
+            Mentors <strong>make more money</strong> using Learnly
           </Typography>
         </Box>
 
@@ -22,14 +22,14 @@ function EarnMoreComp() {
               <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
                 <Container className="discount">
                   <Typography variant="h4" component="h3">
-                    Offer Discounts
+                    Entice with <strong>Discounts</strong>
                   </Typography>
                 </Container>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
                 <Container className="testimonials">
                   <Typography variant="h4" component="h3">
-                    Collect and <strong>highlight</strong> testimonials
+                    Select and showcase <strong>reviews</strong>
                   </Typography>
                 </Container>
               </Grid>
@@ -41,18 +41,18 @@ function EarnMoreComp() {
               <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
                 <Container className="pay-wish">
                   <Typography variant="h4" component="h3">
-                    Pay as <strong>you</strong> wish
+                    Set <strong>your own</strong> prices
                   </Typography>
                 </Container>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
                 <Container className="smart-automations">
                   <Typography variant="h3" component="h3">
-                    <strong>24%</strong>
+                    <strong>25%</strong>
                   </Typography>
                   <br />
                   <Typography variant="h4" component="h3">
-                    increase in conversions using automations
+                    more clients compared to other platforms
                   </Typography>
                 </Container>
               </Grid>
@@ -61,13 +61,13 @@ function EarnMoreComp() {
           </Grid>
 
           <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-            <Container className="country-based">
+            <Container className="revenue-sharing">
               <Typography variant="h3" component="h3">
-                <strong>4x</strong>
+                <strong>2x</strong>
               </Typography>
               <br />
               <Typography variant="h4" component="h3">
-                your earnings using country-based pricing
+                your earnings with our revenue-sharing program
               </Typography>
             </Container>
           </Grid>

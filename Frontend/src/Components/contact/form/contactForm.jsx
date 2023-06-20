@@ -5,8 +5,6 @@ import "./contactForm.css";
 import Button from "@mui/material/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UseMediaQuery from "@mui/material/useMediaQuery";
-
 import { useNavigate } from "react-router-dom";
 
 export default function ContactForm() {
@@ -21,13 +19,6 @@ export default function ContactForm() {
 
   const navigate = useNavigate();
 
-  const isExtraSmallScreen = UseMediaQuery((theme) =>
-    theme.breakpoints.down("xs")
-  );
-  const isSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("sm"));
-  const isMediumScreen = UseMediaQuery((theme) => theme.breakpoints.down("md"));
-  const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsNameValid(!!name);
@@ -36,11 +27,13 @@ export default function ContactForm() {
     setIsMessageValid(!!message);
 
     if (!name || !email || !subject || !message) {
+      toast.error("Field(s) cannot remain blank");
       return;
     }
 
     if (!isValidEmail(email)) {
       setIsEmailValid(false);
+      toast.error("Email Format Invalid");
       return;
     }
 
@@ -74,15 +67,12 @@ export default function ContactForm() {
       sx={{
         "& .MuiTextField-root": {
           m: 1,
-          width: isExtraSmallScreen
-            ? "25ch"
-            : isSmallScreen
-            ? "35ch"
-            : isMediumScreen
-            ? "40ch"
-            : isLargeScreen
-            ? "50ch"
-            : "60ch",
+          width: {
+            xs: "25ch",
+            sm: "35ch",
+            md: "40ch",
+            lg: "50ch",
+          },
         },
       }}
       noValidate
@@ -102,9 +92,10 @@ export default function ContactForm() {
           value={name}
           onChange={(event) => setName(event.target.value)}
           error={!isNameValid}
+          helperText={!isNameValid && "Name cannot be blank"}
           sx={{
             "& .MuiInputBase-input": {
-              fontSize: isSmallScreen ? "0.875rem" : "1rem",
+              fontSize: "1rem",
             },
           }}
         />
@@ -120,6 +111,8 @@ export default function ContactForm() {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           error={!isEmailValid}
+          helperText={!isEmailValid && "Invalid Email format"}
+          
         />
         <TextField
           required
@@ -133,6 +126,7 @@ export default function ContactForm() {
           value={subject}
           onChange={(event) => setSubject(event.target.value)}
           error={!isSubjectValid}
+          helperText={!isSubjectValid && "Subject cannot be blank"}
         />
         <TextField
           required
@@ -148,6 +142,7 @@ export default function ContactForm() {
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           error={!isMessageValid}
+          helperText={!isMessageValid && "Message cannot be blank"}
         />
       </div>
       <Button

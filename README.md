@@ -40,26 +40,27 @@ Note: Our application does not support responsiveness on 4K screens.
 
 3. Registration and Valid information
 
-* Test: Registration with Valid Information
+    a. Test: Registration with Valid Information
 
-* Expectation:
-The user should be able to successfully register by entering valid personal information, and a new user account should be created in the system. A confirmation email should be sent to the user, and upon clicking the confirmation link, the account should be activated. The user should be able to log in with their registered credentials.
+    * Expectation:
+    The user should be able to successfully register by entering valid personal information, and a new user account should be created in the system. A confirmation email should be sent to the user, and upon clicking the confirmation link, the account should be activated. The user should be able to log in with their registered credentials.
 
-* Test: Registration with Invalid Email Format
+    b. Test: Registration with Invalid Email Format
 
-* Expectation: 
-When the user enters an invalid email format, such as missing the '@' symbol, an error message should be displayed indicating the invalid format. The system should allow the user to correct the email format and proceed with the registration process. After successful registration, the user should receive a confirmation email and be able to activate their account.
+    * Expectation: 
+    When the user enters an invalid email format, such as missing the '@' symbol, an error message should be displayed indicating the invalid format. The system should allow the user to correct the email format and proceed with the registration process. After successful registration, the user should receive a confirmation email and be able to activate their account.
 
-* Test: Login with Correct Credentials
-* Expectation: Upon entering the correct email and password combination, the system should verify the credentials and grant access to the user's account. The user should be redirected to their account dashboard, indicating a successful login.
+    c. Test: Login with Correct Credentials
 
-* Test: Login with Incorrect Password
+    * Expectation: Upon entering the correct email and password combination, the system should verify the credentials and grant access to the user's account. The user should be redirected to their account dashboard, indicating a successful login.
 
-* Expectation: When the user enters the correct email but an incorrect password, the system should detect the incorrect password and display an error message. The user should be allowed to re-enter the correct password and upon successful login, be redirected to their account dashboard.
+    d. Test: Login with Incorrect Password
 
-* Test: Account Activation with Expired Confirmation Link
+    * Expectation: When the user enters the correct email but an incorrect password, the system should detect the incorrect password and display an error message. The user should be allowed to re-enter the correct password and upon successful login, be redirected to their account dashboard.
 
-* Expectation: By delaying the click on the confirmation link received via email, the system should recognize and handle the expired link properly. An error message should be displayed indicating the link has expired. The user should be prompted to request a new confirmation email to activate their account, and upon receiving the new email and clicking the confirmation link, the account should be successfully activated.
+    e. Test: Account Activation with Expired Confirmation Link
+
+    * Expectation: By delaying the click on the confirmation link received via email, the system should recognize and handle the expired link properly. An error message should be displayed indicating the link has expired. The user should be prompted to request a new confirmation email to activate their account, and upon receiving the new email and clicking the confirmation link, the account should be successfully activated.
     
 ### Coding Style Tests:
 

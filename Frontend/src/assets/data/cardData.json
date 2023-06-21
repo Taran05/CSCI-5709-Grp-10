@@ -1,19 +1,19 @@
 {
     "101":{
-        "name": "Luffy",
-        "imageSrc": "101.jpg",
-        "quotes": "I will become pirate king"
+        "name": "Steve Jobs",
+        "imageSrc": "SteveJobs.jpg",
+        "quotes": "Design is how it works."
     },
 
     "102":{
-        "name": "Zoro",
-        "imageSrc": "102.jpg",
-        "quotes": "I will become #1 swordsman"
+        "name": "Bill Gates",
+        "imageSrc": "BillGates.jpg",
+        "quotes": "Innovation is Future"
     },
     
     "103":{
-        "name": "Sanji",
-        "imageSrc": "103.jpg",
-        "quotes": "I will fine all blue"
+        "name": "Sundar Pichai",
+        "imageSrc": "SundarPichai.jpg",
+        "quotes": "Build to use."
     }
 }

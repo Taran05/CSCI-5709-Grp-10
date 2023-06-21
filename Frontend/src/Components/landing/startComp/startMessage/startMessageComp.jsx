@@ -45,14 +45,14 @@ function StartMessageComp() {
       <Grid container spacing={4}>
         <Grid item sm={12}>
           <Typography variant="h2" component="h2" fontWeight={600}>
-            <span style={{ color: "#5C469C" }}>Start</span> your side hustle
-            today
+            Commence your side gig{" "}
+            <span style={{ color: "#5C469C" }}>Today</span>.
           </Typography>
         </Grid>
         <Grid item sm={12}>
           <Typography variant="body1" component="h2" fontWeight={500}>
-            Turn your passion and knowledge into a thriving business. Help your
-            audience get ahead in life
+            Transform your passion and expertise into a prosperous enterprise,
+            enabling your audience to achieve success in life.
           </Typography>
         </Grid>
         <Grid item sm={12}>

@@ -20,7 +20,7 @@ function UserCardComp({ name, imageSrc, quotes }) {
           <Typography variant="h6" className={"name"}>
             {name}
           </Typography>
-          <Typography variant="body2" className={"text"}>
+          <Typography variant="paragraph" paragraph className={"text"}>
             {quotes}
           </Typography>
         </CardContent>

@@ -14,6 +14,7 @@ import FormControl from "@mui/material/FormControl";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { FormHelperText } from "@mui/material";
 // import { useNavigate } from "react-router-dom";
 
 export default function FormComp() {
@@ -90,9 +91,20 @@ export default function FormComp() {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           error={!isEmailValid}
+          helperText={
+            !isEmailValid
+              ? email
+                ? "Please enter a valid email address"
+                : "Please enter your email"
+              : ""
+          }
         />
 
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <FormControl
+          error={!isPasswordValid}
+          sx={{ m: 1, width: "25ch" }}
+          variant="outlined"
+        >
           <InputLabel
             htmlFor="outlined-adornment-password"
             InputLabelProps={{
@@ -119,8 +131,14 @@ export default function FormComp() {
               </InputAdornment>
             }
             label="Password"
-            error={!isPasswordValid}
           />
+          <FormHelperText>
+            {!isPasswordValid
+              ? password
+                ? "Password should be more than 8 digits"
+                : "Please enter your password"
+              : ""}
+          </FormHelperText>
         </FormControl>
       </div>
       <Button

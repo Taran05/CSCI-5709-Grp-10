@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
+import { FormHelperText } from "@mui/material";
 
 export default function FormComp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,6 +36,8 @@ export default function FormComp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    console.log("in handle submit...");
     setIsFirstNameValid(!!firstName);
     setIsLastNameValid(!!lastName);
     setIsEmailValid(!!email);
@@ -74,6 +77,7 @@ export default function FormComp() {
   };
 
   const isValidPassword = (value) => {
+    console.log("In is pass:", value, value.length);
     return value.length >= 8;
   };
 
@@ -137,7 +141,11 @@ export default function FormComp() {
           }
         />
 
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <FormControl
+          error={!isPasswordValid}
+          sx={{ m: 1, width: "25ch" }}
+          variant="outlined"
+        >
           <InputLabel
             htmlFor="outlined-adornment-password"
             InputLabelProps={{
@@ -164,11 +172,14 @@ export default function FormComp() {
               </InputAdornment>
             }
             label="Password"
-            error={!isPasswordValid}
-            helperText={
-              !isPasswordValid ? "Password must be at least 8 characters" : "ok"
-            }
           />
+          <FormHelperText>
+            {!isPasswordValid
+              ? password
+                ? "Password should be more than 8 digits"
+                : "Please enter your password"
+              : ""}
+          </FormHelperText>
         </FormControl>
       </div>
       <Button

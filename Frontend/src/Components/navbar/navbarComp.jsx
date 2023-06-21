@@ -154,7 +154,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={handleScroll}
                 sx={{
                   fontSize: "1rem",
                   my: 2,

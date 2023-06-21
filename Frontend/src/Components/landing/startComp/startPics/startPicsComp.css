@@ -13,14 +13,14 @@
 }
 
 .startPicsComp .imageContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 .startPicsComp .image {
-    width: 300px;
-    height: 300px;
-    object-fit: "cover";
-    margin: "10px";
-  }
+  width: 300px;
+  height: 300px;
+  /* object-fit: "cover"; */
+  /* margin: 10px; */
+}

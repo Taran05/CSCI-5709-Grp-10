@@ -1,0 +1,24 @@
+const express = require('express');
+const BlockedDates = require('../models/blockDatesModel');
+
+const router = express.Router();
+
+router.post('/api/blockDates', async (req, res) => {
+  const dates = req.body;
+  console.log(dates);
+  try {
+    for (let index = 0; index < dates.length; index++) {
+        const date = dates[index];
+        const blockedDates = new BlockedDates({
+            date,
+        });
+    await blockedDates.save();
+    }
+    res.status(201).json({ message: 'Blocked dates saved successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to save block dates' });
+  }
+});
+
+module.exports = router;

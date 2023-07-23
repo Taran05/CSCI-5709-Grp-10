@@ -1,0 +1,28 @@
+.userCard {
+    width: 100%;
+    padding: 0.1rem;
+    border-radius: 8px;
+    transition: background-color 0.5s;
+    text-overflow: clip;
+    
+  }
+  
+  .userCard:hover {
+    background-color: #1687A7;
+    transform: scale(1.01);
+  }
+  
+  .userCard.selected-card {
+    background-color: #276678;
+    border-bottom-color: rgb(235, 235, 235);
+    border-bottom-style: solid;
+    border-bottom-width: 0.8px;
+    color: white !important;
+    font-weight: 500;
+  }
+  
+  .not-clickable {
+    pointer-events: none;
+    background-color: #F6F5F5 !important;
+    
+  }

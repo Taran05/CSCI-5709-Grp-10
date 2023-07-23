@@ -5,7 +5,7 @@ import Schedule from "../../Components/calendar/schedule/schedule";
 import Calendar from "../../Components/calendar/calendar/calendar";
 import { Button, Grid, Typography } from "@mui/material";
 import { purple, grey } from "@mui/material/colors";
-
+import SideBar from "../../Components/sideBar/sideBarComp";
 const theme = createTheme({
   breakpoints: {
     values: {

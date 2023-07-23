@@ -1,6 +1,6 @@
 import "./contactPage.css";
 import React from "react";
-import ContactForm from "../../Components/contact/form/contactForm";
+import ContactForm from "../../Components/contact/form/contactFormComp";
 import ContactInfo from "../../Components/contact/info/contactInfo";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 

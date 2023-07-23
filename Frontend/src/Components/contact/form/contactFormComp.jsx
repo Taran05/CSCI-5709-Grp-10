@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import "./contactForm.css";
+import "./contactFormComp.css";
 import Button from "@mui/material/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -112,7 +112,6 @@ export default function ContactForm() {
           onChange={(event) => setEmail(event.target.value)}
           error={!isEmailValid}
           helperText={!isEmailValid && "Invalid Email format"}
-          
         />
         <TextField
           required

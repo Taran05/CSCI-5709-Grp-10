@@ -3,8 +3,11 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// Import the defaultScheduleRoute
+// Import the schemas
 const defaultScheduleRoute = require('./routes/defaultScheduleRoute');
+const newScheduleRoute = require('./routes/newScheduleRoute');
+const blockDatesRoute = require('./routes/blockDatesRoute');
+const calendarSettingsRoute = require('./routes/calendarsettingsRoute');
 
 const app = express();
 
@@ -15,7 +18,7 @@ app.use(bodyParser.json());
 
 // Connect to MongoDB
 mongoose
-  .connect('mongodb+srv://Taran20:<PASSWORD>@learnly.ohqbsji.mongodb.net/learnly?retryWrites=true&w=majority', {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -29,6 +32,9 @@ mongoose
 //api middlewares
 
 app.use(defaultScheduleRoute);
+app.use(newScheduleRoute);
+app.use(blockDatesRoute);
+app.use(calendarSettingsRoute);
 
 const port = 3001;
 app.listen(port, () => {

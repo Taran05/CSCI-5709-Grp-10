@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import "./schedule.css";
+import "./scheduleComp.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createTheme, styled } from "@mui/material/styles";
 import { Button, Grid, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import AddIcon from '@mui/icons-material/Add';
-import DefaultSchedule from "./defaultschedule/defaultschedule";
-import BlockDates from "./blockdates/blockdates";
-import NewSchedule from "./newschedule/newschedule";
+import DefaultScheduleComp from "./defaultschedule/defaultscheduleComp";
+import BlockDatesComp from "./blockdates/blockdatesComp";
+import NewScheduleComp from "./newschedule/newscheduleComp";
 
 export default function Schedule() {
 
@@ -157,7 +157,7 @@ export default function Schedule() {
               if (selectedSchedule === schedule.scheduleName) {
                 return (
                   <div key={index}>
-                     <NewSchedule scheduleName={schedule.scheduleName} />
+                     <NewScheduleComp scheduleName={schedule.scheduleName} />
                   </div>
                 );
               }
@@ -166,11 +166,11 @@ export default function Schedule() {
           </Grid>
         ) : (
           <Grid item sm={6}>
-            <DefaultSchedule />
+            <DefaultScheduleComp />
           </Grid>
         )}
         <Grid>
-          <BlockDates />
+          <BlockDatesComp />
         </Grid>
       </Grid>
     </>

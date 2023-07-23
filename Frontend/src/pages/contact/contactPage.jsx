@@ -1,7 +1,7 @@
 import "./contactPage.css";
 import React from "react";
-import ContactForm from "../../Components/contact/form/contactFormComp";
-import ContactInfo from "../../Components/contact/info/contactInfo";
+import ContactFormComp from "../../Components/contact/form/contactFormComp";
+import ContactInfoComp from "../../Components/contact/info/contactInfoComp";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -29,7 +29,7 @@ function ContactPage() {
               </span>{" "}
             </h1>
             <ThemeProvider theme={theme}>
-              <ContactForm />
+              <ContactFormComp />
             </ThemeProvider>
           </div>
         </div>
@@ -42,7 +42,7 @@ function ContactPage() {
               </span>{" "}
             </h1>
             <ThemeProvider theme={theme}>
-              <ContactInfo />
+              <ContactInfoComp />
             </ThemeProvider>
           </div>
         </div>

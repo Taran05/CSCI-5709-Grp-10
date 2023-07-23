@@ -1,11 +1,11 @@
-import "./calendarPage.css";
+import "./availabilityCalendarPage.css";
 import React, { useState } from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
-import Schedule from "../../Components/calendar/schedule/schedule";
-import Calendar from "../../Components/calendar/calendar/calendar";
-import { Button, Grid, Typography } from "@mui/material";
-import { purple, grey } from "@mui/material/colors";
-import SideBar from "../../Components/sideBar/sideBarComp";
+import ScheduleComp from "../../Components/availability-calendar/schedule/scheduleComp";
+import CalendarComp from "../../Components/availability-calendar/calendar/calendarComp";
+import { Button, Grid } from "@mui/material";
+import { grey } from "@mui/material/colors";
+
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -92,7 +92,7 @@ function CalendarPage() {
             <hr />
             <br></br>
             <ThemeProvider theme={theme}>
-              {showSchedule ? <Schedule /> : <Calendar />}
+              {showSchedule ? <ScheduleComp /> : <CalendarComp />}
             </ThemeProvider>
           </div>
         </div>

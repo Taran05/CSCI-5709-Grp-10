@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./newschedule.css";
+import "./defaultscheduleComp.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider, createTheme, styled} from "@mui/material/styles";
@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox, FormControl, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
 
-export default function NewSchedule({scheduleName}) {
+export default function DefaultSchedule() {
 
     const theme = createTheme({
         breakpoints: {
@@ -77,31 +77,25 @@ export default function NewSchedule({scheduleName}) {
             return;
         }
 
-        const newScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { startTime, endTime }]) => ({ day, startTime, endTime }));
-        console.log(newScheduleData);
+        const defaultScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { startTime, endTime }]) => ({ day, startTime, endTime }));
+        console.log(defaultScheduleData);
 
-        const scheduleDataWithNames = newScheduleData.map(schedule => ({
-            ...schedule,
-            scheduleName: scheduleName,
-          }));
-          console.log(scheduleDataWithNames);
-
-        // if (!changesMade) {
-        //     toast.warning("No changes were made!");
-        //     return;
-        // }
+        if (!changesMade) {
+            toast.warning("No changes were made!");
+            return;
+        }
 
         try {
             // Send the selectedDays data to the backend API
-            await axios.post('http://localhost:3001/api/saveNewSchedule', scheduleDataWithNames);
+            await axios.post('http://localhost:3001/api/saveDefaultSchedule', defaultScheduleData);
             setSaveStatus('success');
             setChangesMade(true);
-            toast.success(scheduleName + " Schedule Saved Successfully!");
+            toast.success("Default Schedule Saved Successfully!");
             return;
         } catch (error) {
             setSaveStatus('error');
             console.error(error);
-            toast.error('Failed to Save Schedule: '+scheduleName);
+            toast.error('Failed to Save Default Schedule');
         }
     };
 
@@ -118,7 +112,7 @@ export default function NewSchedule({scheduleName}) {
                 <Grid item sm={6}>
                     <div className="schedule-details">
                         <div className="schedule-name">
-                            <span>{scheduleName}</span>
+                            <span>Default</span>
                             <SaveButton
                                 variant="contained"
                                 fullWidth

@@ -8,7 +8,7 @@ import RegisterPage from "./pages/register/registerPage";
 import App from "./app";
 import LandingPage from "./pages/landing/landingPage";
 import ContactPage from "./pages/contact/contactPage";
-import CalendarPage from "./pages/calendar/calendarPage";
+import AvailabilityCalendarPage from "./pages/availability-calendar/availabilityCalendarPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //root.render(<Register />);
@@ -20,7 +20,7 @@ root.render(
         <Route exact path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/calendar" element={<AvailabilityCalendarPage />} />
       </Route>
     </Routes>
   </BrowserRouter>

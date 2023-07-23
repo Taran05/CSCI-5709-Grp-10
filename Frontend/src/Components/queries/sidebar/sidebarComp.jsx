@@ -10,7 +10,7 @@ function SidebarComp({
   Queries,
 }) {
   return (
-    <div>
+    <div className="sidebarComp">
       <Stack
         direction="column"
         justifyContent="flex-start"

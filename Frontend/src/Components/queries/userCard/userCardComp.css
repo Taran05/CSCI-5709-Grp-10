@@ -4,16 +4,16 @@
     border-radius: 8px;
     transition: background-color 0.5s;
     text-overflow: clip;
-    
+    background-color: white;
   }
   
   .userCard:hover {
-    background-color: #1687A7;
+    background-color: #D4ADFC;
     transform: scale(1.01);
   }
   
   .userCard.selected-card {
-    background-color: #276678;
+    background-color: rgb(81, 148, 231);
     border-bottom-color: rgb(235, 235, 235);
     border-bottom-style: solid;
     border-bottom-width: 0.8px;
@@ -23,6 +23,6 @@
   
   .not-clickable {
     pointer-events: none;
-    background-color: #F6F5F5 !important;
+    /* background-color: #F6F5F5 !important; */
     
   }

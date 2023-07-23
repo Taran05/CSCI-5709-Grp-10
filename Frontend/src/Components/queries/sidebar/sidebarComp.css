@@ -2,7 +2,7 @@
     padding: 1rem;
   }
   
-  .sidebar-button {
+.sidebar-button {
     display: flex;
     align-items: center;
     background-color: #f4f4f4;
@@ -11,7 +11,14 @@
     padding: 0.5rem;
   }
   
-  .sidebar-button.selected {
+.sidebar-button.selected {
     background-color: black;
   }
+
+.sidebarComp {
+  min-height: 60vh; 
+  max-height: 73vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
   

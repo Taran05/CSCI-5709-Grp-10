@@ -1,6 +1,7 @@
 .header-container {
     background: #F6F5F5;
     padding: 1rem;
+    border-bottom: solid rgb(149,138,138) ;
   }
   
   .MuiTypography-root.MuiTypography-h1.header-title.css-o2w69a-MuiTypography-root {

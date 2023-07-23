@@ -1,54 +1,57 @@
-.bodyDiv {
+.bodyCompDiv {
     width: 95%;
     height: 100%;
     border-left: #958a8a solid;
 }
 
-.noBodyDiv {
+.noBodyCompDiv {
   height: 100%;
 }
 
-.title {
+.bodyCompDiv .title {
   border-bottom: #ccc solid 0.5px;
   font-weight: 600;
 }
 
 
-.textAreaContainer {
+.bodyCompDiv .textAreaContainer {
   background-color: #ffffff;
   padding: 5px;
   border: 1px solid #ccc;
+  /* border: 1px solid red !important; */
   box-sizing: border-box;
   border-width: 1px;
   border-style: solid;
   border-color: #b0b0b0;
   border-radius: 6px;
   margin-left: 3px;
-  height: 57vh;
+  height: 59vh;
   }
   
-.text-box {
+  .bodyCompDiv .text-box {
   width: 97%;
   height: 20vh;
   padding: 6px;
   margin-right: 2%;
   margin-left: 1%;
   overflow: auto; 
+  
 }
 
 
-.formDiv{
+.bodyCompDiv .formDiv{
   height: 20vh;
   margin-bottom: 20px;
   background-color: #ebebeb;
 }
 
-.MuiFormControl-root.MuiTextField-root.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+.bodyCompDiv .MuiFormControl-root.MuiTextField-root.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
   width: 100%;
   margin-bottom: 5px;
+  
 }
 
-#outlined-multiline-static {
+.bodyCompDiv #outlined-multiline-static {
   max-height: 100px;
   height: 20vh !important;
   width: 97%;
@@ -56,21 +59,22 @@
   margin-right: 2%;
   margin-left: 1%;
   overflow: scroll;
-  
 }
 
-button {
-  height: 30px;
-  width: 80px;
-  border-radius: 6px;
+
+.bodyCompDiv .submitButton {
+  /* height: 30px; */
+  /* width: 80px; */
+  /* border-radius: 6px; */
+  align-self: flex-end;
   align-items: center;
   color: #f0f0f0;
   font-size: 14px;
   font-weight: 600;
-  background-color: rgb(44, 44, 163);
+  background-color: rgb(44, 70, 163);
 }
   
-.responseTextBox{
+.bodyCompDiv .responseTextBox{
   border: 1px solid #ccc;
   box-sizing: border-box;
   background-color: #EBEBEB;
@@ -81,11 +85,15 @@ button {
   border-radius: 6px;
 }
 
-.MuiFormControl-root.MuiTextField-root.css-i44wyl {
+.bodyCompDiv .MuiFormControl-root.MuiTextField-root.css-i44wyl {
   width: 100%;
 }
 
-.noBodyInnerDiv {
+.bodyCompDiv .deleteButtonAnswered{
+  margin-left: 6px;
+}
+
+.noBodyCompDiv .noBodyInnerDiv {
   border: #958a8a dashed  2px;
   font-size: large;
   font-weight: 800;
@@ -98,6 +106,15 @@ button {
   padding-bottom: 10%;
 }
 
-p {
+.noBodyCompDiv p {
   margin-bottom: 1% !important;
+}
+
+.bodyCompDiv p {
+  margin-bottom: 1% !important;
+}
+
+.bodyCompDiv .buttonDiv{
+  display: flex;
+  justify-content: space-between;
 }

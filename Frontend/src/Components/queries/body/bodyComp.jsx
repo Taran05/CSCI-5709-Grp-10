@@ -6,18 +6,24 @@ import Button from "@mui/material/Button";
 import UserCardComp from "../userCard/userCard";
 import "./bodyComp.css";
 import { Grid } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SendIcon from "@mui/icons-material/Send";
 
 function BodyComp(props) {
   const [textareaValue, setTextareaValue] = useState("");
+  const [isResponseEmpty, setIsResponseEmpty] = useState(false);
 
   const handleTextareaChange = (event) => {
     setTextareaValue(event?.target?.value);
+    if (textareaValue !== "") {
+      setIsResponseEmpty(false);
+    }
   };
 
   function respondQuery(e, value) {
     e.preventDefault();
     if (value === "") {
-      window.alert("Response field cannot be empty");
+      setIsResponseEmpty(true);
       return;
     }
     const newQueries = props.Queries;
@@ -27,11 +33,11 @@ function BodyComp(props) {
     props.updateQueries(newQueries);
     setTextareaValue("");
     props.changeDisplayOption("Pending");
-    window.alert("Query moved to Answered");
+    //window.alert("Query moved to Answered");
   }
 
   return (
-    <div className="bodyDiv">
+    <div className="bodyCompDiv">
       {props.selectedUserId ? (
         <div>
           <div>
@@ -57,27 +63,54 @@ function BodyComp(props) {
                     label="Message"
                     multiline
                     maxRows={4}
+                    error={isResponseEmpty}
                   />
 
-                  <Button variant="outlined" type="submit">
-                    Submit
-                  </Button>
+                  <div className="buttonDiv">
+                    <Button
+                      variant="contained"
+                      className="deleteButton"
+                      color="error"
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      variant="contained"
+                      className="submitButton"
+                      type="submit"
+                      // color="success"
+                      endIcon={<SendIcon />}
+                    >
+                      Respond
+                    </Button>
+                  </div>
                 </form>
               </div>
             ) : (
-              <Box mt={2}>
-                <Typography
-                  className="text-box responseTextBox"
-                  variant="body1"
+              <div>
+                <Box mt={2}>
+                  <Typography
+                    className="text-box responseTextBox"
+                    variant="body1"
+                  >
+                    {props.Queries[props.userId].response}
+                  </Typography>
+                </Box>
+                <Button
+                  variant="contained"
+                  className="deleteButton deleteButtonAnswered"
+                  color="error"
+                  startIcon={<DeleteIcon />}
                 >
-                  {props.Queries[props.userId].response}
-                </Typography>
-              </Box>
+                  Delete
+                </Button>
+              </div>
             )}
           </div>
         </div>
       ) : (
-        <div className="noBodyDiv">
+        <div className="noBodyCompDiv">
           <Grid
             container
             direction="column"

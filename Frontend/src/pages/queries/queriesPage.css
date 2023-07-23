@@ -1,11 +1,12 @@
 .pageBody {
     height: 100%;
-    background-color: #D3E0EA;
+    /* background-color: #D3E0EA; */
 }
 
 
 .belowHeader{
     height: 80%;
+    min-height: 60vh;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -18,7 +19,7 @@
     height: 100%;
 }
 
-.container {
+/* .container {
     display: grid;
     grid-template-columns: 1fr 1fr; 
     grid-gap: 0px; 
@@ -27,7 +28,7 @@
 .item {
     background-color: #D3E0EA;
     padding: 0px;
-  }
+  } */
 
 @media (max-width: 600px) {
     .container {

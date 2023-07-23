@@ -7,7 +7,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LanguageIcon from "@mui/icons-material/Language";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
-import "./contactInfo.css";
+import "./contactInfoComp.css";
 
 export default function contactInfo() {
   const isExtraSmallScreen = UseMediaQuery((theme) =>

@@ -1,29 +1,26 @@
-const express = require('express');
-const DefaultSchedule = require('../models/defaultScheduleModel');
+import express, { Request, Response } from 'express';
+import DefaultSchedule, { IDefaultSchedule } from '../models/defaultScheduleModel';
 
 const router = express.Router();
 
-router.post('/api/saveDefaultSchedule', async (req, res) => {
-  const defaultScheduleData = req.body;
+router.post('/api/saveDefaultSchedule', async (req: Request, res: Response) => {
+  const defaultScheduleData: IDefaultSchedule[] = req.body;
   try {
     for (let index = 0; index < defaultScheduleData.length; index++) {
-      const dayOfWeek = defaultScheduleData[index].day;
-      const startTime = defaultScheduleData[index].startTime;
-      const endTime = defaultScheduleData[index].endTime;
+      const { dayOfWeek, startTime, endTime } = defaultScheduleData[index];
       console.log(dayOfWeek);
       console.log(startTime);
       console.log(endTime);
 
       if (startTime !== '' && endTime !== '') {
-        const newSchedule = new DefaultSchedule({
-          dayOfWeek,
+        const newSchedule: IDefaultSchedule = new DefaultSchedule({
+          dayOfWeek: dayOfWeek,
           startTime,
           endTime,
         });
 
         await newSchedule.save();
       }
-
     }
     res.status(201).json({ message: 'Default Schedule saved successfully.' });
   } catch (error) {
@@ -32,4 +29,4 @@ router.post('/api/saveDefaultSchedule', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

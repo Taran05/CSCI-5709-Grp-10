@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./calendar.css";
 import Button from "@mui/material/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EventIcon from '@mui/icons-material/Event';
 import EventNoteIcon from '@mui/icons-material/EventNote';
-import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
-import { purple, grey } from "@mui/material/colors";
+import { createTheme, styled } from "@mui/material/styles";
+import { grey } from "@mui/material/colors";
+import axios from 'axios';
 
 const theme = createTheme({
   breakpoints: {
@@ -28,16 +26,38 @@ const theme = createTheme({
 });
 
 const timezones = [
-  { value: "GMT-3:00", label: "(GMT-3:00) Brasilia" },
-  { value: "GMT+5:30", label: "(GMT+5:30) Mumbai" },
-  // Add more timezones as needed
+  { value: "GMT-10:00", label: "(GMT-10:00) Hawaii" },
+  { value: "GMT-8:00", label: "(GMT-8:00) Alaska" },
+  { value: "GMT-7:00", label: "(GMT-7:00) Pacific Time" },
+  { value: "GMT-6:00", label: "(GMT-6:00) Mountain Time" },
+  { value: "GMT-5:00", label: "(GMT-5:00) Central Time" },
+  { value: "GMT-4:00", label: "(GMT-4:00) Eastern Time" },
+  { value: "GMT-3:00", label: "(GMT-3:00) Atlantic Time" },
+  { value: "GMT-2:00", label: "(GMT-2:00) Greenland" },
+  { value: "GMT-1:00", label: "(GMT-1:00) Cape Verde Islands" },
+  { value: "GMT+0:00", label: "(GMT+0:00) UTC" },
+  { value: "GMT+1:00", label: "(GMT+1:00) London" },
+  { value: "GMT+2:00", label: "(GMT+2:00) Berlin" },
+  { value: "GMT+3:00", label: "(GMT+3:00) Istanbul" },
+  { value: "GMT+4:00", label: "(GMT+4:00) Abu Dhabi" },
+  { value: "GMT+5:30", label: "(GMT+5:30) New Delhi" },
+  { value: "GMT+6:00", label: "(GMT+6:00) Dhaka" },
+  { value: "GMT+7:00", label: "(GMT+7:00) Bangkok" },
+  { value: "GMT+8:00", label: "(GMT+8:00) Perth" },
+  { value: "GMT+9:00", label: "(GMT+9:00) Tokyo" },
+  { value: "GMT+10:00", label: "(GMT+10:00) Sydney" },
+  { value: "GMT+11:00", label: "(GMT+11:00) Soloman Islands" },
+  { value: "GMT+12:00", label: "(GMT+12:00) Auckland" },
+  { value: "GMT+13:00", label: "(GMT+13:00) Nuku'alofa" },
 ];
 
 const bookingPeriods = [
-  { value: "1w", label: "1 week" },
-  { value: "2w", label: "2 weeks" },
-  { value: "1m", label: "1 month" },
-  // Add more booking periods as needed
+  { value: "1 week", label: "1 week" },
+  { value: "2 weeks", label: "2 weeks" },
+  { value: "3 weeks", label: "3 weeks" },
+  { value: "4 weeks", label: "4 weeks" },
+  { value: "2 months", label: "2 months" },
+  { value: "3 months", label: "3 months" },
 ];
 
 const noticePeriodUnits = [
@@ -85,6 +105,34 @@ export default function Calendar() {
 
   const handleNoticePeriodUnitChange = (event) => {
     setNoticePeriodUnit(event.target.value);
+  };
+
+  const handleSaveCalendarSettings = async () => {
+    console.log("Selected Timezone:", timezone);
+    console.log("Meeting Link:", meetingLink);
+    console.log("Booking Period:", bookingPeriod);
+    const noticePeriod = noticePeriodValue +" "+ noticePeriodUnit;
+    console.log("Notice Period:", noticePeriod);
+
+    if (meetingLink.trim() !== "" && !/^https?:\/\//.test(meetingLink)) {
+      toast.error("Invalid meeting link format. Please use a valid URL starting with 'http://' or 'https://'.");
+      return;
+    }
+
+    try{
+      const calendarSettingsData = {
+        timezone,
+        meetingLink,
+        bookingPeriod,
+        noticePeriod,
+      }
+      await axios.post('http://localhost:3001/api/saveCalendarSettings', calendarSettingsData);
+      toast.success("Data saved!");
+    }
+    catch(error){
+      console.log(error);
+      toast.error('Failed to Save Calendar Settings');
+    }
   };
 
   return (
@@ -203,9 +251,11 @@ export default function Calendar() {
         </tr>
       </tbody>
     </table>
+    <ToastContainer position="top-center" />
     <SaveButton
               variant="contained"
               fullWidth
+              onClick={handleSaveCalendarSettings}
             >
               Save Calendar Settings
         </SaveButton>

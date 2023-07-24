@@ -3,11 +3,8 @@ import { Avatar, Card, CardContent } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 //import ReactDOM from 'react-dom/client';
-import image101 from "../../../assets/images/users/101.jpg";
-import image102 from "../../../assets/images/users/102.png";
-import image103 from "../../../assets/images/users/103.png";
 import "./userCardComp.css";
-import Users from "../../../assets/data/users.json";
+// import Users from "../../../assets/data/users.json";
 
 function UserCardComp(props) {
   const colors = {
@@ -39,10 +36,11 @@ function UserCardComp(props) {
     Z: "#FFA07A",
   };
 
-  console.log(props);
-  const userId = props.userId ?? 101;
-  const name = Users[userId]?.name ?? "";
-  const email = Users[userId]?.email ?? "";
+  console.log("user card", props);
+  const userId = props.userId ?? -1;
+  const name = props.query?.name ?? props.queries[userId]?.name;
+  const email = props.query?.email ?? props.queries[userId]?.email;
+
   return (
     <Card
       className={`userCard ${

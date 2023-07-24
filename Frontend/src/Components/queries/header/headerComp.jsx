@@ -2,6 +2,7 @@ import React from "react";
 import "./headerComp.css";
 import { Button, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
+import SendQueryComp from "../sendQuery/sendQueryComp";
 
 function HeaderComp({ changeDisplayOption, displayOption }) {
   return (
@@ -33,6 +34,7 @@ function HeaderComp({ changeDisplayOption, displayOption }) {
           >
             Answered
           </Button>
+          <SendQueryComp mentorId={"test123"} />
         </Stack>
       </Box>
     </div>

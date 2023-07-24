@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "@mui/material";
-import UserCardComp from "../userCard/userCard";
+import UserCardComp from "../userCard/userCardComp";
 import "./sidebarComp.css";
 
 function SidebarComp({
@@ -17,11 +17,12 @@ function SidebarComp({
         alignItems="center"
         spacing={2}
       >
-        {Object.keys(Queries).map((uId) => {
+        {Queries.map((query, id) => {
           return displayOption === "Pending" ? (
-            Queries[uId].isResponded === false ? (
+            query.isResponded === false ? (
               <UserCardComp
-                userId={uId}
+                query={query}
+                userId={id}
                 selectedUserId={selectedUserId}
                 handleUserClick={handleUserClick}
                 inBody={false}
@@ -30,9 +31,10 @@ function SidebarComp({
               <></>
             )
           ) : displayOption === "Answered" ? (
-            Queries[uId].isResponded === true ? (
+            query.isResponded === true ? (
               <UserCardComp
-                userId={uId}
+                query={query}
+                userId={id}
                 selectedUserId={selectedUserId}
                 handleUserClick={handleUserClick}
                 inBody={false}

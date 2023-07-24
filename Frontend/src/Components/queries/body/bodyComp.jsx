@@ -3,15 +3,19 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import UserCardComp from "../userCard/userCard";
+import UserCardComp from "../userCard/userCardComp";
 import "./bodyComp.css";
 import { Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
+import axios from "axios";
+import APIs from "../../../utils/APIs";
 
 function BodyComp(props) {
   const [textareaValue, setTextareaValue] = useState("");
   const [isResponseEmpty, setIsResponseEmpty] = useState(false);
+
+  console.log("Props:", props);
 
   const handleTextareaChange = (event) => {
     setTextareaValue(event?.target?.value);
@@ -20,12 +24,51 @@ function BodyComp(props) {
     }
   };
 
-  function respondQuery(e, value) {
+  async function handleDeleteQuery(e) {
+    e.preventDefault();
+
+    const apiUrl = APIs.DELETE_QUERY;
+
+    const postData = {
+      _id: props.Queries[props.userId]._id,
+    };
+
+    try {
+      const response = await axios.post(apiUrl, postData);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error deleteing Query:", error);
+    }
+
+    let newQueries = props.Queries;
+    newQueries.splice(props.userId, 1);
+    props.updateQueries(newQueries);
+    setTextareaValue("");
+    props.changeDisplayOption("Pending");
+    //window.alert("Query moved to Answered");
+  }
+
+  async function respondQuery(e, value) {
     e.preventDefault();
     if (value === "") {
       setIsResponseEmpty(true);
       return;
     }
+
+    const apiUrl = APIs.SEND_RESPONSE;
+
+    const postData = {
+      _id: props.Queries[props.userId]._id,
+      response: value,
+    };
+
+    try {
+      const response = await axios.post(apiUrl, postData);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
     const newQueries = props.Queries;
     const response = value ?? "";
     newQueries[props.userId].isResponded = true;
@@ -41,7 +84,11 @@ function BodyComp(props) {
       {props.selectedUserId ? (
         <div>
           <div>
-            <UserCardComp userId={props.userId} inBody={true} />
+            <UserCardComp
+              queries={props.Queries}
+              userId={props.userId}
+              inBody={true}
+            />
           </div>
           <br />
           <div className="textAreaContainer">
@@ -50,7 +97,7 @@ function BodyComp(props) {
             </Typography>
             <Box mt={2}>
               <Typography className="text-box query-text-box" variant="body1">
-                {props.Queries[props.userId].query}
+                {props.Queries[props.userId].content}
               </Typography>
             </Box>
             {props.Queries[props.userId].isResponded === false ? (
@@ -70,6 +117,7 @@ function BodyComp(props) {
                     <Button
                       variant="contained"
                       className="deleteButton"
+                      onClick={(e) => handleDeleteQuery(e)}
                       color="error"
                       startIcon={<DeleteIcon />}
                     >
@@ -100,6 +148,7 @@ function BodyComp(props) {
                 <Button
                   variant="contained"
                   className="deleteButton deleteButtonAnswered"
+                  onClick={(e) => handleDeleteQuery(e)}
                   color="error"
                   startIcon={<DeleteIcon />}
                 >

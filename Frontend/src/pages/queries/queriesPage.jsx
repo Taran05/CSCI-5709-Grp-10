@@ -1,26 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderComp from "../../Components/queries/header/headerComp";
 import SidebarComp from "../../Components/queries/sidebar/sidebarComp";
 import BodyComp from "../../Components/queries/body/bodyComp";
 import "./queriesPage.css";
-import Querys from "../../assets/data/queries.json";
+//import Querys from "../../assets/data/queries.json";
 import { Grid } from "@mui/material";
+import axios from "axios";
+import APIs from "../../utils/APIs";
 
 function QueriesPage(props) {
   const [value, setValue] = useState("");
   const handleUserClick = (user) => {
     setValue(user);
+    console.log("Update id:", user);
   };
 
-  const [Queries, setQueries] = useState(Querys);
+  const [Queries, setQueries] = useState([]);
 
   const updateQueries = (queries) => {
-    debugger;
+    //debugger;
     setQueries(queries);
 
     console.log("Printing Quereies: ");
     console.log(Queries);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const apiUrl = APIs.GET_QUERY;
+
+      try {
+        const response = await axios.post(apiUrl, { mentorId: "123456" });
+        updateQueries(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const [displayOption, updateDisplayOption] = useState("Pending");
   const changeDisplayOption = (option) => {

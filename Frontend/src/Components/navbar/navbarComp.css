@@ -1,0 +1,18 @@
+/* For screens larger than or equal to 600px (adjust this breakpoint as needed) */
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft {
+  margin-top: 5.3%;
+  background-color: #1d267d;
+  color: white;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft
+  svg {
+  fill: white;
+}
+
+/* For screens smaller than 600px (mobile view) */
+@media (max-width: 600px) {
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft {
+    margin-top: 11%; /* Set the top margin to 0 for mobile view */
+  }
+}

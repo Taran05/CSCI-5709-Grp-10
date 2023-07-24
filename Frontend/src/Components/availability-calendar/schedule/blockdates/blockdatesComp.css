@@ -1,0 +1,19 @@
+.block-dates {
+    margin-left: 70px;
+    font-family: 'Lato', sans-serif;
+    border: 2px solid #1D267D;
+    width: 380px;
+    padding: 20px;
+    height: 150px;
+  }
+  
+  .block-dates h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  .block-dates p {
+    margin-bottom: 20px;
+    text-align: left;
+  }

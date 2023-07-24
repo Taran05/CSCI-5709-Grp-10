@@ -1,0 +1,7 @@
+.startComp {
+  min-height: 100vh;
+}
+
+.startComp .grid {
+  width: 100%;
+}

@@ -1,0 +1,12 @@
+.topMessageComp{
+    height: 100%;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 5%;
+}
+
+.topMessageComp .buttonGridItem{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

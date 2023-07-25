@@ -4,14 +4,14 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import "./stepForm1Comp.css";
-
-const ids = ["aman82", "jj98"];
+import getAllUsernames from "../../../../utils/getAllUsers"; // Import the function to get usernames
+// const ids = ["aman82", "jj98"];
 
 const FormStep1 = ({ formData, setFormData, onStepComplete }) => {
   const [selectedOption, setSelectedOption] = React.useState(null);
   const [isTextFieldFilled, setIsTextFieldFilled] = React.useState(false);
   const [isIdUnique, setIsIdUnique] = React.useState(true); // State variable to track if the entered ID is unique
-
+  const [usernames, setUsernames] = React.useState([]); // State variable to store the usernames
   const handleOptionToggle = (option) => {
     setSelectedOption((prevSelected) =>
       prevSelected === option ? null : option
@@ -34,14 +34,27 @@ const FormStep1 = ({ formData, setFormData, onStepComplete }) => {
     }));
 
     // Check if the entered ID is unique
-    setIsIdUnique(!ids.includes(pageLink));
+    setIsIdUnique(!usernames.includes(pageLink.toLowerCase()));
   };
 
   const handleStep1Complete = () => {
     const isValid = isTextFieldFilled && selectedOption !== null;
     onStepComplete(isValid);
   };
+  React.useEffect(() => {
+    // Fetch the usernames from the API using the function
 
+    const fetchUsernames = async () => {
+      try {
+        const usernames = await getAllUsernames();
+        setUsernames(usernames);
+      } catch (error) {
+        console.error("Error fetching usernames:", error);
+        setUsernames([]); // Return an empty array in case of an error
+      }
+    };
+    fetchUsernames();
+  }, []);
   React.useEffect(() => {
     handleStep1Complete();
   }, [isTextFieldFilled, selectedOption, onStepComplete]);

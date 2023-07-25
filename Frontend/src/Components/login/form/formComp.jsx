@@ -3,28 +3,29 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./formComp.css";
 import Button from "@mui/material/Button";
-
 import IconButton from "@mui/material/IconButton";
-
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-
 import FormControl from "@mui/material/FormControl";
-
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FormHelperText } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import axios from "axios";
+import { LOGIN_USER } from "../../../utils/apiUrls";
+import { useNavigate } from "react-router-dom";
 
 export default function FormComp() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-
-  // const navigate = useNavigate();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
@@ -43,13 +44,6 @@ export default function FormComp() {
       return;
     }
 
-    if (!isValidEmail(email) || !isValidPassword(password)) {
-      setIsEmailValid(!isValidEmail(email));
-      setIsPasswordValid(!isValidPassword(password));
-      alert("Wrong Credentials");
-      return;
-    }
-
     // Form submission successful
     console.log("Form submitted:", { email, password });
     // Reset form fields
@@ -57,15 +51,34 @@ export default function FormComp() {
     setPassword("");
     setIsEmailValid(true);
     setIsPasswordValid(true);
-    alert("You are logged in");
+    axios
+      .post(LOGIN_USER, { email, password })
+      .then((response) => {
+        if (response.status === 200) {
+          handleSnackbarOpen("Login successful. Redirecting...");
+
+          // Save data to localStorage
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 2000);
+        } else {
+          handleSnackbarOpen("Login failed. Wrong Credentials!");
+        }
+      })
+      .catch((error) => {
+        handleSnackbarOpen("Login failed. Wrong Credentials!");
+      }); // Show snackbar with success message
   };
 
-  const isValidEmail = (value) => {
-    return value === "aman@gmail.com";
+  const handleSnackbarOpen = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
   };
 
-  const isValidPassword = (value) => {
-    return value === "123";
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -161,6 +174,25 @@ export default function FormComp() {
       >
         Submit
       </Button>
+      {/* Snackbar to show success or error message */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={
+            snackbarMessage === "Login successful. Redirecting..."
+              ? "success"
+              : "error"
+          }
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

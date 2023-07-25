@@ -9,13 +9,15 @@
 // import FormStep2 from "../stepForms/stepForm2/stepForm2Comp";
 // import Snackbar from "@mui/material/Snackbar";
 // import Alert from "@mui/material/Alert";
+// import axios from "axios";
 // import LoadingProgressComp from "../loadingProgress/loadingProgressComp";
-// import { useNavigate } from "react-router-dom";
+// import { useNavigate, useLocation } from "react-router-dom";
 
 // const steps = ["Basic Information", "Your Expertise"];
 
-// export default function HorizontalLinearStepper() {
+// const RegisterAboutYouComp = () => {
 //   const navigate = useNavigate();
+//   const location = useLocation();
 //   const [activeStep, setActiveStep] = React.useState(0);
 //   const [isStep1Valid, setIsStep1Valid] = React.useState(false);
 //   const [isStep2Valid, setIsStep2Valid] = React.useState(false);
@@ -28,27 +30,28 @@
 //   });
 //   const [loadingFinished, setLoadingFinished] = React.useState(false);
 
+//   const formDataRef = React.useRef({
+//     pageLink: "",
+//     plan: "",
+//     expertise: [],
+//   });
+
 //   const handleNext = () => {
 //     if (activeStep === 0 && !isStep1Valid) {
-//       handleSnackbarOpen("Select a option");
+//       handleSnackbarOpen("Select an option");
 //       return;
 //     }
 
 //     if (activeStep === 1 && !isStep2Valid) {
-//       handleSnackbarOpen("Select a option");
+//       handleSnackbarOpen("Select an option");
 //       return;
 //     }
 
 //     if (activeStep === steps.length - 1) {
 //       // If the last step is completed, save the form data and set loadingFinished to true
 //       setLoadingFinished(true);
-//       // Optionally, you can save the form data to your desired location (e.g., Redux store, local storage, API, etc.)
-//       // For now, we'll just save it in the component state.
-//       setFormData({
-//         pageLink: localStorage.getItem("pageLink"),
-//         plan: localStorage.getItem("plan"),
-//         expertise: JSON.parse(localStorage.getItem("expertise") || "[]"),
-//       });
+//       // Save the form data in the formDataRef
+//       formDataRef.current = { ...formData };
 //       return;
 //     }
 
@@ -64,6 +67,11 @@
 //     setIsStep1Valid(false);
 //     setIsStep2Valid(false);
 //     setLoadingFinished(false); // Reset loadingFinished state
+//     setFormData({
+//       pageLink: "",
+//       plan: "",
+//       expertise: [],
+//     });
 //   };
 
 //   const handleSnackbarOpen = (message) => {
@@ -74,7 +82,6 @@
 //   const handleSnackbarClose = () => {
 //     setSnackbarOpen(false);
 //   };
-
 //   const handleStep1Complete = (isValid) => {
 //     setIsStep1Valid(isValid);
 //   };
@@ -87,9 +94,21 @@
 //   const renderStepContent = (step) => {
 //     switch (step) {
 //       case 0:
-//         return <FormStep1 onStepComplete={handleStep1Complete} />;
+//         return (
+//           <FormStep1
+//             formData={formData}
+//             setFormData={setFormData}
+//             onStepComplete={handleStep1Complete}
+//           />
+//         );
 //       case 1:
-//         return <FormStep2 onStepComplete={handleStep2Complete} />;
+//         return (
+//           <FormStep2
+//             formData={formData}
+//             setFormData={setFormData}
+//             onStepComplete={handleStep2Complete}
+//           />
+//         );
 //       default:
 //         return null;
 //     }
@@ -98,6 +117,18 @@
 //   // Redirect to "/dashboard" when loadingFinished is true
 //   React.useEffect(() => {
 //     if (loadingFinished) {
+//       const user = {
+//         firstName: location.state.firstName,
+//         lastName: location.state.lastName,
+//         email: location.state.email,
+//         password: location.state.password,
+//         expertise: formData.expertise,
+//         userName: formData.pageLink,
+//         reason: formData.plan,
+//       };
+//       // Save data to localStorage
+//       localStorage.setItem("user", user);
+
 //       // Delay the redirect for demonstration purposes
 //       setTimeout(() => {
 //         navigate("/dashboard");
@@ -161,7 +192,10 @@
 //       {/* Show the loading spinner when loadingFinished is true */}
 //     </Box>
 //   );
-// }
+// };
+
+// export default RegisterAboutYouComp;
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -173,9 +207,10 @@ import FormStep1 from "../stepForms/stepForm1/stepForm1Comp";
 import FormStep2 from "../stepForms/stepForm2/stepForm2Comp";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import axios from "axios";
 import LoadingProgressComp from "../loadingProgress/loadingProgressComp";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { REGISTER_USER } from "../../../utils/apiUrls";
 const steps = ["Basic Information", "Your Expertise"];
 
 const RegisterAboutYouComp = () => {
@@ -211,10 +246,10 @@ const RegisterAboutYouComp = () => {
     }
 
     if (activeStep === steps.length - 1) {
-      // If the last step is completed, save the form data and set loadingFinished to true
-      setLoadingFinished(true);
-      // Save the form data in the formDataRef
       formDataRef.current = { ...formData };
+
+      // If the last step is completed, save the form data and set loadingFinished to true
+      handleFormSubmit(); // Call handleFormSubmit function to submit the form data
       return;
     }
 
@@ -245,6 +280,7 @@ const RegisterAboutYouComp = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
+
   const handleStep1Complete = (isValid) => {
     setIsStep1Valid(isValid);
   };
@@ -252,6 +288,44 @@ const RegisterAboutYouComp = () => {
   const handleStep2Complete = (isValid) => {
     setIsStep2Valid(isValid);
   };
+
+  // Function to submit the form data to the API
+  const handleFormSubmit = () => {
+    const user = {
+      firstName: location.state.firstName,
+      lastName: location.state.lastName,
+      email: location.state.email,
+      password: location.state.password,
+      expertise: formData.expertise,
+      userName: formData.pageLink.toLowerCase(),
+      reason: formData.plan,
+    };
+    console.log(user);
+    axios
+      .post(REGISTER_USER, user)
+      .then((response) => {
+        if (response.status === 200) {
+          // Save data to localStorage
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+          setLoadingFinished(true);
+        } else {
+          handleSnackbarOpen("Registration failed. Email Already Exist!");
+        }
+      })
+      .catch((error) => {
+        handleSnackbarOpen("Registration failed. Email Already Exist!");
+      });
+  };
+
+  // Redirect to "/dashboard" when loadingFinished is true
+  React.useEffect(() => {
+    if (loadingFinished) {
+      // Delay the redirect for demonstration purposes
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+    }
+  }, [loadingFinished, navigate]);
 
   // Render the appropriate form for the active step
   const renderStepContent = (step) => {
@@ -276,28 +350,6 @@ const RegisterAboutYouComp = () => {
         return null;
     }
   };
-
-  // Redirect to "/dashboard" when loadingFinished is true
-  React.useEffect(() => {
-    if (loadingFinished) {
-      const user = {
-        firstName: location.state.firstName,
-        lastName: location.state.lastName,
-        email: location.state.email,
-        password: location.state.password,
-        expertise: formData.expertise,
-        pageLink: formData.pageLink,
-        plan: formData.plan,
-      };
-      // Save data to localStorage
-      localStorage.setItem("user", user);
-
-      // Delay the redirect for demonstration purposes
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 2000);
-    }
-  }, [loadingFinished, navigate]);
 
   return (
     <Box sx={{ width: "100%" }}>

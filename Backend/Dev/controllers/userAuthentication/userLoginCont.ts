@@ -22,16 +22,14 @@ const userLogin = async (req: Request, res: Response) => {
     }
 
     // If passwords match, respond with a success message or other data as needed
-    res
-      .status(200)
-      .json({
-        message: "Login successful",
-        user: {
-          firstName: user.firstName,
-          userName: user.userName,
-          email: user.email,
-        },
-      });
+    res.status(200).json({
+      message: "Login successful",
+      user: {
+        firstName: user.firstName,
+        userName: user.userName,
+        email: user.email,
+      },
+    });
   } catch (error) {
     // Handle errors
     console.log(error);

@@ -1,9 +1,9 @@
-import express, { Request, Response } from 'express';
-import BlockedDates, { IBlockedDate } from '../models/blockDatesModel';
+import express, { Request, Response } from "express";
+import BlockedDates, { IBlockedDate } from "../models/blockDatesModel";
 
 const router = express.Router();
 
-router.post('/api/blockDates', async (req: Request, res: Response) => {
+router.post("/blockDates", async (req: Request, res: Response) => {
   const dates: string[] = req.body;
   console.log(dates);
   try {
@@ -14,10 +14,10 @@ router.post('/api/blockDates', async (req: Request, res: Response) => {
       });
       await blockedDates.save();
     }
-    res.status(201).json({ message: 'Blocked dates saved successfully.' });
+    res.status(201).json({ message: "Blocked dates saved successfully." });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to save block dates' });
+    res.status(500).json({ error: "Failed to save block dates" });
   }
 });
 

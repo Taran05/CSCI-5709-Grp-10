@@ -63,7 +63,7 @@ const PaymentDetailsPage = () => {
       return;
     }
 
-    fetch(MAKE_PAYMENT + "/${mentorId}", {
+    fetch(MAKE_PAYMENT + "/" + { mentorId }, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

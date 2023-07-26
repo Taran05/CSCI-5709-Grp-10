@@ -20,6 +20,7 @@ import { userLoginRoute } from "./routes/userAuthentication/userLoginRoutes";
 import queriesRoutes from "./routes/queriesRoutes";
 import availabilityRoute from "./routes/servicesRoutes/availabilityRoute";
 import studentBookingRoute from "./routes/studentBookingRoute";
+import { issueRoute } from "./routes/reportIssues/issueRoute";
 
 const app: Express = express();
 
@@ -53,6 +54,7 @@ app.use(getServiceRoute);
 app.use("/api/", userLoginRoute);
 app.use(availabilityRoute);
 app.use(studentBookingRoute);
+app.use("/api/", issueRoute);
 
 const port: number = 3001;
 app.listen(port, () => {

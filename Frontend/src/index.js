@@ -19,9 +19,14 @@ import BookingSchedulePage from "./pages/MentorServiceBooking/bookingSchedule/bo
 import StudentDetailsPage from "./pages/MentorServiceBooking/studentDetails/studentDetailsPage";
 import PaymentDetailsPage from "./pages/payments/paymentDetailsPage";
 import ProfileManagementPage from "./pages/profileMangement/profileMangementPage";
+import ReportPage from "./pages/report-issue/reportPage";
+import IssueForm from "./pages/report-issue/issueForm";
+import IssueDetails from "./pages/report-issue/issueDetails"
+
 
 const localUser = JSON.parse(localStorage.getItem("user"));
 const isAuthenticated = localUser !== null;
+
 
 // const Navigator = useNavigate();
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -53,6 +58,9 @@ root.render(
           path="/mentorServiceBooking/:id"
           element={<MentorServiceHomePage />}
         />
+        <Route path="/issues" element={<ReportPage />} />
+        <Route path="/issue/new" element={<IssueForm />} />
+        <Route path="/issue/:id" element={<IssueDetails />} />
       </Route>
     </Routes>
   </BrowserRouter>

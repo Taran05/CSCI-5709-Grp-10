@@ -8,6 +8,7 @@ const BookingSchedulePage = () => {
   const location = useLocation();
   const service = location.state.service;
   const mentorId = location.state.mentorId;
+  const mentorName = location.state.mentorName;
   const serviceName = service.serviceName;
   const serviceDuration = service.time;
   const servicePrice = service.price;
@@ -21,6 +22,7 @@ const BookingSchedulePage = () => {
             serviceDuration={serviceDuration}
             servicePrice={servicePrice}
             mentorId={mentorId}
+            mentorName={mentorName}
           />
         </Box>
       </Grid>

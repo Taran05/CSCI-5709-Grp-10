@@ -4,6 +4,7 @@ import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns"; // Import date-fns for date formatting
+import { grey } from "@mui/material/colors";
 
 const SelectableBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -30,8 +31,20 @@ const SelectableBox = styled(Box)(({ theme }) => ({
   minWidth: "80px",
 }));
 
+const ConfirmButton = styled(Button)(({ theme }) => ({
+  height: "100%",
+  padding: "10px 30px",
+  fontWeight: 600,
+  color: theme.palette.getContrastText(grey[900]),
+  backgroundColor: "#1D267D",
+  "&:hover": {
+    backgroundColor: "#0C134F",
+  },
+}));
+
 const RightViewComponent = ({
   mentorId,
+  mentorName,
   serviceName,
   serviceDuration,
   servicePrice,
@@ -186,7 +199,7 @@ const RightViewComponent = ({
           marginBottom: "12px",
         }}
       >
-        <Button
+        <ConfirmButton
           variant="contained"
           color="primary"
           onClick={() => {
@@ -210,7 +223,7 @@ const RightViewComponent = ({
           }}
         >
           Confirm Details
-        </Button>
+        </ConfirmButton>
       </Box>
     </Paper>
   );

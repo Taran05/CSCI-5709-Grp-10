@@ -9,4 +9,4 @@ export const SEND_RESPONSE = `${domain}api/sendResponse`;
 export const DELETE_QUERY = `${domain}api/deleteQuery`;
 
 export const SAVE_STUDENT_BOOKING = `${domain}api/saveBooking`;
-export const MAKE_PAYMENT = `${domain}/payment`;
+export const MAKE_PAYMENT = `${domain}payment`;

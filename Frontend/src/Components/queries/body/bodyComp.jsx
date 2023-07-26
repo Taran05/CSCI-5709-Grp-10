@@ -104,7 +104,7 @@ function BodyComp(props) {
   );
 
   return (
-    <div className="bodyCompDiv">
+    <div className="queryBodyCompDiv">
       {props.selectedUserId >= 0 && props.selectedUserId !== "" ? (
         <div className={`bodyCompDivInner`}>
           <div className={`userCardClass`}>

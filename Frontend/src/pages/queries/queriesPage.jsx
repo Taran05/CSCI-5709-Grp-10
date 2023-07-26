@@ -86,7 +86,7 @@ function QueriesPage(props) {
 
   return (
     <SnackbarProvider maxSnack={3}>
-      <div className="pageBody">
+      <div className="queryPageBody">
         <div className="header">
           {/* <HeaderComp
           changeDisplayOption={changeDisplayOption}

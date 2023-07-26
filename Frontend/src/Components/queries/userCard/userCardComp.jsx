@@ -16,7 +16,7 @@ function UserCardComp(props) {
 
   return (
     <Card
-      className={`userCard ${
+      className={`queryUserCard ${
         userId === props?.selectedUserId ? "selected-card" : ""
       } ${props.inBody ? "not-clickable" : "in-sidebar"}`}
       variant="outlined"

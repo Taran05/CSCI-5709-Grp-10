@@ -8,6 +8,7 @@ import { SAVE_QUERY } from "../../../utils/apiUrls";
 import "./sendQueryComp.css";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -30,6 +31,8 @@ export default function SendQueryComp({ mentorId }) {
   const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleNameChange = (event) => {
     setName(event?.target?.value);
@@ -72,6 +75,7 @@ export default function SendQueryComp({ mentorId }) {
     setTitle("");
 
     console.log("Query submitted:", name, email, content, title, mentorId);
+    enqueueSnackbar("Query Sent", { variant: "success" });
 
     setOpen(false);
   };

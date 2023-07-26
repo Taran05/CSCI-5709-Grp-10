@@ -10,10 +10,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { SEND_RESPONSE, DELETE_QUERY } from "../../../utils/apiUrls";
+import { useSnackbar } from "notistack";
 
 function BodyComp(props) {
   const [textareaValue, setTextareaValue] = useState("");
   const [isResponseEmpty, setIsResponseEmpty] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   console.log("Props:", props);
 
@@ -52,7 +54,9 @@ function BodyComp(props) {
     props.updateQueries(newQueries);
     setTextareaValue("");
     props.changeDisplayOption("Pending");
-    //window.alert("Query moved to Answered");
+    // window.alert("Query moved to Deleted");
+
+    enqueueSnackbar("Query Deleted.", { variant: "success" });
   }
 
   async function respondQuery(e, value) {
@@ -89,7 +93,8 @@ function BodyComp(props) {
     props.updateQueries(newQueries);
     setTextareaValue("");
     props.changeDisplayOption("Pending");
-    //window.alert("Query moved to Answered");
+    // window.alert("Query moved to Answered");
+    enqueueSnackbar("Response Sent", { variant: "success" });
   }
 
   console.log(

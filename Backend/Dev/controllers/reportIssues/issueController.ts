@@ -1,3 +1,4 @@
+// Author: Aadith Shameel B00929852
 import { Request, Response } from 'express'; 
 import Issue, { IIssue } from '../../models/issueModel';
 

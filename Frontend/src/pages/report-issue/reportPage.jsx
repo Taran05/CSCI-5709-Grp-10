@@ -1,3 +1,4 @@
+// Author: Aadith Shameel B00929852
 import React, { useEffect, useState } from "react";
 import { Button, Container, Typography, Card, CardContent, CardActionArea } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -40,6 +41,7 @@ const ReportPage = () => {
     return (
         <Container style={{paddingTop: '10%', minHeight: '100vh', textAlign: 'center'}}>
             <Typography variant="h3" align="left" style={{marginBottom: '5%'}}>Reported Issues</Typography>
+            {/* Creating Cards for all issues */}
             {issues.map((issue) => (
                 <Card key={issue._id} style={{marginBottom: '1rem'}}>
                     <CardActionArea onClick={() => navigate(`/issue/${issue._id}`)}>
@@ -49,6 +51,7 @@ const ReportPage = () => {
                     </CardActionArea>
                 </Card>
             ))}
+            {/* Left side of && becomes ture if there are no issues. So the right side is checked. Since it is a  component, it gets rendered*/}
             {issues.length === 0 && <Typography variant="h4">No Issues Raised</Typography>}
             <ReportIssueButton variant="contained" href="/issue/new" style={{marginTop: '5%'}}>Report Issue</ReportIssueButton>
         </Container>

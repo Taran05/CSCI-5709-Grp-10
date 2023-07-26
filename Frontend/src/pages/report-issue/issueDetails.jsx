@@ -1,14 +1,17 @@
+// Author: Aadith Shameel B00929852
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
-import { Button, TextField, Container, Typography, Box } from "@mui/material";
+import { Button, TextField, Container, Typography, Box, Snackbar, Alert } from "@mui/material";
 import { DELETE_ISSUE, GET_ISSUE, UPDATE_ISSUE } from "../../utils/apiUrls";
 
 const IssueDetails = () => {
     const { id } = useParams();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -38,8 +41,15 @@ const IssueDetails = () => {
             });
 
             const data = await response.json();
-            console.log(data.message);
-            navigate('/issues');
+
+            if (response.ok) {
+                setSnackbarMessage("Issue updated successfully");
+                setSnackbarOpen(true);
+                setTimeout(() => navigate('/issues'), 2000);
+            } else {
+                console.error(data.error);
+            }
+            
         } catch (error) {
             console.error(error);
         }
@@ -52,17 +62,25 @@ const IssueDetails = () => {
             });
 
             const data = await response.json();
-            console.log(response)
-            console.log(data)
-            if(response.ok) {
-                navigate('/issues');
+
+            if (response.ok) {
+                setSnackbarMessage("Issue deleted successfully");
+                setSnackbarOpen(true);
+                setTimeout(() => navigate('/issues'), 2000);
             } else {
-                console.error(data.error)
+                console.error(data.error);
             }
         } catch (error) {
             console.error(error);
         }
     }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setSnackbarOpen(false);
+    };
 
     const UpdateIssueButton = styled(Button)(({ theme }) => ({
         height: "100%",
@@ -88,7 +106,11 @@ const IssueDetails = () => {
 
     return (
         <Container style={ {paddingTop: '10%', minHeight: '100vh', textAlign: 'centre'} }>
-        
+            <Snackbar open={snackbarOpen} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
             <Typography variant="h3" align="left" style={{ marginBottom: '5%' }}>Details of the Issue</Typography>
             <Typography variant="h5" align="left">Title</Typography>
             <TextField value={title} onChange={ (e) => setTitle(e.target.value)} required style={ {width: '100%', marginBottom: '2%'} }/>

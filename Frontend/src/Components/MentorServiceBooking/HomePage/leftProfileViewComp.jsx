@@ -1,5 +1,9 @@
 //refernce: https://mui.com/material-ui/react-avatar/
 
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
+
 import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Box, Typography, Button } from "@mui/material";

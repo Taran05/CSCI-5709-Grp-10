@@ -1,3 +1,6 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
 import React, { useState } from "react";
 import { Grid, useMediaQuery, useTheme, Box } from "@mui/material";
 import { useLocation } from "react-router-dom";

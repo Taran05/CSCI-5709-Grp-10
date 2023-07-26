@@ -6,8 +6,19 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./rightServiceViewComp.css"; // Import the CSS file
 
-const RightServiceViewComp = ({ mentorId }) => {
+const RightServiceViewComp = () => {
+  const [mentor, setMentor] = useState({});
   const [serviceDetails, setServiceDetails] = useState([]);
+  const location = useLocation();
+  const mentorId = location.pathname.split("/")[2];
+  useEffect(() => {
+    fetch(`http://localhost:3001/api/registerUser/getUserDetails/${mentorId}`)
+      .then((response) => response.json())
+      .then((data) => setMentor(data.user));
+  }, [mentorId]);
+
+  const mentorName = mentor ? `${mentor.firstName} ${mentor.lastName}` : "";
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +35,8 @@ const RightServiceViewComp = ({ mentorId }) => {
   }, [mentorId]);
 
   const handleServiceClick = (service) => {
-    navigate("/bookingSchedule", { state: { service, mentorId } });
+    console.log(mentorName);
+    navigate("/bookingSchedule", { state: { service, mentorId, mentorName } });
   };
 
   return (

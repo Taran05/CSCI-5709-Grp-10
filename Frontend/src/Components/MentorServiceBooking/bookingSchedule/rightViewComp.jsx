@@ -44,6 +44,7 @@ const ConfirmButton = styled(Button)(({ theme }) => ({
 
 const RightViewComponent = ({
   mentorId,
+  mentorName,
   serviceName,
   serviceDuration,
   servicePrice,

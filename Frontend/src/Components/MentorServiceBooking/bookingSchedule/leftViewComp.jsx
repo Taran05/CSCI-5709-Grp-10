@@ -1,15 +1,20 @@
 import React from "react";
 import { Paper, Typography, Box } from "@mui/material";
 import EventIcon from "@mui/icons-material/Event";
-import "./leftViewComponent.css"; // Import the CSS file
+import "./leftViewComponent.css";
 
-const LeftViewComponent = ({ serviceName, serviceDuration, servicePrice }) => {
+const LeftViewComponent = ({
+  serviceName,
+  serviceDuration,
+  servicePrice,
+  mentorName,
+}) => {
   return (
     <Paper elevation={3} className="left-view-component">
       <div>
         <Box className="left-view-component-header">
           <Typography variant="h3" gutterBottom component="div">
-            Shivam Lakhanpal
+            {mentorName}
           </Typography>
           <Typography variant="h5" color="textSecondary" gutterBottom>
             {serviceName}

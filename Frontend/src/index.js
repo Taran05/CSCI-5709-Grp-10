@@ -9,6 +9,10 @@ import App from "./app";
 import LandingPage from "./pages/landing/landingPage";
 import ContactPage from "./pages/contact/contactPage";
 import AvailabilityCalendarPage from "./pages/availability-calendar/availabilityCalendarPage";
+import MentorServiceHomePage from "./pages/MentorServiceBooking/HomePage/MentorServiceHomePage";
+import BookingSchedulePage from "./pages/MentorServiceBooking/bookingSchedule/bookingSchedulePage";
+import StudentDetailsPage from "./pages/MentorServiceBooking/studentDetails/studentDetailsPage";
+import PaymentDetailsPage from "./pages/payments/paymentDetailsPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //root.render(<Register />);
@@ -21,6 +25,13 @@ root.render(
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
+        <Route path="/bookingSchedule" element={<BookingSchedulePage />} />
+        <Route path="/paymentDetails" element={<PaymentDetailsPage />} />
+        <Route path="/studentDetails" element={<StudentDetailsPage />} />
+        <Route
+          path="/mentorServiceBooking/:id"
+          element={<MentorServiceHomePage />}
+        />
       </Route>
     </Routes>
   </BrowserRouter>

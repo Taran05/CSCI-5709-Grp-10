@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha prod/tests",
-    "start": "nodemon ./prod/app.js",
+    "start": "nodemon ./dev/app.ts",
     "lint": "eslint . --ext .ts --format json --output-file eslint-report.json ;exit 0"
   },
   "author": "",

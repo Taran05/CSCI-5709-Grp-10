@@ -15,6 +15,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import { Snackbar } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
+import { MAKE_PAYMENT } from "../../utils/apiUrls";
 
 const StyledBox = styled(Box)({
   maxWidth: "400px",
@@ -62,7 +63,7 @@ const PaymentDetailsPage = () => {
       return;
     }
 
-    fetch(`http://localhost:3001/payment/${mentorId}`, {
+    fetch(MAKE_PAYMENT + "/${mentorId}", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

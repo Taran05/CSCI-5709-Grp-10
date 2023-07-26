@@ -11,6 +11,9 @@ import App from "./app";
 import LandingPage from "./pages/landing/landingPage";
 import ContactPage from "./pages/contact/contactPage";
 import AvailabilityCalendarPage from "./pages/availability-calendar/availabilityCalendarPage";
+import ReportPage from "./pages/report-issue/reportPage";
+import IssueForm from "./pages/report-issue/issueForm";
+import IssueDetails from "./pages/report-issue/issueDetails"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //root.render(<Register />);
@@ -25,6 +28,9 @@ root.render(
 
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
+        <Route path="/issues" element={<ReportPage />} />
+        <Route path="/issue/new" element={<IssueForm />} />
+        <Route path="/issue/:id" element={<IssueDetails />} />
       </Route>
     </Routes>
   </BrowserRouter>

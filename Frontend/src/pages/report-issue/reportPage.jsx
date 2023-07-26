@@ -1,0 +1,43 @@
+import React, { useEffect, useState } from "react";
+import { Button, Container, Typography, Card, CardContent, CardActionArea } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { GET_ALL_ISSUES } from "../../utils/apiUrls";
+
+const ReportPage = () => {
+    const [issues, setIssues] = useState([])
+    const navigate = useNavigate();
+    const fetchIssues = async () => {
+        try {
+            const res = await fetch(GET_ALL_ISSUES);
+            if(!res.ok) {
+                throw new Error(res.statusText);
+            }
+            const issuesData = await res.json();
+            setIssues(issuesData);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchIssues();
+    }, []);
+
+    return (
+        <Container style={{paddingTop: '10%', minHeight: '82vh', textAlign: 'center'}}>
+            {issues.map((issue) => (
+                <Card key={issue._id} style={{marginBottom: '1rem'}}>
+                    <CardActionArea onClick={() => navigate(`/issue/${issue._id}`)}>
+                        <CardContent>
+                            <Typography variant="h5">{issue.title}</Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            ))}
+            {issues.length === 0 && <Typography variant="h4">No Issues Raised</Typography>}
+            <Button variant="contained" color="primary" href="/issue/new" style={{marginTop: '2%'}}>Report Issue</Button>
+        </Container>
+    )
+}
+
+export default ReportPage;

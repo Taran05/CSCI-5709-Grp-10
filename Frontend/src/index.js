@@ -11,9 +11,9 @@ import App from "./app";
 import LandingPage from "./pages/landing/landingPage";
 import ContactPage from "./pages/contact/contactPage";
 import AvailabilityCalendarPage from "./pages/availability-calendar/availabilityCalendarPage";
-
+import ProfileManagementPage from "./pages/profileMangement/profileMangementPage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-//root.render(<Register />);
+
 root.render(
   <BrowserRouter>
     <Routes>
@@ -22,9 +22,9 @@ root.render(
         <Route exact path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/about-you" element={<RegisterAboutYouPage />} />
-
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
+        <Route path="/profile-settings" element={<ProfileManagementPage />} />
       </Route>
     </Routes>
   </BrowserRouter>

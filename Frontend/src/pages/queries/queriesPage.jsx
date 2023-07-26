@@ -34,7 +34,7 @@ function QueriesPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       const localUser = JSON.parse(localStorage.getItem("user"));
-      console.log("Printing local user:", localUser, localUser.userName);
+      console.log("Printing local user:", localUser);
 
       if (!localUser) {
         navigate("/login");

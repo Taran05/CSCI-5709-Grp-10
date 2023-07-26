@@ -6,12 +6,12 @@
   justify-content: flex-end; /* Aligns the children to the right */
 }
 
-.buttonUpperDiv{
+.sendQueryStudentModal .buttonUpperDiv{
     display: flex;
     justify-content: flex-end; /* Aligns the children to the right */
 }
 
-.MuiBox-root.css-1wnsr1i{
+.sendQueryStudentModal .MuiBox-root.css-1wnsr1i{
     border-radius: 5%;
     background-color: rgb(248,241,255);
 }

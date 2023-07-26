@@ -1,0 +1,146 @@
+import { Request, Response } from "express";
+import DefaultSchedule, {
+  IDefaultSchedule,
+} from "../../models/availability-calendar/defaultScheduleModel";
+import BlockedDate, { IBlockedDate } from '../../models/availability-calendar/blockDatesModel';
+
+const saveDefaultSchedule = async (req: Request, res: Response) => {
+  const defaultScheduleData: IDefaultSchedule[] = req.body;
+  const updatedSchedules: IDefaultSchedule[] = [];
+  const deletedSchedules: string[] = []; // To keep track of deleted days
+  try {
+    for (let index = 0; index < defaultScheduleData.length; index++) {
+      const { day, startTime, endTime, mentorID } = defaultScheduleData[index];
+      console.log(day);
+      console.log(startTime);
+      console.log(endTime);
+      console.log(mentorID);
+
+      // Check if startTime and endTime are not empty and not equal to "NAN"
+      if (startTime !== '' && endTime !== '' && startTime !== 'NAN' && endTime !== 'NAN') {
+        const existingSchedule: IDefaultSchedule | null = await DefaultSchedule.findOne({
+          mentorID,
+          day,
+        });
+        console.log("Existing Schedule : " + existingSchedule);
+        if (existingSchedule) {
+          existingSchedule.startTime = startTime;
+          existingSchedule.endTime = endTime;
+          const updatedSchedule = await existingSchedule.save();
+          updatedSchedules.push(updatedSchedule);
+        } else {
+          const newSchedule: IDefaultSchedule = new DefaultSchedule({
+            day,
+            startTime,
+            endTime,
+            mentorID
+          });
+          const savedSchedule = await newSchedule.save();
+          updatedSchedules.push(savedSchedule);
+        }
+      } else {
+        // Check if the day exists in the database, and if it does, delete it
+        const deletedSchedule = await DefaultSchedule.deleteOne({
+          mentorID,
+          day,
+        });
+        if (deletedSchedule.deletedCount > 0) {
+          deletedSchedules.push(day);
+        }
+      }
+    }
+
+    if (updatedSchedules.length === 0 && deletedSchedules.length === 0) {
+      res.status(400).json({ message: 'No valid schedules found to update or create or delete.' });
+    } else {
+      let message = '';
+      if (updatedSchedules.length > 0) {
+        const responseStatus = updatedSchedules.length === defaultScheduleData.length ? 200 : 201;
+        message = responseStatus === 200 ? 'Default Schedule Updated Successfully.' : 'Default Schedule Created Successfully.';
+      }
+      if (deletedSchedules.length > 0) {
+        message += ` Deleted days: ${deletedSchedules.join(', ')}`;
+      } 
+      res.status(200).json({
+        message,
+        updatedSchedules,
+        deletedSchedules,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to save Default Schedule" });
+  }
+};
+
+
+const getDefaultSchedule = async (_req: Request, res: Response) => {
+  try {
+    const defaultSchedule: IDefaultSchedule[] = await DefaultSchedule.find();
+    res.status(200).json({ defaultSchedule });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to get default schedule' });
+  }
+};
+
+
+const getDefaultAvailableDates = async (_req: Request, res: Response) => {
+  try {
+    const intlDateTimeFormatter = new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+    }); 
+    const today = new Date();
+    const defaultSchedules: IDefaultSchedule[] = await DefaultSchedule.find({ mentorID: 'Taran_Singh' });
+    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorID': 'Taran_Singh' });
+    const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
+
+    const firstDayAfterCurrent = new Date(today);
+    firstDayAfterCurrent.setDate(today.getDate() + 1);
+    
+    for (let i = 0; i < 30; i++) {
+      const currentDate = new Date(firstDayAfterCurrent);
+      currentDate.setDate(firstDayAfterCurrent.getDate() + i);
+      const day = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+      const matchingSchedule = defaultSchedules.find((schedule) => schedule.day === day);
+      
+      if (matchingSchedule) {
+        const { startTime, endTime } = matchingSchedule;
+        const availableHours: string[] = [];
+        const date = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+        console.log(date);
+
+        const blockedDatesJSON = JSON.stringify(blockedDates);
+        const blockedDatesObject = JSON.parse(blockedDatesJSON);
+        const dates = blockedDatesObject[0].blockedDatesData.dates;
+
+        if (!dates.includes(date)) {
+
+          const startDateTimeString = date + ' ' + startTime;
+          const endDateTimeString = date + ' ' + endTime;
+          const startDateTime = new Date(startDateTimeString);
+          const endDateTime = new Date(endDateTimeString);
+  
+          while (startDateTime < endDateTime) {
+            availableHours.push(intlDateTimeFormatter.format(startDateTime));
+            startDateTime.setHours(startDateTime.getHours() + 1);
+          }
+
+          availableDates.push({
+            date,
+            day,
+            availableHours,
+          });
+      }
+    }
+  }
+    res.status(200).json({ availableDates });
+  }
+catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to get available dates' });
+  }
+};
+
+export default { saveDefaultSchedule, getDefaultSchedule, getDefaultAvailableDates };

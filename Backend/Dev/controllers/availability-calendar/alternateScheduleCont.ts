@@ -72,9 +72,12 @@ const saveAlternateSchedule = async (req: Request, res: Response) => {
 };
 
 
-const getAlternateSchedule = async (_req: Request, res: Response) => {
+const getAlternateSchedule = async (req: Request, res: Response) => {
+  const { mentorId } = req.query;
   try {
-    const alternateSchedule: IAlternateSchedule[] = await AlternateSchedule.find();
+    const alternateSchedule: IAlternateSchedule | null = await AlternateSchedule.findOne({
+      mentorId: mentorId as string,
+    });
     res.status(200).json({ alternateSchedule });
   } catch (error) {
     console.error(error);

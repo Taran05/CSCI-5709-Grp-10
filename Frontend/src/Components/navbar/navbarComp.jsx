@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import "./navbarComp.css";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";

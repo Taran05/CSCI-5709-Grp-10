@@ -74,9 +74,12 @@ const saveDefaultSchedule = async (req: Request, res: Response) => {
 };
 
 
-const getDefaultSchedule = async (_req: Request, res: Response) => {
+const getDefaultSchedule = async (req: Request, res: Response) => {
+    const { mentorId } = req.query;
   try {
-    const defaultSchedule: IDefaultSchedule[] = await DefaultSchedule.find();
+    const defaultSchedule: IDefaultSchedule | null = await DefaultSchedule.findOne({
+      mentorId: mentorId as string,
+    });
     res.status(200).json({ defaultSchedule });
   } catch (error) {
     console.error(error);

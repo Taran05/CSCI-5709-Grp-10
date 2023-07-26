@@ -1,3 +1,6 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
 import axios from "axios";
 import { GET_ALL_USERS } from "./apiUrls";
 const getAllUsernames = async () => {

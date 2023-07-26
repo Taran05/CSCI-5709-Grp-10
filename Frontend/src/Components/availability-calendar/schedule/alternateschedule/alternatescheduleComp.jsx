@@ -133,20 +133,26 @@ export default function AlternateSchedule() {
             setLocalUser(localUser);
           try {
             const apiUrl = GET_ALTERNATE_SCHEDULE;
-            const response = await axios.get(apiUrl);
-            const fetchedData = response.data.alternateSchedule;
-            // Update the state with fetched data
-            setAlternateScheduleData(fetchedData);
+            const params = {
+                mentorId: localUser.userName,
+              };
+            const response = await axios.get(apiUrl, { params });
+            const fetchedData = response?.data?.alternateSchedule;
+            if(fetchedData){
+            console.log(fetchedData);
+            setAlternateScheduleData({ ...alternateScheduleData, ...fetchedData });
             // Update the checkboxStates with fetched data
             const updatedCheckboxStates = { ...checkboxStates };
-            fetchedData.forEach((schedule) => {
-              updatedCheckboxStates[schedule.day] = {
+            updatedCheckboxStates[fetchedData.day] = {
                 checked: true,
-                startTime: schedule.startTime,
-                endTime: schedule.endTime,
+                startTime: fetchedData.startTime,
+                endTime: fetchedData.endTime,
               };
-            });
             setCheckboxStates(updatedCheckboxStates);
+            }
+            else{
+                console.log("Alternate Schedule data not available.");
+              }
           } catch (error) {
             console.error(error);
             toast.error('Failed to fetch alternate schedule');

@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import { Request, Response } from "express";
 import User, { IUser } from "../../models/usersModel";
 import { checkPassword } from "../../util/hashingUtil";

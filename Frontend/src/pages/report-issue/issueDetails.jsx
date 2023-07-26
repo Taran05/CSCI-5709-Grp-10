@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { grey } from "@mui/material/colors";
+import { styled } from "@mui/material/styles";
 import { Button, TextField, Container, Typography, Box } from "@mui/material";
 import { DELETE_ISSUE, GET_ISSUE, UPDATE_ISSUE } from "../../utils/apiUrls";
 
@@ -62,6 +64,28 @@ const IssueDetails = () => {
         }
     }
 
+    const UpdateIssueButton = styled(Button)(({ theme }) => ({
+        height: "100%",
+        padding: "10px 30px",
+        fontWeight: 600,
+        color: theme.palette.getContrastText(grey[900]),
+        backgroundColor: "#1D267D",
+        "&:hover": {
+          backgroundColor: "#0C134F",
+        },
+      }));
+
+      const DeleteIssueButton = styled(Button)(({ theme }) => ({
+        height: "100%",
+        padding: "10px 30px",
+        fontWeight: 600,
+        color: theme.palette.getContrastText(grey[900]),
+        backgroundColor: "##f44336",
+        "&:hover": {
+          backgroundColor: "#ba000d",
+        },
+      }));
+
     return (
         <Container style={ {paddingTop: '10%', minHeight: '100vh', textAlign: 'centre'} }>
         
@@ -71,8 +95,8 @@ const IssueDetails = () => {
             <Typography variant="h5" align="left">Description</Typography>
             <TextField value={description} onChange={ (e) => setDescription(e.target.value)} required multiline rows={3} style={ {width: '100%', marginBottom: '2%'} } />
             <Box display="flex" justifyContent="space-between">
-                <Button type="submit" onClick={updateIssue} variant="contained" color="primary">Update</Button>
-                <Button type="button" onClick={deleteIssue} variant="contained" color="secondary">Delete</Button>
+                <UpdateIssueButton type="submit" onClick={updateIssue} variant="contained" color="primary">Update</UpdateIssueButton>
+                <DeleteIssueButton type="button" onClick={deleteIssue} variant="contained" color="secondary">Delete</DeleteIssueButton>
             </Box>
         
     </Container>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Typography, Card, CardContent, CardActionArea } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { GET_ALL_ISSUES } from "../../utils/apiUrls";
 
@@ -23,6 +25,18 @@ const ReportPage = () => {
         fetchIssues();
     }, []);
 
+    const ReportIssueButton = styled(Button)(({ theme }) => ({
+        height: "100%",
+        padding: "10px 30px",
+        fontWeight: 600,
+        color: theme.palette.getContrastText(grey[900]),
+        backgroundColor: "#1D267D",
+        "&:hover": {
+          backgroundColor: "#0C134F",
+        },
+      }));
+
+
     return (
         <Container style={{paddingTop: '10%', minHeight: '100vh', textAlign: 'center'}}>
             <Typography variant="h3" align="left" style={{marginBottom: '5%'}}>Reported Issues</Typography>
@@ -36,7 +50,7 @@ const ReportPage = () => {
                 </Card>
             ))}
             {issues.length === 0 && <Typography variant="h4">No Issues Raised</Typography>}
-            <Button variant="contained" color="primary" href="/issue/new" style={{marginTop: '5%'}}>Report Issue</Button>
+            <ReportIssueButton variant="contained" href="/issue/new" style={{marginTop: '5%'}}>Report Issue</ReportIssueButton>
         </Container>
     )
 }

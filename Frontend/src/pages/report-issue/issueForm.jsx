@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button, TextField, Container, Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom"
 import { CREATE_ISSUE } from "../../utils/apiUrls";
 
@@ -30,6 +32,17 @@ const IssueForm = ({ onNewIssue }) => {
         
     };
 
+    const SubmitIssueButton = styled(Button)(({ theme }) => ({
+        height: "100%",
+        padding: "10px 30px",
+        fontWeight: 600,
+        color: theme.palette.getContrastText(grey[900]),
+        backgroundColor: "#1D267D",
+        "&:hover": {
+          backgroundColor: "#0C134F",
+        },
+      }));
+
     return (
         <Container style={ {paddingTop: '10%', minHeight: '100vh', textAlign: 'centre'} }>
             <form onSubmit={handleSubmit}>
@@ -37,7 +50,7 @@ const IssueForm = ({ onNewIssue }) => {
                 <TextField value={title} onChange={ (e) => setTitle(e.target.value)} required style={ {width: '100%', marginBottom: '5%'} }/>
                 <Typography variant="h5" align="left">Issue Description</Typography>
                 <TextField value={description} onChange={ (e) => setDescription(e.target.value)} required multiline rows={3} style={ {width: '100%', marginBottom: '5%'} } />
-                <Button type="submit" variant="contained" color="primary">Submit</Button>
+                <SubmitIssueButton type="submit" variant="contained">Submit</SubmitIssueButton>
             </form>
         </Container>
     )

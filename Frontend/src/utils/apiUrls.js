@@ -1,4 +1,5 @@
-const domain = "https://learnly-backend.onrender.com/";
+const domain = "http://localhost:3001/";
+// const domain = "https://learnly-backend.onrender.com/";
 
 export const REGISTER_USER = `${domain}api/registerUser`;
 export const LOGIN_USER = `${domain}api/loginUser`;

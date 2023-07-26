@@ -9,6 +9,8 @@ import { Grid } from "@mui/material";
 import axios from "axios";
 import { GET_QUERY } from "../../utils/apiUrls";
 
+import { useNavigate } from "react-router-dom";
+
 function QueriesPage(props) {
   const [value, setValue] = useState("");
   const handleUserClick = (user) => {
@@ -27,13 +29,23 @@ function QueriesPage(props) {
     console.log("Printing Quereies: ");
     console.log(Queries);
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
+      const localUser = JSON.parse(localStorage.getItem("user"));
+      console.log("Printing local user:", localUser, localUser.userName);
+
+      if (!localUser) {
+        navigate("/login");
+      }
+
       const apiUrl = GET_QUERY;
 
       try {
-        const response = await axios.post(apiUrl, { mentorId: "123456" });
+        const response = await axios.post(apiUrl, {
+          mentorId: localUser.userName,
+        });
         updateQueries(response.data);
 
         console.log("Response", response);

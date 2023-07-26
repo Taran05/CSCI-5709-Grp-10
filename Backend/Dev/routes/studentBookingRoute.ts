@@ -19,14 +19,6 @@ const StudentBooking = mongoose.model(
   })
 );
 
-// Connect to MongoDB
-mongoose
-  .connect(
-    "mongodb+srv://Taran20:Taranjot_20@learnly.ohqbsji.mongodb.net/learnly?retryWrites=true&w=majority"
-  )
-  .then(() => console.log("Connected to MongoDB..."))
-  .catch((err) => console.error("Could not connect to MongoDB...", err));
-
 router.post("/api/saveBooking", async (req, res) => {
   const booking = new StudentBooking({
     serviceName: req.body.serviceName,
@@ -52,11 +44,7 @@ router.post("/payment/:mentorId", async (req, res) => {
   const mentorId = req.params.mentorId;
 
   try {
-    // Update all documents with the mentorId to isPaid=true
     await StudentBooking.updateMany({ mentorId: mentorId }, { isPaid: true });
-
-    // Normally you'd want to process the payment details here
-    // But we'll just return a successful response for this example
     res.send({ message: "Payment successful" });
   } catch (error) {
     res.status(500).send({ error: "Payment failed" });

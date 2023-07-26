@@ -1,11 +1,11 @@
 import mongoose, { Document, Model } from 'mongoose';
 
 export interface IBlockedDate extends Document {
-  date: string;
+ blockedDatesData : Object;
 }
 
 const blockDatesSchema = new mongoose.Schema({
-  date: { type: String, required: true },
+  blockedDatesData: { type: Object, required: true },
 });
 
 const BlockedDates: Model<IBlockedDate> = mongoose.model<IBlockedDate>('BlockedDates', blockDatesSchema);

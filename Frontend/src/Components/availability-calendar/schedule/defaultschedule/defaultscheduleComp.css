@@ -1,8 +1,4 @@
-.schedule-name button, .schedule-name span {
-    font-family: Lato,sans-serif;
-    font-weight: bolder;
-  }
-  
+ 
   .schedule-name span {
     font-size: 20px;
   }
@@ -35,7 +31,6 @@
     .day-checkboxes table {
       border-collapse: collapse;
       width: 60%;
-      font-family: 'Lato', sans-serif;
     }
   
     .day-checkboxes td {

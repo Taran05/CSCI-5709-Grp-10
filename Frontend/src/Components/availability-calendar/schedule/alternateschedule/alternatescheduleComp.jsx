@@ -84,21 +84,31 @@ export default function AlternateSchedule() {
             return;
         }
 
-        const alternateScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { startTime, endTime }]) => ({ day, startTime, endTime }));
-        console.log(alternateScheduleData);
+        const alternateScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => 
+        {
+            if(checked){
+                return { day, startTime, endTime, mentorID: "Taran_Singh" };
+            }
+            else{
+                return { day, startTime: "NAN", endTime: "NAN", mentorID: "Taran_Singh" };
+            }
+        });
 
-        // if (!changesMade) {
-        //     toast.warning("No changes were made!");
-        //     return;
-        // }
+        console.log(alternateScheduleData);
 
         try {
             // Send the selectedDays data to the backend API
-            await axios.post('http://localhost:3001/api/saveAlternateSchedule', alternateScheduleData);
-            setSaveStatus('success');
-            setChangesMade(true);
-            toast.success("Alternate Schedule Saved Successfully!");
-            return;
+            const response = await axios.post('http://localhost:3001/api/saveAlternateSchedule', alternateScheduleData);
+            if (response.status === 201) {
+                toast.success("Alternate Schedule Saved Successfully!");
+                setSaveStatus('success');
+                setChangesMade(true);
+                return;
+              } else if (response.status === 200) {
+                toast.success("Alternate Schedule Updated Successfully");
+              } else {
+                toast.error("Failed to Save Alternate Schedule");
+              }
         } catch (error) {
             setSaveStatus('error');
             console.error(error);

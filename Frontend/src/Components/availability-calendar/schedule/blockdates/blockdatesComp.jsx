@@ -7,11 +7,13 @@ import { Calendar } from "react-multi-date-picker";
 import { styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import axios from 'axios';
+import { BLOCK_DATES, GET_UNAVAILABLE_DATES } from "../../../../utils/apiUrls";
 
 export default function BlockDates() {
   const [showCalendarDialog, setShowCalendarDialog] = useState(false);
   const [selectedUnavailableDates, setSelectedUnavailableDates] = useState([]);
   const [fetchedUnavailableDates, setFetchedUnavailableDates] = useState([]);
+  const [localUser, setLocalUser] = useState(null);
 
   const today = new Date();
 
@@ -47,10 +49,11 @@ export default function BlockDates() {
       }
       console.log(dates);
       const BlockedDatesData = {
-        mentorID: "Taran_Singh",
+        mentorId: localUser.userName,
         dates: dates
       }
-      const response = await axios.post('http://localhost:3001/api/blockDates', BlockedDatesData);
+      const apiUrl = BLOCK_DATES;
+      const response = await axios.post(apiUrl, BlockedDatesData);
       
       if (response.status === 201) {
         toast.success("Dates blocked successfully!");
@@ -70,16 +73,27 @@ export default function BlockDates() {
   useEffect(() => {
     // Fetch the unavailable dates from the backend API
     const fetchUnavailableDates = async () => {
+      const localUser = JSON.parse(localStorage.getItem("user"));
+      console.log("Printing local user:", localUser);
+      setLocalUser(localUser);
       try {
-        const response = await axios.get('http://localhost:3001/api/getUnavailableDates');
-        console.log(response.data.blockedDates[0].blockedDatesData.dates);
-        const fetchedDates = response.data.blockedDates[0].blockedDatesData.dates.map((dateStr) => {
+        const apiUrl = GET_UNAVAILABLE_DATES;
+        const response = await axios.get(apiUrl);
+
+        const blockedDatesData = response?.data?.blockedDates?.[0]?.blockedDatesData;
+        if (blockedDatesData) {
+          console.log(response.data.blockedDates[0].blockedDatesData.dates);
+          const fetchedDates = response.data.blockedDates[0].blockedDatesData.dates.map((dateStr) => {
           const [year, month, day] = dateStr.split('-').map(Number);
           return new Date(year, month - 1, day); // Month is zero-based in JavaScript Dates
         });
         console.log(fetchedDates);
         setFetchedUnavailableDates(fetchedDates);
-      } catch (error) {
+      }
+      else{
+        console.log("Blocked dates data not available.");
+      }
+    }catch (error) {
         console.error(error);
         toast.error('Failed to fetch unavailable dates');
       }

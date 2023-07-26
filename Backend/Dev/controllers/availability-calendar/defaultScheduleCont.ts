@@ -10,16 +10,16 @@ const saveDefaultSchedule = async (req: Request, res: Response) => {
   const deletedSchedules: string[] = []; // To keep track of deleted days
   try {
     for (let index = 0; index < defaultScheduleData.length; index++) {
-      const { day, startTime, endTime, mentorID } = defaultScheduleData[index];
+      const { day, startTime, endTime, mentorId } = defaultScheduleData[index];
       console.log(day);
       console.log(startTime);
       console.log(endTime);
-      console.log(mentorID);
+      console.log(mentorId);
 
       // Check if startTime and endTime are not empty and not equal to "NAN"
       if (startTime !== '' && endTime !== '' && startTime !== 'NAN' && endTime !== 'NAN') {
         const existingSchedule: IDefaultSchedule | null = await DefaultSchedule.findOne({
-          mentorID,
+          mentorId,
           day,
         });
         console.log("Existing Schedule : " + existingSchedule);
@@ -33,7 +33,7 @@ const saveDefaultSchedule = async (req: Request, res: Response) => {
             day,
             startTime,
             endTime,
-            mentorID
+            mentorId
           });
           const savedSchedule = await newSchedule.save();
           updatedSchedules.push(savedSchedule);
@@ -41,7 +41,7 @@ const saveDefaultSchedule = async (req: Request, res: Response) => {
       } else {
         // Check if the day exists in the database, and if it does, delete it
         const deletedSchedule = await DefaultSchedule.deleteOne({
-          mentorID,
+          mentorId,
           day,
         });
         if (deletedSchedule.deletedCount > 0) {
@@ -74,9 +74,12 @@ const saveDefaultSchedule = async (req: Request, res: Response) => {
 };
 
 
-const getDefaultSchedule = async (_req: Request, res: Response) => {
+const getDefaultSchedule = async (req: Request, res: Response) => {
+    const { mentorId } = req.query;
   try {
-    const defaultSchedule: IDefaultSchedule[] = await DefaultSchedule.find();
+    const defaultSchedule: IDefaultSchedule | null = await DefaultSchedule.findOne({
+      mentorId: mentorId as string,
+    });
     res.status(200).json({ defaultSchedule });
   } catch (error) {
     console.error(error);
@@ -85,15 +88,16 @@ const getDefaultSchedule = async (_req: Request, res: Response) => {
 };
 
 
-const getDefaultAvailableDates = async (_req: Request, res: Response) => {
+const getDefaultAvailableDates = async (req: Request, res: Response) => {
+  const { mentorId } = req.query;
   try {
     const intlDateTimeFormatter = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: 'numeric',
     }); 
     const today = new Date();
-    const defaultSchedules: IDefaultSchedule[] = await DefaultSchedule.find({ mentorID: 'Taran_Singh' });
-    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorID': 'Taran_Singh' });
+    const defaultSchedules: IDefaultSchedule[] = await DefaultSchedule.find({ mentorId: mentorId });
+    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorId': mentorId});
     const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
 
     const firstDayAfterCurrent = new Date(today);
@@ -108,7 +112,7 @@ const getDefaultAvailableDates = async (_req: Request, res: Response) => {
       if (matchingSchedule) {
         const { startTime, endTime } = matchingSchedule;
         const availableHours: string[] = [];
-        const date = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+        const date = currentDate.toLocaleDateString('en-US', { month: "short", day: 'numeric' });
         console.log(date);
 
         const blockedDatesJSON = JSON.stringify(blockedDates);

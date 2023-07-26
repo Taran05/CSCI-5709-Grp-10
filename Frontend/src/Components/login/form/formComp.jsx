@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -44,9 +48,7 @@ export default function FormComp() {
       return;
     }
 
-    // Form submission successful
     console.log("Form submitted:", { email, password });
-    // Reset form fields
     setEmail("");
     setPassword("");
     setIsEmailValid(true);
@@ -57,11 +59,10 @@ export default function FormComp() {
         if (response.status === 200) {
           handleSnackbarOpen("Login successful. Redirecting...");
 
-          // Save data to localStorage
           localStorage.setItem("user", JSON.stringify(response.data.user));
 
           setTimeout(() => {
-            navigate("/dashboard");
+            navigate("/");
           }, 2000);
         } else {
           handleSnackbarOpen("Login failed. Wrong Credentials!");
@@ -69,7 +70,7 @@ export default function FormComp() {
       })
       .catch((error) => {
         handleSnackbarOpen("Login failed. Wrong Credentials!");
-      }); // Show snackbar with success message
+      });
   };
 
   const handleSnackbarOpen = (message) => {

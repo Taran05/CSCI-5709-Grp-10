@@ -1,3 +1,6 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
 import React from "react";
 import { Paper, Typography, Box } from "@mui/material";
 import EventIcon from "@mui/icons-material/Event";

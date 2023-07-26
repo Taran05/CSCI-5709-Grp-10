@@ -1,3 +1,6 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
 import React, { useState } from "react";
 import { Paper, Typography, Box, Snackbar, Alert } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";

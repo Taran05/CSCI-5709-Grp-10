@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import mongoose, { Document, Model } from "mongoose";
 
 export interface IUser extends Document {

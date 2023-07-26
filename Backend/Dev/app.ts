@@ -11,15 +11,16 @@ const properties = PropertiesReader(
 
 // Import the schemas
 import defaultScheduleRoute from "./routes/availability-calendar/defaultScheduleRoute";
-import alternateScheduleRoute from './routes/availability-calendar/alternateScheduleRoute';
+import alternateScheduleRoute from "./routes/availability-calendar/alternateScheduleRoute";
 import blockDatesRoute from "./routes/availability-calendar/blockDatesRoute";
 import calendarSettingsRoute from "./routes/availability-calendar/calendarsettingsRoute";
 import { userRegisterRoute } from "./routes/userAuthentication/userRegistrationRoute";
-import getServiceRoute from "./routes/getServiceRoute";
+import getServiceRoute from "./routes/servicesRoutes/getServiceRoute";
 import { userLoginRoute } from "./routes/userAuthentication/userLoginRoutes";
 import queriesRoutes from "./routes/queriesRoutes";
-import availabilityRoute from "./routes/availabilityRoute";
+import availabilityRoute from "./routes/servicesRoutes/availabilityRoute";
 import studentBookingRoute from "./routes/studentBookingRoute";
+import { issueRoute } from "./routes/reportIssues/issueRoute";
 
 const app: Express = express();
 
@@ -53,6 +54,7 @@ app.use(getServiceRoute);
 app.use("/api/", userLoginRoute);
 app.use(availabilityRoute);
 app.use(studentBookingRoute);
+app.use("/api/", issueRoute);
 
 const port: number = 3001;
 app.listen(port, () => {

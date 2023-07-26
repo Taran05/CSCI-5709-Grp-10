@@ -18,14 +18,19 @@ import MentorServiceHomePage from "./pages/MentorServiceBooking/HomePage/MentorS
 import BookingSchedulePage from "./pages/MentorServiceBooking/bookingSchedule/bookingSchedulePage";
 import StudentDetailsPage from "./pages/MentorServiceBooking/studentDetails/studentDetailsPage";
 import PaymentDetailsPage from "./pages/payments/paymentDetailsPage";
+import ProfileManagementPage from "./pages/profileMangement/profileMangementPage";
+import ReportPage from "./pages/report-issue/reportPage";
+import IssueForm from "./pages/report-issue/issueForm";
+import IssueDetails from "./pages/report-issue/issueDetails"
+
 
 const localUser = JSON.parse(localStorage.getItem("user"));
 const isAuthenticated = localUser !== null;
 
-// const Navigator = useNavigate();
 
+// const Navigator = useNavigate();
 const root = ReactDOM.createRoot(document.getElementById("root"));
-//root.render(<Register />);
+
 root.render(
   <BrowserRouter>
     <Routes>
@@ -41,6 +46,8 @@ root.render(
         {/* Anything that needs login must come blow this */}
         <Route path="/about-you" element={<RegisterAboutYouPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
+        <Route path="/profile-settings" element={<ProfileManagementPage />} />
+
         {isAuthenticated && <Route path="/queries" element={<QueriesPage />} />}
       </Route>
       <Route exact path="/" element={<StudentBookingApp />}>
@@ -51,6 +58,9 @@ root.render(
           path="/mentorServiceBooking/:id"
           element={<MentorServiceHomePage />}
         />
+        <Route path="/issues" element={<ReportPage />} />
+        <Route path="/issue/new" element={<IssueForm />} />
+        <Route path="/issue/:id" element={<IssueDetails />} />
       </Route>
     </Routes>
   </BrowserRouter>

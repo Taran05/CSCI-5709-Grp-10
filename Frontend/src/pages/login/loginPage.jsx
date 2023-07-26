@@ -1,3 +1,6 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
 import "./loginPage.css";
 import React from "react";
 import { Typography } from "@mui/material";

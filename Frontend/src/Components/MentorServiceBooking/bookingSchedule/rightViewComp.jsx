@@ -1,10 +1,15 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
+
 import React, { useState, useEffect, useRef } from "react";
 import { Paper, Typography, Box, IconButton, Button } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
-import { format } from "date-fns"; // Import date-fns for date formatting
+import { format } from "date-fns";
 import { grey } from "@mui/material/colors";
+import { MENTOR_AVAILABILITY_URL } from "../../../utils/apiUrls";
 
 const SelectableBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -57,9 +62,7 @@ const RightViewComponent = ({
 
   useEffect(() => {
     const fetchAvailability = async () => {
-      const response = await fetch(
-        `http://localhost:3001/availability/${mentorId}`
-      );
+      const response = await fetch(MENTOR_AVAILABILITY_URL + "/" + mentorId);
       const data = await response.json();
       if (data.length > 0) {
         setSelectedDate(data[0].date);
@@ -170,11 +173,10 @@ const RightViewComponent = ({
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
             gap: "1rem",
-            maxHeight: "200px", // Add this line to set a maximum height
-            overflowY: "auto", // Add this line to add vertical scroll
+            maxHeight: "200px",
+            overflowY: "auto",
           }}
         >
-          {/* Here we map over the available times for the selected date */}
           {selectedDate &&
             availability
               .find((item) => item.date === selectedDate)

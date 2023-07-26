@@ -1,3 +1,6 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
 import React from "react";
 import "./MentorServiceHomePage.css";
 import RightServiceViewComp from "../../../Components/MentorServiceBooking/HomePage/rightServiceViewComp";

@@ -1,3 +1,6 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
 import React from "react";
 import { Typography, TextField, Box } from "@mui/material";
 import styles from "./FormComponents.module.css";

@@ -8,6 +8,7 @@ import { grey } from "@mui/material/colors";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox, FormControl, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
+import { SAVE_DEFAULT_SCHEDULE, GET_DEFAULT_SCHEDULE } from "../../../../utils/apiUrls";
 
 export default function DefaultSchedule() {
 
@@ -36,6 +37,7 @@ export default function DefaultSchedule() {
     const [saveStatus, setSaveStatus] = useState(null);
     const [changesMade, setChangesMade] = useState(false);
     const [defaultScheduleData, setDefaultScheduleData] = useState([]);
+    const [localUser, setLocalUser] = useState(null);
 
     const startTimeOptions = [
         '12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM', '06:00 AM',
@@ -87,25 +89,25 @@ export default function DefaultSchedule() {
         const defaultScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => 
         {
             if(checked){
-                return { day, startTime, endTime, mentorID: "Taran_Singh" };
+                return { day, startTime, endTime, mentorId: localUser.userName };
             }
             else{
-                return { day, startTime: "NAN", endTime: "NAN", mentorID: "Taran_Singh" };
+                return { day, startTime: "NAN", endTime: "NAN", mentorId: localUser.userName };
             }
         });
 
         console.log(defaultScheduleData);
-
+        const apiUrl = SAVE_DEFAULT_SCHEDULE;
         try {
             // Send the selectedDays data to the backend API
-            const response = await axios.post('http://localhost:3001/api/saveDefaultSchedule', defaultScheduleData);
+            const response = await axios.post(apiUrl, defaultScheduleData);
             if (response.status === 201) {
                 toast.success("Default Schedule Saved Successfully!");
                 setSaveStatus('success');
                 setChangesMade(true);
                 return;
               } else if (response.status === 200) {
-                toast.success("Default Schedule Updated Successfully");
+                toast.success("Default Schedule Saved Successfully");
               } else {
                 toast.error("Failed to Save Default Schedule");
               }
@@ -123,24 +125,37 @@ export default function DefaultSchedule() {
     }, [saveStatus, checkboxStates]);
 
 
-    useEffect(() => {
+    useEffect(() => { 
         // Fetch the default schedule from the backend API
         const fetchDefaultSchedule = async () => {
+            const localUser = JSON.parse(localStorage.getItem("user"));
+            console.log("Printing local user:", localUser);
+            setLocalUser(localUser);
           try {
-            const response = await axios.get('http://localhost:3001/api/getDefaultSchedule');
-            const fetchedData = response.data.defaultSchedule;
-            // Update the state with fetched data
-            setDefaultScheduleData(fetchedData);
-            // Update the checkboxStates with fetched data
-            const updatedCheckboxStates = { ...checkboxStates };
-            fetchedData.forEach((schedule) => {
-              updatedCheckboxStates[schedule.day] = {
-                checked: true,
-                startTime: schedule.startTime,
-                endTime: schedule.endTime,
+            const apiUrl = GET_DEFAULT_SCHEDULE;
+            const params = {
+                mentorId: localUser.userName,
               };
-            });
-            setCheckboxStates(updatedCheckboxStates);
+            const response = await axios.get(apiUrl, { params });
+            console.log(response);
+            const fetchedData = response?.data?.defaultSchedule;
+            console.log(fetchedData);
+            if(fetchedData){
+                console.log(fetchedData);
+                // Update the state with fetched data
+                setDefaultScheduleData({ ...defaultScheduleData, ...fetchedData });
+                // Update the checkboxStates with fetched data
+                const updatedCheckboxStates = { ...checkboxStates };
+                updatedCheckboxStates[fetchedData.day] = {
+                    checked: true,
+                    startTime: fetchedData.startTime,
+                    endTime: fetchedData.endTime,
+                  };
+                setCheckboxStates(updatedCheckboxStates);
+            }
+            else{
+                console.log("Default Schedule data not available.");
+              }
           } catch (error) {
             console.error(error);
             toast.error('Failed to fetch default schedule');

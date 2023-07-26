@@ -1,6 +1,4 @@
-import express, { Request, Response } from "express";
-
-const router = express.Router();
+import { Request, Response } from "express";
 
 interface Service {
   serviceName: string;
@@ -8,7 +6,7 @@ interface Service {
   price: string;
 }
 
-router.get("/services/:mentorId", (req: Request, res: Response) => {
+const getService = async (req: Request, res: Response) => {
   let { mentorId } = req.params;
   console.log(mentorId);
   // For now, ignore mentorId and return the sample object
@@ -42,6 +40,6 @@ router.get("/services/:mentorId", (req: Request, res: Response) => {
   ];
 
   res.json(services);
-});
+};
 
-export default router;
+export default { getService };

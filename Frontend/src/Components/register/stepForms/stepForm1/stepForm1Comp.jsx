@@ -1,12 +1,16 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import "./stepForm1Comp.css";
+import InfoIcon from "@mui/icons-material/Info";
 import getAllUsernames from "../../../../utils/getAllUsers"; // Import the function to get usernames
 // const ids = ["aman82", "jj98"];
-
+import { Tooltip } from "@mui/material";
 const FormStep1 = ({ formData, setFormData, onStepComplete }) => {
   const [selectedOption, setSelectedOption] = React.useState(null);
   const [isTextFieldFilled, setIsTextFieldFilled] = React.useState(false);
@@ -107,6 +111,9 @@ const FormStep1 = ({ formData, setFormData, onStepComplete }) => {
           error={!isIdUnique} // Apply error style when isIdUnique is false
           helperText={!isIdUnique ? "Username Already exists!" : ""}
         />
+        <Tooltip arrow title="User have to create services first" sx={{}}>
+          <InfoIcon />
+        </Tooltip>
         <br />
         <br />
 

@@ -8,16 +8,16 @@ const saveAlternateSchedule = async (req: Request, res: Response) => {
   const deletedSchedules: string[] = []; // To keep track of deleted days
   try {
     for (let index = 0; index < alternateScheduleData.length; index++) {
-      const { day, startTime, endTime, mentorID } = alternateScheduleData[index];
+      const { day, startTime, endTime, mentorId } = alternateScheduleData[index];
       console.log(day);
       console.log(startTime);
       console.log(endTime);
-      console.log(mentorID);
+      console.log(mentorId);
 
       // Check if startTime and endTime are not empty and not equal to "NAN"
       if (startTime !== '' && endTime !== '' && startTime !== 'NAN' && endTime !== 'NAN') {
         const existingSchedule: IAlternateSchedule | null = await AlternateSchedule.findOne({
-          mentorID,
+          mentorId,
           day,
         });
         console.log("Existing Schedule : " + existingSchedule);
@@ -31,7 +31,7 @@ const saveAlternateSchedule = async (req: Request, res: Response) => {
             day,
             startTime,
             endTime,
-            mentorID
+            mentorId
           });
           const savedSchedule = await newSchedule.save();
           updatedSchedules.push(savedSchedule);
@@ -39,7 +39,7 @@ const saveAlternateSchedule = async (req: Request, res: Response) => {
       } else {
         // Check if the day exists in the database, and if it does, delete it
         const deletedSchedule = await AlternateSchedule.deleteOne({
-          mentorID,
+          mentorId,
           day,
         });
         if (deletedSchedule.deletedCount > 0) {
@@ -72,9 +72,12 @@ const saveAlternateSchedule = async (req: Request, res: Response) => {
 };
 
 
-const getAlternateSchedule = async (_req: Request, res: Response) => {
+const getAlternateSchedule = async (req: Request, res: Response) => {
+  const { mentorId } = req.query;
   try {
-    const alternateSchedule: IAlternateSchedule[] = await AlternateSchedule.find();
+    const alternateSchedule: IAlternateSchedule | null = await AlternateSchedule.findOne({
+      mentorId: mentorId as string,
+    });
     res.status(200).json({ alternateSchedule });
   } catch (error) {
     console.error(error);
@@ -82,15 +85,16 @@ const getAlternateSchedule = async (_req: Request, res: Response) => {
   }
 };
 
-const getAlternateAvailableDates = async (_req: Request, res: Response) => {
+const getAlternateAvailableDates = async (req: Request, res: Response) => {
+  const { mentorId } = req.query;
   try {
     const intlDateTimeFormatter = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: 'numeric',
     }); 
     const today = new Date();
-    const alternateSchedules: IAlternateSchedule[] = await AlternateSchedule.find({ mentorID: 'Taran_Singh' });
-    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorID': 'Taran_Singh' });
+    const alternateSchedules: IAlternateSchedule[] = await AlternateSchedule.find({ mentorId: mentorId });
+    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorId': mentorId });
     const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
 
     const firstDayAfterCurrent = new Date(today);

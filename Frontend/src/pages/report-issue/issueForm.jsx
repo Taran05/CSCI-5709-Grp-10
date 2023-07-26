@@ -46,8 +46,9 @@ const IssueForm = ({ onNewIssue }) => {
     return (
         <Container style={ {paddingTop: '10%', minHeight: '100vh', textAlign: 'centre'} }>
             <form onSubmit={handleSubmit}>
+                <Typography variant="h3" style={{ marginBottom: '5%' }}>Report Issue</Typography>
                 <Typography variant="h5" align="left">Issue Title</Typography>
-                <TextField value={title} onChange={ (e) => setTitle(e.target.value)} required style={ {width: '100%', marginBottom: '5%'} }/>
+                <TextField value={title} onChange={ (e) => setTitle(e.target.value)} required style={ {width: '100%', marginBottom: '2%'} }/>
                 <Typography variant="h5" align="left">Issue Description</Typography>
                 <TextField value={description} onChange={ (e) => setDescription(e.target.value)} required multiline rows={3} style={ {width: '100%', marginBottom: '5%'} } />
                 <SubmitIssueButton type="submit" variant="contained">Submit</SubmitIssueButton>

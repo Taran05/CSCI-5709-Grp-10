@@ -1,9 +1,11 @@
-import express, { Request, Response } from 'express';
-import DefaultSchedule, { IDefaultSchedule } from '../models/defaultScheduleModel';
+import express, { Request, Response } from "express";
+import DefaultSchedule, {
+  IDefaultSchedule,
+} from "../models/defaultScheduleModel";
 
 const router = express.Router();
 
-router.post('/api/saveDefaultSchedule', async (req: Request, res: Response) => {
+router.post("/saveDefaultSchedule", async (req: Request, res: Response) => {
   const defaultScheduleData: IDefaultSchedule[] = req.body;
   try {
     for (let index = 0; index < defaultScheduleData.length; index++) {
@@ -12,7 +14,7 @@ router.post('/api/saveDefaultSchedule', async (req: Request, res: Response) => {
       console.log(startTime);
       console.log(endTime);
 
-      if (startTime !== '' && endTime !== '') {
+      if (startTime !== "" && endTime !== "") {
         const newSchedule: IDefaultSchedule = new DefaultSchedule({
           dayOfWeek: dayOfWeek,
           startTime,
@@ -22,10 +24,10 @@ router.post('/api/saveDefaultSchedule', async (req: Request, res: Response) => {
         await newSchedule.save();
       }
     }
-    res.status(201).json({ message: 'Default Schedule saved successfully.' });
+    res.status(201).json({ message: "Default Schedule saved successfully." });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to save Default Schedule' });
+    res.status(500).json({ error: "Failed to save Default Schedule" });
   }
 });
 

@@ -1,7 +1,7 @@
 // controller.ts
 import { Request, Response } from 'express';
 import Queries from '../models/queriesModel';
-// const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
 // Controller function to get data from MongoDB
 const getQueries = async (req: Request, res: Response) => {
@@ -20,25 +20,27 @@ const getQueries = async (req: Request, res: Response) => {
 const sendResponse = async (req: Request, res: Response) => {
   console.log("in sedResponse api:",req.body);
 
-  const { _id, response } = req.body;
+  const { _id, response, userMail, mentor, query, title } = req.body;
   const isResponded = true;
 
-  // const emailConfig = {
-  //   service: 'YOUR_EMAIL_SERVICE', // e.g., 'Gmail'
-  //   auth: {
-  //     user: 'YOUR_EMAIL_ADDRESS',
-  //     pass: 'YOUR_EMAIL_PASSWORD',
-  //   },
-  // };
+  const emailConfig = {
+    host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+    auth: {
+      user: 'learnly.io@gmail.com',
+      pass: 'mhlqblzgdqrjotzq',
+    },
+  };
   
-  // const mailOptions = {
-  //   from: 'SENDER_NAME <SENDER_EMAIL_ADDRESS>',
-  //   to: 'RECIPIENT_EMAIL_ADDRESS',
-  //   subject: 'Test Email',
-  //   text: 'This is a test email sent from Node.js using nodemailer.',
-  // };
+  const mailOptions = {
+    from: 'Learnly <learnly.io@gmail.com>',
+    to: userMail,
+    subject: `Response: ${title}`,
+    text: `Query: ${query} \nResponse: ${response} \nBy: ${mentor}`,
+  };
   
-  // await sendEmail(emailConfig, mailOptions);
+  await sendEmail(emailConfig, mailOptions);
 
   try {
     const updatedQuery = await Queries.findByIdAndUpdate(_id, { response, isResponded }, { new: true });
@@ -96,18 +98,18 @@ const deleteQuery = async (req: Request, res: Response) => {
     }
 };
   
-// async function sendEmail(emailConfig:any, mailOptions:any) {
-//   try {
-//     // Create a nodemailer transporter using the email configuration
-//     const transporter = nodemailer.createTransport(emailConfig);
+async function sendEmail(emailConfig:any, mailOptions:any) {
+  try {
+    // Create a nodemailer transporter using the email configuration
+    const transporter = nodemailer.createTransport(emailConfig);
 
-//     // Send the email
-//     const info = await transporter.sendMail(mailOptions);
-//     console.log('Email sent:', info.response);
-//   } catch (error) {
-//     console.error('Error sending email:', error);
-//   }
-// }
+    // Send the email
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.response);
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+}
 
 
 export default {

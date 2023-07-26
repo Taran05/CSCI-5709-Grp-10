@@ -67,6 +67,10 @@ function BodyComp(props) {
     const postData = {
       _id: props.Queries[props.userId]._id,
       response: value,
+      userMail: props.Queries[props.userId].email,
+      mentor: JSON.parse(localStorage.getItem("user")).firstName,
+      query: props.Queries[props.userId].content,
+      title: props.Queries[props.userId].title,
     };
 
     try {

@@ -1,9 +1,11 @@
-import express, { Request, Response } from 'express';
-import CalendarSettings, { ICalendarSettings } from '../models/calendarSettingsModel';
+import express, { Request, Response } from "express";
+import CalendarSettings, {
+  ICalendarSettings,
+} from "../models/calendarSettingsModel";
 
 const router = express.Router();
 
-router.post('/api/saveCalendarSettings', async (req: Request, res: Response) => {
+router.post("/saveCalendarSettings", async (req: Request, res: Response) => {
   const calendarSettingsData: ICalendarSettings = req.body;
   console.log(calendarSettingsData);
   try {
@@ -23,7 +25,7 @@ router.post('/api/saveCalendarSettings', async (req: Request, res: Response) => 
     res.status(201).json({ message: 'Calendar Settings Saved Successfully.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to save Calendar Settings' });
+    res.status(500).json({ error: "Failed to save Calendar Settings" });
   }
 });
 

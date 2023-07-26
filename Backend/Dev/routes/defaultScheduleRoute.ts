@@ -1,9 +1,11 @@
-import express, { Request, Response } from 'express';
-import DefaultSchedule, { IDefaultSchedule } from '../models/defaultScheduleModel';
+import express, { Request, Response } from "express";
+import DefaultSchedule, {
+  IDefaultSchedule,
+} from "../models/defaultScheduleModel";
 
 const router = express.Router();
 
-router.post('/api/saveDefaultSchedule', async (req: Request, res: Response) => {
+router.post("/saveDefaultSchedule", async (req: Request, res: Response) => {
   const defaultScheduleData: IDefaultSchedule[] = req.body;
   const updatedSchedules: IDefaultSchedule[] = [];
   const deletedSchedules: string[] = []; // To keep track of deleted days
@@ -68,7 +70,7 @@ router.post('/api/saveDefaultSchedule', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to save Default Schedule' });
+    res.status(500).json({ error: "Failed to save Default Schedule" });
   }
 });
 

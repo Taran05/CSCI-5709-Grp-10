@@ -1,4 +1,4 @@
-import "./registerPage.css";
+import "./registerAboutYou/registerAboutYouPage.css";
 import React from "react";
 import FormComp from "../../Components/register/form/formComp";
 import myteam from "../../assets/images/landing1.png";

@@ -1,0 +1,44 @@
+.queryUserCard.css-1v5z4dq-MuiPaper-root-MuiCard-root {
+    width: 100%;
+    padding: 0.1rem;
+    border-radius: 8px;
+    transition: background-color 0.5s;
+    text-overflow: clip;
+    /* background-color: white; */
+  }
+
+  .queryUserCard{
+    margin: 0% !important;
+  }
+  
+  .queryUserCard.css-1v5z4dq-MuiPaper-root-MuiCard-root:hover {
+    background-color: #D4ADFC;
+    transform: scale(1.01);
+  }
+  
+  .queryUserCard.css-1v5z4dq-MuiPaper-root-MuiCard-root.selected-card {
+    background-color: rgb(81, 148, 231);
+    border-bottom-color: rgb(235, 235, 235);
+    border-bottom-style: solid;
+    border-bottom-width: 0.8px;
+    color: white !important;
+    font-weight: 500;
+  }
+  
+  .queryUserCard.not-clickable {
+    pointer-events: none;
+    height: 70px;
+    /* background-color: #F6F5F5 !important; */
+    
+  }
+
+  .queryUserCard.css-1v5z4dq-MuiPaper-root-MuiCard-root {
+    background-color: rgb(248,241,255);
+    border: 0px;
+  }
+
+  .queryUserCard.in-sidebar .MuiCardContent-root.css-46bh2p-MuiCardContent-root{
+    border-bottom: solid gray 1px;
+  }
+
+  

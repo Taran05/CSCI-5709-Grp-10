@@ -1,9 +1,9 @@
-import express, { Request, Response } from 'express';
-import BlockedDates, { IBlockedDate } from '../models/blockDatesModel';
+import express, { Request, Response } from "express";
+import BlockedDates, { IBlockedDate } from "../models/blockDatesModel";
 
 const router = express.Router();
 
-router.post('/api/blockDates', async (req: Request, res: Response) => {
+router.post('/blockDates', async (req: Request, res: Response) => {
   const blockedDatesData: IBlockedDate = req.body;
   console.log(blockedDatesData);
   try {

@@ -12,6 +12,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import { createTheme, styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import axios from 'axios';
+import { SAVE_CALENDAR_SETTINGS, GET_CALENDAR_SETTINGS } from "../../../utils/apiUrls";
 
 const theme = createTheme({
   breakpoints: {
@@ -92,6 +93,7 @@ export default function Calendar() {
     noticePeriod: "",
     bookingPeriod: "",
   });
+  const [localUser, setLocalUser] = useState(null);
 
   const handleTimezoneChange = (event) => {
     setTimezone(event.target.value);
@@ -131,9 +133,11 @@ export default function Calendar() {
         meetingLink,
         bookingPeriod,
         noticePeriod,
-        mentorID: "Taran_Singh",
+        mentorId: localUser.userName,
       }
-      const response = await axios.post('http://localhost:3001/api/saveCalendarSettings', calendarSettingsData);
+      console.log(calendarSettingsData);
+      const apiUrl = SAVE_CALENDAR_SETTINGS;
+      const response = await axios.post(apiUrl, calendarSettingsData);
       if (response.status === 201) {
         toast.success("Calendar Settings Saved Successfully!");
       } else if (response.status === 200) {
@@ -150,8 +154,12 @@ export default function Calendar() {
 
   useEffect(() => {
     const fetchedCalendarSettings = async () => {
+      const localUser = JSON.parse(localStorage.getItem("user"));
+      console.log("Printing local user:", localUser);
+      setLocalUser(localUser);
       try {
-        const response = await axios.get('http://localhost:3001/api/getCalendarSettings');
+        const apiUrl = GET_CALENDAR_SETTINGS;
+        const response = await axios.get(apiUrl);
         const fetchedSettings = response.data.calendarSettings.calendarSettingsData;
         setCalendarSettings(fetchedSettings);
 

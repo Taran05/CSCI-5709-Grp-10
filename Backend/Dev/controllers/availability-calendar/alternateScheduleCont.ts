@@ -1,10 +1,8 @@
-import express, { Request, Response } from 'express';
-import AlternateSchedule, { IAlternateSchedule } from '../models/alternateScheduleModel';
-//import BlockedDate, { IBlockedDate } from '../models/blockDatesModel';
+import { Request, Response } from 'express';
+import AlternateSchedule, { IAlternateSchedule } from '../../models/availability-calendar/alternateScheduleModel';
+import BlockedDate, { IBlockedDate } from '../../models/availability-calendar/blockDatesModel';
 
-const router = express.Router();
-
-router.post('/saveAlternateSchedule', async (req: Request, res: Response) => {
+const saveAlternateSchedule = async (req: Request, res: Response) => {
   const alternateScheduleData: IAlternateSchedule[] = req.body;
   const updatedSchedules: IAlternateSchedule[] = [];
   const deletedSchedules: string[] = []; // To keep track of deleted days
@@ -71,10 +69,10 @@ router.post('/saveAlternateSchedule', async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: 'Failed to save Alternate Schedule' });
   }
-});
+};
 
 
-router.get('/getAlternateSchedule', async (_req: Request, res: Response) => {
+const getAlternateSchedule = async (_req: Request, res: Response) => {
   try {
     const alternateSchedule: IAlternateSchedule[] = await AlternateSchedule.find();
     res.status(200).json({ alternateSchedule });
@@ -82,47 +80,65 @@ router.get('/getAlternateSchedule', async (_req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: 'Failed to get alternate schedule' });
   }
-});
+};
 
-// router.post('/api/getAlternateAvailableDates', async (req: Request, res: Response) => {
-//   try {
-//     const alternateSchedules: IAlternateSchedule[] = await AlternateSchedule.find();
-//     const blockedDates: IBlockedDate[] = await BlockedDate.find();
-//     const requestedDates: { date: string; day: string }[] = req.body;
-//     const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
-//     for(const requestedDate of requestedDates){
-//       const { date, day } = requestedDate;
-//       const matchingSchedule = alternateSchedules.find(
-//         (schedule) => schedule.day === day
-//       );
-//       if (matchingSchedule) {
-//         const { startTime, endTime } = matchingSchedule;
-//         const availableHours: string[] = [];
+const getAlternateAvailableDates = async (_req: Request, res: Response) => {
+  try {
+    const intlDateTimeFormatter = new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+    }); 
+    const today = new Date();
+    const alternateSchedules: IAlternateSchedule[] = await AlternateSchedule.find({ mentorID: 'Taran_Singh' });
+    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorID': 'Taran_Singh' });
+    const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
 
-//         const startDateTime = new Date(`2000-1-01 ${startTime}`);
-//         const endDateTime = new Date(`2000-1-01 ${endTime}`);
+    const firstDayAfterCurrent = new Date(today);
+    firstDayAfterCurrent.setDate(today.getDate() + 1);
+    
+    for (let i = 0; i < 30; i++) {
+      const currentDate = new Date(firstDayAfterCurrent);
+      currentDate.setDate(firstDayAfterCurrent.getDate() + i);
+      const day = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+      const matchingSchedule = alternateSchedules.find((schedule) => schedule.day === day);
+      
+      if (matchingSchedule) {
+        const { startTime, endTime } = matchingSchedule;
+        const availableHours: string[] = [];
+        const date = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+        console.log(date);
 
-//         while (startDateTime < endDateTime) {
-//           availableHours.push(startDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-//           startDateTime.setHours(startDateTime.getHours() + 1);
-//         }
-        
-//         const blockedDate = blockedDates.find((blockedDate) => blockedDate.date === date);
-//         if (!blockedDate) {
-//           availableDates.push({
-//             date,
-//             day,
-//             availableHours,
-//           });
-//         }
-//       }
-//     }
-//     res.status(200).json({ availableDates });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Failed to get available dates' });
-//   }
-// });
+        const blockedDatesJSON = JSON.stringify(blockedDates);
+        const blockedDatesObject = JSON.parse(blockedDatesJSON);
+        const dates = blockedDatesObject[0].blockedDatesData.dates;
+
+        if (!dates.includes(date)) {
+
+          const startDateTimeString = date + ' ' + startTime;
+          const endDateTimeString = date + ' ' + endTime;
+          const startDateTime = new Date(startDateTimeString);
+          const endDateTime = new Date(endDateTimeString);
+  
+          while (startDateTime < endDateTime) {
+            availableHours.push(intlDateTimeFormatter.format(startDateTime));
+            startDateTime.setHours(startDateTime.getHours() + 1);
+          }
+
+          availableDates.push({
+            date,
+            day,
+            availableHours,
+          });
+      }
+    }
+  }
+    res.status(200).json({ availableDates });
+  }
+catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to get available dates' });
+  }
+};
 
 
-export default router;
+export default { saveAlternateSchedule, getAlternateSchedule, getAlternateAvailableDates };

@@ -1,11 +1,9 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import CalendarSettings, {
   ICalendarSettings,
-} from "../models/calendarSettingsModel";
+} from '../../models/availability-calendar/calendarSettingsModel';
 
-const router = express.Router();
-
-router.post("/saveCalendarSettings", async (req: Request, res: Response) => {
+const saveCalendarSettings = async (req: Request, res: Response) => {
   const calendarSettingsData: ICalendarSettings = req.body;
   console.log(calendarSettingsData);
   try {
@@ -27,9 +25,9 @@ router.post("/saveCalendarSettings", async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: "Failed to save Calendar Settings" });
   }
-});
+};
 
-router.get('/getCalendarSettings', async (_req: Request, res: Response) => {
+const getCalendarSettings = async (_req: Request, res: Response) => {
   try {
     const calendarSettings: ICalendarSettings[] = await CalendarSettings.find();
     if (calendarSettings.length > 0) {
@@ -42,6 +40,6 @@ router.get('/getCalendarSettings', async (_req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: 'Failed to get calendar settings' });
   }
-});
+};
 
-export default router;
+export default { saveCalendarSettings, getCalendarSettings };

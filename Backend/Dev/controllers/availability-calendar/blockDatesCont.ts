@@ -1,9 +1,7 @@
-import express, { Request, Response } from "express";
-import BlockedDates, { IBlockedDate } from "../models/blockDatesModel";
+import { Request, Response } from "express";
+import BlockedDates, { IBlockedDate } from '../../models/availability-calendar/blockDatesModel';
 
-const router = express.Router();
-
-router.post('/blockDates', async (req: Request, res: Response) => {
+const blockDates = async (req: Request, res: Response) => {
   const blockedDatesData: IBlockedDate = req.body;
   console.log(blockedDatesData);
   try {
@@ -25,9 +23,9 @@ router.post('/blockDates', async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: 'Failed to Save Block Dates' });
   }
-});
+};
 
-router.get('/getUnavailableDates', async (_req: Request, res: Response) => {
+const getUnavailableDates = async (_req: Request, res: Response) => {
   try{
     const blockedDates: IBlockedDate[] = await BlockedDates.find();
     res.status(200).json({ blockedDates });
@@ -36,6 +34,6 @@ router.get('/getUnavailableDates', async (_req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ error: 'Failed to get Unavailable Dates' });
   }
-});
+};
 
-export default router;
+export default { blockDates, getUnavailableDates };

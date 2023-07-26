@@ -1,3 +1,4 @@
+// Author: Aadith Shameel - B00929852
 import mongoose, { Document, Model } from "mongoose";
 
 export interface IIssue extends Document {

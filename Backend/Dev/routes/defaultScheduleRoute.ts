@@ -75,7 +75,7 @@ router.post("/saveDefaultSchedule", async (req: Request, res: Response) => {
 });
 
 
-router.get('/api/getDefaultSchedule', async (_req: Request, res: Response) => {
+router.get('/getDefaultSchedule', async (_req: Request, res: Response) => {
   try {
     const defaultSchedule: IDefaultSchedule[] = await DefaultSchedule.find();
     res.status(200).json({ defaultSchedule });

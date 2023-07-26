@@ -29,7 +29,7 @@ router.post("/saveCalendarSettings", async (req: Request, res: Response) => {
   }
 });
 
-router.get('/api/getCalendarSettings', async (_req: Request, res: Response) => {
+router.get('/getCalendarSettings', async (_req: Request, res: Response) => {
   try {
     const calendarSettings: ICalendarSettings[] = await CalendarSettings.find();
     if (calendarSettings.length > 0) {

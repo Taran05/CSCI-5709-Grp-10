@@ -74,7 +74,7 @@ router.post('/saveAlternateSchedule', async (req: Request, res: Response) => {
 });
 
 
-router.get('/api/getAlternateSchedule', async (_req: Request, res: Response) => {
+router.get('/getAlternateSchedule', async (_req: Request, res: Response) => {
   try {
     const alternateSchedule: IAlternateSchedule[] = await AlternateSchedule.find();
     res.status(200).json({ alternateSchedule });

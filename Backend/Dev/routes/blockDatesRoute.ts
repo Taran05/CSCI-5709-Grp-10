@@ -27,7 +27,7 @@ router.post('/blockDates', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/api/getUnavailableDates', async (_req: Request, res: Response) => {
+router.get('/getUnavailableDates', async (_req: Request, res: Response) => {
   try{
     const blockedDates: IBlockedDate[] = await BlockedDates.find();
     res.status(200).json({ blockedDates });

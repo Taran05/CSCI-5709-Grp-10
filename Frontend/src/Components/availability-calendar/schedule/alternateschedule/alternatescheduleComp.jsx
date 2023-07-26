@@ -136,20 +136,18 @@ export default function AlternateSchedule() {
             const params = {
                 mentorId: localUser.userName,
               };
-            const response = await axios.get(apiUrl);
+            const response = await axios.get(apiUrl, { params });
             const fetchedData = response?.data?.alternateSchedule;
             if(fetchedData){
-                // Update the state with fetched data
-            setAlternateScheduleData(fetchedData);
+            console.log(fetchedData);
+            setAlternateScheduleData({ ...alternateScheduleData, ...fetchedData });
             // Update the checkboxStates with fetched data
             const updatedCheckboxStates = { ...checkboxStates };
-            fetchedData.forEach((schedule) => {
-              updatedCheckboxStates[schedule.day] = {
+            updatedCheckboxStates[fetchedData.day] = {
                 checked: true,
-                startTime: schedule.startTime,
-                endTime: schedule.endTime,
+                startTime: fetchedData.startTime,
+                endTime: fetchedData.endTime,
               };
-            });
             setCheckboxStates(updatedCheckboxStates);
             }
             else{

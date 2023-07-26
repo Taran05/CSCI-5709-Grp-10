@@ -11,16 +11,27 @@
 .bodyCompDiv .title {
   border-bottom: #ccc solid 0.5px;
   font-weight: 600;
+  margin-left: 2%;
 }
 
+.bodyCompDiv .userCardClass {
+  display: flex;
+}
+
+.bodyCompDiv button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textError.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-root.MuiButton-text.MuiButton-textError.MuiButton-sizeMedium.MuiButton-textSizeMedium.deleteButton.css-10fi992-MuiButtonBase-root-MuiButton-root{
+  background-color: transparent;
+  height: fit-content;
+  width: fit-content;
+  margin-top: 10px;
+}
 
 .bodyCompDiv .textAreaContainer {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   padding: 5px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   /* border: 1px solid red !important; */
   box-sizing: border-box;
-  border-width: 1px;
+  border-width: 0px;
   border-style: solid;
   border-color: #b0b0b0;
   border-radius: 6px;
@@ -94,16 +105,17 @@
 }
 
 .noBodyCompDiv .noBodyInnerDiv {
-  border: #958a8a dashed  2px;
-  font-size: large;
+  /* border: #958a8a dashed  2px; */
+  font-size: x-large;
   font-weight: 800;
   border-radius: 5%;
   width: 200px;
   text-align: center;
   vertical-align: middle;
-  background-color: #b6c1c9;
-  padding-top: 10%;
-  padding-bottom: 10%;
+  /* background-color: #b6c1c9; */
+  padding-top: 0%;
+  padding-bottom: 100%;
+  opacity: 50%;
 }
 
 .noBodyCompDiv p {
@@ -116,5 +128,9 @@
 
 .bodyCompDiv .buttonDiv{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+}
+
+.bodyCompDiv .bodyCompDivInner{
+  padding-left: 2%;
 }

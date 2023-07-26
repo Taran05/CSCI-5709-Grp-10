@@ -16,6 +16,8 @@ function QueriesPage(props) {
   };
 
   const [Queries, setQueries] = useState([]);
+  const [pendingQueryCount, setPendingQueryCount] = useState(0);
+  const [answeredQueryCount, setAnsweredQueryCount] = useState(0);
 
   const updateQueries = (queries) => {
     //debugger;
@@ -32,6 +34,22 @@ function QueriesPage(props) {
       try {
         const response = await axios.post(apiUrl, { mentorId: "123456" });
         updateQueries(response.data);
+
+        console.log("Response", response);
+        let pendCount = 0;
+        let ansCount = 0;
+        response.data.map((query, id) => {
+          if (query.isResponded === false) {
+            console.log("Adding pending");
+            pendCount++;
+          } else {
+            console.log("Adding Answered");
+            ansCount++;
+          }
+        });
+
+        setPendingQueryCount(pendCount);
+        setAnsweredQueryCount(ansCount);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -45,6 +63,13 @@ function QueriesPage(props) {
     updateDisplayOption(option);
     handleUserClick("");
   };
+
+  console.log(
+    "Before return in page.. answer:",
+    answeredQueryCount,
+    "pending:",
+    pendingQueryCount
+  );
 
   return (
     <div className="pageBody">
@@ -64,6 +89,8 @@ function QueriesPage(props) {
                 selectedUserId={value}
                 displayOption={displayOption}
                 Queries={Queries}
+                setPendingQueryCount={setPendingQueryCount}
+                setAnsweredQueryCount={setAnsweredQueryCount}
               />
             </div>
           </Grid>
@@ -76,6 +103,11 @@ function QueriesPage(props) {
                 updateQueries={updateQueries}
                 Queries={Queries}
                 changeDisplayOption={changeDisplayOption}
+                displayOption={displayOption}
+                pendingQueryCount={pendingQueryCount}
+                answeredQueryCount={answeredQueryCount}
+                setPendingQueryCount={setPendingQueryCount}
+                setAnsweredQueryCount={setAnsweredQueryCount}
               />
             </div>
           </Grid>

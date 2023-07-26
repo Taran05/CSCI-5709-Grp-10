@@ -1,6 +1,7 @@
 // controller.ts
 import { Request, Response } from 'express';
 import Queries from '../models/queriesModel';
+const nodemailer = require('nodemailer');
 
 // Controller function to get data from MongoDB
 const getQueries = async (req: Request, res: Response) => {
@@ -21,6 +22,23 @@ const sendResponse = async (req: Request, res: Response) => {
 
   const { _id, response } = req.body;
   const isResponded = true;
+
+  // const emailConfig = {
+  //   service: 'YOUR_EMAIL_SERVICE', // e.g., 'Gmail'
+  //   auth: {
+  //     user: 'YOUR_EMAIL_ADDRESS',
+  //     pass: 'YOUR_EMAIL_PASSWORD',
+  //   },
+  // };
+  
+  // const mailOptions = {
+  //   from: 'SENDER_NAME <SENDER_EMAIL_ADDRESS>',
+  //   to: 'RECIPIENT_EMAIL_ADDRESS',
+  //   subject: 'Test Email',
+  //   text: 'This is a test email sent from Node.js using nodemailer.',
+  // };
+  
+  // await sendEmail(emailConfig, mailOptions);
 
   try {
     const updatedQuery = await Queries.findByIdAndUpdate(_id, { response, isResponded }, { new: true });
@@ -56,9 +74,10 @@ export const saveQuery = async (req: Request, res: Response) => {
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
     }
-  };
+};
 
-  const deleteQuery = async (req: Request, res: Response) => {
+
+const deleteQuery = async (req: Request, res: Response) => {
     const { _id } = req.body; // Assuming the _id value is passed as a parameter in the URL
   
     try {
@@ -73,8 +92,21 @@ export const saveQuery = async (req: Request, res: Response) => {
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
     }
-  };
+};
   
+// async function sendEmail(emailConfig:any, mailOptions:any) {
+//   try {
+//     // Create a nodemailer transporter using the email configuration
+//     const transporter = nodemailer.createTransport(emailConfig);
+
+//     // Send the email
+//     const info = await transporter.sendMail(mailOptions);
+//     console.log('Email sent:', info.response);
+//   } catch (error) {
+//     console.error('Error sending email:', error);
+//   }
+// }
+
 
 export default {
     getQueries,

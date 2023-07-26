@@ -36,6 +36,13 @@ function BodyComp(props) {
     try {
       const response = await axios.post(apiUrl, postData);
       console.log(response.data);
+      if (props.Queries[props.userId].isResponded === false) {
+        console.log("Deleteing pending");
+        props.setPendingQueryCount(props.pendingQueryCount - 1);
+      } else {
+        console.log("Deleteing answered");
+        props.setAnsweredQueryCount(props.answeredQueryCount - 1);
+      }
     } catch (error) {
       console.error("Error deleteing Query:", error);
     }
@@ -65,6 +72,8 @@ function BodyComp(props) {
     try {
       const response = await axios.post(apiUrl, postData);
       console.log(response.data);
+      props.setPendingQueryCount(props.pendingQueryCount - 1);
+      props.setAnsweredQueryCount(props.answeredQueryCount + 1);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -79,16 +88,32 @@ function BodyComp(props) {
     //window.alert("Query moved to Answered");
   }
 
+  console.log(
+    "Before return..",
+    props.answeredQueryCount,
+    props.pendingQueryCount
+  );
+
   return (
     <div className="bodyCompDiv">
-      {props.selectedUserId ? (
-        <div>
-          <div>
+      {props.selectedUserId >= 0 && props.selectedUserId !== "" ? (
+        <div className={`bodyCompDivInner`}>
+          <div className={`userCardClass`}>
             <UserCardComp
               queries={props.Queries}
               userId={props.userId}
               inBody={true}
             />
+
+            <Button
+              variant="text"
+              className="deleteButton"
+              onClick={(e) => handleDeleteQuery(e)}
+              color="error"
+              // startIcon={}
+            >
+              <DeleteIcon />
+            </Button>
           </div>
           <br />
           <div className="textAreaContainer">
@@ -116,15 +141,6 @@ function BodyComp(props) {
                   <div className="buttonDiv">
                     <Button
                       variant="contained"
-                      className="deleteButton"
-                      onClick={(e) => handleDeleteQuery(e)}
-                      color="error"
-                      startIcon={<DeleteIcon />}
-                    >
-                      Delete
-                    </Button>
-                    <Button
-                      variant="contained"
                       className="submitButton"
                       type="submit"
                       // color="success"
@@ -137,6 +153,9 @@ function BodyComp(props) {
               </div>
             ) : (
               <div>
+                <Typography fontWeight={600} paddingLeft={1} variant="body1">
+                  Your Response
+                </Typography>
                 <Box mt={2}>
                   <Typography
                     className="text-box responseTextBox"
@@ -145,15 +164,6 @@ function BodyComp(props) {
                     {props.Queries[props.userId].response}
                   </Typography>
                 </Box>
-                <Button
-                  variant="contained"
-                  className="deleteButton deleteButtonAnswered"
-                  onClick={(e) => handleDeleteQuery(e)}
-                  color="error"
-                  startIcon={<DeleteIcon />}
-                >
-                  Delete
-                </Button>
               </div>
             )}
           </div>
@@ -174,7 +184,15 @@ function BodyComp(props) {
               justifyContent="center"
             >
               <Grid item>
-                <div className="noBodyInnerDiv">Select a Query</div>
+                <div className="noBodyInnerDiv">
+                  {props.displayOption === "Pending"
+                    ? props.pendingQueryCount > 0
+                      ? "Select a Query"
+                      : "No Queries"
+                    : props.answeredQueryCount > 0
+                    ? "Select a Query"
+                    : "No Queries"}
+                </div>
               </Grid>
             </Grid>
           </Grid>

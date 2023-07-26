@@ -1,8 +1,8 @@
-.sidebar-container {
+.sidebarComp .sidebar-container {
     padding: 1rem;
   }
   
-.sidebar-button {
+.sidebarComp .sidebar-button {
     display: flex;
     align-items: center;
     background-color: #f4f4f4;
@@ -11,7 +11,7 @@
     padding: 0.5rem;
   }
   
-.sidebar-button.selected {
+.sidebarComp .sidebar-button.selected {
     background-color: black;
   }
 

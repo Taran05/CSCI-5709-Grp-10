@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import axios from "axios";
 import APIs from "../../../utils/APIs";
+import "./sendQueryComp.css";
+import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
 
 const style = {
   position: "absolute",
@@ -74,7 +77,7 @@ export default function SendQueryComp({ mentorId }) {
   };
 
   return (
-    <div>
+    <div className="sendQueryStudentDiv">
       <Button onClick={handleOpen}>Send Query</Button>
       <Modal
         open={open}
@@ -83,6 +86,19 @@ export default function SendQueryComp({ mentorId }) {
         // aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <div className="buttonUpperDiv">
+            <Button
+              variant="text"
+              className="closeButton"
+              onClick={(e) => handleClose(e)}
+            >
+              <CloseIcon />
+            </Button>
+          </div>
+          <Typography variant="h6" component="div" textAlign="center">
+            Send Doubts to{" "}
+            <span style={{ color: "#5C469C", fontWeight: 600 }}>Shubham</span>.
+          </Typography>
           <form onSubmit={handleSubmit}>
             <TextField
               label="Name"
@@ -123,9 +139,11 @@ export default function SendQueryComp({ mentorId }) {
               onChange={handleContentChange}
             />
 
-            <Button type="submit" variant="contained" color="primary">
-              Send
-            </Button>
+            <div className="buttonUpperDiv">
+              <Button type="submit" variant="contained" color="primary">
+                <SendIcon />
+              </Button>
+            </div>
           </form>
         </Box>
       </Modal>

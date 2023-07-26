@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 // Connect to MongoDB
 
 mongoose
-  .connect(process.env.MONGODB_URI || '')
+  .connect(process.env.MONGODB_URI || `${properties.get("dev.MONGODB_URI")}`)
   .then(() => {
     console.log("Connected to MongoDB");
   })

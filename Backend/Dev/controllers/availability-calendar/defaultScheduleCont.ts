@@ -88,15 +88,16 @@ const getDefaultSchedule = async (req: Request, res: Response) => {
 };
 
 
-const getDefaultAvailableDates = async (_req: Request, res: Response) => {
+const getDefaultAvailableDates = async (req: Request, res: Response) => {
+  const { mentorId } = req.query;
   try {
     const intlDateTimeFormatter = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: 'numeric',
     }); 
     const today = new Date();
-    const defaultSchedules: IDefaultSchedule[] = await DefaultSchedule.find({ mentorId: 'testuser99' });
-    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorId': 'testuser99' });
+    const defaultSchedules: IDefaultSchedule[] = await DefaultSchedule.find({ mentorId: mentorId });
+    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorId': mentorId});
     const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
 
     const firstDayAfterCurrent = new Date(today);
@@ -111,7 +112,7 @@ const getDefaultAvailableDates = async (_req: Request, res: Response) => {
       if (matchingSchedule) {
         const { startTime, endTime } = matchingSchedule;
         const availableHours: string[] = [];
-        const date = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+        const date = currentDate.toLocaleDateString('en-US', { month: "short", day: 'numeric' });
         console.log(date);
 
         const blockedDatesJSON = JSON.stringify(blockedDates);

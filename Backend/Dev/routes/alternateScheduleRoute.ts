@@ -4,7 +4,7 @@ import AlternateSchedule, { IAlternateSchedule } from '../models/alternateSchedu
 
 const router = express.Router();
 
-router.post('/api/saveAlternateSchedule', async (req: Request, res: Response) => {
+router.post('/saveAlternateSchedule', async (req: Request, res: Response) => {
   const alternateScheduleData: IAlternateSchedule[] = req.body;
   const updatedSchedules: IAlternateSchedule[] = [];
   const deletedSchedules: string[] = []; // To keep track of deleted days

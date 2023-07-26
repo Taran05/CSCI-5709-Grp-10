@@ -1,4 +1,7 @@
-// controllers/bookingController.ts
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
+
 import { Request, Response } from "express";
 import StudentBooking from "../../models/StudentBooking";
 

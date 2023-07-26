@@ -1,4 +1,7 @@
-// models/StudentBooking.ts
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
+
 import mongoose from "mongoose";
 
 const StudentBooking = mongoose.model(

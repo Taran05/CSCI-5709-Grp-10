@@ -133,20 +133,29 @@ export default function DefaultSchedule() {
             setLocalUser(localUser);
           try {
             const apiUrl = GET_DEFAULT_SCHEDULE;
-            const response = await axios.get(apiUrl);
-            const fetchedData = response.data.defaultSchedule;
-            // Update the state with fetched data
-            setDefaultScheduleData(fetchedData);
-            // Update the checkboxStates with fetched data
-            const updatedCheckboxStates = { ...checkboxStates };
-            fetchedData.forEach((schedule) => {
-              updatedCheckboxStates[schedule.day] = {
+            const params = {
+                mentorId: localUser.userName,
+              };
+            const response = await axios.get(apiUrl, { params });
+            const fetchedData = response?.data?.defaultSchedule;
+            if(fetchedData){
+                console.log(fetchedData);
+                // Update the state with fetched data
+                setDefaultScheduleData(fetchedData);
+                // Update the checkboxStates with fetched data
+                const updatedCheckboxStates = { ...checkboxStates };
+                fetchedData.forEach((schedule) => {
+                updatedCheckboxStates[schedule.day] = {
                 checked: true,
                 startTime: schedule.startTime,
                 endTime: schedule.endTime,
               };
             });
             setCheckboxStates(updatedCheckboxStates);
+            }
+            else{
+                console.log("Default Schedule data not available.");
+              }
           } catch (error) {
             console.error(error);
             toast.error('Failed to fetch default schedule');

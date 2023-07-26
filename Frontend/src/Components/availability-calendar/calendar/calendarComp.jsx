@@ -160,11 +160,10 @@ export default function Calendar() {
       try {
         const apiUrl = GET_CALENDAR_SETTINGS;
         const response = await axios.get(apiUrl);
-        const fetchedSettings = response.data.calendarSettings.calendarSettingsData;
-        setCalendarSettings(fetchedSettings);
-
-        if (fetchedSettings) {
+        const fetchedSettings = response?.data?.calendarSettings?.calendarSettingsData;
+        if(fetchedSettings){
           console.log(fetchedSettings);
+          setCalendarSettings(fetchedSettings);
           setTimezone(fetchedSettings.timezone);
           setMeetingLink(fetchedSettings.meetingLink);
           setBookingPeriod(fetchedSettings.bookingPeriod);
@@ -172,7 +171,6 @@ export default function Calendar() {
           setNoticePeriodValue(noticePeriodValue);
           setNoticePeriodUnit(noticePeriodUnit);
         }
-
       } catch (error) {
         console.error(error);
         toast.error('Failed to fetch calendar settings');

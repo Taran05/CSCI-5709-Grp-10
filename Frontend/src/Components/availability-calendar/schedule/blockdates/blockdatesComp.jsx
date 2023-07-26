@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Grid, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { Calendar } from "react-multi-date-picker";
-import { createTheme, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import axios from 'axios';
 
@@ -13,17 +13,7 @@ export default function BlockDates() {
   const [selectedUnavailableDates, setSelectedUnavailableDates] = useState([]);
   const [fetchedUnavailableDates, setFetchedUnavailableDates] = useState([]);
 
-  const theme = createTheme({
-    breakpoints: {
-      values: {
-        xs: 330,
-        sm: 380,
-        md: 430,
-        lg: 1100,
-        xl: 1450,
-      },
-    },
-  });
+  const today = new Date();
 
   const BlockDatesButton = styled(Button)(({ theme }) => ({
     height: "28%",
@@ -127,6 +117,7 @@ export default function BlockDates() {
                 multiple
                 sort
                 layout="landscape"
+                minDate={today}
               />
             </DialogContent>
             <DialogActions>

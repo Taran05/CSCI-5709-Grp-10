@@ -78,7 +78,7 @@ export default function SideBarDrawer() {
         )}
       </Button>
       <Drawer
-        anchor={isXS ? "bottom" : "left"}
+        anchor={isXS ? "top" : "left"}
         open={isOpen}
         onClose={toggleDrawer}
       >

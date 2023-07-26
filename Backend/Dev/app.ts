@@ -16,6 +16,7 @@ import blockDatesRoute from "./routes/blockDatesRoute";
 import calendarSettingsRoute from "./routes/calendarsettingsRoute";
 import { userRegisterRoute } from "./routes/userAuthentication/userRegistrationRoute";
 import { userLoginRoute } from "./routes/userAuthentication/userLoginRoutes";
+import { issueRoute } from "./routes/reportIssues/issueRoute";
 
 const app: Express = express();
 
@@ -44,6 +45,7 @@ app.use("/api/", blockDatesRoute);
 app.use("/api/", calendarSettingsRoute);
 app.use("/api/", userRegisterRoute);
 app.use("/api/", userLoginRoute);
+app.use("/api/", issueRoute);
 
 const port: number = 3001;
 app.listen(port, () => {

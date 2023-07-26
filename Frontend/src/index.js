@@ -30,10 +30,12 @@ root.render(
         <Route path="/about-you" element={<RegisterAboutYouPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
+        <Route path="/queries" element={<QueriesPage />} />
+      </Route>
+      <Route exact path="/" element={<StudentBookingApp />}>
         <Route path="/bookingSchedule" element={<BookingSchedulePage />} />
         <Route path="/paymentDetails" element={<PaymentDetailsPage />} />
         <Route path="/studentDetails" element={<StudentDetailsPage />} />
-        <Route path="/queries" element={<QueriesPage />} />
         <Route
           path="/mentorServiceBooking/:id"
           element={<MentorServiceHomePage />}

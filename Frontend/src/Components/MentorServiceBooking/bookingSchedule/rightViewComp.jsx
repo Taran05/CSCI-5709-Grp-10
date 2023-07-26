@@ -126,7 +126,7 @@ const RightViewComponent = ({
             alignItems: "center",
             overflowX: "auto",
             marginBottom: "20px",
-            width: "100%", // Ensures that the box takes up full width
+            width: "100%",
           }}
         >
           <ScrollButton onClick={handleScrollLeft} direction="left">

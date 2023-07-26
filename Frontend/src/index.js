@@ -31,6 +31,7 @@ root.render(
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
         <Route path="/queries" element={<QueriesPage />} />
+        <Route path="/profile-settings" element={<ProfileManagementPage />} />
       </Route>
       <Route exact path="/" element={<StudentBookingApp />}>
         <Route path="/bookingSchedule" element={<BookingSchedulePage />} />
@@ -40,7 +41,6 @@ root.render(
           path="/mentorServiceBooking/:id"
           element={<MentorServiceHomePage />}
         />
-        <Route path="/profile-settings" element={<ProfileManagementPage />} />
       </Route>
     </Routes>
   </BrowserRouter>

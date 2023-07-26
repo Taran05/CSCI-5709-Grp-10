@@ -5,9 +5,10 @@ import cors from 'cors';
 
 // Import the schemas
 import defaultScheduleRoute from './routes/defaultScheduleRoute';
-import newScheduleRoute from './routes/newScheduleRoute';
+import alternateScheduleRoute from './routes/alternateScheduleRoute';
 import blockDatesRoute from './routes/blockDatesRoute';
 import calendarSettingsRoute from './routes/calendarsettingsRoute';
+import getDatesFromDefaultScheduleRoute from './util/getDatesFromDefaultScheduleRoute';
 
 const app: Express = express();
 
@@ -28,9 +29,10 @@ mongoose
 
 //api middlewares
 app.use(defaultScheduleRoute);
-app.use(newScheduleRoute);
+app.use(alternateScheduleRoute);
 app.use(blockDatesRoute);
 app.use(calendarSettingsRoute);
+app.use(getDatesFromDefaultScheduleRoute);
 
 const port: number = 3001;
 app.listen(port, () => {

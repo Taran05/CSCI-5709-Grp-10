@@ -48,9 +48,7 @@ export default function FormComp() {
       return;
     }
 
-    // Form submission successful
     console.log("Form submitted:", { email, password });
-    // Reset form fields
     setEmail("");
     setPassword("");
     setIsEmailValid(true);
@@ -61,7 +59,6 @@ export default function FormComp() {
         if (response.status === 200) {
           handleSnackbarOpen("Login successful. Redirecting...");
 
-          // Save data to localStorage
           localStorage.setItem("user", JSON.stringify(response.data.user));
 
           setTimeout(() => {
@@ -73,7 +70,7 @@ export default function FormComp() {
       })
       .catch((error) => {
         handleSnackbarOpen("Login failed. Wrong Credentials!");
-      }); // Show snackbar with success message
+      });
   };
 
   const handleSnackbarOpen = (message) => {

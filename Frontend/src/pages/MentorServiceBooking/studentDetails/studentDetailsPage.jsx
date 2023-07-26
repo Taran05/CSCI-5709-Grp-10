@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Paper, Typography, Box, Snackbar } from "@mui/material";
+import { Paper, Typography, Box, Snackbar, Alert } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import FormInput from "../../../Components/MentorServiceBooking/studentDetails/formInput";
 import FormButton from "../../../Components/MentorServiceBooking/studentDetails/formButton";
@@ -10,6 +10,7 @@ const StudentDetailsForm = () => {
   const [email, setEmail] = useState("");
   const [callAbout, setCallAbout] = useState("");
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
   const selectedTime = location.state.selectedTime;
   const selectedDate = location.state.selectedDate;
   const mentorId = location.state.mentorId;
@@ -36,8 +37,25 @@ const StudentDetailsForm = () => {
     setSnackbarOpen(false);
   };
 
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!name.trim() || !email.trim() || !callAbout.trim()) {
+      setSnackbarMessage("All fields must be filled out");
+      setSnackbarOpen(true);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setSnackbarMessage("Please enter a valid email");
+      setSnackbarOpen(true);
+      return;
+    }
+    setLoading(true);
     const details = {
       serviceName: serviceName,
       serviceDuration: serviceDuration,
@@ -60,25 +78,30 @@ const StudentDetailsForm = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        setLoading(false);
         if (data.error) {
           setSnackbarMessage(data.error);
           setSnackbarOpen(true);
         } else {
-          setSnackbarMessage("Student details saved successfully");
+          setSnackbarMessage(
+            "Student details saved successfully. Redirecting to payments page"
+          );
           setSnackbarOpen(true);
-          navigate("/paymentDetails", {
-            state: {
-              servicePrice: servicePrice,
-              mentorId: mentorId,
-            },
-          });
+          setTimeout(() => {
+            navigate("/paymentDetails", {
+              state: {
+                servicePrice: servicePrice,
+                mentorId: mentorId,
+              },
+            });
+          }, 4000);
         }
-        navigate("/paymentDetails", {
-          state: {
-            servicePrice: servicePrice,
-            mentorId: mentorId,
-          },
-        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setLoading(false);
+        setSnackbarMessage("An error occurred while saving the booking.");
+        setSnackbarOpen(true);
       });
   };
 
@@ -136,6 +159,20 @@ const StudentDetailsForm = () => {
         />
         <FormButton buttonText="Confirm and Pay" handleSubmit={handleSubmit} />
       </form>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="info"
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 };

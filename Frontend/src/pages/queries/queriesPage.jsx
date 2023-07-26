@@ -36,9 +36,9 @@ function QueriesPage(props) {
       const localUser = JSON.parse(localStorage.getItem("user"));
       console.log("Printing local user:", localUser);
 
-      if (!localUser) {
-        navigate("/login");
-      }
+      // if (!localUser) {
+      //   navigate("/login");
+      // }
 
       const apiUrl = GET_QUERY;
 

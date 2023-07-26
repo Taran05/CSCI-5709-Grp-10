@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import {
-  Card,
-  CircularProgress,
-  Typography,
-  Grid,
-  Box,
-  Divider,
-} from "@mui/material";
+import { Card, Typography, Grid, Box, Divider } from "@mui/material";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./rightServiceViewComp.css"; // Import the CSS file
 
 const RightServiceViewComp = ({ mentorId }) => {
   const [serviceDetails, setServiceDetails] = useState([]);
@@ -34,61 +28,26 @@ const RightServiceViewComp = ({ mentorId }) => {
   };
 
   return (
-    <Grid
-      container
-      spacing={4}
-      sx={{
-        paddingLeft: "10%",
-        paddingTop: "8%",
-        paddingRight: "10%",
-      }}
-    >
+    <Grid container spacing={4} className="grid-container">
       {serviceDetails.map((service, index) => (
         <Grid item xs={12} sm={6} md={6} key={index}>
           <Card
             elevation={5}
-            sx={{
-              height: "85%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              paddingBottom: "6%",
-              marginTop: "5%",
-              paddingLeft: "6%",
-              paddingRight: "6%",
-              borderRadius: "5px",
-              textAlign: "center",
-              position: "relative",
-              transition: "0.3s",
-              ":hover": {
-                transform: "scale(1.03)",
-                boxShadow: "0px 4px 20px rgba(0,0,0,0.1)",
-                cursor: "pointer",
-              },
-            }}
+            className="service-card"
             onClick={() => handleServiceClick(service)}
           >
-            <Box position="absolute" top="10px" left="10px">
+            <Box className="icon-box">
               <CalendarMonthIcon color="disabled" />
             </Box>
-            <Typography
-              variant="h6"
-              sx={{ marginTop: "15px", marginBottom: "auto" }}
-            >
+            <Typography variant="h6" className="service-name">
               {service.serviceName}
             </Typography>
             <Divider sx={{ my: 2 }} />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "auto",
-              }}
-            >
+            <Box className="detail-box">
               <Typography variant="body1">{service.time}</Typography>
               <Typography variant="body1">{service.price}</Typography>
             </Box>
-            <Box position="absolute" top="10px" right="10px">
+            <Box className="icon-box-right">
               <KeyboardArrowRightIcon color="disabled" />
             </Box>
           </Card>

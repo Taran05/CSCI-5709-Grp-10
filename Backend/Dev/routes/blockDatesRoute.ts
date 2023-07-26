@@ -4,20 +4,37 @@ import BlockedDates, { IBlockedDate } from '../models/blockDatesModel';
 const router = express.Router();
 
 router.post('/api/blockDates', async (req: Request, res: Response) => {
-  const dates: string[] = req.body;
-  console.log(dates);
+  const blockedDatesData: IBlockedDate = req.body;
+  console.log(blockedDatesData);
   try {
-    for (let index = 0; index < dates.length; index++) {
-      const date = dates[index];
+    const existingBlockedDates = await BlockedDates.findOne();
+    console.log(existingBlockedDates);
+    if(existingBlockedDates){
+      existingBlockedDates.blockedDatesData = blockedDatesData;
+      await existingBlockedDates.save();
+      res.status(200).json({ message: 'Blocked Dates Updated Successfully.' });
+    }
+    else {
       const blockedDates: IBlockedDate = new BlockedDates({
-        date,
+        blockedDatesData,
       });
       await blockedDates.save();
+      res.status(201).json({ message: 'Blocked Dates Saved Successfully.' });
     }
-    res.status(201).json({ message: 'Blocked dates saved successfully.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to save block dates' });
+    res.status(500).json({ error: 'Failed to Save Block Dates' });
+  }
+});
+
+router.get('/api/getUnavailableDates', async (_req: Request, res: Response) => {
+  try{
+    const blockedDates: IBlockedDate[] = await BlockedDates.find();
+    res.status(200).json({ blockedDates });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to get Unavailable Dates' });
   }
 });
 

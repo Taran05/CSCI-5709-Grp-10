@@ -1,0 +1,57 @@
+ 
+  .schedule-name span {
+    font-size: 20px;
+  }
+  
+  .schedule-details {
+    flex-direction: column;
+    padding-left: 10px;
+    border: 2px solid #1D267D;
+    width: 500px;
+    padding: 20px;
+  } 
+  
+  .day-checkboxes label{
+      display: flex;
+      margin-right: 10px;
+  }
+  
+  .day-checkboxes {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+  
+    .day-checkboxes label input {
+      margin-right: 10px; 
+      display: inline;
+    }
+    
+    .day-checkboxes table {
+      border-collapse: collapse;
+      width: 60%;
+    }
+  
+    .day-checkboxes td {
+      padding: 18px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+  
+    input{
+      cursor: pointer;
+    }
+  
+    .time-dropdown {
+      display: flex;
+      align-items: center;
+    }
+    
+    .time-separator {
+      margin: 0 15px;
+    }
+  
+    .larger-label{
+      font-size: 22px;
+    }

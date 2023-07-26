@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import "./formComp.css";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -12,6 +11,10 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
 import { FormHelperText } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const ids = ["aman82", "jj98"];
 
 export default function FormComp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,6 +26,8 @@ export default function FormComp() {
   const [isLastNameValid, setIsLastNameValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isIdUnique, setIsIdUnique] = useState(true);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,10 +39,13 @@ export default function FormComp() {
     event.preventDefault();
   };
 
+  const handleSnackbarClose = () => {
+    setIsSnackbarOpen(false);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("in handle submit...");
     setIsFirstNameValid(!!firstName);
     setIsLastNameValid(!!lastName);
     setIsEmailValid(!!email);
@@ -57,18 +65,33 @@ export default function FormComp() {
       return;
     }
 
+    if (ids.includes(email)) {
+      setIsIdUnique(false);
+      return;
+    }
+
     // Form submission successful
     console.log("Form submitted:", { firstName, lastName, email, password });
     // Reset form fields
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setIsFirstNameValid(true);
-    setIsLastNameValid(true);
-    setIsEmailValid(true);
-    setIsPasswordValid(true);
-    navigate("/login");
+
+    setIsSnackbarOpen(true); // Show the sliding Snackbar
+
+    // Redirect to the next form after 1.5 seconds
+    setTimeout(() => {
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setIsFirstNameValid(true);
+      setIsLastNameValid(true);
+      setIsEmailValid(true);
+      setIsPasswordValid(true);
+      setIsIdUnique(true);
+      setIsSnackbarOpen(false);
+      navigate("/about-you", {
+        state: { email, firstName, lastName, password },
+      });
+    }, 1500);
   };
 
   const isValidEmail = (value) => {
@@ -77,7 +100,6 @@ export default function FormComp() {
   };
 
   const isValidPassword = (value) => {
-    console.log("In is pass:", value, value.length);
     return value.length >= 8;
   };
 
@@ -91,6 +113,21 @@ export default function FormComp() {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
+      <Snackbar
+        open={isSnackbarOpen}
+        autoHideDuration={2000} // Auto hide the Snackbar after 2 seconds
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <MuiAlert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Let's get started!
+        </MuiAlert>
+      </Snackbar>
+
       <div className="form">
         <TextField
           required
@@ -120,6 +157,7 @@ export default function FormComp() {
           error={!isLastNameValid}
           helperText={!isLastNameValid && "Please enter your last name"}
         />
+
         <TextField
           required
           id="outlined-required"
@@ -131,12 +169,12 @@ export default function FormComp() {
           }}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          error={!isEmailValid}
+          error={!isEmailValid || !isIdUnique}
           helperText={
-            !isEmailValid
-              ? email
-                ? "Please enter a valid email address"
-                : "Please enter your email"
+            !isEmailValid && email
+              ? "Please enter a valid email address"
+              : !isIdUnique && email
+              ? "ID already exists"
               : ""
           }
         />
@@ -174,10 +212,8 @@ export default function FormComp() {
             label="Password"
           />
           <FormHelperText>
-            {!isPasswordValid
-              ? password
-                ? "Password should be more than 8 digits"
-                : "Please enter your password"
+            {!isPasswordValid && password
+              ? "Password should be more than 8 digits"
               : ""}
           </FormHelperText>
         </FormControl>

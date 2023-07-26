@@ -3,6 +3,7 @@ import { Paper, Typography, Box } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import FormInput from "../../../Components/MentorServiceBooking/studentDetails/formInput";
 import FormButton from "../../../Components/MentorServiceBooking/studentDetails/formButton";
+import { SAVE_STUDENT_BOOKING } from "../../../utils/apiUrls";
 
 const StudentDetailsForm = () => {
   const [name, setName] = useState("");
@@ -44,7 +45,7 @@ const StudentDetailsForm = () => {
     };
 
     // Send details to server, then navigate
-    fetch("http://localhost:3001/api/saveBooking", {
+    fetch(SAVE_STUDENT_BOOKING, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

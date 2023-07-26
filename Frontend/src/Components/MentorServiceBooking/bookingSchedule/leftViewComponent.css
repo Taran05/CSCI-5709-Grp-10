@@ -1,0 +1,31 @@
+.left-view-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  height: 100%;
+}
+
+.left-view-component-header {
+  display: flex;
+  flex-direction: column;
+  background-color: #e3e3e3;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.left-view-component-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #000;
+  margin-top: 16px;
+}
+
+.divider-vertical {
+  height: 1em;
+  width: 1px;
+  background-color: #000;
+  margin: 0 1em;
+}

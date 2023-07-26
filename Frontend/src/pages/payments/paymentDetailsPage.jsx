@@ -8,6 +8,7 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
+  Alert,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
@@ -36,6 +37,7 @@ const PaymentDetailsPage = () => {
   const location = useLocation();
   const mentorId = location.state.mentorId;
   const price = location.state.servicePrice;
+  const [snackbarSeverity, setSnackbarSeverity] = useState("error");
 
   const navigate = useNavigate();
   const handleSnackbarClose = (event, reason) => {
@@ -76,18 +78,21 @@ const PaymentDetailsPage = () => {
     })
       .then((response) => {
         if (response.ok) {
-          setSnackbarMessage("Payment successful");
+          setSnackbarMessage("Payment successful. Please check your email.");
+          setSnackbarSeverity("success");
           setSnackbarOpen(true);
           setTimeout(() => {
             navigate("/");
-          }, 2000);
+          }, 3000);
         } else {
           setSnackbarMessage("Payment failed");
+          setSnackbarSeverity("error");
           setSnackbarOpen(true);
         }
       })
       .catch((error) => {
         setSnackbarMessage("Payment failed");
+        setSnackbarSeverity("error"); // Set severity to error
         setSnackbarOpen(true);
       });
   };
@@ -195,6 +200,20 @@ const PaymentDetailsPage = () => {
           Pay
         </Button>
       </Box>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }} // Set anchorOrigin to top center
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity} // Use snackbarSeverity state variable
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </StyledBox>
   );
 };

@@ -20,6 +20,7 @@ const StudentDetailsForm = () => {
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("error");
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -46,12 +47,14 @@ const StudentDetailsForm = () => {
     event.preventDefault();
     if (!name.trim() || !email.trim() || !callAbout.trim()) {
       setSnackbarMessage("All fields must be filled out");
+      setSnackbarSeverity("error");
       setSnackbarOpen(true);
       return;
     }
 
     if (!validateEmail(email)) {
       setSnackbarMessage("Please enter a valid email");
+      setSnackbarSeverity("error");
       setSnackbarOpen(true);
       return;
     }
@@ -86,6 +89,7 @@ const StudentDetailsForm = () => {
           setSnackbarMessage(
             "Student details saved successfully. Redirecting to payments page"
           );
+          setSnackbarSeverity("success");
           setSnackbarOpen(true);
           setTimeout(() => {
             navigate("/paymentDetails", {
@@ -101,6 +105,7 @@ const StudentDetailsForm = () => {
         console.error("Error:", error);
         setLoading(false);
         setSnackbarMessage("An error occurred while saving the booking.");
+        setSnackbarSeverity("error");
         setSnackbarOpen(true);
       });
   };
@@ -121,7 +126,7 @@ const StudentDetailsForm = () => {
         gutterBottom
         sx={{ color: "#3f3f3f", marginBottom: "25px" }}
       >
-        Enter <span style={{ color: "#5C469C" }}>student's</span>. details
+        Enter <span style={{ color: "#5C469C" }}>student's</span> details
       </Typography>
       <Box
         sx={{
@@ -167,7 +172,7 @@ const StudentDetailsForm = () => {
       >
         <Alert
           onClose={handleSnackbarClose}
-          severity="info"
+          severity={snackbarSeverity}
           sx={{ width: "100%" }}
         >
           {snackbarMessage}

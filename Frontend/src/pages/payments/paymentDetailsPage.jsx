@@ -180,16 +180,21 @@ const PaymentDetailsPage = () => {
           variant="contained"
           color="primary"
           onClick={handlePayButtonClick}
+          sx={{
+            fontSize: 18,
+            padding: "10px 30px",
+            borderRadius: 5,
+            height: "100%",
+            fontWeight: 600,
+            backgroundColor: "#1D267D",
+            "&:hover": {
+              backgroundColor: "#0C134F",
+            },
+          }}
         >
           Pay
         </Button>
       </Box>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-        message={snackbarMessage}
-      />
     </StyledBox>
   );
 };

@@ -15,4 +15,12 @@
   font-size: 18px;
   padding: 10px 30px;
   border-radius: 5px;
+  height: 100%;
+  padding: 10px 30px;
+  font-weight: 600;
+  background-color: #1d267d;
+}
+
+.button:hover {
+  background-color: #0c134f;
 }

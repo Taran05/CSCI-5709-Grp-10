@@ -17,5 +17,4 @@ const FormButton = ({ buttonText, handleSubmit }) => {
     </Box>
   );
 };
-
 export default FormButton;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Paper, Typography, Box } from "@mui/material";
+import { Paper, Typography, Box, Snackbar } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import FormInput from "../../../Components/MentorServiceBooking/studentDetails/formInput";
 import FormButton from "../../../Components/MentorServiceBooking/studentDetails/formButton";
@@ -17,6 +17,8 @@ const StudentDetailsForm = () => {
   const serviceDuration = location.state.serviceDuration;
   const servicePrice = location.state.servicePrice;
   const navigate = useNavigate();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -28,6 +30,10 @@ const StudentDetailsForm = () => {
 
   const handleCallAboutChange = (event) => {
     setCallAbout(event.target.value);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   const handleSubmit = (event) => {
@@ -54,7 +60,19 @@ const StudentDetailsForm = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Navigate to payment details page
+        if (data.error) {
+          setSnackbarMessage(data.error);
+          setSnackbarOpen(true);
+        } else {
+          setSnackbarMessage("Student details saved successfully");
+          setSnackbarOpen(true);
+          navigate("/paymentDetails", {
+            state: {
+              servicePrice: servicePrice,
+              mentorId: mentorId,
+            },
+          });
+        }
         navigate("/paymentDetails", {
           state: {
             servicePrice: servicePrice,
@@ -80,7 +98,7 @@ const StudentDetailsForm = () => {
         gutterBottom
         sx={{ color: "#3f3f3f", marginBottom: "25px" }}
       >
-        Enter student's details
+        Enter <span style={{ color: "#5C469C" }}>student's</span>. details
       </Typography>
       <Box
         sx={{

@@ -1,8 +1,6 @@
 import "./headerComp.css";
 import React, { useState } from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
-import ScheduleComp from "../../Components/availability-calendar/schedule/scheduleComp";
-import CalendarComp from "../../Components/availability-calendar/calendar/calendarComp";
 import { Button, Grid } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
@@ -69,38 +67,38 @@ export default function PageHeaderComp({
   };
 
   return (
-    <div className="Calendar">
-      <div className="calendar-container">
-        <div className="left-form">
-          <div className="calendar-form">
-            <h1 className="calendar-form-header">{pageTitle.toUpperCase()}</h1>
-            <Grid item sm={12}>
-              <Grid container spacing={2}>
-                <Grid item sm={0}>
-                  <ScheduleButton
-                    variant="contained"
-                    onClick={handleSchedule}
-                    fullWidth
-                    showSelected={showSchedule}
-                  >
-                    Pending
-                  </ScheduleButton>
-                </Grid>
-                <Grid item sm={0}>
-                  <CalendarButton
-                    variant="contained"
-                    onClick={handleCalendar}
-                    fullWidth
-                    showSelected={!showSchedule}
-                  >
-                    Answered
-                  </CalendarButton>
-                </Grid>
-              </Grid>
-            </Grid>
-          </div>
-        </div>
+    <div className="pagesHeaderCompDiv">
+      {/* <div className="calendar-container"> */}
+      <div className="pagesHeaderCompInnerDiv">
+        {/* <div className="calendar-form"> */}
+        <h1 className="pagesHeaderCompH1Title">{pageTitle.toUpperCase()}</h1>
+        {/* <Grid item sm={12}> */}
+        <Grid container spacing={2}>
+          <Grid item sm={0}>
+            <ScheduleButton
+              variant="contained"
+              onClick={handleSchedule}
+              fullWidth
+              showSelected={showSchedule}
+            >
+              Pending
+            </ScheduleButton>
+          </Grid>
+          <Grid item sm={0}>
+            <CalendarButton
+              variant="contained"
+              onClick={handleCalendar}
+              fullWidth
+              showSelected={!showSchedule}
+            >
+              Answered
+            </CalendarButton>
+          </Grid>
+        </Grid>
+        {/* </Grid> */}
+        {/* </div> */}
       </div>
+      {/* </div> */}
     </div>
   );
 }

@@ -34,7 +34,7 @@ function QueriesPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       const localUser = JSON.parse(localStorage.getItem("user"));
-      console.log("Printing local user:", localUser, localUser.userName);
+      console.log("Printing local user:", localUser);
 
       if (!localUser) {
         navigate("/login");
@@ -86,7 +86,7 @@ function QueriesPage(props) {
 
   return (
     <SnackbarProvider maxSnack={3}>
-      <div className="pageBody">
+      <div className="queryPageBody">
         <div className="header">
           {/* <HeaderComp
           changeDisplayOption={changeDisplayOption}

@@ -1,21 +1,21 @@
-.pageBody {
+.queryPageBody {
     height: 100%;
     /* background-color: #D3E0EA; */
 }
 
 
-.belowHeader{
+.queryPageBody .belowHeader{
     height: 80%;
     min-height: 60vh;
     margin-left: 20px;
     margin-right: 20px;
 }
 
-.MuiGrid-root.MuiGrid-container {
+.queryPageBody .MuiGrid-root.MuiGrid-container {
     height: 100%;
 }
 
-.body{
+.queryPageBody .body{
     height: 100%;
 }
 
@@ -31,7 +31,7 @@
   } */
 
 @media (max-width: 600px) {
-    .container {
+    .queryPageBody .container {
       grid-template-columns: 1fr; 
     }
   }

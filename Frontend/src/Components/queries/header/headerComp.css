@@ -1,4 +1,4 @@
-.header-container {
+.queryHeaderContainer {
     background: #F6F5F5;
     padding: 1rem;
     /* border-bottom: solid rgb(149,138,138) ; */
@@ -6,13 +6,13 @@
     padding-bottom: 0%;
   }
   
-  .MuiTypography-root.MuiTypography-h1.header-title.css-o2w69a-MuiTypography-root {
+.header-container .MuiTypography-root.MuiTypography-h1.header-title.css-o2w69a-MuiTypography-root {
     font-size: 2rem !important;
     font-weight: bold;
     margin-bottom: 1rem;
   }
 
-  .header-title {
+.header-container .header-title {
     font-size: 2rem !important;
     font-weight: bold;
     margin-bottom: 1rem;
@@ -20,7 +20,7 @@
     font-weight: 600;
   }
   
-  .header-button.MuiButtonBase-root.MuiButton-root {
+.header-container .header-button.MuiButtonBase-root.MuiButton-root {
     margin-right: 0.5rem;
     border-radius: 20px;
     width: fit-content;
@@ -30,12 +30,12 @@
 
   }
   
-  .buttonSelected.MuiButtonBase-root.MuiButton-root {
+.header-container .buttonSelected.MuiButtonBase-root.MuiButton-root {
     background-color: rgb(81, 148, 231);
     color: white;
     font-weight: 500;
   }
 
-  .MuiTabs-flexContainer.css-heg063-MuiTabs-flexContainer{
+.header-container .MuiTabs-flexContainer.css-heg063-MuiTabs-flexContainer{
     padding-bottom: 0%;
   }

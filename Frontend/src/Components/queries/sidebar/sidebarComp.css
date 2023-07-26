@@ -1,8 +1,8 @@
-.sidebarComp .sidebar-container {
+.querySidebarComp .sidebar-container {
     padding: 1rem;
   }
   
-.sidebarComp .sidebar-button {
+.querySidebarComp .sidebar-button {
     display: flex;
     align-items: center;
     background-color: #f4f4f4;
@@ -11,11 +11,11 @@
     padding: 0.5rem;
   }
   
-.sidebarComp .sidebar-button.selected {
+.querySidebarComp .sidebar-button.selected {
     background-color: black;
   }
 
-.sidebarComp {
+.querySidebarComp {
   min-height: 60vh; 
   max-height: 73vh;
   overflow-y: auto;

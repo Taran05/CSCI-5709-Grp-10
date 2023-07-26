@@ -9,6 +9,9 @@ router.get(
   "/registerUser/getAllUsernames",
   getAllUsernamesCont.getAllUsernames
 );
-router.post("/registerUser/getUserDetails", getUserDetailsCont.getUserDetails);
+router.get(
+  "/registerUser/getUserDetails/:username",
+  getUserDetailsCont.getUserDetails
+);
 
 export const userRegisterRoute = router;

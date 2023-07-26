@@ -3,7 +3,7 @@ import User from "../../models/usersModel";
 
 // Fetch and return all the details of a user with a given username
 const getUserDetails = async (req: Request, res: Response) => {
-  const { username } = req.body;
+  const { username } = req.params;
 
   try {
     // Find a user with the given username

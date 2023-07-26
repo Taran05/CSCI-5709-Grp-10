@@ -1,3 +1,6 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -126,7 +129,7 @@ const RegisterAboutYouComp = () => {
     if (loadingFinished) {
       // Delay the redirect for demonstration purposes
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/");
       }, 2000);
     }
   }, [loadingFinished, navigate]);

@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import React from "react";
 import "./footerComp.css";
 import InstagramIcon from "@mui/icons-material/Instagram";

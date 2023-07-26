@@ -32,7 +32,7 @@ function HeaderComp({ changeDisplayOption, displayOption }) {
 
   return (
     <div>
-      <Box className="header-container">
+      <Box className="queryHeaderContainer">
         <h1 className="header-title">Queries</h1>
 
         <Box sx={{ width: "100%", typography: "body1" }}>

@@ -22,7 +22,7 @@ const style = {
   p: 4,
 };
 
-export default function SendQueryComp({ mentorId }) {
+export default function SendQueryComp({ mentorId, mentorName }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -82,12 +82,15 @@ export default function SendQueryComp({ mentorId }) {
 
   return (
     <div className="sendQueryStudentDiv">
-      <Button onClick={handleOpen}>Send Query</Button>
+      <Button variant="outlined" color="primary" onClick={handleOpen}>
+        Ask a query
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
         // aria-labelledby="modal-modal-title"
         // aria-describedby="modal-modal-description"
+        className="sendQueryStudentModal"
       >
         <Box sx={style}>
           <div className="buttonUpperDiv">
@@ -101,7 +104,10 @@ export default function SendQueryComp({ mentorId }) {
           </div>
           <Typography variant="h6" component="div" textAlign="center">
             Send Doubts to{" "}
-            <span style={{ color: "#5C469C", fontWeight: 600 }}>Shubham</span>.
+            <span style={{ color: "#5C469C", fontWeight: 600 }}>
+              {mentorName ? mentorName : "Mentor"}
+            </span>
+            .
           </Typography>
           <form onSubmit={handleSubmit}>
             <TextField

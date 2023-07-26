@@ -8,9 +8,10 @@ import { grey } from "@mui/material/colors";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox, FormControl, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
+import { SAVE_ALTERNATE_SCHEDULE, GET_ALTERNATE_SCHEDULE } from "../../../../utils/apiUrls";
 
 export default function AlternateSchedule() {
-
+ 
     const theme = createTheme({
         breakpoints: {
             values: {
@@ -36,6 +37,7 @@ export default function AlternateSchedule() {
     const [saveStatus, setSaveStatus] = useState(null);
     const [changesMade, setChangesMade] = useState(false);
     const [alternateScheduleData, setAlternateScheduleData] = useState([]);
+    const [localUser, setLocalUser] = useState(null);
 
     const startTimeOptions = [
         '12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM', '06:00 AM',
@@ -84,21 +86,31 @@ export default function AlternateSchedule() {
             return;
         }
 
-        const alternateScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { startTime, endTime }]) => ({ day, startTime, endTime }));
+        const alternateScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => 
+        {
+            if(checked){
+                return { day, startTime, endTime, mentorId: localUser.userName };
+            }
+            else{
+                return { day, startTime: "NAN", endTime: "NAN", mentorId: localUser.userName };
+            }
+        });
+
         console.log(alternateScheduleData);
-
-        // if (!changesMade) {
-        //     toast.warning("No changes were made!");
-        //     return;
-        // }
-
+        const apiUrl = SAVE_ALTERNATE_SCHEDULE;
         try {
             // Send the selectedDays data to the backend API
-            await axios.post('http://localhost:3001/api/saveAlternateSchedule', alternateScheduleData);
-            setSaveStatus('success');
-            setChangesMade(true);
-            toast.success("Alternate Schedule Saved Successfully!");
-            return;
+            const response = await axios.post(apiUrl, alternateScheduleData);
+            if (response.status === 201) {
+                toast.success("Alternate Schedule Saved Successfully!");
+                setSaveStatus('success');
+                setChangesMade(true);
+                return;
+              } else if (response.status === 200) {
+                toast.success("Alternate Schedule Saved Successfully");
+              } else {
+                toast.error("Failed to Save Alternate Schedule");
+              }
         } catch (error) {
             setSaveStatus('error');
             console.error(error);
@@ -116,8 +128,12 @@ export default function AlternateSchedule() {
     useEffect(() => {
         // Fetch the alternate schedule from the backend API
         const fetchAlternateSchedule = async () => {
+            const localUser = JSON.parse(localStorage.getItem("user"));
+            console.log("Printing local user:", localUser);
+            setLocalUser(localUser);
           try {
-            const response = await axios.get('http://localhost:3001/api/getAlternateSchedule');
+            const apiUrl = GET_ALTERNATE_SCHEDULE;
+            const response = await axios.get(apiUrl);
             const fetchedData = response.data.alternateSchedule;
             // Update the state with fetched data
             setAlternateScheduleData(fetchedData);

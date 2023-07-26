@@ -8,6 +8,7 @@ import { grey } from "@mui/material/colors";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox, FormControl, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
+import { SAVE_DEFAULT_SCHEDULE, GET_DEFAULT_SCHEDULE } from "../../../../utils/apiUrls";
 
 export default function DefaultSchedule() {
 
@@ -23,22 +24,20 @@ export default function DefaultSchedule() {
         },
     });
 
-    const getInitialStateFromLocalStorage = () => {
-        const initialState = JSON.parse(localStorage.getItem("checkboxStates"));
-        return initialState || {
-            Monday: { checked: false, startTime: '', endTime: '' },
-            Tuesday: { checked: false, startTime: '', endTime: '' },
-            Wednesday: { checked: false, startTime: '', endTime: '' },
-            Thursday: { checked: false, startTime: '', endTime: '' },
-            Friday: { checked: false, startTime: '', endTime: '' },
-            Saturday: { checked: false, startTime: '', endTime: '' },
-            Sunday: { checked: false, startTime: '', endTime: '' }
-        };
-    };
+    const [checkboxStates, setCheckboxStates] = useState({
+        Monday: { checked: false, startTime: '', endTime: '' },
+        Tuesday: { checked: false, startTime: '', endTime: '' },
+        Wednesday: { checked: false, startTime: '', endTime: '' },
+        Thursday: { checked: false, startTime: '', endTime: '' },
+        Friday: { checked: false, startTime: '', endTime: '' },
+        Saturday: { checked: false, startTime: '', endTime: '' },
+        Sunday: { checked: false, startTime: '', endTime: '' }
+      });
 
-    const [checkboxStates, setCheckboxStates] = useState(getInitialStateFromLocalStorage);
     const [saveStatus, setSaveStatus] = useState(null);
     const [changesMade, setChangesMade] = useState(false);
+    const [defaultScheduleData, setDefaultScheduleData] = useState([]);
+    const [localUser, setLocalUser] = useState(null);
 
     const startTimeOptions = [
         '12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM', '06:00 AM',
@@ -58,13 +57,23 @@ export default function DefaultSchedule() {
         height: "100%",
         width: "7%",
         fontWeight: 600,
-        marginLeft: "70%",
         color: theme.palette.getContrastText(grey[900]),
         backgroundColor: "#1D267D",
         "&:hover": {
           backgroundColor: "#0C134F",
         },
       }));
+
+      const SaveButtonContainer = styled('div')`
+      position: absolute;
+  right: 0;
+  `;
+
+  const ScheduleNameContainer = styled('div')`
+  display: flex;
+  align-items: center;
+  position: relative;
+  `;
 
     const handleSaveChanges = async () => {
 
@@ -77,21 +86,31 @@ export default function DefaultSchedule() {
             return;
         }
 
-        const defaultScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { startTime, endTime }]) => ({ day, startTime, endTime }));
+        const defaultScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => 
+        {
+            if(checked){
+                return { day, startTime, endTime, mentorId: localUser.userName };
+            }
+            else{
+                return { day, startTime: "NAN", endTime: "NAN", mentorId: localUser.userName };
+            }
+        });
+
         console.log(defaultScheduleData);
-
-        if (!changesMade) {
-            toast.warning("No changes were made!");
-            return;
-        }
-
+        const apiUrl = SAVE_DEFAULT_SCHEDULE;
         try {
             // Send the selectedDays data to the backend API
-            await axios.post('http://localhost:3001/api/saveDefaultSchedule', defaultScheduleData);
-            setSaveStatus('success');
-            setChangesMade(true);
-            toast.success("Default Schedule Saved Successfully!");
-            return;
+            const response = await axios.post(apiUrl, defaultScheduleData);
+            if (response.status === 201) {
+                toast.success("Default Schedule Saved Successfully!");
+                setSaveStatus('success');
+                setChangesMade(true);
+                return;
+              } else if (response.status === 200) {
+                toast.success("Default Schedule Saved Successfully");
+              } else {
+                toast.error("Failed to Save Default Schedule");
+              }
         } catch (error) {
             setSaveStatus('error');
             console.error(error);
@@ -101,26 +120,55 @@ export default function DefaultSchedule() {
 
     useEffect(() => {
         if (saveStatus === 'success') {
-            localStorage.setItem("checkboxStates", JSON.stringify(checkboxStates));
             setChangesMade(false);
         }
     }, [saveStatus, checkboxStates]);
+
+
+    useEffect(() => { 
+        // Fetch the default schedule from the backend API
+        const fetchDefaultSchedule = async () => {
+            const localUser = JSON.parse(localStorage.getItem("user"));
+            console.log("Printing local user:", localUser);
+            setLocalUser(localUser);
+          try {
+            const apiUrl = GET_DEFAULT_SCHEDULE;
+            const response = await axios.get(apiUrl);
+            const fetchedData = response.data.defaultSchedule;
+            // Update the state with fetched data
+            setDefaultScheduleData(fetchedData);
+            // Update the checkboxStates with fetched data
+            const updatedCheckboxStates = { ...checkboxStates };
+            fetchedData.forEach((schedule) => {
+              updatedCheckboxStates[schedule.day] = {
+                checked: true,
+                startTime: schedule.startTime,
+                endTime: schedule.endTime,
+              };
+            });
+            setCheckboxStates(updatedCheckboxStates);
+          } catch (error) {
+            console.error(error);
+            toast.error('Failed to fetch default schedule');
+          }
+        };
+
+        fetchDefaultSchedule();
+  }, []);
 
     return (
         <>
             <Grid container spacing={2}>
                 <Grid item sm={6}>
                     <div className="schedule-details">
-                        <div className="schedule-name">
-                            <span>Default</span>
-                            <SaveButton
-                                variant="contained"
-                                fullWidth
-                                onClick={handleSaveChanges}
-                            >
-                                Save
-                            </SaveButton>
-                        </div>
+                    <ScheduleNameContainer>
+              <span style={{fontWeight:"bold", fontSize: "20px"}}>Default</span>
+              <SaveButtonContainer>
+                <SaveButton variant="contained" fullWidth onClick={handleSaveChanges}>
+                  Save
+                </SaveButton>
+              </SaveButtonContainer>
+            </ScheduleNameContainer>
                         <br></br>
                         <div className="day-checkboxes">
                             <table>

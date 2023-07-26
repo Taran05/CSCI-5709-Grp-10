@@ -10,6 +10,7 @@ interface Availability {
 
 router.get("/availability/:mentorId", (req: Request, res: Response) => {
   const { mentorId } = req.params;
+  console.log(mentorId);
 
   const dateAvailability: Availability[] = [
     {

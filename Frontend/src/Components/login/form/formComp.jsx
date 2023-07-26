@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -58,7 +62,7 @@ export default function FormComp() {
           localStorage.setItem("user", JSON.stringify(response.data.user));
 
           setTimeout(() => {
-            navigate("/dashboard");
+            navigate("/");
           }, 2000);
         } else {
           handleSnackbarOpen("Login failed. Wrong Credentials!");

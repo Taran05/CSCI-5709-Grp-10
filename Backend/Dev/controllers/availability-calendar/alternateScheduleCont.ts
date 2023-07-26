@@ -85,15 +85,16 @@ const getAlternateSchedule = async (req: Request, res: Response) => {
   }
 };
 
-const getAlternateAvailableDates = async (_req: Request, res: Response) => {
+const getAlternateAvailableDates = async (req: Request, res: Response) => {
+  const { mentorId } = req.query;
   try {
     const intlDateTimeFormatter = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: 'numeric',
     }); 
     const today = new Date();
-    const alternateSchedules: IAlternateSchedule[] = await AlternateSchedule.find({ mentorId: 'testuser99' });
-    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorId': 'testuser99' });
+    const alternateSchedules: IAlternateSchedule[] = await AlternateSchedule.find({ mentorId: mentorId });
+    const blockedDates: IBlockedDate[] = await BlockedDate.find({ 'blockedDatesData.mentorId': mentorId });
     const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
 
     const firstDayAfterCurrent = new Date(today);

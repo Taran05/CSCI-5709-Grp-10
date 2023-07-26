@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -10,6 +14,7 @@ import ListItemText from "@mui/material/ListItemText";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import MailIcon from "@mui/icons-material/Mail";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import FeedbackIcon from '@mui/icons-material/Feedback';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
@@ -43,6 +48,7 @@ export default function SideBarDrawer() {
           { text: "Calender", icon: <CalendarMonthIcon />, link: "/calendar" },
           { text: "Queries", icon: <QuestionAnswerIcon />, link: "/queries" },
           { text: "Contact us", icon: <MailIcon />, link: "/contact" },
+          { text: "Report Issue", icon: <FeedbackIcon />, link: "/issues" },
         ].map((item, index) => (
           <Link
             to={item.link}

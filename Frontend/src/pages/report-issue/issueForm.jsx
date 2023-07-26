@@ -1,5 +1,6 @@
+// Author: Aadith Shameel - B00929852
 import React, { useState } from "react";
-import { Button, TextField, Container, Typography } from "@mui/material";
+import { Button, TextField, Container, Typography, Snackbar, Alert } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom"
@@ -8,7 +9,17 @@ import { CREATE_ISSUE } from "../../utils/apiUrls";
 const IssueForm = ({ onNewIssue }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
     const navigate = useNavigate();
+
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setSnackbarOpen(false);
+        navigate("/issues");
+    };    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,11 +34,9 @@ const IssueForm = ({ onNewIssue }) => {
             body: JSON.stringify(issueData)
         });
 
-        const data = await response.json()
 
         if(response.ok) {
-            console.log(data);
-            navigate("/issues");
+            setSnackbarOpen(true);
         }
         
     };
@@ -45,6 +54,11 @@ const IssueForm = ({ onNewIssue }) => {
 
     return (
         <Container style={ {paddingTop: '10%', minHeight: '100vh', textAlign: 'centre'} }>
+            <Snackbar open={snackbarOpen} autoHideDuration={2000} onClose={handleSnackbarClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+                    Issue created successfully!
+                </Alert>
+            </Snackbar>
             <form onSubmit={handleSubmit}>
                 <Typography variant="h3" style={{ marginBottom: '5%' }}>Report Issue</Typography>
                 <Typography variant="h5" align="left">Issue Title</Typography>

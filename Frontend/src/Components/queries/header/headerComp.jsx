@@ -80,7 +80,7 @@ function HeaderComp({ changeDisplayOption, displayOption }) {
           </QueryTypeButton>
           <SendQueryComp mentorId={"test123"} />
         </Stack> */}
-        <SendQueryComp mentorId={"test123"} />
+        {/* <SendQueryComp mentorId={"test123"} /> */}
       </Box>
     </div>
   );

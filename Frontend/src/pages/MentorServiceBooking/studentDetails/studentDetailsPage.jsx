@@ -1,0 +1,124 @@
+import React, { useState } from "react";
+import { Paper, Typography, Box } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
+import FormInput from "../../../Components/MentorServiceBooking/studentDetails/formInput";
+import FormButton from "../../../Components/MentorServiceBooking/studentDetails/formButton";
+
+const StudentDetailsForm = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [callAbout, setCallAbout] = useState("");
+  const location = useLocation();
+  const selectedTime = location.state.selectedTime;
+  const selectedDate = location.state.selectedDate;
+  const mentorId = location.state.mentorId;
+  const serviceName = location.state.serviceName;
+  const serviceDuration = location.state.serviceDuration;
+  const servicePrice = location.state.servicePrice;
+  const navigate = useNavigate();
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleCallAboutChange = (event) => {
+    setCallAbout(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const details = {
+      serviceName: serviceName,
+      serviceDuration: serviceDuration,
+      selectedDate,
+      selectedTime,
+      isPaid: false,
+      mentorId: mentorId,
+      studentName: name,
+      studentEmail: email,
+      callAbout,
+    };
+
+    // Send details to server, then navigate
+    fetch("http://localhost:3001/api/saveBooking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(details),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Navigate to payment details page
+        navigate("/paymentDetails", {
+          state: {
+            servicePrice: servicePrice,
+            mentorId: mentorId,
+          },
+        });
+      });
+  };
+
+  return (
+    <Paper
+      elevation={3}
+      sx={{
+        padding: "20px",
+        height: "100%",
+        maxWidth: "500px",
+        margin: "auto",
+        backgroundColor: "#f7f7f7",
+      }}
+    >
+      <Typography
+        variant="h3"
+        gutterBottom
+        sx={{ color: "#3f3f3f", marginBottom: "25px" }}
+      >
+        Enter student's details
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "25px",
+        }}
+      >
+        <Typography variant="body1" sx={{ color: "#555" }}>
+          Service Price: {servicePrice}
+        </Typography>
+        <Typography variant="body1" sx={{ color: "#555" }}>
+          Meeting Time: {serviceDuration}
+        </Typography>
+      </Box>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          label="Your Name"
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Enter your name"
+        />
+        <FormInput
+          label="Email"
+          value={email}
+          onChange={handleEmailChange}
+          placeholder="Enter your email"
+        />
+        <FormInput
+          label="What's this call about"
+          value={callAbout}
+          onChange={handleCallAboutChange}
+          placeholder="Enter the call details"
+        />
+        <FormButton buttonText="Confirm and Pay" handleSubmit={handleSubmit} />
+      </form>
+    </Paper>
+  );
+};
+
+export default StudentDetailsForm;

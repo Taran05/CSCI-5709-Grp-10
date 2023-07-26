@@ -1,0 +1,14 @@
+.mentor-service-homepage {
+  display: flex;
+  height: 100vh;
+}
+
+.left-container {
+  width: 25%;
+  background-color: #e3e3e3;
+}
+
+.right-container {
+  width: 75%;
+  background-color: #ffffff;
+}

@@ -30,7 +30,12 @@ function UserCardComp(props) {
             <></>
           )}
           <Box marginLeft={props.inBody ? 2 : 0}>
-            <Typography variant="h6" component="div" textAlign="left">
+            <Typography
+              variant="h6"
+              component="div"
+              fontWeight="600"
+              textAlign="left"
+            >
               {name}
             </Typography>
             <Typography variant="body1">

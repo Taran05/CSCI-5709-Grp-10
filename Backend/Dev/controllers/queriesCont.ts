@@ -1,15 +1,15 @@
 // controller.ts
 import { Request, Response } from 'express';
 import Queries from '../models/queriesModel';
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 
 // Controller function to get data from MongoDB
 const getQueries = async (req: Request, res: Response) => {
-  // const { mentorId } = req.body;
+  const { mentorId } = req.body;
   console.log(req.body);
 
   try {
-    const data = await Queries.find();//{ mentorId: mentorId });
+    const data = await Queries.find({ mentorId: mentorId });
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -63,8 +63,10 @@ export const saveQuery = async (req: Request, res: Response) => {
 
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
+    const currentHour = today.getHours();
+    const currentMinute = today.getMinutes();
 
-    const time = `${month}/${day}`;
+    const time = `${month}/${day} ${currentHour}:${currentMinute}`;
     console.log(time);
 
     try {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HeaderComp from "../../Components/queries/header/headerComp";
+import PageHeaderComp from "../../Components/header/headerComp";
 import SidebarComp from "../../Components/queries/sidebar/sidebarComp";
 import BodyComp from "../../Components/queries/body/bodyComp";
 import "./queriesPage.css";
@@ -74,7 +75,13 @@ function QueriesPage(props) {
   return (
     <div className="pageBody">
       <div className="header">
-        <HeaderComp
+        {/* <HeaderComp
+          changeDisplayOption={changeDisplayOption}
+          displayOption={displayOption}
+        /> */}
+
+        <PageHeaderComp
+          pageTitle="Queries"
           changeDisplayOption={changeDisplayOption}
           displayOption={displayOption}
         />

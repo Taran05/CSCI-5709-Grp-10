@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/loginPage";
 import RegisterPage from "./pages/register/registerPage";
 import App from "./app";
+import StudentBookingApp from "./studentBookingApp";
 import LandingPage from "./pages/landing/landingPage";
 import ContactPage from "./pages/contact/contactPage";
 import AvailabilityCalendarPage from "./pages/availability-calendar/availabilityCalendarPage";
@@ -25,6 +26,8 @@ root.render(
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
+      </Route>
+      <Route exact path="/" element={<StudentBookingApp />}>
         <Route path="/bookingSchedule" element={<BookingSchedulePage />} />
         <Route path="/paymentDetails" element={<PaymentDetailsPage />} />
         <Route path="/studentDetails" element={<StudentDetailsPage />} />

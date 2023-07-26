@@ -1,7 +1,5 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import NavbarComp from "./Components/navbar/navbarComp";
-import FooterComp from "./Components/footer/footerComp";
 import {
   StyledEngineProvider,
   ThemeProvider,
@@ -20,18 +18,16 @@ const theme = createTheme({
   },
 });
 
-const App = () => {
+const StudentBookingApp = () => {
   return (
     <div className="app">
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <NavbarComp />
           <Outlet />
-          <FooterComp />
         </ThemeProvider>
       </StyledEngineProvider>
     </div>
   );
 };
 
-export default App;
+export default StudentBookingApp;

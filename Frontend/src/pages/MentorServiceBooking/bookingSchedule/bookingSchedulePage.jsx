@@ -15,7 +15,7 @@ const BookingSchedulePage = () => {
   return (
     <Grid marginTop="5%" container spacing={4}>
       <Grid item xs={12} sm={4}>
-        <Box style={{ height: "95%" }}>
+        <Box style={{ height: "100%", marginLeft: "5%" }}>
           <LeftViewComponent
             serviceName={serviceName}
             serviceDuration={serviceDuration}
@@ -25,7 +25,7 @@ const BookingSchedulePage = () => {
         </Box>
       </Grid>
       <Grid item xs={12} sm={8}>
-        <Box style={{ height: "100%" }}>
+        <Box style={{ height: "99%", marginRight: "5%" }}>
           <RightViewComponent
             serviceName={serviceName}
             serviceDuration={serviceDuration}

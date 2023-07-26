@@ -24,18 +24,19 @@ const ReportPage = () => {
     }, []);
 
     return (
-        <Container style={{paddingTop: '10%', minHeight: '82vh', textAlign: 'center'}}>
+        <Container style={{paddingTop: '10%', minHeight: '100vh', textAlign: 'center'}}>
+            <Typography variant="h3" align="left" style={{marginBottom: '5%'}}>Reported Issues</Typography>
             {issues.map((issue) => (
                 <Card key={issue._id} style={{marginBottom: '1rem'}}>
                     <CardActionArea onClick={() => navigate(`/issue/${issue._id}`)}>
                         <CardContent>
-                            <Typography variant="h5">{issue.title}</Typography>
+                            <Typography variant="h5" align="left">{issue.title}</Typography>
                         </CardContent>
                     </CardActionArea>
                 </Card>
             ))}
             {issues.length === 0 && <Typography variant="h4">No Issues Raised</Typography>}
-            <Button variant="contained" color="primary" href="/issue/new" style={{marginTop: '2%'}}>Report Issue</Button>
+            <Button variant="contained" color="primary" href="/issue/new" style={{marginTop: '5%'}}>Report Issue</Button>
         </Container>
     )
 }

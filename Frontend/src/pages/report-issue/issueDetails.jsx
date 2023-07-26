@@ -1,42 +1,80 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button, TextField, Container, Typography, Box } from "@mui/material";
-import { GET_ISSUE } from "../../utils/apiUrls";
+import { DELETE_ISSUE, GET_ISSUE, UPDATE_ISSUE } from "../../utils/apiUrls";
 
 const IssueDetails = () => {
     const { id } = useParams();
-    const [issue, setIssue] = useState(null);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        const fetchIssue = async () => {
+            try {
+                // const api_uri = GET_ISSUE + `/${id}`;
+                const response = await fetch(GET_ISSUE + `/${id}`);
+                const data = await response.json();
+                setTitle(data.title);
+                setDescription(data.description);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchIssue();
+    }, [id]);
 
-    const fetchIssue = async () => {
+    const updateIssue = async (e) => {
+        e.preventDefault();
         try {
-            const api_uri = GET_ISSUE + `/${id}`;
-            const response = await fetch(api_uri);
+            const response = await fetch(UPDATE_ISSUE + `/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, description })
+            });
+
             const data = await response.json();
-            setIssue(data)
+            console.log(data.message);
+            navigate('/issues');
         } catch (error) {
             console.error(error);
         }
     }
-    useEffect(() => {
-        fetchIssue();
-    }, [id])
 
-    if (!issue) {
-        return <Container>Loading....</Container>
+    const deleteIssue = async () => {
+        try {
+            const response = await fetch(DELETE_ISSUE + `/${id}`, {
+                method: 'DELETE'
+            });
+
+            const data = await response.json();
+            console.log(response)
+            console.log(data)
+            if(response.ok) {
+                navigate('/issues');
+            } else {
+                console.error(data.error)
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
-        <Container style={ {paddingTop: '10%', minHeight: '82vh', textAlign: 'centre'} }>
-        <form>
-            <Typography variant="h5" align="left">Issue Title</Typography>
-            <TextField value={issue.title} required style={ {width: '100%', marginBottom: '5%'} }/>
-            <Typography variant="h5" align="left">Issue Description</Typography>
-            <TextField value={issue.description} required multiline rows={3} style={ {width: '100%', marginBottom: '5%'} } />
+        <Container style={ {paddingTop: '10%', minHeight: '100vh', textAlign: 'centre'} }>
+        
+            <Typography variant="h3" align="left" style={{ marginBottom: '5%' }}>Details of the Issue</Typography>
+            <Typography variant="h5" align="left">Title</Typography>
+            <TextField value={title} onChange={ (e) => setTitle(e.target.value)} required style={ {width: '100%', marginBottom: '2%'} }/>
+            <Typography variant="h5" align="left">Description</Typography>
+            <TextField value={description} onChange={ (e) => setDescription(e.target.value)} required multiline rows={3} style={ {width: '100%', marginBottom: '2%'} } />
             <Box display="flex" justifyContent="space-between">
-                <Button variant="contained" color="primary">Update</Button>
-                <Button variant="contained" color="secondary">Delete</Button>
+                <Button type="submit" onClick={updateIssue} variant="contained" color="primary">Update</Button>
+                <Button type="button" onClick={deleteIssue} variant="contained" color="secondary">Delete</Button>
             </Box>
-        </form>
+        
     </Container>
     )
 }

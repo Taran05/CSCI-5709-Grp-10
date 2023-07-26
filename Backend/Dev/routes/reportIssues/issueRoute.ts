@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/createIssue', issueController.createIssue);
 router.get('/getAllIssues', issueController.getAllIssues);
 router.get('/getIssue/:id', issueController.getIssue);
-// router.post('/updateIssue', issueController.updateIssue);
-// router.post('deleteIssue', issueController.deleteIssue);
+router.put('/updateIssue/:id', issueController.updateIssue);
+router.delete('/deleteIssue/:id', issueController.deleteIssue);
 
 export const issueRoute = router;

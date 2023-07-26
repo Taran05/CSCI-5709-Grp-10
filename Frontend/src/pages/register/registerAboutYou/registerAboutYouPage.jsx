@@ -1,3 +1,6 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
 import "./registerAboutYouPage.css";
 import React from "react";
 import RegisterAboutYouComp from "../../../Components/register/registerAboutYou/registerAboutYouComp";

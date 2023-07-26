@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";

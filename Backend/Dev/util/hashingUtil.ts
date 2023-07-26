@@ -1,3 +1,7 @@
+/**
+ * @author Amanjot Singh <am854663@dal.ca/B00942293>
+ */
+
 import bcrypt from "bcrypt";
 const SALTROUNDS = 10;
 // Hash a password string and return the hashed password

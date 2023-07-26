@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { TextField, Typography } from "@mui/material";
 import axios from "axios";
-import APIs from "../../../utils/APIs";
+import { SAVE_QUERY } from "../../../utils/apiUrls";
 import "./sendQueryComp.css";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
@@ -49,7 +49,7 @@ export default function SendQueryComp({ mentorId }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const apiUrl = APIs.SAVE_QUERY;
+    const apiUrl = SAVE_QUERY;
 
     const postData = {
       name: name,

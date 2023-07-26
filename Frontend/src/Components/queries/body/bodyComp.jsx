@@ -9,7 +9,7 @@ import { Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
-import APIs from "../../../utils/APIs";
+import { SEND_RESPONSE, DELETE_QUERY } from "../../../utils/apiUrls";
 
 function BodyComp(props) {
   const [textareaValue, setTextareaValue] = useState("");
@@ -27,7 +27,7 @@ function BodyComp(props) {
   async function handleDeleteQuery(e) {
     e.preventDefault();
 
-    const apiUrl = APIs.DELETE_QUERY;
+    const apiUrl = DELETE_QUERY;
 
     const postData = {
       _id: props.Queries[props.userId]._id,
@@ -62,7 +62,7 @@ function BodyComp(props) {
       return;
     }
 
-    const apiUrl = APIs.SEND_RESPONSE;
+    const apiUrl = SEND_RESPONSE;
 
     const postData = {
       _id: props.Queries[props.userId]._id,

@@ -6,7 +6,7 @@ import "./queriesPage.css";
 //import Querys from "../../assets/data/queries.json";
 import { Grid } from "@mui/material";
 import axios from "axios";
-import APIs from "../../utils/APIs";
+import { GET_QUERY } from "../../utils/apiUrls";
 
 function QueriesPage(props) {
   const [value, setValue] = useState("");
@@ -29,7 +29,7 @@ function QueriesPage(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiUrl = APIs.GET_QUERY;
+      const apiUrl = GET_QUERY;
 
       try {
         const response = await axios.post(apiUrl, { mentorId: "123456" });

@@ -1,4 +1,4 @@
-// Author: Aadith Shameel B00929852
+// Author: Aadith Shameel - B00929852
 import { Request, Response } from 'express'; 
 import Issue, { IIssue } from '../../models/issueModel';
 
@@ -13,6 +13,7 @@ const issueController = {
                 });
                 await newIssue.save();
                 res.status(201).json({ message: 'Issue reported successfully' });
+
             } else {
                 res.status(400).json({ error: 'Title and Description are required' });
             }
@@ -26,6 +27,7 @@ const issueController = {
         try {
             const issues = await Issue.find();
             res.status(200).json(issues);
+
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Failed to fetch issues' });
@@ -41,6 +43,7 @@ const issueController = {
             } else {
                 res.status(400).json({ message: 'Issue not found' });
             }
+
         } catch (error) {
             console.error(error);
             res.status(500).json({ messaage: 'Failed to fetch issue'})
@@ -62,8 +65,8 @@ const issueController = {
             issue.description = description;
 
             await issue.save();
-
             res.status(200).json({ message: 'Issue updated successfully' });
+
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Failed to update issue'})
@@ -79,8 +82,8 @@ const issueController = {
             if(!deletedIssue) {
                 return res.status(404).json({ message: 'Issue not found' });
             }
-
             res.status(200).json({ message: 'Issue deleted successfully' });
+
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Failed to delete issue'});

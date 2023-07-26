@@ -1,4 +1,4 @@
-// Author: Aadith Shameel B00929852
+// Author: Aadith Shameel - B00929852
 import express from 'express';
 import issueController from '../../controllers/reportIssues/issueController';
 

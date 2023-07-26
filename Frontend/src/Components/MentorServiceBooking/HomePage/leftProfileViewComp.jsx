@@ -5,6 +5,7 @@ import Avatar from "@mui/material/Avatar";
 import { Box, Typography, Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import "./leftServiceViewComp.css";
+import SendQueryComp from "../../queries/sendQuery/sendQueryComp";
 
 function stringToColor(string) {
   let hash = 0;
@@ -57,9 +58,12 @@ const LeftServiceViewComp = () => {
       <Typography variant="body1" className="mentorQuery">
         Have a query with our mentor?
       </Typography>
-      <Button variant="outlined" color="primary" className="queryButton">
+      {/* <Button variant="outlined" color="primary" className="queryButton">
         Ask a query
-      </Button>
+      </Button> */}
+
+      {/* Added This Comp here to ask queries */}
+      <SendQueryComp mentorName={mentorName} mentorId={mentorId} />
     </Box>
   );
 };

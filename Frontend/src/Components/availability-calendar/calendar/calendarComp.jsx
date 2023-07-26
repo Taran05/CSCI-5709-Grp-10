@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import "./calendarComp.css";
 import Button from "@mui/material/Button";
@@ -12,6 +12,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import { createTheme, styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import axios from 'axios';
+import { SAVE_CALENDAR_SETTINGS, GET_CALENDAR_SETTINGS } from "../../../utils/apiUrls";
 
 const theme = createTheme({
   breakpoints: {
@@ -68,11 +69,11 @@ const noticePeriodUnits = [
 ];
 
 const SaveButton = styled(Button)(({ theme }) => ({
-  height: "100%",
-  width: "74%",
+  height: "100%", 
+  width: "25%",
   fontWeight: 600,
- 
   marginTop: "3%",
+  marginLeft: "25%",
   color: theme.palette.getContrastText(grey[900]),
   backgroundColor: "#1D267D",
   "&:hover": {
@@ -86,6 +87,13 @@ export default function Calendar() {
   const [bookingPeriod, setBookingPeriod] = useState("");
   const [noticePeriodValue, setNoticePeriodValue] = useState("");
   const [noticePeriodUnit, setNoticePeriodUnit] = useState("");
+  const [calendarSettings, setCalendarSettings] = useState({
+    timezone: "",
+    meetingLink: "",
+    noticePeriod: "",
+    bookingPeriod: "",
+  });
+  const [localUser, setLocalUser] = useState(null);
 
   const handleTimezoneChange = (event) => {
     setTimezone(event.target.value);
@@ -125,15 +133,53 @@ export default function Calendar() {
         meetingLink,
         bookingPeriod,
         noticePeriod,
+        mentorId: localUser.userName,
       }
-      await axios.post('http://localhost:3001/api/saveCalendarSettings', calendarSettingsData);
-      toast.success("Data saved!");
+      console.log(calendarSettingsData);
+      const apiUrl = SAVE_CALENDAR_SETTINGS;
+      const response = await axios.post(apiUrl, calendarSettingsData);
+      if (response.status === 201) {
+        toast.success("Calendar Settings Saved Successfully!");
+      } else if (response.status === 200) {
+        toast.success("Calendar Settings Updated Successfully");
+      } else {
+        toast.error("Failed to Block Dates");
+      }
     }
     catch(error){
       console.log(error);
       toast.error('Failed to Save Calendar Settings');
     }
   };
+
+  useEffect(() => {
+    const fetchedCalendarSettings = async () => {
+      const localUser = JSON.parse(localStorage.getItem("user"));
+      console.log("Printing local user:", localUser);
+      setLocalUser(localUser);
+      try {
+        const apiUrl = GET_CALENDAR_SETTINGS;
+        const response = await axios.get(apiUrl);
+        const fetchedSettings = response?.data?.calendarSettings?.calendarSettingsData;
+        if(fetchedSettings){
+          console.log(fetchedSettings);
+          setCalendarSettings(fetchedSettings);
+          setTimezone(fetchedSettings.timezone);
+          setMeetingLink(fetchedSettings.meetingLink);
+          setBookingPeriod(fetchedSettings.bookingPeriod);
+          const [noticePeriodValue, noticePeriodUnit] = fetchedSettings.noticePeriod.split(" ");
+          setNoticePeriodValue(noticePeriodValue);
+          setNoticePeriodUnit(noticePeriodUnit);
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error('Failed to fetch calendar settings');
+      }
+    };
+
+    fetchedCalendarSettings();
+  }, []);
+
 
   return (
     <>

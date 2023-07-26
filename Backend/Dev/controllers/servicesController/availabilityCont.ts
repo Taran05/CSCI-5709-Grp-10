@@ -1,6 +1,4 @@
-import express, { Request, Response } from "express";
-
-const router = express.Router();
+import { Request, Response } from "express";
 
 interface Availability {
   date: string;
@@ -8,7 +6,7 @@ interface Availability {
   availableItems: string[];
 }
 
-router.get("/availability/:mentorId", (req: Request, res: Response) => {
+const availability = async (req: Request, res: Response) => {
   const { mentorId } = req.params;
   console.log(mentorId);
 
@@ -91,6 +89,5 @@ router.get("/availability/:mentorId", (req: Request, res: Response) => {
   ];
 
   res.json(dateAvailability);
-});
-
-export default router;
+};
+export default { availability };

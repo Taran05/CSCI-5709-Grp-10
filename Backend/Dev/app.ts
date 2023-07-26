@@ -10,16 +10,17 @@ const properties = PropertiesReader(
 );
 
 // Import the schemas
-import defaultScheduleRoute from "./routes/defaultScheduleRoute";
-import newScheduleRoute from "./routes/newScheduleRoute";
-import blockDatesRoute from "./routes/blockDatesRoute";
-import calendarSettingsRoute from "./routes/calendarsettingsRoute";
+import defaultScheduleRoute from "./routes/availability-calendar/defaultScheduleRoute";
+import alternateScheduleRoute from "./routes/availability-calendar/alternateScheduleRoute";
+import blockDatesRoute from "./routes/availability-calendar/blockDatesRoute";
+import calendarSettingsRoute from "./routes/availability-calendar/calendarsettingsRoute";
 import { userRegisterRoute } from "./routes/userAuthentication/userRegistrationRoute";
-import getServiceRoute from "./routes/getServiceRoute";
+import getServiceRoute from "./routes/servicesRoutes/getServiceRoute";
 import { userLoginRoute } from "./routes/userAuthentication/userLoginRoutes";
 import queriesRoutes from "./routes/queriesRoutes";
-import availabilityRoute from "./routes/availabilityRoute";
+import availabilityRoute from "./routes/servicesRoutes/availabilityRoute";
 import studentBookingRoute from "./routes/studentBookingRoute";
+import { issueRoute } from "./routes/reportIssues/issueRoute";
 
 const app: Express = express();
 
@@ -43,7 +44,7 @@ mongoose
 
 //api middlewares
 app.use("/api/", defaultScheduleRoute);
-app.use("/api/", newScheduleRoute);
+app.use("/api/", alternateScheduleRoute);
 app.use("/api/", blockDatesRoute);
 app.use("/api/", calendarSettingsRoute);
 app.use("/api/", userRegisterRoute);
@@ -53,6 +54,7 @@ app.use(getServiceRoute);
 app.use("/api/", userLoginRoute);
 app.use(availabilityRoute);
 app.use(studentBookingRoute);
+app.use("/api/", issueRoute);
 
 const port: number = 3001;
 app.listen(port, () => {

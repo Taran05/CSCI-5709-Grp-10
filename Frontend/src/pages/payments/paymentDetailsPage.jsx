@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Box,
   Typography,
-  TextField,
   Button,
   FormControl,
   InputLabel,
@@ -37,7 +36,6 @@ const PaymentDetailsPage = () => {
   const mentorId = location.state.mentorId;
   const price = location.state.servicePrice;
 
-  //const { bookingId } = useParams();
   const navigate = useNavigate();
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -48,7 +46,6 @@ const PaymentDetailsPage = () => {
   };
 
   const handlePayButtonClick = () => {
-    // Validate the input
     if (cardNumber.length !== 16) {
       setSnackbarMessage("Card number should be 16 digits");
       setSnackbarOpen(true);
@@ -65,7 +62,6 @@ const PaymentDetailsPage = () => {
       return;
     }
 
-    // If everything is fine, send a POST request
     fetch(`http://localhost:3001/payment/${mentorId}`, {
       method: "POST",
       headers: {
@@ -81,7 +77,6 @@ const PaymentDetailsPage = () => {
         if (response.ok) {
           setSnackbarMessage("Payment successful");
           setSnackbarOpen(true);
-          // Redirect to the home page after 2 seconds
           setTimeout(() => {
             navigate("/");
           }, 2000);

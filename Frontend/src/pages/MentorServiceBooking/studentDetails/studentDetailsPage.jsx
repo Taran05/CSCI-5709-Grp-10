@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-import {
-  Paper,
-  Typography,
-  Divider,
-  Box,
-  TextField,
-  Button,
-} from "@mui/material";
-import EventIcon from "@mui/icons-material/Event";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Paper, Typography, Box } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
+import FormInput from "../../../Components/MentorServiceBooking/studentDetails/formInput";
+import FormButton from "../../../Components/MentorServiceBooking/studentDetails/formButton";
 
-const StudentDetailsForm = ({}) => {
+const StudentDetailsForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [callAbout, setCallAbout] = useState("");
@@ -104,56 +97,25 @@ const StudentDetailsForm = ({}) => {
         </Typography>
       </Box>
       <form onSubmit={handleSubmit}>
-        <Box sx={{ marginBottom: "25px" }}>
-          <Typography variant="h6" gutterBottom sx={{ color: "#555" }}>
-            Your Name
-          </Typography>
-          <TextField
-            variant="outlined"
-            fullWidth
-            value={name}
-            onChange={handleNameChange}
-            required
-            placeholder="Enter your name"
-          />
-        </Box>
-        <Box sx={{ marginBottom: "25px" }}>
-          <Typography variant="h6" gutterBottom sx={{ color: "#555" }}>
-            Email
-          </Typography>
-          <TextField
-            variant="outlined"
-            fullWidth
-            value={email}
-            onChange={handleEmailChange}
-            required
-            placeholder="Enter your email"
-          />
-        </Box>
-        <Box sx={{ marginBottom: "25px" }}>
-          <Typography variant="h6" gutterBottom sx={{ color: "#555" }}>
-            What's this call about
-          </Typography>
-          <TextField
-            variant="outlined"
-            fullWidth
-            value={callAbout}
-            onChange={handleCallAboutChange}
-            required
-            placeholder="Enter the call details"
-          />
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={handleSubmit}
-            sx={{ fontSize: "18px", padding: "10px 30px", borderRadius: "5px" }}
-          >
-            Confirm and Pay
-          </Button>
-        </Box>
+        <FormInput
+          label="Your Name"
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Enter your name"
+        />
+        <FormInput
+          label="Email"
+          value={email}
+          onChange={handleEmailChange}
+          placeholder="Enter your email"
+        />
+        <FormInput
+          label="What's this call about"
+          value={callAbout}
+          onChange={handleCallAboutChange}
+          placeholder="Enter the call details"
+        />
+        <FormButton buttonText="Confirm and Pay" handleSubmit={handleSubmit} />
       </form>
     </Paper>
   );

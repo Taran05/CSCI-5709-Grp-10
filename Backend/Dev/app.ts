@@ -15,7 +15,11 @@ import newScheduleRoute from "./routes/newScheduleRoute";
 import blockDatesRoute from "./routes/blockDatesRoute";
 import calendarSettingsRoute from "./routes/calendarsettingsRoute";
 import { userRegisterRoute } from "./routes/userAuthentication/userRegistrationRoute";
+import getServiceRoute from "./routes/getServiceRoute";
 import { userLoginRoute } from "./routes/userAuthentication/userLoginRoutes";
+import queriesRoutes from "./routes/queriesRoutes";
+import availabilityRoute from "./routes/availabilityRoute";
+import studentBookingRoute from "./routes/studentBookingRoute";
 import { issueRoute } from "./routes/reportIssues/issueRoute";
 
 const app: Express = express();
@@ -28,7 +32,7 @@ app.use(bodyParser.json());
 // Connect to MongoDB
 
 mongoose
-  .connect(properties.get("dev.MONGODB_URI")?.toString() || "", {})
+  .connect(process.env.MONGODB_URI || `${properties.get("dev.MONGODB_URI")}`)
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -45,6 +49,11 @@ app.use("/api/", blockDatesRoute);
 app.use("/api/", calendarSettingsRoute);
 app.use("/api/", userRegisterRoute);
 app.use("/api/", userLoginRoute);
+app.use("/api/", queriesRoutes);
+app.use(getServiceRoute);
+app.use("/api/", userLoginRoute);
+app.use(availabilityRoute);
+app.use(studentBookingRoute);
 app.use("/api/", issueRoute);
 
 const port: number = 3001;

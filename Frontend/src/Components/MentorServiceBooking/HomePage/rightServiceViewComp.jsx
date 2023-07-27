@@ -7,7 +7,8 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { Card, Typography, Grid, Box, Divider } from "@mui/material";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./rightServiceViewComp.css"; // Import the CSS file
+import "./rightServiceViewComp.css";
+import { GET_MENTOR_DETAILS } from "../../../utils/apiUrls";
 
 const RightServiceViewComp = () => {
   const [mentor, setMentor] = useState({});
@@ -26,9 +27,7 @@ const RightServiceViewComp = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3001/services/${mentorId}`
-        );
+        const response = await axios.get(GET_MENTOR_DETAILS + "/" + mentorId);
         setServiceDetails(response.data);
       } catch (error) {
         console.error("Failed to fetch mentor service details", error);

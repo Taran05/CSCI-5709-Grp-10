@@ -23,3 +23,5 @@ export const GET_ALL_ISSUES = `${domain}api/getAllIssues`;
 export const GET_ISSUE = `${domain}api/getIssue`;
 export const UPDATE_ISSUE = `${domain}api/updateIssue`;
 export const DELETE_ISSUE = `${domain}api/deleteIssue`;
+export const MENTOR_AVAILABILITY_URL = `${domain}availability`;
+export const GET_MENTOR_DETAILS = `${domain}api/registerUser/getUserDetails`;

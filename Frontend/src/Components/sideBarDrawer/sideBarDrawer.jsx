@@ -14,18 +14,27 @@ import ListItemText from "@mui/material/ListItemText";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import MailIcon from "@mui/icons-material/Mail";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import FeedbackIcon from '@mui/icons-material/Feedback';
+import FeedbackIcon from "@mui/icons-material/Feedback";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { Link } from "react-router-dom";
-
+import { UserContext } from "../userContext";
 export default function SideBarDrawer() {
   const [isOpen, setIsOpen] = useState(false);
-  const theme = useTheme();
-  const isXS = useMediaQuery(theme.breakpoints.down("sm"));
+  // const [user, setUser] = React.useContext(UserContext);
 
+  const theme = useTheme();
+
+  const isXS = useMediaQuery(theme.breakpoints.down("sm"));
+  // React.useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   if (storedUser) {
+  //     console.log(storedUser);
+  //     setUser(JSON.parse(storedUser));
+  //   }
+  // });
   const toggleDrawer = (event) => {
     if (
       event.type === "keydown" &&

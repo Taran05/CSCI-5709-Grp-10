@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,6 +9,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
 import getAllUsernames from "../../utils/getAllUsers"; // Import the function to get usernames
 import { GET_MENTOR_DETAILS } from "../../utils/apiUrls";
 import { PUT_USER_DATA } from "../../utils/apiUrls";
@@ -54,7 +58,8 @@ export default function BasicTabs() {
   const [isIdUnique, setIsIdUnique] = React.useState(true);
   const [userName, setUsername] = React.useState(true);
   const [usernames, setUsernames] = React.useState([]); // State variable to store the usernames
-
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const handleTextFieldChange = (event) => {
     const user = event.target.value.trim();
 
@@ -103,11 +108,21 @@ export default function BasicTabs() {
     axios
       .put(PUT_USER_DATA, dataToSend)
       .then((response) => {
+        handleSnackbarOpen("Information Saved...");
+
         console.log(response.data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+  };
+  const handleSnackbarOpen = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
   React.useEffect(() => {
     // Get the username from the user object in local storage
@@ -267,6 +282,22 @@ export default function BasicTabs() {
           </div>
         </CustomTabPanel>
       </form>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={
+            snackbarMessage === "Information Saved..." ? "success" : "error"
+          }
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

@@ -29,13 +29,13 @@ function ResponsiveAppBar() {
   const [user, setUser] = React.useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  // React.useEffect(() => {
-  //   const storedUser = localStorage.getItem("user");
-  //   if (storedUser) {
-  //     console.log(storedUser);
-  //     setUser(JSON.parse(storedUser));
-  //   }
-  // }, []);
+  React.useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      console.log(storedUser);
+      setUser(JSON.parse(storedUser));
+    }
+  });
 
   React.useEffect(() => {
     const syncLogout = (event) => {

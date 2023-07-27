@@ -21,12 +21,10 @@ import PaymentDetailsPage from "./pages/payments/paymentDetailsPage";
 import ProfileManagementPage from "./pages/profileMangement/profileMangementPage";
 import ReportPage from "./pages/report-issue/reportPage";
 import IssueForm from "./pages/report-issue/issueForm";
-import IssueDetails from "./pages/report-issue/issueDetails"
-
+import IssueDetails from "./pages/report-issue/issueDetails";
 
 const localUser = JSON.parse(localStorage.getItem("user"));
 const isAuthenticated = localUser !== null;
-
 
 // const Navigator = useNavigate();
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -37,17 +35,17 @@ root.render(
       const localUser = JSON.parse(localStorage.getItem("user"));
       <Route exact path="/" element={<App />}>
         <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
         <Route path="/contact" element={<ContactPage />} />
         {!isAuthenticated && (
           <Route path="*" element={<Navigate to="/login" />} />
+        )}{" "}
+        {!isAuthenticated && (
+          <Route path="/register" element={<RegisterPage />} />
         )}
         {/* Anything that needs login must come blow this */}
         <Route path="/about-you" element={<RegisterAboutYouPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
         <Route path="/profile-settings" element={<ProfileManagementPage />} />
-
         {isAuthenticated && <Route path="/queries" element={<QueriesPage />} />}
       </Route>
       <Route exact path="/" element={<StudentBookingApp />}>

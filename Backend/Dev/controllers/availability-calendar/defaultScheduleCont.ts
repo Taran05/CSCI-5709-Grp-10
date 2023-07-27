@@ -79,14 +79,14 @@ const saveDefaultSchedule = async (req: Request, res: Response) => {
 
 const getDefaultSchedule = async (req: Request, res: Response) => {
     const { mentorId } = req.query;
-  try {
-    const defaultSchedule: IDefaultSchedule | null = await DefaultSchedule.findOne({
-      mentorId: mentorId as string,
-    });
-    res.status(200).json({ defaultSchedule });
+    try {
+      const defaultSchedules: IDefaultSchedule[] = await DefaultSchedule.find({
+          mentorId: mentorId as string,
+      });
+      res.status(200).json({ defaultSchedules });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to get default schedule' });
+      console.error(error);
+      res.status(500).json({ error: 'Failed to get default schedules' });
   }
 };
 

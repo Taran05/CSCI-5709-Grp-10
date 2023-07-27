@@ -141,21 +141,33 @@ export default function DefaultSchedule() {
               };
             const response = await axios.get(apiUrl, { params });
             console.log(response);
-            const fetchedData = response?.data?.defaultSchedule;
+            const fetchedData = response?.data?.defaultSchedules;
             console.log(fetchedData);
-            if(fetchedData){
+            if (fetchedData && fetchedData.length > 0) {
                 console.log(fetchedData);
                 // Update the state with fetched data
-                setDefaultScheduleData({ ...defaultScheduleData, ...fetchedData });
+                const updatedDefaultScheduleData = {};
+                fetchedData.forEach((schedule) => {
+                    updatedDefaultScheduleData[schedule.day] = {
+                        startTime: schedule.startTime,
+                        endTime: schedule.endTime,
+                    };
+                });
+                setDefaultScheduleData((prevDefaultScheduleData) => ({
+                    ...prevDefaultScheduleData,
+                    ...updatedDefaultScheduleData,
+                }));
                 // Update the checkboxStates with fetched data
-                const updatedCheckboxStates = { ...checkboxStates };
-                updatedCheckboxStates[fetchedData.day] = {
-                    checked: true,
-                    startTime: fetchedData.startTime,
-                    endTime: fetchedData.endTime,
-                  };
-                setCheckboxStates(updatedCheckboxStates);
-            }
+    const updatedCheckboxStates = { ...checkboxStates };
+    fetchedData.forEach((schedule) => {
+        updatedCheckboxStates[schedule.day] = {
+            checked: true,
+            startTime: schedule.startTime,
+            endTime: schedule.endTime,
+        };
+    });
+    setCheckboxStates(updatedCheckboxStates);
+}
             else{
                 console.log("Default Schedule data not available.");
               }

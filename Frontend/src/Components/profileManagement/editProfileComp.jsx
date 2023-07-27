@@ -9,7 +9,8 @@ import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
 import getAllUsernames from "../../utils/getAllUsers"; // Import the function to get usernames
-
+import { GET_MENTOR_DETAILS } from "../../utils/apiUrls";
+import { PUT_USER_DATA } from "../../utils/apiUrls";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -72,7 +73,12 @@ export default function BasicTabs() {
 
     const fetchUsernames = async () => {
       try {
-        const usernames = await getAllUsernames();
+        const user = JSON.parse(localStorage.getItem("user")); // Adjust this line according to how your user object is structured
+        const currentUsername = user.userName;
+        const allUsernames = await getAllUsernames();
+        const usernames = allUsernames.filter(
+          (username) => username != currentUsername
+        );
         setUsernames(usernames);
       } catch (error) {
         console.error("Error fetching usernames:", error);
@@ -83,18 +89,19 @@ export default function BasicTabs() {
   }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    console.log("here");
     // Your data to send to the API
     const dataToSend = {
+      username: userName,
       firstName,
       lastName,
       email,
-      disPlayName,
+      displayName: disPlayName,
       aboutYou,
     };
 
     axios
-      .post("YOUR_API_ENDPOINT", dataToSend)
+      .put(PUT_USER_DATA, dataToSend)
       .then((response) => {
         console.log(response.data);
       })
@@ -103,20 +110,27 @@ export default function BasicTabs() {
       });
   };
   React.useEffect(() => {
-    // Fetch the data from the API
-    // fetch("url_to_your_api")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    // Set the states with the received data
-    setUsername("fhajg");
-    setFirstName("bgabga");
-    setLastName("gkjbajbga");
-    setEmail("fgajngjka");
-    setdisPlayName("gaga");
-    setAboutYou("data.aboutYou");
-    // })
-    // .catch((error) => console.error(error));
+    // Get the username from the user object in local storage
+    const user = JSON.parse(localStorage.getItem("user")); // Adjust this line according to how your user object is structured
+    const username = user.userName;
+
+    // Send a GET request to the API with the username
+    axios
+      .get(`${GET_MENTOR_DETAILS}/${username}`)
+      .then((response) => {
+        const data = response.data.user;
+
+        // Set the states with the received data
+        setUsername(data.username);
+        setFirstName(data.firstName);
+        setLastName(data.lastName);
+        setEmail(data.email);
+        setdisPlayName(data.displayName);
+        setAboutYou(data.aboutYou);
+      })
+      .catch((error) => console.error(error));
   }, []); // An empty dependencies array means this useEffect will run once after the component mounts
+  // An empty dependencies array means this useEffect will run once after the component mounts
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -130,117 +144,49 @@ export default function BasicTabs() {
           <Tab label="Profile" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <TextField
-          label="Should be unique"
-          id="outlined-start-adornment"
-          sx={{
-            width: "38.8ch",
-            "@media (max-width: 600px)": {
-              width: "100%",
-            },
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">learnly.io/</InputAdornment>
-            ),
-          }}
-          onChange={handleTextFieldChange}
-          error={!isIdUnique}
-          value={userName}
-          helperText={!isIdUnique ? "Username already exists!" : ""}
-        />
+      <form onSubmit={handleSubmit}>
+        <CustomTabPanel value={value} index={0}>
+          <TextField
+            label="Should be unique"
+            id="outlined-start-adornment"
+            sx={{
+              width: "38.8ch",
+              "@media (max-width: 600px)": {
+                width: "100%",
+              },
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">learnly.io/</InputAdornment>
+              ),
+            }}
+            onChange={handleTextFieldChange}
+            error={!isIdUnique}
+            value={userName}
+            helperText={!isIdUnique ? "Username already exists!" : ""}
+          />
 
-        <TextField
-          required
-          id="outlined-required"
-          placeholder="xyz@gmail.com"
-          label="Email"
-          type="email"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ marginTop: "1em", width: "38.8ch" }}
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <br />
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{
-            bgcolor: "#1D267D",
-            color: "white",
-            width: "44ch",
-            marginTop: "7px",
-            letterSpacing: "3px",
-            "&:hover": {
-              bgcolor: "#0C134F",
-            },
-          }}
-        >
-          Submit
-        </Button>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <div className="form">
-          <TextField
-            sx={{ paddingRight: 3, paddingBottom: 2 }}
-            required
-            id="outlined-required"
-            placeholder="First Name"
-            label="First Name"
-            type="text"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
-          />
           <TextField
             required
             id="outlined-required"
-            placeholder="Last Name"
-            label="Last Name"
-            type="text"
+            placeholder="xyz@gmail.com"
+            label="Email"
+            type="email"
             InputLabelProps={{
               shrink: true,
             }}
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
-          />
-          <TextField
-            required
-            id="disPlayName"
-            placeholder="disPlayName"
-            label="Display Name"
-            type="text"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            sx={{ marginBottom: "1em", width: "49ch" }}
-            value={disPlayName}
-            onChange={(event) => setdisPlayName(event.target.value)}
-          />
-          <TextField
-            id="filled-multiline-static"
-            label="About You"
-            multiline
-            rows={4}
-            sx={{ width: "49ch" }}
-            value={aboutYou}
-            onChange={(event) => setAboutYou(event.target.value)}
-            variant="filled"
+            sx={{ marginTop: "1em", width: "38.8ch" }}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
           <br />
           <Button
             variant="contained"
-            onClick={handleSubmit}
             type="submit"
             sx={{
               bgcolor: "#1D267D",
-              width: "56ch",
               color: "white",
+              width: "44ch",
               marginTop: "7px",
               letterSpacing: "3px",
               "&:hover": {
@@ -250,8 +196,77 @@ export default function BasicTabs() {
           >
             Submit
           </Button>
-        </div>
-      </CustomTabPanel>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <div className="form">
+            <TextField
+              sx={{ paddingRight: 3, paddingBottom: 2 }}
+              required
+              id="outlined-required"
+              placeholder="First Name"
+              label="First Name"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              placeholder="Last Name"
+              label="Last Name"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
+            />
+            <TextField
+              required
+              id="disPlayName"
+              placeholder="Your Display Name"
+              label="Display Name"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              sx={{ marginBottom: "1em", width: "49ch" }}
+              value={disPlayName}
+              onChange={(event) => setdisPlayName(event.target.value)}
+            />
+            <TextField
+              id="filled-multiline-static"
+              label="About You"
+              multiline
+              rows={4}
+              sx={{ width: "49ch" }}
+              value={aboutYou}
+              onChange={(event) => setAboutYou(event.target.value)}
+              variant="filled"
+            />
+            <br />
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{
+                bgcolor: "#1D267D",
+                width: "56ch",
+                color: "white",
+                marginTop: "7px",
+                letterSpacing: "3px",
+                "&:hover": {
+                  bgcolor: "#0C134F",
+                },
+              }}
+            >
+              Submit
+            </Button>
+          </div>
+        </CustomTabPanel>
+      </form>
     </Box>
   );
 }

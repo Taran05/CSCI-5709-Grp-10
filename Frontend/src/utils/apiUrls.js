@@ -2,6 +2,7 @@ const domain = "http://localhost:3001/";
 // const domain = "https://learnly-backend.onrender.com/";
 
 export const REGISTER_USER = `${domain}api/registerUser`;
+export const PUT_USER_DATA = `${domain}api/updateUser`;
 export const LOGIN_USER = `${domain}api/loginUser`;
 export const GET_ALL_USERS = `${domain}api/registerUser/getAllUsernames`;
 export const SAVE_QUERY = `${domain}api/saveQuery`;

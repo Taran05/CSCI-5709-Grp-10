@@ -36,6 +36,7 @@ root.render(
       <Route exact path="/" element={<App />}>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
         {!isAuthenticated && (
           <Route path="*" element={<Navigate to="/login" />} />
         )}{" "}

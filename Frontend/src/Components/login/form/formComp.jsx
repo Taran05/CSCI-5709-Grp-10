@@ -60,10 +60,9 @@ export default function FormComp() {
           handleSnackbarOpen("Login successful. Redirecting...");
 
           localStorage.setItem("user", JSON.stringify(response.data.user));
-
           setTimeout(() => {
-            navigate("/");
-          }, 2000);
+            navigate("/", { state: response.data.user });
+          }, 200);
         } else {
           handleSnackbarOpen("Login failed. Wrong Credentials!");
         }

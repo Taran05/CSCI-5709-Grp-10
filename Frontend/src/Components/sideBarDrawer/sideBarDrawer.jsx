@@ -19,22 +19,24 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-import { Link } from "react-router-dom";
-import { UserContext } from "../userContext";
+import { Link, useLocation } from "react-router-dom";
+
 export default function SideBarDrawer() {
   const [isOpen, setIsOpen] = useState(false);
-  // const [user, setUser] = React.useContext(UserContext);
+  const [user, setUser] = React.useState(null);
 
   const theme = useTheme();
 
+  const location = useLocation();
+  React.useEffect(() => {
+    let user1 = location?.state ?? null;
+    if (user1 == null) {
+      user1 = JSON.parse(localStorage.getItem("user"));
+    }
+    setUser(user1);
+  }, [location]);
+
   const isXS = useMediaQuery(theme.breakpoints.down("sm"));
-  // React.useEffect(() => {
-  //   const storedUser = localStorage.getItem("user");
-  //   if (storedUser) {
-  //     console.log(storedUser);
-  //     setUser(JSON.parse(storedUser));
-  //   }
-  // });
   const toggleDrawer = (event) => {
     if (
       event.type === "keydown" &&
@@ -44,6 +46,10 @@ export default function SideBarDrawer() {
     }
     setIsOpen(!isOpen);
   };
+
+  if (user == null) {
+    return null;
+  }
 
   const list = () => (
     <Box

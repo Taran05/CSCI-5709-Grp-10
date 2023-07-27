@@ -5,10 +5,12 @@ import User from "../../models/usersModel";
 const putUserDetails = async (req: Request, res: Response) => {
   const userData = req.body;
 
+
   try {
-    const filter = { userName: userData.userName }; // Create a filter to find the document by userName
+    const filter = { userName: userData.username }; // Create a filter to find the document by userName
     const update = { $set: userData }; // Use $set operator to update the document with the new data
 
+    console.log('update user:', filter, update);
     // Set the { new: true } option to return the modified document instead of the original one
     const updatedQuery = await User.findOneAndUpdate(filter, update, { new: true });
 

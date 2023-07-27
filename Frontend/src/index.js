@@ -21,12 +21,10 @@ import PaymentDetailsPage from "./pages/payments/paymentDetailsPage";
 import ProfileManagementPage from "./pages/profileMangement/profileMangementPage";
 import ReportPage from "./pages/report-issue/reportPage";
 import IssueForm from "./pages/report-issue/issueForm";
-import IssueDetails from "./pages/report-issue/issueDetails"
-
+import IssueDetails from "./pages/report-issue/issueDetails";
 
 const localUser = JSON.parse(localStorage.getItem("user"));
 const isAuthenticated = localUser !== null;
-
 
 // const Navigator = useNavigate();
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -37,9 +35,20 @@ root.render(
       const localUser = JSON.parse(localStorage.getItem("user"));
       <Route exact path="/" element={<App />}>
         <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        {console.log("Printing from index:", isAuthenticated, localUser)}
+
+        {isAuthenticated && (
+          <Route path="/register" element={<Navigate to="/" />} />
+        )}
+
+        {isAuthenticated && (
+          <Route path="/login" element={<Navigate to="/" />} />
+        )}
+        {/* If logged in redirect to gomepage */}
+        <Route path="/register" element={<RegisterPage />} />
+        <Route exact path="/login" element={<LoginPage />} />
+
         {!isAuthenticated && (
           <Route path="*" element={<Navigate to="/login" />} />
         )}

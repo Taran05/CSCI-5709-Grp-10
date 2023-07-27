@@ -26,11 +26,13 @@ Our project, Learnly, aims to simplify personalized interactions by providing a 
 The following are the features that are developed by our team for the A3:
 
 
-- Availability Calendar
+- Availability Calendar (Taranjot Singh)
 - User Profile Management(Amanjot Singh)
 - Queries Management (Shubham Chauhan)
 - Raise an Issue (Aadith Shameel)
 - Student-Mentor meeting booking system (Shivam Lakhanpal)
+
+NOTE: We have not focused much on responsiveness in this assignment since it was not part of the rubric, but we will make our website responsive as part of the final project. Currently, it only works for 1440px (Laptop L).
 
 
 ## Login Details
@@ -272,7 +274,7 @@ Note: Ensure that the code is properly pushed to the GitHub repository before pr
 
 
 1. After deploying the application using Netlify & Render, some part of our UI is breaking especially the Queries & Availability Calendar page.
-2. After registration & login, user is redirected to the landing page.
+2. After login, user is redirected to the landing page as Dashboard page will be developed as part of next feature.
 
 
 ## Built With

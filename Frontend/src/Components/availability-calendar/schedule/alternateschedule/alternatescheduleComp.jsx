@@ -140,23 +140,37 @@ export default function AlternateSchedule() {
                 mentorId: localUser.userName,
               };
             const response = await axios.get(apiUrl, { params });
-            const fetchedData = response?.data?.alternateSchedule;
-            if(fetchedData){
+            const fetchedData = response?.data?.alternateSchedules;
             console.log(fetchedData);
-            setAlternateScheduleData({ ...alternateScheduleData, ...fetchedData });
-            // Update the checkboxStates with fetched data
-            const updatedCheckboxStates = { ...checkboxStates };
-            updatedCheckboxStates[fetchedData.day] = {
-                checked: true,
-                startTime: fetchedData.startTime,
-                endTime: fetchedData.endTime,
-              };
-            setCheckboxStates(updatedCheckboxStates);
-            }
+            if (fetchedData && fetchedData.length > 0) {
+                console.log(fetchedData);
+                // Update the state with fetched data
+                const updatedAlternateScheduleData = {};
+                fetchedData.forEach((schedule) => {
+                    updatedAlternateScheduleData[schedule.day] = {
+                        startTime: schedule.startTime,
+                        endTime: schedule.endTime,
+                    };
+                });
+                setAlternateScheduleData((prevAlternateScheduleData) => ({
+                    ...prevAlternateScheduleData,
+                    ...updatedAlternateScheduleData,
+                }));
+                // Update the checkboxStates with fetched data
+    const updatedCheckboxStates = { ...checkboxStates };
+    fetchedData.forEach((schedule) => {
+        updatedCheckboxStates[schedule.day] = {
+            checked: true,
+            startTime: schedule.startTime,
+            endTime: schedule.endTime,
+        };
+    });
+    setCheckboxStates(updatedCheckboxStates);
+}
             else{
                 console.log("Alternate Schedule data not available.");
               }
-          } catch (error) {
+          }  catch (error) {
             console.error(error);
             toast.error('Failed to fetch alternate schedule');
           }

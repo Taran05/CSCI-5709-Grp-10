@@ -6,7 +6,7 @@ import express from "express";
 import userRegistrationCont from "../../controllers/userAuthentication/userRegistrationCont";
 import getAllUsernamesCont from "../../controllers/userAuthentication/getAllUsernamesCont";
 import getUserDetailsCont from "../../controllers/userAuthentication/getUserDetailsCont";
-import putUserDetails from "../../controllers/userAuthentication/putUserDetails";
+import putUserDetails from "../../controllers/profileManagement/putUserDetails";
 
 const router = express.Router();
 
@@ -21,6 +21,6 @@ router.get(
   getUserDetailsCont.getUserDetails
 );
 
-router.put("/updateUser",putUserDetails.putUserDetails)
+router.put("/updateUser", putUserDetails.putUserDetails);
 
 export const userRegisterRoute = router;

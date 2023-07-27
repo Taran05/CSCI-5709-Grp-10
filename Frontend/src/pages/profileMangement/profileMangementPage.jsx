@@ -4,8 +4,8 @@
 
 import "./profileMangementPage.css";
 import React from "react";
-// import FormComp from "../../Components/register/form/formComp";
-import myteam from "../../assets/images/landing1.png";
+import EditProfile from "../../Components/profileManagement/editProfileComp";
+import myteam from "../../assets/images/profileEditing.png";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -20,33 +20,21 @@ function ProfileManagementPage() {
       <div className="profileManagement-container">
         <div className="profileManagement-left-div">
           <div className="profileManagement-form">
-            {/* <h1 className="profileManagement-form-header">
-              CREATE YOUR
+            <h1 className="profileManagement-form-header">
+              Edit
               <span style={{ marginLeft: "6px", color: "#5C469C" }}>
-                ACCOUNT
+                Profile
               </span>{" "}
             </h1>
-            <h2 className="profileManagement-form-header-sub">
+            {/* <h2 className="profileManagement-form-header-sub">
               Getting started with Learnly is simple,quick and easy
-            </h2> */}
-            <Box sx={{ width: "200%" }}>
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                textColor="secondary"
-                indicatorColor="secondary"
-                aria-label="secondary tabs example"
-              >
-                <Tab value="one" label="Item One" />
-                <Tab value="two" label="Item Two" />
-              </Tabs>
-            </Box>
+            </h2>  */}
 
-            {/* <FormComp /> */}
+            <EditProfile />
           </div>
         </div>
         <div className="profileManagement-right-div">
-          <img src={myteam} alt="My Team" width="75%" />
+          <img src={myteam} alt="My Team" width="85%" />
         </div>
       </div>
     </div>

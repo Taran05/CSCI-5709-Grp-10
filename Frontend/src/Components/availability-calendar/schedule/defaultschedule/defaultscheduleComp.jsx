@@ -1,3 +1,6 @@
+  /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ */ 
 import React, { useState, useEffect } from "react";
 import "./defaultscheduleComp.css";
 import { ToastContainer, toast } from "react-toastify";

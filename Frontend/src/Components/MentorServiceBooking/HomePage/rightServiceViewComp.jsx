@@ -8,7 +8,10 @@ import { Card, Typography, Grid, Box, Divider } from "@mui/material";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./rightServiceViewComp.css";
-import { GET_MENTOR_DETAILS } from "../../../utils/apiUrls";
+import {
+  GET_SERVICE_DETAILS,
+  GET_MENTOR_DETAILS,
+} from "../../../utils/apiUrls";
 
 const RightServiceViewComp = () => {
   const [mentor, setMentor] = useState({});
@@ -16,7 +19,7 @@ const RightServiceViewComp = () => {
   const location = useLocation();
   const mentorId = location.pathname.split("/")[2];
   useEffect(() => {
-    fetch(`http://localhost:3001/api/registerUser/getUserDetails/${mentorId}`)
+    fetch(GET_MENTOR_DETAILS + "/" + mentorId)
       .then((response) => response.json())
       .then((data) => setMentor(data.user));
   }, [mentorId]);
@@ -27,7 +30,7 @@ const RightServiceViewComp = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(GET_MENTOR_DETAILS + "/" + mentorId);
+        const response = await axios.get(GET_SERVICE_DETAILS + "/" + mentorId);
         setServiceDetails(response.data);
       } catch (error) {
         console.error("Failed to fetch mentor service details", error);

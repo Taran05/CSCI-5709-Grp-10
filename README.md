@@ -2,79 +2,75 @@
 
 Our project, Learnly, aims to simplify personalized interactions by providing a platform for professionals to manage incoming requests for advice or guidance. It allows individuals to connect with professionals and seek personalized interactions, allowing knowledge and wisdom to be shared in a simplified and seamless manner.
 
-* *Date Created*: 19 June 2023
-* *Last Modification Date*: 20 June 2023
+* *Date Created*: 20 July 2023
+* *Last Modification Date*: 26 July 2023
 * *Deployed application URL*: https://learnly-group10.netlify.app/
-* *GIT URL*: <https://git.cs.dal.ca/taranjots/csci-5709-grp-10>
+* *GROUP GIT URL*: <https://git.cs.dal.ca/taranjots/csci-5709-grp-10>
+
 
 ## Authors
 
-* [Taranjot Singh (tr548284@dal.ca)](https://git.cs.dal.ca/taranjots)
-* [Shivam Lakhanpal (sh475218@dal.ca)](https://git.cs.dal.ca/slakhanpal)
 * [Amanjot Singh (am854663@dal.ca)](https://git.cs.dal.ca/amanjots)
-* [Shubham Chauhan (shubhamchauhan@dal.ca)](https://git.cs.dal.ca/shubhamc)
-* [Aadith Shameel (ad766375@dal.ca)](https://git.cs.dal.ca/shameel)
 
-## Testing
+Features: User Registration and Authentication (User Profile Management)
+=============================================
 
-In the context of my application, the end-to-end tests & coding style tests which I went through are described below:
+## Features: User Registration and Authentication
 
-### End to End Tests:
+### Task 1: User Registration
 
-1. Testing Responsiveness
+In this task, we will implement the user registration functionality, allowing new users to create accounts on our platform. The process involves both frontend and backend validations to ensure that the provided information is accurate and meets the necessary requirements.
 
-* Test: Resize the browser window to different screen sizes or use a responsive design testing tool to emulate various devices.
+Frontend validations will include checks for:
+- Valid email format
+- Strong password requirements (e.g., minimum length, presence of special characters)
+- Confirm password matching
+- Other relevant fields validation, such as name, date of birth, etc.
 
-* Expectation: Verify that the website layout and components adapt appropriately to different screen sizes, ensuring readability and usability across devices. Elements should resize, reposition, or hide as necessary.
+Once the frontend validations pass, the data will be sent to the backend for further verification. Backend validations will include checks for:
+- Unique email address to avoid duplicate registrations
+- Server-side validation of password strength and complexity
+- Any additional business logic checks for the registration process
 
-Note: Our application does not support responsiveness on 4K screens.
+Upon successful registration, the user's data will be stored in the database, and a session will be created for the user to handle subsequent logins and interactions.
 
-2. Submitting Message on Contact Page
+### Task 2: User Login
 
-* Test: Fill in the necessary fields on the Contact page and click the save button.
+For this task, we will implement the user login functionality, allowing registered users to access their accounts on the platform. Similar to the registration process, user logins will be subject to validations on both the frontend and backend.
 
-* Expectation:
-    * Verify that a success message is displayed, indicating that the message has been submitted.
-    * Verify that an error is displayed if the user leaves any field blank.
-    * Validates that the user email is provided in a correct format and if not, then an error message is displayed.
+Frontend validations will include checks for:
+- Valid email format
+- Non-empty password field
 
-3. Registration and Valid information
+Once the user provides their credentials, the data will be sent to the backend for verification. Backend validations will include checks for:
+- Existence of the user's email address in the database
+- Correctness of the provided password, using secure authentication methods like hashing and salting
 
-    a. Test: Registration with Valid Information
+Upon successful login, the user will be granted access to their account, and a session will be created to keep them authenticated during their visit to the platform. Additionally, the use of tokens (e.g., JSON Web Tokens) may be considered for handling stateless authentication.
 
-    * Expectation:
-    The user should be able to successfully register by entering valid personal information, and a new user account should be created in the system. A confirmation email should be sent to the user, and upon clicking the confirmation link, the account should be activated. The user should be able to log in with their registered credentials.
+### Task 3: Account Settings/Profile Editing
 
-    b. Test: Registration with Invalid Email Format
+This task focuses on providing users with the ability to edit their profile information and customize their accounts according to their preferences. Users will have access to an "Account Settings" section where they can modify various fields, including:
 
-    * Expectation: 
-    When the user enters an invalid email format, such as missing the '@' symbol, an error message should be displayed indicating the invalid format. The system should allow the user to correct the email format and proceed with the registration process. After successful registration, the user should receive a confirmation email and be able to activate their account.
+- **Name:** Users can change their displayed name.
+- **Email:** Users may update their registered email address.
+- **About You:** An optional field allowing users to provide a short description or bio about themselves.
+- **Display Name:** Users can customize the name that appears publicly on the platform.
 
-    c. Test: Login with Correct Credentials
+The frontend will handle validations to ensure that the provided data adheres to any specified constraints, such as character limits or valid email formats.Upon saving the changes, the data will be sent to the backend, which will handle the necessary updates in the database and session management.
 
-    * Expectation: Upon entering the correct email and password combination, the system should verify the credentials and grant access to the user's account. The user should be redirected to their account dashboard, indicating a successful login.
 
-    d. Test: Login with Incorrect Password
+### Additional Task: Creating Navigation Bar, Footer, and Sidebar Drawer
 
-    * Expectation: When the user enters the correct email but an incorrect password, the system should detect the incorrect password and display an error message. The user should be allowed to re-enter the correct password and upon successful login, be redirected to their account dashboard.
+In this task, I created a navigation bar that contains all the required links for easy navigation throughout the platform. The navigation bar will have conditional changes based on whether the user is logged in or not. If the user is logged in, certain links, such as "My Account" or "Log Out," will be displayed, while for non-logged-in users, links like "Login" or "Register" will be shown.
 
-    e. Test: Account Activation with Expired Confirmation Link
+Additionally, I designed and implemented a footer section that provides essential information about the platform, such as contact details, links to social media, and any legal disclaimers.
 
-    * Expectation: By delaying the click on the confirmation link received via email, the system should recognize and handle the expired link properly. An error message should be displayed indicating the link has expired. The user should be prompted to request a new confirmation email to activate their account, and upon receiving the new email and clicking the confirmation link, the account should be successfully activated.
-    
-### Coding Style Tests:
+Furthermore, I also created a sidebar drawer with relevant sections that offer quick access to specific features or pages. The sidebar drawer will be easily accessible and can be toggled open or closed for a seamless user experience.
 
-1. Code formatting: Ensure that the code follows consistent indentation, spacing, and line wrapping rules. This helps improve code readability and maintainability.
+By completing these tasks, my goal is to create a user-friendly and intuitive user interface, making it easier for users to navigate the platform and access various functionalities while maintaining a consistent and aesthetically pleasing design.
 
-* Example: Check that the components use consistent indentation with proper alignment of elements and logical grouping of code blocks.
 
-2. Naming conventions: Verify that variables, functions, and components follow appropriate naming conventions for clarity and consistency.
-
-* Example: Ensure that the names of functions and variables in the AvailableCalendar and Sidebar components are descriptive and follow a consistent naming convention, such as camelCase or PascalCase.
-
-3. Modularity and organization: Assess how well the code is structured and organized, promoting maintainability and reusability.
-
-* Example: Check that the code within the components is logically grouped, with related functions or styles placed together, and that code duplication is minimized.
 
 ## Deployment
 

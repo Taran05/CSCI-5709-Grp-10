@@ -1,3 +1,7 @@
+/**
+ * @author Shubham Chauhan <sh572302@dal.ca/B00945891>
+ * Code resude from A1.
+ */
 import React, { useEffect, useState } from "react";
 import HeaderComp from "../../Components/queries/header/headerComp";
 import PageHeaderComp from "../../Components/header/headerComp";

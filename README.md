@@ -4,8 +4,8 @@
 Our project, Learnly, aims to simplify personalized interactions by providing a platform for professionals to manage incoming requests for advice or guidance. It allows individuals to connect with professionals and seek personalized interactions, allowing knowledge and wisdom to be shared in a simplified and seamless manner.
 
 
-* Date Created: 19 June 2023
-* Last Modification Date: 20 June 2023
+* Date Created: 26 July 2023
+* Last Modification Date: 26 July 2023
 * Deployed application URL: <https://csci5709-group10-learnly.netlify.app/>
 * GIT URL: <https://git.cs.dal.ca/taranjots/csci-5709-grp-10>
 

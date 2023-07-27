@@ -2,10 +2,10 @@
 
 Our project, Learnly, aims to simplify personalized interactions by providing a platform for professionals to manage incoming requests for advice or guidance. It allows individuals to connect with professionals and seek personalized interactions, allowing knowledge and wisdom to be shared in a simplified and seamless manner.
 
-- _Date Created_: 19 June 2023
-- _Last Modification Date_: 20 June 2023
-- _Deployed application URL_: https://learnly-group10.netlify.app/
-- _GIT URL_: <https://git.cs.dal.ca/taranjots/csci-5709-grp-10>
+- Date Created: 26 July 2023
+- Last Modification Date: 26 July 2023
+- Deployed application URL: <https://csci5709-group10-learnly.netlify.app/>
+- GIT URL: <https://git.cs.dal.ca/taranjots/csci-5709-grp-10>
 
 ## Authors
 
@@ -15,28 +15,43 @@ Our project, Learnly, aims to simplify personalized interactions by providing a 
 - [Shubham Chauhan (shubhamchauhan@dal.ca)](https://git.cs.dal.ca/shubhamc)
 - [Aadith Shameel (ad766375@dal.ca)](https://git.cs.dal.ca/shameel)
 
+## Features
+
+The following are the features that are developed by our team for the A3:
+
+- Availability Calendar (Taranjot Singh)
+- User Profile Management(Amanjot Singh)
+- Queries Management (Shubham Chauhan)
+- Raise an Issue (Aadith Shameel)
+- Student-Mentor meeting booking system (Shivam Lakhanpal)
+
+NOTE: We have not focused much on responsiveness in this assignment since it was not part of the rubric, but we will make our website responsive as part of the final project. Currently, it only works for 1440px (Laptop L).
+
+## Login Details
+
+1.  - email: taran@example.com
+    - pass: Taran123
+
+2.  - email: shubham@gmail.com
+    - pass: testpass
+
+## Folder Structure
+
+The reason for using a different folder structure in our project is to enhance code organization, maintainability, and reusability. By logically grouping related files into separate folders, we can achieve a decoupled and modular codebase. This allows us to work on specific components or features without affecting others, resulting in a more efficient development process.
+
+For frontend development, the hierarchical folder structure helps us easily locate and manage assets like CSS, JavaScript, images, and fonts. This separation of concerns ensures a clear distinction between different elements of the frontend, making the code more readable and facilitating collaboration with other team members.
+
+Similarly, in backend development, separating TypeScript (development code) and JavaScript (production code) into different folders enables me to distinguish between the two environments. This separation enhances code readability and simplifies the transition from development to production.
+
+Additionally, a well-organized folder structure promotes code reuse. We can easily integrate them into various parts of the application, reducing redundancy and optimizing overall code efficiency.
+
 ## Testing
 
 In the context of my application, the end-to-end tests & coding style tests which I went through are described below:
 
-## End to End Tests:
+### End to End Tests:
 
-- Test: Resize the browser window to different screen sizes or use a responsive design testing tool to emulate various devices.
-
-- Expectation: Verify that the website layout and components adapt appropriately to different screen sizes, ensuring readability and usability across devices. Elements should resize, reposition, or hide as necessary.
-
-Note: Our application does not support responsiveness on 4K screens.
-
-2. Submitting Message on Contact Page
-
-- Test: Fill in the necessary fields on the Contact page and click the save button.
-
-- Expectation:
-  - Verify that a success message is displayed, indicating that the message has been submitted.
-  - Verify that an error is displayed if the user leaves any field blank.
-  - Validates that the user email is provided in a correct format and if not, then an error message is displayed.
-
-3. Registration and Valid information
+1. Registration and Valid information
 
    a. Test: Registration with Valid Information
 
@@ -56,9 +71,83 @@ Note: Our application does not support responsiveness on 4K screens.
 
    - Expectation: When the user enters the correct email but an incorrect password, the system should detect the incorrect password and display an error message. The user should be allowed to re-enter the correct password and upon successful login, be redirected to their account dashboard.
 
-   e. Test: Account Activation with Expired Confirmation Link
+e. Test: Profile Editing
 
-   - Expectation: By delaying the click on the confirmation link received via email, the system should recognize and handle the expired link properly. An error message should be displayed indicating the link has expired. The user should be prompted to request a new confirmation email to activate their account, and upon receiving the new email and clicking the confirmation link, the account should be successfully activated.
+-Expectation:The user should be able to access the "Account Settings" or "Profile Editing" section and modify their profile information. Changes made to fields such as name, email, about you, and display name should be successfully updated in the system. The updated information should be reflected in the user's profile and account details. Additionally, any validations on the frontend and backend should be in place to ensure data integrity and accuracy during the profile editing process.
+
+e. Test: Account Activation with Expired Confirmation Link
+
+- Expectation: By delaying the click on the confirmation link received via email, the system should recognize and handle the expired link properly. An error message should be displayed indicating the link has expired. The user should be prompted to request a new confirmation email to activate their account, and upon receiving the new email and clicking the confirmation link, the account should be successfully activated.
+
+2. Saving/Updating Default Schedule (Availability Calendar)
+
+- Test: Fill in the necessary fields on the Availability Calendar to set a default schedule, make changes, and click the save button.
+
+- Expectation: Verify that a success message is displayed, indicating that the default schedule has been saved successfully in the MongoDB database. Also, the updated default schedule is reflected on the AvailableCalendar component.
+
+3. Saving/Updating Alternate Schedule (Availability Calendar)
+
+- Test: Fill in the necessary fields on the Availability Calendar to set an alternate schedule, make changes, and click the save button.
+
+- Expectation: Verify that a success message is displayed, indicating that the alternate schedule has been saved successfully in the MongoDB database. Also, the updated alternate schedule is reflected on the AvailableCalendar component.
+
+4. Saving/Updating Unavailable Dates (Availability Calendar)
+
+- Test: Select the necessary dates by clicking "Add Unavailable Dates". Then, select some dates & click "Block Dates".
+
+- Expectation: Verify that a success message is displayed, indicating that the block dates has been saved successfully in the MongoDB database. Also, the updated dates are reflected on the calendar.
+
+5. Saving/Updating Calendar Settings (Availability Calendar)
+
+- Test: Select the necessary fields by clicking "Calendar Settings" & click "Save Calendar Settings".
+
+- Expectation: Verify that a success message is displayed, indicating that the calendar settings has been saved successfully in the MongoDB database. Also, the updated settings are reflected on the calendar.
+
+6. Creating an Issue (Report an Issue Feature)
+
+- Test: Entering issue information by clicking "Report an Issue" button, entering issue title and description, and pressing "Submit" button.
+
+- Expectation: Takes input from user, uploads it to the MongoDB database, and sends a success message after being saved. Then the user is sent back to the main issues page.
+
+7. Update an Issue ()
+
+- Test: Clicking on the issue, editing the issue information, pressing the “update” button.
+
+- Expectation: Receives info about the issue that the user clicks, gives user the form to update issue, and on press of “update” button saves the updated data.
+
+8. Delete an Issue ()
+
+- Test: Clicking on an issue and pressing the "Delete" button.
+
+- Expectation: Receives info about the issue selected by user, and calls the delete API to delete it from the MongoDB database.
+
+9. Test: Service Selection
+
+   - Expectation: When a service is selected on the service page, the user is redirected to the booking details page with correct service details transferred.
+
+10. Test: Booking Creation
+
+    - Expectation: On the booking details page, the form should require all student information fields to be filled. Upon confirming the booking, the booking should be created in the backend with the 'isPaid' status set to false.
+
+11. Test: Payment Process
+
+    - Expectation: The payment page should validate inputs for a 16-digit card number, a 3-digit CVV, and a non-empty card holder's name. Upon successful payment, the app should redirect to the landing page, and a confirmation email should be sent to the user.
+
+12. Pending Queries Display:
+
+Expectation: When Queries are opened, pending queries for that user should be displayed, providing a clear and organized view of outstanding issues.
+
+13. Queries Status Update:
+
+Expectation: When a response is sent, queries should be promptly moved to the Answered tab, and the corresponding data must be accurately updated in the DB to ensure efficient query tracking and resolution.
+
+14. Mail Notification:
+
+Expectation: Upon sending a response to a query, an automatic mail notification should be promptly sent to the user, ensuring that they are informed about the resolution or further action required.
+
+15. Deletion of Queries:
+
+Expectation: When Queries are deleted, they should be instantly removed from the system's DB, ensuring that irrelevant or resolved queries are not retained unnecessarily, maintaining data cleanliness and storage efficiency.
 
 ### Coding Style Tests:
 
@@ -104,8 +193,8 @@ Note: Ensure that the code is properly pushed to the GitHub repository before pr
 
 ## Known Issue
 
-1. After deploying the application using Netlify & Render, some part of our UI is breaking especially the Queries & Availability Calendar page.
-2. After registration & login, user is redirected to the landing page.
+1. After deploying the application using Netlify & Render, some part of our UI is breaking especially Availability Calendar page.
+2. After login, user is redirected to the landing page as Dashboard page will be developed as part of next feature.
 
 ## Built With
 

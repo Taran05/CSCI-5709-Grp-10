@@ -47,6 +47,9 @@ root.render(
         <Route path="/about-you" element={<RegisterAboutYouPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
         <Route path="/profile-settings" element={<ProfileManagementPage />} />
+        <Route path="/issues" element={<ReportPage />} />
+        <Route path="/issue/new" element={<IssueForm />} />
+        <Route path="/issue/:id" element={<IssueDetails />} />
 
         {isAuthenticated && <Route path="/queries" element={<QueriesPage />} />}
       </Route>
@@ -58,9 +61,6 @@ root.render(
           path="/mentorServiceBooking/:id"
           element={<MentorServiceHomePage />}
         />
-        <Route path="/issues" element={<ReportPage />} />
-        <Route path="/issue/new" element={<IssueForm />} />
-        <Route path="/issue/:id" element={<IssueDetails />} />
       </Route>
     </Routes>
   </BrowserRouter>

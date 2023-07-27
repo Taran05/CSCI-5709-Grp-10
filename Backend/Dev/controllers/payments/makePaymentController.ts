@@ -78,7 +78,9 @@ export const makePayment = async (
     await StudentBooking.updateMany({ mentorId: mentorId }, { isPaid: true });
 
     // Send confirmation email to all students
+    console.log("Printing emails",studentEmails);
     for (let studentEmail of studentEmails) {
+    console.log("Printing single emails",studentEmail);
       const mailOptions = {
         from: "Learnly <learnly.io@gmail.com>",
         to: studentEmail,

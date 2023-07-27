@@ -1,3 +1,7 @@
+/**
+ * @author Shubham Chauhan <sh572302@dal.ca/B00945891>
+ */
+
 // controller.ts
 import { Request, Response } from 'express';
 import Queries from '../models/queriesModel';

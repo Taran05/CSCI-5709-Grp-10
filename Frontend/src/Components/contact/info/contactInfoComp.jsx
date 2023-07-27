@@ -1,3 +1,6 @@
+  /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ */ 
 import React from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";

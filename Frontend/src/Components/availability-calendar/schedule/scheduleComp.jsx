@@ -1,6 +1,8 @@
+  /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ */ 
 import React, { useState } from "react";
 import "./scheduleComp.css";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createTheme, styled } from "@mui/material/styles";
 import { Button, Grid } from "@mui/material";

@@ -1,3 +1,6 @@
+  /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ */ 
 import "./contactPage.css";
 import React from "react";
 import ContactFormComp from "../../Components/contact/form/contactFormComp";

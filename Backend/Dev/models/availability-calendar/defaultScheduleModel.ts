@@ -1,3 +1,6 @@
+  /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ */ 
 import mongoose, { Document, Model } from 'mongoose';
 
 export interface IDefaultSchedule extends Document {

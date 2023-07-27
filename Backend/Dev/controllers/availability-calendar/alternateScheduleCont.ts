@@ -1,3 +1,6 @@
+  /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ */ 
 import { Request, Response } from 'express';
 import AlternateSchedule, { IAlternateSchedule } from '../../models/availability-calendar/alternateScheduleModel';
 import BlockedDate, { IBlockedDate } from '../../models/availability-calendar/blockDatesModel';

@@ -16,6 +16,7 @@ import getAllUsernames from "../../utils/getAllUsers"; // Import the function to
 import { GET_MENTOR_DETAILS } from "../../utils/apiUrls";
 import { PUT_USER_DATA } from "../../utils/apiUrls";
 import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -192,124 +193,142 @@ export default function BasicTabs() {
       </Box>
       <form onSubmit={handleSubmit}>
         <CustomTabPanel value={value} index={0}>
-          <TextField
-            label="Should be unique"
-            id="outlined-start-adornment"
-            sx={{
-              width: "38.8ch",
-              "@media (max-width: 600px)": {
-                width: "100%",
-              },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">learnly.io/</InputAdornment>
-              ),
-            }}
-            onChange={handleTextFieldChange}
-            error={!isIdUnique}
-            value={userName}
-            helperText={!isIdUnique ? "Username already exists!" : ""}
-          />
-
-          <TextField
-            required
-            id="outlined-required"
-            placeholder="xyz@gmail.com"
-            label="Email"
-            type="email"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            sx={{ marginTop: "1em", width: "38.8ch" }}
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <br />
-          <Button
-            variant="contained"
-            type="submit"
-            sx={{
-              bgcolor: "#1D267D",
-              color: "white",
-              width: "44ch",
-              marginTop: "7px",
-              letterSpacing: "3px",
-              "&:hover": {
-                bgcolor: "#0C134F",
-              },
-            }}
-          >
-            Submit
-          </Button>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={12} lg={12} xl={6}>
+              <TextField
+                label="Should be unique"
+                id="outlined-start-adornment"
+                sx={{ width: "100%" }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      learnly.io/
+                    </InputAdornment>
+                  ),
+                }}
+                onChange={handleTextFieldChange}
+                error={!isIdUnique}
+                value={userName}
+                helperText={!isIdUnique ? "Username already exists!" : ""}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={12} xl={6}>
+              <TextField
+                required
+                id="outlined-required"
+                placeholder="xyz@gmail.com"
+                label="Email"
+                type="email"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                sx={{ width: "100%" }}
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </Grid>
+            <br />
+            <Grid item xs={12} md={12} lg={12} xl={12}>
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{
+                  bgcolor: "#1D267D",
+                  color: "white",
+                  width: "100%",
+                  letterSpacing: "3px",
+                  "&:hover": {
+                    bgcolor: "#0C134F",
+                  },
+                }}
+              >
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <div className="form">
-            <TextField
-              sx={{ paddingRight: 3, paddingBottom: 2 }}
-              required
-              id="outlined-required"
-              placeholder="First Name"
-              label="First Name"
-              type="text"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
-            />
-            <TextField
-              required
-              id="outlined-required"
-              placeholder="Last Name"
-              label="Last Name"
-              type="text"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
-            />
-            <TextField
-              required
-              id="disPlayName"
-              placeholder="Your Display Name"
-              label="Display Name"
-              type="text"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              sx={{ marginBottom: "1em", width: "49ch" }}
-              value={disPlayName}
-              onChange={(event) => setdisPlayName(event.target.value)}
-            />
-            <TextField
-              id="filled-multiline-static"
-              label="About You"
-              multiline
-              rows={4}
-              sx={{ width: "49ch" }}
-              value={aboutYou}
-              onChange={(event) => setAboutYou(event.target.value)}
-              variant="filled"
-            />
-            <br />
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{
-                bgcolor: "#1D267D",
-                width: "56ch",
-                color: "white",
-                marginTop: "7px",
-                letterSpacing: "3px",
-                "&:hover": {
-                  bgcolor: "#0C134F",
-                },
-              }}
-            >
-              Submit
-            </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={6} md={6} lg={6} xl={6}>
+                <TextField
+                  // sx={{ paddingRight: 3, paddingBottom: 2 }}
+                  required
+                  id="outlined-required"
+                  placeholder="First Name"
+                  label="First Name"
+                  type="text"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  sx={{ width: "100%" }}
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} md={6} lg={6} xl={6}>
+                <TextField
+                  required
+                  id="outlined-required"
+                  placeholder="Last Name"
+                  label="Last Name"
+                  type="text"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  sx={{ width: "100%" }}
+                  value={lastName}
+                  onChange={(event) => setLastName(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} md={12} lg={612} xl={12}>
+                <TextField
+                  required
+                  id="disPlayName"
+                  placeholder="Your Display Name"
+                  label="Display Name"
+                  type="text"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  sx={{ width: "100%" }}
+                  // sx={{ marginBottom: "1em", width: "49ch" }}
+                  value={disPlayName}
+                  onChange={(event) => setdisPlayName(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} md={12} lg={12} xl={12}>
+                <TextField
+                  id="filled-multiline-static"
+                  label="About You"
+                  multiline
+                  rows={4}
+                  sx={{ width: "100%" }}
+                  value={aboutYou}
+                  onChange={(event) => setAboutYou(event.target.value)}
+                  variant="filled"
+                />
+              </Grid>
+              <br />
+              <Grid item xs={12} md={12} lg={12} xl={12}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  sx={{
+                    bgcolor: "#1D267D",
+                    width: "100%",
+                    color: "white",
+
+                    letterSpacing: "3px",
+                    "&:hover": {
+                      bgcolor: "#0C134F",
+                    },
+                  }}
+                >
+                  Submit
+                </Button>
+              </Grid>
+            </Grid>
           </div>
         </CustomTabPanel>
       </form>

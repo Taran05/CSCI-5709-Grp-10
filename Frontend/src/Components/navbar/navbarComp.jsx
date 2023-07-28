@@ -150,20 +150,24 @@ function ResponsiveAppBar() {
               ) : null}
               {user === null ? (
                 <MenuItem key="Login" onClick={handleCloseNavMenu}>
-                  <Link to="/login">
-                    <Button color="inherit" style={{ fontWeight: "1000" }}>
-                      Login
-                    </Button>
-                  </Link>
+                  <Button
+                    href="/login"
+                    color="inherit"
+                    style={{ fontWeight: "1000" }}
+                  >
+                    Login
+                  </Button>
                 </MenuItem>
               ) : null}
               {user === null ? (
                 <MenuItem key="Signup" onClick={handleCloseNavMenu}>
-                  <Link to="/register">
-                    <Button color="inherit" style={{ fontWeight: "1000" }}>
-                      Signup
-                    </Button>
-                  </Link>
+                  <Button
+                    href="/register"
+                    color="inherit"
+                    style={{ fontWeight: "1000" }}
+                  >
+                    Signup
+                  </Button>
                 </MenuItem>
               ) : null}
             </Menu>
@@ -207,25 +211,23 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             {user === null ? (
-              <Link to="/login">
-                <Button
-                  color="inherit"
-                  style={{ color: "white", fontWeight: "1000" }}
-                >
-                  Login
-                </Button>
-              </Link>
+              <Button
+                href="/Login"
+                color="inherit"
+                style={{ color: "white", fontWeight: "1000" }}
+              >
+                Login
+              </Button>
             ) : null}
 
             {user === null ? (
-              <Link to="/register">
-                <Button
-                  color="inherit"
-                  style={{ color: "white", fontWeight: "1000" }}
-                >
-                  Signup
-                </Button>
-              </Link>
+              <Button
+                href="/register"
+                color="inherit"
+                style={{ color: "white", fontWeight: "1000" }}
+              >
+                Signup
+              </Button>
             ) : null}
           </Box>
           {user !== null ? (

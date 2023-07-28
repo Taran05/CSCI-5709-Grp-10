@@ -94,10 +94,14 @@ export default function BasicTabs() {
   }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
+    const user = JSON.parse(localStorage.getItem("user")); // Adjust this line according to how your user object is structured
+    const currentUsername = user.userName;
+
     console.log("here");
     // Your data to send to the API
     const dataToSend = {
-      username: userName,
+      newUserName: userName,
+      currentUsername: currentUsername,
       firstName,
       lastName,
       email,
@@ -110,7 +114,12 @@ export default function BasicTabs() {
       .then((response) => {
         handleSnackbarOpen("Information Saved...");
 
-        console.log(response.data);
+        const newUser = {
+          email: email,
+          firstName: firstName,
+          userName: userName,
+        };
+        localStorage.setItem("user", JSON.stringify(newUser));
       })
       .catch((error) => {
         console.error("Error:", error);

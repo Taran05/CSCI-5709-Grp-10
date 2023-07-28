@@ -3,14 +3,30 @@
  */
 
 import "./profileMangementPage.css";
-import React from "react";
+import React, { useEffect } from "react";
 import EditProfile from "../../Components/profileManagement/editProfileComp";
 import myteam from "../../assets/images/profileEditing.png";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
 function ProfileManagementPage() {
   const [value, setValue] = React.useState("one");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      const localUser = JSON.parse(localStorage.getItem("user"));
+      console.log("Printing local user:", localUser, !localUser);
+
+      if (!localUser) {
+        navigate("/login");
+      }
+    };
+
+    checkLogin();
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

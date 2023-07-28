@@ -56,7 +56,11 @@ function BodyComp(props) {
     newQueries.splice(props.userId, 1);
     props.updateQueries(newQueries);
     setTextareaValue("");
-    props.changeDisplayOption("Pending");
+    if (props.displayOption === "Pending") {
+      props.changeDisplayOption("Pending");
+    } else {
+      props.changeDisplayOption("Answered");
+    }
     // window.alert("Query moved to Deleted");
 
     enqueueSnackbar("Query Deleted.", { variant: "success" });

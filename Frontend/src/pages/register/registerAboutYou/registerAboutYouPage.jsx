@@ -2,10 +2,25 @@
  * @author Amanjot Singh <am854663@dal.ca/B00942293>
  */
 import "./registerAboutYouPage.css";
-import React from "react";
+import React, { useEffect } from "react";
 import RegisterAboutYouComp from "../../../Components/register/registerAboutYou/registerAboutYouComp";
 import aboutYou from "../../../assets/images/about-you.svg";
+import { useNavigate } from "react-router-dom";
 function RegisterAboutYouPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      const localUser = JSON.parse(localStorage.getItem("user"));
+      console.log("Printing local user:", localUser);
+
+      if (!localUser) {
+        navigate("/login");
+      }
+    };
+
+    checkLogin();
+  }, []);
   return (
     <div className="register">
       <div className="register-container">

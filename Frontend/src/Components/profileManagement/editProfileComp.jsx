@@ -15,6 +15,7 @@ import Alert from "@mui/material/Alert";
 import getAllUsernames from "../../utils/getAllUsers"; // Import the function to get usernames
 import { GET_MENTOR_DETAILS } from "../../utils/apiUrls";
 import { PUT_USER_DATA } from "../../utils/apiUrls";
+import { useNavigate } from "react-router-dom";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -60,6 +61,8 @@ export default function BasicTabs() {
   const [usernames, setUsernames] = React.useState([]); // State variable to store the usernames
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const navigate = useNavigate();
+
   const handleTextFieldChange = (event) => {
     const user = event.target.value.trim();
 
@@ -79,12 +82,24 @@ export default function BasicTabs() {
     const fetchUsernames = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user")); // Adjust this line according to how your user object is structured
-        const currentUsername = user.userName;
-        const allUsernames = await getAllUsernames();
-        const usernames = allUsernames.filter(
-          (username) => username != currentUsername
-        );
-        setUsernames(usernames);
+        console.log("In edit profile", user, user === null);
+        if (user === null) {
+          console.log("In edit profile in if", user, user === null);
+
+          navigate("/login");
+          console.log("In edit profile end if", user, user === null);
+        } else {
+          console.log("In edit profile 1", user, user === null);
+
+          const currentUsername = user.userName;
+          console.log("In edit profile 2...", user, user === null);
+
+          const allUsernames = await getAllUsernames();
+          const usernames = allUsernames.filter(
+            (username) => username != currentUsername
+          );
+          setUsernames(usernames);
+        }
       } catch (error) {
         console.error("Error fetching usernames:", error);
         setUsernames([]); // Return an empty array in case of an error
@@ -136,23 +151,30 @@ export default function BasicTabs() {
   React.useEffect(() => {
     // Get the username from the user object in local storage
     const user = JSON.parse(localStorage.getItem("user")); // Adjust this line according to how your user object is structured
-    const username = user.userName;
+    if (user === null) {
+      console.log("In edit profile part2 in if", user, user === null);
 
-    // Send a GET request to the API with the username
-    axios
-      .get(`${GET_MENTOR_DETAILS}/${username}`)
-      .then((response) => {
-        const data = response.data.user;
+      navigate("/login");
+      console.log("In edit profile part2 end if", user, user === null);
+    } else {
+      const username = user.userName;
 
-        // Set the states with the received data
-        setUsername(data.username);
-        setFirstName(data.firstName);
-        setLastName(data.lastName);
-        setEmail(data.email);
-        setdisPlayName(data.displayName);
-        setAboutYou(data.aboutYou);
-      })
-      .catch((error) => console.error(error));
+      // Send a GET request to the API with the username
+      axios
+        .get(`${GET_MENTOR_DETAILS}/${username}`)
+        .then((response) => {
+          const data = response.data.user;
+
+          // Set the states with the received data
+          setUsername(data.username);
+          setFirstName(data.firstName);
+          setLastName(data.lastName);
+          setEmail(data.email);
+          setdisPlayName(data.displayName);
+          setAboutYou(data.aboutYou);
+        })
+        .catch((error) => console.error(error));
+    }
   }, []); // An empty dependencies array means this useEffect will run once after the component mounts
   // An empty dependencies array means this useEffect will run once after the component mounts
 

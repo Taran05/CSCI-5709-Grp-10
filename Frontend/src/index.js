@@ -51,7 +51,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Routes>
-      const localUser = JSON.parse(localStorage.getItem("user"));
       <Route exact path="/" element={<App />}>
         <Route exact path="/" element={<LandingPage />} />
 

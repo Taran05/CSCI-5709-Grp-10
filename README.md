@@ -195,6 +195,7 @@ Note: Ensure that the code is properly pushed to the GitHub repository before pr
 
 1. After deploying the application using Netlify & Render, some part of our UI is breaking especially Availability Calendar page.
 2. After login, user is redirected to the landing page as Dashboard page will be developed as part of next feature.
+3. Upon initial access to the deployed application, please note that it may take a couple of minutes for the rendering APIs to load the app fully. Therefore, we recommend waiting for a short period before trying to access the features. After this initial loading phase, the application and backend APIs should function smoothly and efficiently.
 
 ## Built With
 

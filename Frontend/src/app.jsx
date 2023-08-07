@@ -11,8 +11,7 @@ const App = () => {
     <div className="app">
       <UserProvider>
         <NavbarComp />
-
-        {localUser && <SideBarDrawer />}
+        <SideBarDrawer />
         <Outlet></Outlet>
         <FooterComp />
       </UserProvider>

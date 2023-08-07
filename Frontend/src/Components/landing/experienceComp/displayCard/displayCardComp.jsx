@@ -1,3 +1,6 @@
+/**
+ * @author Shubham Chauhan <sh572302@dal.ca/B00945891>
+ */
 import { Grid, Typography } from "@mui/material";
 import "./displayCardComp.css";
 import { useState } from "react";

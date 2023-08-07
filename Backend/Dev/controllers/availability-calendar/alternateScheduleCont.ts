@@ -1,3 +1,6 @@
+  /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ */ 
 import { Request, Response } from 'express';
 import AlternateSchedule, { IAlternateSchedule } from '../../models/availability-calendar/alternateScheduleModel';
 import BlockedDate, { IBlockedDate } from '../../models/availability-calendar/blockDatesModel';
@@ -75,14 +78,14 @@ const saveAlternateSchedule = async (req: Request, res: Response) => {
 const getAlternateSchedule = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {
-    const alternateSchedule: IAlternateSchedule | null = await AlternateSchedule.findOne({
-      mentorId: mentorId as string,
+    const alternateSchedules: IAlternateSchedule[] = await AlternateSchedule.find({
+        mentorId: mentorId as string,
     });
-    res.status(200).json({ alternateSchedule });
-  } catch (error) {
+    res.status(200).json({ alternateSchedules });
+} catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to get alternate schedule' });
-  }
+    res.status(500).json({ error: 'Failed to get default schedules' });
+}
 };
 
 const getAlternateAvailableDates = async (req: Request, res: Response) => {

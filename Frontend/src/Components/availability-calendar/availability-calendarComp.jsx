@@ -1,3 +1,6 @@
+  /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ */ 
 import "./availability-calendarComp.css";
 import React, { useState } from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";

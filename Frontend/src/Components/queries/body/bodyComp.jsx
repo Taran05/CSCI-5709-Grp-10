@@ -1,3 +1,6 @@
+/**
+ * @author Shubham Chauhan <sh572302@dal.ca/B00945891>
+ */
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -53,7 +56,11 @@ function BodyComp(props) {
     newQueries.splice(props.userId, 1);
     props.updateQueries(newQueries);
     setTextareaValue("");
-    props.changeDisplayOption("Pending");
+    if (props.displayOption === "Pending") {
+      props.changeDisplayOption("Pending");
+    } else {
+      props.changeDisplayOption("Answered");
+    }
     // window.alert("Query moved to Deleted");
 
     enqueueSnackbar("Query Deleted.", { variant: "success" });

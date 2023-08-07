@@ -1,3 +1,6 @@
+/**
+ * @author Shubham Chauhan <sh572302@dal.ca/B00945891>
+ */
 import "./headerComp.css";
 import React, { useState } from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";

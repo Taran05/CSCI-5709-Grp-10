@@ -1,3 +1,7 @@
+/**
+ * @author Shubham Chauhan <sh572302@dal.ca/B00945891>
+ */
+
 import mongoose, { Document, Model } from 'mongoose';
 
 export interface IQueries extends Document {

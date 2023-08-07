@@ -1,7 +1,8 @@
 const domain = "http://localhost:3001/";
-// const domain = "https://learnly-backend.onrender.com/";
+// const domain = "https://learnly-backend-ub6j.onrender.com/";
 
 export const REGISTER_USER = `${domain}api/registerUser`;
+export const PUT_USER_DATA = `${domain}api/updateUser`;
 export const LOGIN_USER = `${domain}api/loginUser`;
 export const GET_ALL_USERS = `${domain}api/registerUser/getAllUsernames`;
 export const SAVE_QUERY = `${domain}api/saveQuery`;
@@ -23,3 +24,6 @@ export const GET_ALL_ISSUES = `${domain}api/getAllIssues`;
 export const GET_ISSUE = `${domain}api/getIssue`;
 export const UPDATE_ISSUE = `${domain}api/updateIssue`;
 export const DELETE_ISSUE = `${domain}api/deleteIssue`;
+export const MENTOR_AVAILABILITY_URL = `${domain}availability`;
+export const GET_MENTOR_DETAILS = `${domain}api/registerUser/getUserDetails`;
+export const GET_SERVICE_DETAILS = `${domain}services`;

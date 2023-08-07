@@ -68,7 +68,7 @@ const PaymentDetailsPage = () => {
       return;
     }
 
-    fetch(MAKE_PAYMENT + "/" + { mentorId }, {
+    fetch(MAKE_PAYMENT + "/" + mentorId, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const PaymentDetailsPage = () => {
       })
       .catch((error) => {
         setSnackbarMessage("Payment failed");
-        setSnackbarSeverity("error"); // Set severity to error
+        setSnackbarSeverity("error");
         setSnackbarOpen(true);
       });
   };

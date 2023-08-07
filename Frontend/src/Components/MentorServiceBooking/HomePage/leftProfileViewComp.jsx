@@ -10,6 +10,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import "./leftServiceViewComp.css";
 import SendQueryComp from "../../queries/sendQuery/sendQueryComp";
+import { GET_MENTOR_DETAILS } from "../../../utils/apiUrls";
 
 function stringToColor(string) {
   let hash = 0;
@@ -46,7 +47,7 @@ const LeftServiceViewComp = () => {
   const mentorId = location.pathname.split("/")[2];
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/registerUser/getUserDetails/${mentorId}`)
+    fetch(GET_MENTOR_DETAILS + "/" + mentorId)
       .then((response) => response.json())
       .then((data) => setMentor(data.user));
   }, [mentorId]);

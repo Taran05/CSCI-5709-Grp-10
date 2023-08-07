@@ -20,44 +20,23 @@ import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../userContext";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 function ResponsiveAppBar() {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [user, setUser] = React.useContext(UserContext);
+  const [user, setUser] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  // React.useEffect(() => {
-  //   const storedUser = localStorage.getItem("user");
-  //   if (storedUser) {
-  //     console.log(storedUser);
-  //     setUser(JSON.parse(storedUser));
-  //   }
-  // }, []);
-
+  const location = useLocation();
   React.useEffect(() => {
-    const syncLogout = (event) => {
-      if (event.key === "logout") {
-        console.log("logged out from storage!");
-        setUser(null);
-      }
-    };
-
-    window.addEventListener("storage", syncLogout);
-
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      console.log(storedUser);
-      setUser(JSON.parse(storedUser));
+    let user1 = location?.state ?? null;
+    if (user1 == null) {
+      user1 = JSON.parse(localStorage.getItem("user"));
     }
-
-    return () => {
-      window.removeEventListener("storage", syncLogout);
-      window.localStorage.removeItem("logout");
-    };
-  }, []);
+    setUser(user1);
+  }, [location]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -107,6 +86,8 @@ function ResponsiveAppBar() {
   const styles = {
     appBarBackground: { background: "#1D267D" },
   };
+
+  console.log(user);
 
   return (
     <AppBar style={styles.appBarBackground} position="static">
@@ -158,7 +139,7 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {!user && (
+              {user === null ? (
                 <MenuItem key="FAQ" onClick={handleScroll}>
                   <Link to="/">
                     <Button color="inherit" style={{ fontWeight: "1000" }}>
@@ -166,25 +147,29 @@ function ResponsiveAppBar() {
                     </Button>
                   </Link>
                 </MenuItem>
-              )}
-              {!user && (
+              ) : null}
+              {user === null ? (
                 <MenuItem key="Login" onClick={handleCloseNavMenu}>
-                  <Link to="/login">
-                    <Button color="inherit" style={{ fontWeight: "1000" }}>
-                      Login
-                    </Button>
-                  </Link>
+                  <Button
+                    href="/login"
+                    color="inherit"
+                    style={{ fontWeight: "1000" }}
+                  >
+                    Login
+                  </Button>
                 </MenuItem>
-              )}
-              {!user && (
+              ) : null}
+              {user === null ? (
                 <MenuItem key="Signup" onClick={handleCloseNavMenu}>
-                  <Link to="/register">
-                    <Button color="inherit" style={{ fontWeight: "1000" }}>
-                      Signup
-                    </Button>
-                  </Link>
+                  <Button
+                    href="/register"
+                    color="inherit"
+                    style={{ fontWeight: "1000" }}
+                  >
+                    Signup
+                  </Button>
                 </MenuItem>
-              )}
+              ) : null}
             </Menu>
           </Box>
 
@@ -207,7 +192,7 @@ function ResponsiveAppBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {!user && (
+            {user !== null ? (
               <Button
                 key="FAQ"
                 onClick={handleScroll}
@@ -221,32 +206,31 @@ function ResponsiveAppBar() {
               >
                 FAQ
               </Button>
-            )}
+            ) : null}
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-            {!user && (
-              <Link to="/login">
-                <Button
-                  color="inherit"
-                  style={{ color: "white", fontWeight: "1000" }}
-                >
-                  Login
-                </Button>
-              </Link>
-            )}
-            {!user && (
-              <Link to="/register">
-                <Button
-                  color="inherit"
-                  style={{ color: "white", fontWeight: "1000" }}
-                >
-                  Signup
-                </Button>
-              </Link>
-            )}
+            {user === null ? (
+              <Button
+                href="/Login"
+                color="inherit"
+                style={{ color: "white", fontWeight: "1000" }}
+              >
+                Login
+              </Button>
+            ) : null}
+
+            {user === null ? (
+              <Button
+                href="/register"
+                color="inherit"
+                style={{ color: "white", fontWeight: "1000" }}
+              >
+                Signup
+              </Button>
+            ) : null}
           </Box>
-          {user && (
+          {user !== null ? (
             <Box
               sx={{
                 display: "flex",
@@ -269,7 +253,7 @@ function ResponsiveAppBar() {
                 </IconButton>
               </Tooltip>
             </Box>
-          )}
+          ) : null}
         </Toolbar>
       </Container>
 

@@ -1,4 +1,7 @@
-// routes.ts
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
+
 import express from "express";
 import { saveBooking } from "../controllers/StudentBooking/bookingController";
 import { makePayment } from "../controllers/payments/makePaymentController";

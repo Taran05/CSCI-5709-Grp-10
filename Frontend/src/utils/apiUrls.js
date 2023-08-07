@@ -5,6 +5,7 @@ export const REGISTER_USER = `${domain}api/registerUser`;
 export const PUT_USER_DATA = `${domain}api/updateUser`;
 export const LOGIN_USER = `${domain}api/loginUser`;
 export const GET_ALL_USERS = `${domain}api/registerUser/getAllUsernames`;
+export const CHECK_EMAIL_EXIST = `${domain}api/registerUser/checkEmailExist`;
 export const SAVE_QUERY = `${domain}api/saveQuery`;
 export const GET_QUERY = `${domain}api/getQueries`;
 export const SEND_RESPONSE = `${domain}api/sendResponse`;

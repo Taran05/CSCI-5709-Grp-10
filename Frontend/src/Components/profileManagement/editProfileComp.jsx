@@ -196,6 +196,7 @@ export default function BasicTabs() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={12} lg={12} xl={6}>
               <TextField
+                required
                 label="Should be unique"
                 id="outlined-start-adornment"
                 sx={{ width: "100%" }}

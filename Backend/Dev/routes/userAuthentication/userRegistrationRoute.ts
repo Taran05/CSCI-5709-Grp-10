@@ -7,7 +7,7 @@ import userRegistrationCont from "../../controllers/userAuthentication/userRegis
 import getAllUsernamesCont from "../../controllers/userAuthentication/getAllUsernamesCont";
 import getUserDetailsCont from "../../controllers/userAuthentication/getUserDetailsCont";
 import putUserDetails from "../../controllers/profileManagement/putUserDetails";
-
+import checkEmailExist from "../../controllers/userAuthentication/checkEmailExist";
 const router = express.Router();
 
 // POST /register/
@@ -20,7 +20,10 @@ router.get(
   "/registerUser/getUserDetails/:username",
   getUserDetailsCont.getUserDetails
 );
-
+router.get(
+  "/registerUser/checkEmailExist/:email",
+  checkEmailExist.checkEmailExist
+);
 router.put("/updateUser", putUserDetails.putUserDetails);
 
 export const userRegisterRoute = router;

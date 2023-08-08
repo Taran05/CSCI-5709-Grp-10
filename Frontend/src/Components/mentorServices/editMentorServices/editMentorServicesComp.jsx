@@ -142,6 +142,11 @@ export default function EditMentorServicesComp({
       setDurationHelperText("Must be a Number");
 
       return false;
+    } else if (Number(duration) <= 10) {
+      setisValidDuration(false);
+      setDurationHelperText("Duration must be more that 10 minutes");
+
+      return false;
     }
 
     setisValidDuration(true);
@@ -158,6 +163,11 @@ export default function EditMentorServicesComp({
     } else if (isNaN(Number(price))) {
       setisValidPrice(false);
       setPriceHelperText("Must be a Number");
+
+      return false;
+    } else if (Number(price) < 0) {
+      setisValidPrice(false);
+      setPriceHelperText("Price can not be less than 0");
 
       return false;
     }
@@ -188,6 +198,11 @@ export default function EditMentorServicesComp({
     } else if (isNaN(Number(percentage))) {
       setisValidPercentage(false);
       setPercentageHelperText("Must be a Number");
+
+      return false;
+    } else if (Number(percentage) < 0) {
+      setisValidPercentage(false);
+      setPercentageHelperText("Percentage can not be less than 0");
 
       return false;
     }

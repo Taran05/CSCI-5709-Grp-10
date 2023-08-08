@@ -99,6 +99,11 @@ export default function AddMentorServicesComp({
       setDurationHelperText("Must be a Number");
 
       return false;
+    } else if (Number(duration) <= 10) {
+      setisValidDuration(false);
+      setDurationHelperText("Duration must be more that 10 minutes");
+
+      return false;
     }
 
     setisValidDuration(true);
@@ -115,6 +120,11 @@ export default function AddMentorServicesComp({
     } else if (isNaN(Number(price))) {
       setisValidPrice(false);
       setPriceHelperText("Must be a Number");
+
+      return false;
+    } else if (Number(price) < 0) {
+      setisValidPrice(false);
+      setPriceHelperText("Price can not be less than 0");
 
       return false;
     }

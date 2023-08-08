@@ -59,19 +59,37 @@ const RightViewComponent = ({
   const [selectedTime, setSelectedTime] = useState(null);
   const datesContainerRef = useRef(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchAvailability = async () => {
-      const response = await fetch(MENTOR_AVAILABILITY_URL + "/" + mentorId);
-      const data = await response.json();
-      if (data.length > 0) {
-        setSelectedDate(data[0].date);
-        if (data[0].availableItems.length > 0) {
-          setSelectedTime(data[0].availableItems[0]);
-        }
-      }
+      try {
+        const response = await fetch(
+          MENTOR_AVAILABILITY_URL + "?mentorId=" + mentorId
+        );
+        let data = await response.json();
 
-      setAvailability(data);
+        if (data.availableDates && Array.isArray(data.availableDates)) {
+          setAvailability(data.availableDates);
+
+          if (data.availableDates.length > 0) {
+            setSelectedDate(data.availableDates[0].date);
+            if (
+              data.availableDates[0].availableHours &&
+              data.availableDates[0].availableHours.length > 0
+            ) {
+              setSelectedTime(data.availableDates[0].availableHours[0]);
+            }
+          }
+        } else {
+          setError("API returned data that is not an array.");
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchAvailability();
@@ -180,7 +198,7 @@ const RightViewComponent = ({
           {selectedDate &&
             availability
               .find((item) => item.date === selectedDate)
-              ?.availableItems.map((time) => (
+              ?.availableHours.map((time) => (
                 <SelectableBox
                   component={Paper}
                   sx={{ height: "auto" }}

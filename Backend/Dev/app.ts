@@ -21,6 +21,7 @@ import queriesRoutes from "./routes/queriesRoutes";
 import availabilityRoute from "./routes/servicesRoutes/availabilityRoute";
 import studentBookingRoute from "./routes/studentBookingRoute";
 import { issueRoute } from "./routes/reportIssues/issueRoute";
+import paymentsRoute from "./routes/payments/paymentsRoute";
 
 const app: Express = express();
 
@@ -55,6 +56,7 @@ app.use("/api/", userLoginRoute);
 app.use(availabilityRoute);
 app.use(studentBookingRoute);
 app.use("/api/", issueRoute);
+app.use("/api/", paymentsRoute);
 
 const port: number = 3001;
 app.listen(port, () => {

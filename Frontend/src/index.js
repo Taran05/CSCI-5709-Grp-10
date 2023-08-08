@@ -22,6 +22,8 @@ import ContactPage from "./pages/contact/contactPage";
 
 import AvailabilityCalendarPage from "./pages/availability-calendar/availabilityCalendarPage";
 
+import PaymentsPage from "./pages/payments/paymentsPage";
+
 import QueriesPage from "./pages/queries/queriesPage";
 
 import MentorServiceHomePage from "./pages/MentorServiceBooking/HomePage/MentorServiceHomePage";
@@ -81,6 +83,8 @@ root.render(
         <Route path="/about-you" element={<RegisterAboutYouPage />} />
 
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
+
+        <Route path="/payments" element={<PaymentsPage />} />
 
         <Route path="/profile-settings" element={<ProfileManagementPage />} />
 

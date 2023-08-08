@@ -42,6 +42,8 @@ import IssueForm from "./pages/report-issue/issueForm";
 
 import IssueDetails from "./pages/report-issue/issueDetails";
 
+import MentorServicesPage from "./pages/mentorServices/mentorServicesPage";
+
 const localUser = JSON.parse(localStorage.getItem("user"));
 
 const isAuthenticated = localUser !== null;
@@ -95,6 +97,8 @@ root.render(
         <Route path="/issue/:id" element={<IssueDetails />} />
 
         <Route path="/queries" element={<QueriesPage />} />
+
+        <Route path="/services" element={<MentorServicesPage />} />
       </Route>
       <Route exact path="/" element={<StudentBookingApp />}>
         <Route path="/bookingSchedule" element={<BookingSchedulePage />} />

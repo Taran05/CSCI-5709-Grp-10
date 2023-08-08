@@ -13,7 +13,7 @@ function MentorBookings() {
 
       try {
         const response = await fetch(
-          GET_MENTOR_BOOKINGS + "/mentorId=shubham1211" // + mentorId
+          GET_MENTOR_BOOKINGS + "/mentorId = " + mentorId
         );
         const data = await response.json();
 

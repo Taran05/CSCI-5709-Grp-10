@@ -15,6 +15,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import MailIcon from "@mui/icons-material/Mail";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import FeedbackIcon from "@mui/icons-material/Feedback";
+import PaymentIcon from '@mui/icons-material/Payment';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
@@ -62,6 +63,7 @@ export default function SideBarDrawer() {
         {[
           { text: "Calender", icon: <CalendarMonthIcon />, link: "/calendar" },
           { text: "Queries", icon: <QuestionAnswerIcon />, link: "/queries" },
+          { text: "Payments", icon: <PaymentIcon />, link: "/payments" },
           { text: "Contact us", icon: <MailIcon />, link: "/contact" },
           { text: "Report Issue", icon: <FeedbackIcon />, link: "/issues" },
         ].map((item, index) => (

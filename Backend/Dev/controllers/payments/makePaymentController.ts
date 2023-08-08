@@ -1,11 +1,13 @@
 /**
  * @file This file defines the controller for the payment process and the sending of a confirmation email.
  * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
  */
 
 import nodemailer from "nodemailer";
 import { Request as ExpressRequest, Response } from "express";
 import StudentBooking from "../../models/StudentBooking";
+import AccountBalance from "../../models/payments/balanceModel";
 
 /**
  * Interface extending the express request to include the mentorId in params.
@@ -66,17 +68,37 @@ export const makePayment = async (
   res: Response
 ) => {
   const mentorId = req.params.mentorId;
+  const { price, bookingId } = req.body;
+  console.log(req.body);
 
   try {
     // Find the relevant bookings
-    const bookings = await StudentBooking.find({ mentorId: mentorId });
-
+    const bookings = await StudentBooking.find({ bookingId: bookingId });
+    console.log(bookings);
     // Extract the student emails
     const studentEmails = bookings.map((booking) => booking.studentEmail);
 
     // Perform the payment operation
-    await StudentBooking.updateMany({ mentorId: mentorId }, { isPaid: true });
+    await StudentBooking.updateOne({ bookingId: bookingId }, { isPaid: true, price: price });
 
+    // Convert price to a numeric value by removing the dollar sign
+    const numericPrice = parseFloat(price.replace("$", ""));
+    console.log(numericPrice);
+    let accountBalanceDetails = await AccountBalance.findOne({ mentorId });
+    console.log(accountBalanceDetails);
+    if(accountBalanceDetails && accountBalanceDetails.totalBalance !== undefined){
+        console.log(accountBalanceDetails.totalBalance);
+        accountBalanceDetails.totalBalance += numericPrice;
+        console.log(accountBalanceDetails.totalBalance);
+    }
+    else{
+      accountBalanceDetails = new AccountBalance({
+        mentorId,
+        totalBalance: numericPrice,
+      });
+    }
+    await accountBalanceDetails.save();
+    console.log("Saved Balance");
     // Send confirmation email to all students
     console.log("Printing emails",studentEmails);
     for (let studentEmail of studentEmails) {

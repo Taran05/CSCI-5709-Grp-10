@@ -5,6 +5,7 @@ import "./registerAboutYou/registerAboutYouPage.css";
 import React from "react";
 import FormComp from "../../Components/register/form/formComp";
 import myteam from "../../assets/images/landing1.png";
+import { Typography } from "@mui/material";
 function RegisterPage() {
   return (
     <div className="register">
@@ -15,7 +16,7 @@ function RegisterPage() {
               CREATE YOUR
               <span style={{ marginLeft: "6px", color: "#5C469C" }}>
                 ACCOUNT
-              </span>{" "}
+              </span>
             </h1>
 
             <h2 className="register-form-header-sub">

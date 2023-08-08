@@ -21,6 +21,7 @@ const userRegisteration = async (req: Request, res: Response) => {
       password: hashedPassword, // Save the hashed password
       reason,
       expertise,
+      displayName: firstName,
     });
 
     // Save the new user to the database

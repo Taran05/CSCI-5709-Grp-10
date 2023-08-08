@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./formComp.css";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -83,6 +84,7 @@ export default function FormComp() {
 
   return (
     <Box
+      className="login-box"
       component="form"
       sx={{
         "& .MuiTextField-root": { m: 1, width: "25ch" },
@@ -91,89 +93,93 @@ export default function FormComp() {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      <div className="form">
-        <TextField
-          required
-          id="outlined-required"
-          placeholder="xyz@gmail.com"
-          label="Email"
-          type="email"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          error={!isEmailValid}
-          helperText={
-            !isEmailValid
-              ? email
-                ? "Please enter a valid email address"
-                : "Please enter your email"
-              : ""
-          }
-        />
-
-        <FormControl
-          error={!isPasswordValid}
-          sx={{ m: 1, width: "25ch" }}
-          variant="outlined"
-        >
-          <InputLabel
-            htmlFor="outlined-adornment-password"
+      <Grid container spacing={0}>
+        {/* <div className="form"> */}
+        <Grid className="text-fields" item xs={12} md={6} lg={6} xl={6}>
+          <TextField
+            required
+            id="outlined-required"
+            placeholder="xyz@gmail.com"
+            label="Email"
+            type="email"
             InputLabelProps={{
               shrink: true,
             }}
-          >
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            error={!isEmailValid}
+            helperText={
+              !isEmailValid
+                ? email
+                  ? "Please enter a valid email address"
+                  : "Please enter your email"
+                : ""
             }
-            label="Password"
           />
-          <FormHelperText>
-            {!isPasswordValid
-              ? password
-                ? "Password should be more than 8 digits"
-                : "Please enter your password"
-              : ""}
-          </FormHelperText>
-        </FormControl>
-      </div>
-      <Button
-        variant="contained"
-        type="submit"
-        sx={{
-          bgcolor: "#1D267D",
-          color: "white",
-          padding: {
-            xs: "8px 75px",
-            md: "8px 190px",
-          },
-          fontSize: "1rem",
-          marginTop: "3px",
-          letterSpacing: "3px",
-          "&:hover": {
-            bgcolor: "#0C134F", // Set your desired hover color here
-          },
-        }}
-      >
-        Submit
-      </Button>
+        </Grid>
+        <Grid item xs={12} md={6} lg={6} xl={6}>
+          <FormControl
+            error={!isPasswordValid}
+            sx={{ m: 1, width: "25ch" }}
+            variant="outlined"
+          >
+            <InputLabel
+              htmlFor="outlined-adornment-password"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            >
+              Password
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+            <FormHelperText>
+              {!isPasswordValid
+                ? password
+                  ? "Password should be more than 8 digits"
+                  : "Please enter your password"
+                : ""}
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} md={12} lg={12} xl={12}>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{
+              width: "95%",
+              bgcolor: "#1D267D",
+              color: "white",
+              fontSize: "1rem",
+              marginTop: "3px",
+              letterSpacing: "3px",
+              "&:hover": {
+                bgcolor: "#0C134F", // Set your desired hover color here
+              },
+            }}
+          >
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
+
       {/* Snackbar to show success or error message */}
       <Snackbar
         open={snackbarOpen}

@@ -30,6 +30,7 @@ import {
   Typography,
 } from "@mui/material";
 import ServiceCardComp from "../serviceCard/serviceCardComp";
+import { InputAdornment } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -391,6 +392,11 @@ export default function EditMentorServicesComp({
                   error={!isValidDuration}
                   // type="number"
                   sx={{ mb: 2 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">minutes</InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   label="Description"
@@ -416,6 +422,11 @@ export default function EditMentorServicesComp({
                   helperText={priceHelperText}
                   error={!isValidPrice}
                   sx={{ mb: 2 }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
                 />
 
                 <TextField
@@ -440,6 +451,11 @@ export default function EditMentorServicesComp({
                   helperText={percentageHelperText}
                   error={!isValidPercentage}
                   sx={{ mb: 2 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">%</InputAdornment>
+                    ),
+                  }}
                 />
               </>
             )}

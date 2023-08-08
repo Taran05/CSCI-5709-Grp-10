@@ -17,6 +17,7 @@ import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 
 import { MenuItem, Select, TextField, Button, Typography } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -278,6 +279,11 @@ export default function AddMentorServicesComp({
               error={!isValidDuration}
               // type="number"
               sx={{ mb: 2 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">minutes</InputAdornment>
+                ),
+              }}
             />
             <TextField
               label="Price"
@@ -289,6 +295,11 @@ export default function AddMentorServicesComp({
               helperText={priceHelperText}
               error={!isValidPrice}
               sx={{ mb: 2 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">$</InputAdornment>
+                ),
+              }}
             />
             <SaveButton type="submit" variant="contained" fullWidth>
               Save

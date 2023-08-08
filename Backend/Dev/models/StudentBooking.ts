@@ -16,6 +16,9 @@ const StudentBooking = mongoose.model(
     studentName: String,
     studentEmail: String,
     callAbout: String,
+    price: String,
+    bookingId: String,
+    isCancelled: Boolean,
   })
 );
 

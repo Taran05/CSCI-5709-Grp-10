@@ -81,6 +81,21 @@ function ResponsiveAppBar() {
         {user !== null && (
           <>
             <Link
+              to="/bookings"
+              underline="none"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <CalendarMonthIcon style={{ color: "inherit" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Bookings" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
+            <Link
               to="/calendar"
               underline="none"
               style={{ textDecoration: "none", color: "inherit" }}

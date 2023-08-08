@@ -1,0 +1,37 @@
+import React, { useEffect, useState } from "react";
+import { GET_MENTOR_BOOKINGS } from "../../utils/apiUrls";
+import BookingDashboardComp from "../../Components/Booking Dashboard/bookingComp";
+
+function MentorBookings() {
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      const localUser = JSON.parse(localStorage.getItem("user"));
+      const mentorId = localUser && localUser.userName;
+
+      try {
+        const response = await fetch(
+          GET_MENTOR_BOOKINGS + "/mentorId=shubham1211" // + mentorId
+        );
+        const data = await response.json();
+
+        setBookings(data);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      }
+    };
+
+    fetchBookings();
+  }, []);
+
+  return (
+    <div>
+      {bookings.map((booking) => (
+        <BookingDashboardComp key={booking._id} booking={booking} />
+      ))}
+    </div>
+  );
+}
+
+export default MentorBookings;

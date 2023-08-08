@@ -35,6 +35,7 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import GroupsIcon from "@mui/icons-material/PersonAddAlt1";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -88,7 +89,7 @@ function ResponsiveAppBar() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <CalendarMonthIcon style={{ color: "inherit" }} />
+                    <GroupsIcon style={{ color: "inherit" }} />
                   </ListItemIcon>
                   <ListItemText primary="Bookings" />
                 </ListItemButton>

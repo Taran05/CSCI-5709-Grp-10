@@ -70,7 +70,7 @@ export default function PageHeaderComp({
       <div className="pagesHeaderCompInnerDiv">
         <h1 className="pagesHeaderCompH1Title">{pageTitle.toUpperCase()}</h1>
 
-        <div>
+        <div style={{ display: "flex" }}>
           <div>
             <Grid container spacing={2}>
               <Grid item sm={0}>

@@ -27,6 +27,7 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   Divider,
+  Typography,
 } from "@mui/material";
 import ServiceCardComp from "../serviceCard/serviceCardComp";
 
@@ -321,6 +322,17 @@ export default function EditMentorServicesComp({
               <CloseIcon />
             </Button>
           </div>
+          <Typography
+            variant="h6"
+            component="div"
+            textAlign="center"
+            sx={{ marginBottom: "5px" }}
+          >
+            <span style={{ fontWeight: 600 }}>Edit Service </span>
+            <span style={{ color: "#5C469C", fontWeight: 600 }}>
+              {service.serviceName}
+            </span>
+          </Typography>
 
           <ToggleButtonGroup
             value={pageTab}

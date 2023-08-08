@@ -16,7 +16,7 @@ import { purple, grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 
-import { MenuItem, Select, TextField, Button } from "@mui/material";
+import { MenuItem, Select, TextField, Button, Typography } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -226,6 +226,15 @@ export default function AddMentorServicesComp({ changeDisplayOption }) {
               <CloseIcon />
             </Button>
           </div>
+          <Typography
+            variant="h6"
+            component="div"
+            textAlign="center"
+            sx={{ marginBottom: "5px" }}
+          >
+            <span style={{ fontWeight: 600 }}>Create a new </span>
+            <span style={{ color: "#5C469C", fontWeight: 600 }}>Service</span>
+          </Typography>
 
           <form onSubmit={(event) => handleSubmit(event)}>
             <div style={{ marginBottom: "3px" }}>

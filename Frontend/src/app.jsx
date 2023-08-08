@@ -11,7 +11,7 @@ const App = () => {
     <div className="app">
       <UserProvider>
         <NavbarComp />
-        <SideBarDrawer />
+        {/* <SideBarDrawer /> */}
         <Outlet></Outlet>
         <FooterComp />
       </UserProvider>

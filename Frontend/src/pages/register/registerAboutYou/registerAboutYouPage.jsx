@@ -9,18 +9,18 @@ import { useNavigate } from "react-router-dom";
 function RegisterAboutYouPage() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkLogin = async () => {
-      const localUser = JSON.parse(localStorage.getItem("user"));
-      console.log("Printing local user:", localUser);
+  // useEffect(() => {
+  //   const checkLogin = async () => {
+  //     const localUser = JSON.parse(localStorage.getItem("user"));
+  //     console.log("Printing local user:", localUser);
 
-      if (!localUser) {
-        navigate("/login");
-      }
-    };
+  //     if (!localUser) {
+  //       navigate("/login");
+  //     }
+  //   };
 
-    checkLogin();
-  }, []);
+  //   checkLogin();
+  // }, []);
   return (
     <div className="register">
       <div className="register-container">

@@ -1,6 +1,6 @@
 .booking-card {
   width: 80%;
-  margin: 10%;
+  margin: 4% 2% 2% 10%;
   border: 1px solid #e1e1e1;
   border-radius: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -47,7 +47,6 @@
   margin: 10px auto;
 }
 
-/* This will handle the modal positioning in the center */
 .MuiModal-root {
   display: flex;
   align-items: center;
@@ -57,7 +56,7 @@
 .modal-content {
   width: 80%;
   max-width: 400px;
-  padding: 20px;
+  padding: 5%;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);

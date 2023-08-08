@@ -27,3 +27,7 @@ export const DELETE_ISSUE = `${domain}api/deleteIssue`;
 export const MENTOR_AVAILABILITY_URL = `${domain}availability`;
 export const GET_MENTOR_DETAILS = `${domain}api/registerUser/getUserDetails`;
 export const GET_SERVICE_DETAILS = `${domain}services`;
+export const SAVE_PAYMENT_DETAILS = `${domain}api/savePaymentDetails`;
+export const GET_PAYMENT_DETAILS = `${domain}api/getPaymentDetails`;
+export const GET_BALANCE_DETAILS = `${domain}api/getBalanceDetails`;
+export const TRANSFER_AMOUNT = `${domain}api/transferAmount`;

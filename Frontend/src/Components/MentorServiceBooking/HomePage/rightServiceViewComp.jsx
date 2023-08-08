@@ -31,6 +31,7 @@ const RightServiceViewComp = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(GET_SERVICE_DETAILS + "/" + mentorId);
+
         setServiceDetails(response.data);
       } catch (error) {
         console.error("Failed to fetch mentor service details", error);

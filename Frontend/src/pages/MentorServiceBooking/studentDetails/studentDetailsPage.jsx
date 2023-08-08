@@ -1,5 +1,6 @@
 /**
  * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
  */
 import React, { useState } from "react";
 import { Paper, Typography, Box, Snackbar, Alert } from "@mui/material";
@@ -7,6 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import FormInput from "../../../Components/MentorServiceBooking/studentDetails/formInput";
 import FormButton from "../../../Components/MentorServiceBooking/studentDetails/formButton";
 import { SAVE_STUDENT_BOOKING } from "../../../utils/apiUrls";
+import { v4 as uuidv4 } from 'uuid';
 
 const StudentDetailsForm = () => {
   const [name, setName] = useState("");
@@ -62,6 +64,7 @@ const StudentDetailsForm = () => {
       return;
     }
     setLoading(true);
+    const bookingId = uuidv4();
     const details = {
       serviceName: serviceName,
       serviceDuration: serviceDuration,
@@ -72,6 +75,9 @@ const StudentDetailsForm = () => {
       studentName: name,
       studentEmail: email,
       callAbout,
+      price: "",
+      bookingId: bookingId,
+      isCancelled: false,
     };
 
     // Send details to server, then navigate
@@ -99,6 +105,7 @@ const StudentDetailsForm = () => {
               state: {
                 servicePrice: servicePrice,
                 mentorId: mentorId,
+                bookingId: bookingId,
               },
             });
           }, 4000);

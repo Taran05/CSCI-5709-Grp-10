@@ -47,6 +47,7 @@ const style = {
 export default function EditMentorServicesComp({
   service,
   changeDisplayOption,
+  showSnackbar,
 }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -247,10 +248,12 @@ export default function EditMentorServicesComp({
         console.log(response.data);
         // changeDisplayOption("Query");
         changeDisplayOption(selectedService);
+        showSnackbar("Service updated Successfuly", "success");
         handleClose();
         // changeDisplayOption(selectedService);
       } catch (error) {
         console.error("Error Editing Serivce:", error);
+        showSnackbar("Failed to update Service", "error");
       }
     } else {
       // alert("Please fill all the fields before saving.");

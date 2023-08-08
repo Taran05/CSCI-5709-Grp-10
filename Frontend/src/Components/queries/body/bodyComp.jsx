@@ -14,6 +14,7 @@ import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { SEND_RESPONSE, DELETE_QUERY } from "../../../utils/apiUrls";
 import { useSnackbar } from "notistack";
+import DeleteConfirmComp from "../deleteConfirm/deleteConfirmComp";
 
 function BodyComp(props) {
   const [textareaValue, setTextareaValue] = useState("");
@@ -36,6 +37,10 @@ function BodyComp(props) {
 
     const postData = {
       _id: props.Queries[props.userId]._id,
+      userMail: props.Queries[props.userId].email,
+      mentor: JSON.parse(localStorage.getItem("user")).firstName,
+      query: props.Queries[props.userId].content,
+      title: props.Queries[props.userId].title,
     };
 
     try {
@@ -121,7 +126,7 @@ function BodyComp(props) {
               inBody={true}
             />
 
-            <Button
+            {/* <Button
               variant="text"
               className="deleteButton"
               onClick={(e) => handleDeleteQuery(e)}
@@ -129,7 +134,8 @@ function BodyComp(props) {
               // startIcon={}
             >
               <DeleteIcon />
-            </Button>
+            </Button> */}
+            <DeleteConfirmComp handleDeleteQuery={handleDeleteQuery} />
           </div>
           <br />
           <div className="textAreaContainer">

@@ -30,7 +30,10 @@ const style = {
   p: 4,
 };
 
-export default function AddMentorServicesComp({ changeDisplayOption }) {
+export default function AddMentorServicesComp({
+  changeDisplayOption,
+  showSnackbar,
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -151,13 +154,15 @@ export default function AddMentorServicesComp({ changeDisplayOption }) {
       try {
         const response = await axios.post(apiUrl, postData);
         console.log(response.data);
+        showSnackbar("Service Created", "success");
         setDuration("");
         setTitle("");
         setPrice("");
         handleClose();
         changeDisplayOption(selectedService);
       } catch (error) {
-        console.error("Error saving query:", error);
+        console.error("Error saving service:", error);
+        showSnackbar("Error: Not able create Service", "error");
       }
     } else {
       // alert("Please fill all the fields before saving.");

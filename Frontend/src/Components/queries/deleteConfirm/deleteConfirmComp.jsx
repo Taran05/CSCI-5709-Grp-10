@@ -27,41 +27,35 @@ const style = {
   p: 4,
 };
 
-export default function DeleteConfirmComp({
-  service,
-  changeDisplayOption,
-  showSnackbar,
-}) {
+export default function DeleteConfirmComp({ handleDeleteQuery }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleDelete = async (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+  // const handleDelete = async (event) => {
+  //   event.preventDefault();
+  //   event.stopPropagation();
 
-    console.log("Delete clicked..");
+  //   console.log("Delete clicked..");
 
-    // Check if all fields are filled before saving
-    const localUser = JSON.parse(localStorage.getItem("user"));
-    const mentorId = localUser.userName;
-    // Here, you can save the data or perform any desired action
-    const apiUrl = DELETE_SERVICE_DETAILS;
+  //   // Check if all fields are filled before saving
+  //   const localUser = JSON.parse(localStorage.getItem("user"));
+  //   const mentorId = localUser.userName;
+  //   // Here, you can save the data or perform any desired action
+  //   const apiUrl = DELETE_SERVICE_DETAILS;
 
-    try {
-      const response = await axios.post(apiUrl, { _id: service._id });
-      console.log(response.data);
-      changeDisplayOption(service.serviceType);
-      handleClose();
-      //   changeDisplayOption(selectedService);
-      showSnackbar("Service Deleted", "success");
-    } catch (error) {
-      console.error("Error DEleteing Service:", error);
-      showSnackbar("Failed to delete Service", "error");
-    }
+  //   try {
+  //     const response = await axios.post(apiUrl, { _id: service._id });
+  //     console.log(response.data);
+  //     changeDisplayOption(service.serviceType);
+  //     handleClose();
+  //     //   changeDisplayOption(selectedService);
+  //   } catch (error) {
+  //     console.error("Error DEleteing Service:", error);
+  //   }
 
-    return;
-  };
+  //   return;
+  // };
 
   const SaveButton = styled(Button)(({ theme }) => ({
     height: "100%",
@@ -103,11 +97,7 @@ export default function DeleteConfirmComp({
             </Button>
           </div>
           <Typography variant="h6" sx={{ marginRight: "3px" }}>
-            Are you sure you want to delete the{" "}
-            <span style={{ color: "#5C469C", fontWeight: "600" }}>
-              {service.serviceName}
-            </span>{" "}
-            Service?
+            Are you sure you want to delete the Query?
           </Typography>
           <Grid container spacing={1} marginTop={"5px"}>
             <Grid item sm={6}>
@@ -125,7 +115,7 @@ export default function DeleteConfirmComp({
                 color="error"
                 variant="contained"
                 fullWidth
-                onClick={(event) => handleDelete(event)}
+                onClick={(e) => handleDeleteQuery(e)}
               >
                 Delete
               </Button>

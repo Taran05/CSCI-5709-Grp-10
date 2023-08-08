@@ -28,7 +28,6 @@ function BookingDashboardComp({ booking }) {
       await axios.post("/cancelBooking", { bookingId: booking.id });
       setSnackBarMessage("Booking cancelled");
       setSnackBarOpen(true);
-      // Update the date content
       booking.selectedDate.$date = "Meeting cancelled";
     } catch (error) {
       console.error("Error cancelling booking:", error);
@@ -40,7 +39,6 @@ function BookingDashboardComp({ booking }) {
       await axios.post("/reschedule", { bookingId: booking.id });
       setSnackBarMessage("Booking rescheduled");
       setSnackBarOpen(true);
-      // Update the date content
       booking.selectedDate.$date = "Meeting rescheduled";
     } catch (error) {
       console.error("Error rescheduling booking:", error);
@@ -55,10 +53,7 @@ function BookingDashboardComp({ booking }) {
             <h4 className="booking-title">
               {booking.serviceName} ({booking.serviceDuration})
             </h4>
-            <p className="booking-date">
-              {/* Date: {new Date(booking.selectedDate).toLocaleDateString()} */}
-              Date: {dateContent}
-            </p>
+            <p className="booking-date">Date: {dateContent}</p>
           </div>
           <p className="booking-time">Time: {booking.selectedTime}</p>
           <div className="divider"></div>

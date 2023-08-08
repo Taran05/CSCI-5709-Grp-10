@@ -1,5 +1,6 @@
 /**
  * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
  */
 
 import { Request, Response } from "express";
@@ -16,6 +17,9 @@ interface BookingRequest extends Request {
     studentName: string;
     studentEmail: string;
     callAbout: string;
+    price: string;
+    bookingId: string;
+    isCancelled: boolean;
   };
 }
 
@@ -30,6 +34,9 @@ export const saveBooking = async (req: BookingRequest, res: Response) => {
     studentName: req.body.studentName,
     studentEmail: req.body.studentEmail,
     callAbout: req.body.callAbout,
+    price: req.body.price,
+    bookingId: req.body.bookingId,
+    isCancelled: req.body.isCancelled,
   });
 
   try {

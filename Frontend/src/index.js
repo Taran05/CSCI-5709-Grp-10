@@ -10,6 +10,8 @@ import StudentBookingApp from "./studentBookingApp";
 import LandingPage from "./pages/landing/landingPage";
 import ContactPage from "./pages/contact/contactPage";
 import AvailabilityCalendarPage from "./pages/availability-calendar/availabilityCalendarPage";
+
+import PaymentsPage from "./pages/payments/paymentsPage";
 import QueriesPage from "./pages/queries/queriesPage";
 import MentorServiceHomePage from "./pages/MentorServiceBooking/HomePage/MentorServiceHomePage";
 import BookingSchedulePage from "./pages/MentorServiceBooking/bookingSchedule/bookingSchedulePage";
@@ -20,6 +22,8 @@ import ReportPage from "./pages/report-issue/reportPage";
 import IssueForm from "./pages/report-issue/issueForm";
 import IssueDetails from "./pages/report-issue/issueDetails";
 import MentorBookings from "./pages/Booking Dashboard/mentorBookingpage";
+
+import MentorServicesPage from "./pages/mentorServices/mentorServicesPage";
 
 const localUser = JSON.parse(localStorage.getItem("user"));
 
@@ -61,12 +65,16 @@ root.render(
 
         <Route path="/about-you" element={<RegisterAboutYouPage />} />
         <Route path="/calendar" element={<AvailabilityCalendarPage />} />
+
+        <Route path="/payments" element={<PaymentsPage />} />
         <Route path="/profile-settings" element={<ProfileManagementPage />} />
         <Route path="/issues" element={<ReportPage />} />
         <Route path="/issue/new" element={<IssueForm />} />
         <Route path="/issue/:id" element={<IssueDetails />} />
         <Route path="/queries" element={<QueriesPage />} />
         <Route path="/bookings" element={<MentorBookings />} />
+
+        <Route path="/services" element={<MentorServicesPage />} />
       </Route>
 
       <Route exact path="/" element={<StudentBookingApp />}>

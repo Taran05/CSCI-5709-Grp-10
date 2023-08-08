@@ -1,5 +1,6 @@
 /**
  * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
  */
 import React, { useState } from "react";
 import {
@@ -40,6 +41,7 @@ const PaymentDetailsPage = () => {
   const location = useLocation();
   const mentorId = location.state.mentorId;
   const price = location.state.servicePrice;
+  const bookingId = location.state.bookingId;
   const [snackbarSeverity, setSnackbarSeverity] = useState("error");
 
   const navigate = useNavigate();
@@ -52,6 +54,7 @@ const PaymentDetailsPage = () => {
   };
 
   const handlePayButtonClick = () => {
+    console.log(location);
     if (cardNumber.length !== 16) {
       setSnackbarMessage("Card number should be 16 digits");
       setSnackbarOpen(true);
@@ -77,6 +80,8 @@ const PaymentDetailsPage = () => {
         cardNumber,
         cardHolderName,
         cvv,
+        price,
+        bookingId,
       }),
     })
       .then((response) => {

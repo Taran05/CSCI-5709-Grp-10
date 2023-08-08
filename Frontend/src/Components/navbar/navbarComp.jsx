@@ -36,6 +36,9 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import GroupsIcon from "@mui/icons-material/Groups";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import CategoryIcon from "@mui/icons-material/Category";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 function ResponsiveAppBar() {
@@ -121,6 +124,36 @@ function ResponsiveAppBar() {
                     <QuestionAnswerIcon style={{ color: "inherit" }} />
                   </ListItemIcon>
                   <ListItemText primary="Queries" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
+            <Link
+              to="/services"
+              underline="none"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <CategoryIcon style={{ color: "inherit" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Services" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
+            <Link
+              to="/payments"
+              underline="none"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AccountBalanceWalletIcon style={{ color: "inherit" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Payments" />
                 </ListItemButton>
               </ListItem>
             </Link>

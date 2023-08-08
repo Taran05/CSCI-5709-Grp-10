@@ -35,6 +35,7 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import GroupsIcon from "@mui/icons-material/Groups";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import CategoryIcon from "@mui/icons-material/Category";
 
@@ -82,6 +83,21 @@ function ResponsiveAppBar() {
       <List>
         {user !== null && (
           <>
+            <Link
+              to="/bookings"
+              underline="none"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <GroupsIcon style={{ color: "inherit" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Bookings" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
             <Link
               to="/calendar"
               underline="none"

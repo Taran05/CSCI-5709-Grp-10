@@ -10,6 +10,16 @@ export const getMentorBookings = async (req: Request, res: Response) => {
     }
     const bookings = await StudentBooking.find({ mentorId: mentorId });
 
+    // Transform the selectedDate format for each booking
+    bookings.forEach((booking) => {
+      if (booking.selectedDate) {
+        const date = new Date(booking.selectedDate);
+        (booking as any).formattedSelectedDate = date
+          .toISOString()
+          .split("T")[0];
+      }
+    });
+
     return res.status(200).send(bookings);
   } catch (error) {
     console.error("Error fetching mentor bookings:", error);

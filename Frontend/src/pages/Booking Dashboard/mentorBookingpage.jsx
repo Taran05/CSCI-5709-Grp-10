@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { GET_MENTOR_BOOKINGS } from "../../utils/apiUrls";
 import BookingDashboardComp from "../../Components/Booking Dashboard/bookingComp";
+import PageHeaderComp from "../../Components/Booking Dashboard/header/headerComp";
 
 function MentorBookings() {
   const [bookings, setBookings] = useState([]);
@@ -27,6 +28,7 @@ function MentorBookings() {
 
   return (
     <div>
+      <PageHeaderComp />
       {bookings.map((booking) => (
         <BookingDashboardComp key={booking._id} booking={booking} />
       ))}

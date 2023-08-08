@@ -13,6 +13,10 @@ function BookingDashboardComp({ booking }) {
   const handleClose = () => setOpenModal(false);
   const handleSnackBarClose = () => setSnackBarOpen(false);
 
+  const formattedDate = booking.selectedDate
+    ? new Date(booking.selectedDate).toLocaleDateString()
+    : "Not specified";
+
   const handleCancel = async () => {
     try {
       await axios.post("/cancelBooking", { bookingId: booking.id });
@@ -46,7 +50,8 @@ function BookingDashboardComp({ booking }) {
               {booking.serviceName} ({booking.serviceDuration})
             </h4>
             <p className="booking-date">
-              Date: {new Date(booking.selectedDate.$date).toLocaleDateString()}
+              {/* Date: {new Date(booking.selectedDate).toLocaleDateString()} */}
+              Date: {formattedDate}
             </p>
           </div>
           <p className="booking-time">Time: {booking.selectedTime}</p>

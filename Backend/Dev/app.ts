@@ -21,6 +21,9 @@ import queriesRoutes from "./routes/queriesRoutes";
 import availabilityRoute from "./routes/servicesRoutes/availabilityRoute";
 import studentBookingRoute from "./routes/studentBookingRoute";
 import { issueRoute } from "./routes/reportIssues/issueRoute";
+import putServicesRoute from "./routes/servicesRoutes/putServicesRoute";
+import updateServicesRoute from "./routes/servicesRoutes/updateServiceRoute";
+import deleteServicesRoute from "./routes/servicesRoutes/deleteServiceRoute";
 
 const app: Express = express();
 
@@ -55,6 +58,10 @@ app.use("/api/", userLoginRoute);
 app.use(availabilityRoute);
 app.use(studentBookingRoute);
 app.use("/api/", issueRoute);
+app.use("/api/", putServicesRoute);
+app.use("/api/", updateServicesRoute);
+app.use("/api/", deleteServicesRoute);
+
 
 const port: number = 3001;
 app.listen(port, () => {

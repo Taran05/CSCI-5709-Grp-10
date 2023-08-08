@@ -61,8 +61,8 @@ const RightServiceViewComp = () => {
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Box className="detail-box">
-              <Typography variant="body1">{service.time}</Typography>
-              <Typography variant="body1">{service.price}</Typography>
+              <Typography variant="body1">{service.time} minutes</Typography>
+              <Typography variant="body1">${service.price}</Typography>
             </Box>
             <Box className="icon-box-right">
               <KeyboardArrowRightIcon color="disabled" />

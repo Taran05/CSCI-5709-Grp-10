@@ -12,10 +12,16 @@ function BookingDashboardComp({ booking }) {
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
   const handleSnackBarClose = () => setSnackBarOpen(false);
+  let dateContent;
 
   const formattedDate = booking.selectedDate
     ? new Date(booking.selectedDate).toLocaleDateString()
     : "Not specified";
+  if (booking.isCancelled) {
+    dateContent = <span style={{ color: "red" }}>Cancelled</span>;
+  } else {
+    dateContent = formattedDate;
+  }
 
   const handleCancel = async () => {
     try {
@@ -51,7 +57,7 @@ function BookingDashboardComp({ booking }) {
             </h4>
             <p className="booking-date">
               {/* Date: {new Date(booking.selectedDate).toLocaleDateString()} */}
-              Date: {formattedDate}
+              Date: {dateContent}
             </p>
           </div>
           <p className="booking-time">Time: {booking.selectedTime}</p>

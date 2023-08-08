@@ -84,10 +84,9 @@ export default function FormComp() {
 
   return (
     <Box
-      className="login-box"
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
+        "& .MuiTextField-root": { m: 1 },
       }}
       noValidate
       autoComplete="off"
@@ -98,6 +97,7 @@ export default function FormComp() {
         <Grid className="text-fields" item xs={12} md={6} lg={6} xl={6}>
           <TextField
             required
+            sx={{ width: "90%" }}
             id="outlined-required"
             placeholder="xyz@gmail.com"
             label="Email"
@@ -120,7 +120,7 @@ export default function FormComp() {
         <Grid item xs={12} md={6} lg={6} xl={6}>
           <FormControl
             error={!isPasswordValid}
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1, width: "90%" }}
             variant="outlined"
           >
             <InputLabel

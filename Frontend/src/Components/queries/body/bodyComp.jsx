@@ -20,7 +20,7 @@ function BodyComp(props) {
   const [textareaValue, setTextareaValue] = useState("");
   const [isResponseEmpty, setIsResponseEmpty] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-
+  const showSnackbar = props.showSnackbar;
   console.log("Props:", props);
 
   const handleTextareaChange = (event) => {
@@ -68,7 +68,7 @@ function BodyComp(props) {
     }
     // window.alert("Query moved to Deleted");
 
-    enqueueSnackbar("Query Deleted.", { variant: "success" });
+    showSnackbar("Query Deleted.", "success");
   }
 
   async function respondQuery(e, value) {
@@ -106,7 +106,7 @@ function BodyComp(props) {
     setTextareaValue("");
     props.changeDisplayOption("Pending");
     // window.alert("Query moved to Answered");
-    enqueueSnackbar("Response Sent", { variant: "success" });
+    showSnackbar("Response Sent", "success");
   }
 
   console.log(

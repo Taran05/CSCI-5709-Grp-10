@@ -83,6 +83,7 @@ const ServiceCardComp = ({ service, changeDisplayOption, showSnackbar }) => {
               overflow: "hidden",
               whiteSpace: "nowrap",
               textOverflow: "ellipsis",
+              maxWidth: "45%",
             }}
           >
             {service.serviceName}

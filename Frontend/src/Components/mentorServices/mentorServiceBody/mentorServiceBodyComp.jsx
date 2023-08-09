@@ -34,7 +34,7 @@ const MentorServiceBodyComp = ({
     <Grid container spacing={2} className="grid-container-mentor-service">
       {serviceDetails.map((service, index) =>
         service.serviceType === displayOption ? (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
             <ServiceCardComp
               service={service}
               changeDisplayOption={changeDisplayOption}

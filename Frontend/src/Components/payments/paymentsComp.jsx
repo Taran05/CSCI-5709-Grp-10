@@ -5,12 +5,13 @@ import "./paymentsComp.css";
 import React, { useState } from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Typography, Paper } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { SAVE_PAYMENT_DETAILS, GET_PAYMENT_DETAILS, GET_BALANCE_DETAILS, TRANSFER_AMOUNT } from "../../utils/apiUrls";
 import axios from 'axios';
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import UseMediaQuery from "@mui/material/useMediaQuery";
 
 const theme = createTheme({
     breakpoints: {
@@ -62,6 +63,11 @@ export default function Payments() {
     const [localUser, setLocalUser] = useState(null);
     const [accountConnected, setAccountConnected] = useState(false);
 
+    const isExtraSmallScreen = UseMediaQuery((theme) =>
+        theme.breakpoints.down("xs")
+    );
+    const isMediumScreen = UseMediaQuery((theme) => theme.breakpoints.down("md"));
+
     const handleDialogOpen = () => {
         setPage(1);
         setOpenDialog(true);
@@ -90,7 +96,7 @@ export default function Payments() {
         else if (accountNumber === "" || email === "") {
             toast.error("Please connect your payment account and provide your email before transferring.");
         }
-        else if (transferAmount > totalBalance){
+        else if (transferAmount > totalBalance) {
             toast.error("You have entered an amount that is more than the Total Balance.");
         } else {
             const amountTransferData = {
@@ -118,10 +124,10 @@ export default function Payments() {
             catch (error) {
                 console.log(error);
                 console.log('Fail to transfer amount');
-            }   
+            }
         }
     };
-    
+
 
     const handleNextPage = () => {
         if (
@@ -236,7 +242,7 @@ export default function Payments() {
             <div className="Payments">
                 <div className="payments-container">
                     <div className="left-pay">
-                        <div className="balance">
+                        <div className="balance" style={{ marginLeft: isMediumScreen ? "25px" : "0" }}>
                             <div className="icon-and-text">
                                 <VisibilityIcon style={{ fontSize: "40px" }} />
                                 <p style={{ fontSize: "18px" }}>Balance</p>
@@ -259,14 +265,18 @@ export default function Payments() {
                             </div>
                         </div>
                     </div>
-                    <div className="right-pay">
+                    <div className="right-pay" style={{ marginLeft: isMediumScreen ? "25px" : "70px" }}>
                         <div className="checkout">
                             <ConnectButton
                                 variant="contained"
                                 fullWidth
                                 onClick={handleDialogOpen}
+                                style={{
+                                    width: isMediumScreen ? "90%" : "70%",
+                                    fontSize: isExtraSmallScreen ? "12px" : "",
+                                }}
                             >
-                                 {accountConnected ? "Update Payment Account" : "Connect Payment Account"}
+                                {accountConnected ? "Update Payment Account" : "Connect Payment Account"}
                             </ConnectButton>
                         </div>
                     </div>

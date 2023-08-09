@@ -15,7 +15,7 @@ import EditMentorServicesComp from "../editMentorServices/editMentorServicesComp
 import { FRONTEND_DOMAIN } from "../../../utils/apiUrls";
 import DeleteConfirmComp from "../deleteConfirm/deleteConfirmComp";
 
-const ServiceCardComp = ({ service, changeDisplayOption }) => {
+const ServiceCardComp = ({ service, changeDisplayOption, showSnackbar }) => {
   const shareLink = useRef("abcxyz");
   // const [mentor, setMentor] = useState({});
   // const [serviceDetails, setServiceDetails] = useState([]);
@@ -53,8 +53,9 @@ const ServiceCardComp = ({ service, changeDisplayOption }) => {
       const textElement = shareLink.current;
       textElement.select();
       document.execCommand("copy");
+      showSnackbar("Link Copied.", "info");
       // Optionally, you can add some visual feedback for the user
-      alert("Text copied to clipboard!");
+      // alert("Text copied to clipboard!");
     }
   };
 
@@ -75,9 +76,19 @@ const ServiceCardComp = ({ service, changeDisplayOption }) => {
           {/* <Box className="icon-box">
             <CalendarMonthIcon color="disabled" />
           </Box> */}
-          <Typography variant="h4" className="service-name">
+          <Typography
+            variant="h5"
+            className="service-name"
+            style={{
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              maxWidth: "45%",
+            }}
+          >
             {service.serviceName}
           </Typography>
+
           {/* <Divider sx={{ my: 2 }} /> */}
           <Box className="detail-box">
             <Typography variant="h5" sx={{ marginRight: "3px" }}>
@@ -113,11 +124,13 @@ const ServiceCardComp = ({ service, changeDisplayOption }) => {
             <EditMentorServicesComp
               service={service}
               changeDisplayOption={changeDisplayOption}
+              showSnackbar={showSnackbar}
             />
           </div>
           <DeleteConfirmComp
             service={service}
             changeDisplayOption={changeDisplayOption}
+            showSnackbar={showSnackbar}
           />
         </Box>
         {/* <Box className="icon-box-right">

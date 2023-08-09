@@ -159,7 +159,7 @@ const RightViewComponent = ({
               gap: "1rem",
             }}
             ref={datesContainerRef}
-          >
+          > 
             {availability.map((item) => (
               <SelectableBox
                 key={item.date}
@@ -170,7 +170,7 @@ const RightViewComponent = ({
                   {format(new Date(item.date), "MMM dd")}
                 </Typography>
                 <Typography variant="body1">
-                  {format(new Date(item.date), "EEEE")}
+                  {item.day}
                 </Typography>
               </SelectableBox>
             ))}

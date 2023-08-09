@@ -84,6 +84,9 @@ export default function Payments() {
         if (transferAmount === "") {
             toast.error("Please provide the transfer amount.");
         }
+        else if (transferAmount < 0) {
+            toast.error("The amount can't be negative!");
+        }
         else if (accountNumber === "" || email === "") {
             toast.error("Please connect your payment account and provide your email before transferring.");
         }

@@ -86,7 +86,26 @@ export const saveQuery = async (req: Request, res: Response) => {
 
 
 const deleteQuery = async (req: Request, res: Response) => {
-    const { _id } = req.body; // Assuming the _id value is passed as a parameter in the URL
+    const { _id, userMail, mentor, query, title } = req.body; 
+
+    const emailConfig = {
+      host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+      auth: {
+        user: 'learnly.io@gmail.com',
+        pass: 'mhlqblzgdqrjotzq',
+      },
+    };
+    
+    const mailOptions = {
+      from: 'Learnly <learnly.io@gmail.com>',
+      to: userMail,
+      subject: `Query Deleted: ${title}`,
+      text: `Query: ${query} \nDeleted by: ${mentor}`,
+    };
+    
+    await sendEmail(emailConfig, mailOptions);
   
     try {
       // Assuming DataModel is the Mongoose model representing the collection in MongoDB

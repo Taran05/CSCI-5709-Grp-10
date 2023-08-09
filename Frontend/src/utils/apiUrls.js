@@ -1,7 +1,8 @@
-const domain = "http://localhost:3001/";
-// const domain = "https://learnly-backend-ub6j.onrender.com/";
+// const domain = "http://localhost:3001/";
+const domain = "https://learnly-backend.onrender.com/";
 
-export const FRONTEND_DOMAIN = `http://localhost:3000/`;
+// export const FRONTEND_DOMAIN = `http://localhost:3000/`;
+export const FRONTEND_DOMAIN = `https://learnly-io.netlify.app/`;
 
 export const REGISTER_USER = `${domain}api/registerUser`;
 export const PUT_USER_DATA = `${domain}api/updateUser`;

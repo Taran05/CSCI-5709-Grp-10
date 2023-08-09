@@ -134,7 +134,7 @@ const PaymentDetailsPage = () => {
         }}
       >
         <Typography variant="h6" color="text.secondary">
-          Price: {price}
+          Price: ${price}
         </Typography>
         <Typography variant="h6" color="text.primary"></Typography>
       </Box>

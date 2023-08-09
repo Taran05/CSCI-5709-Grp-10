@@ -14,6 +14,8 @@ import axios from "axios";
 import { GET_QUERY } from "../../utils/apiUrls";
 import { SnackbarProvider } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 
 function QueriesPage(props) {
   const [value, setValue] = useState("");
@@ -25,6 +27,9 @@ function QueriesPage(props) {
   const [Queries, setQueries] = useState([]);
   const [pendingQueryCount, setPendingQueryCount] = useState(0);
   const [answeredQueryCount, setAnsweredQueryCount] = useState(0);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarSeverity, setSnackbarSeverity] = useState("info");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const updateQueries = (queries) => {
     //debugger;
@@ -81,6 +86,20 @@ function QueriesPage(props) {
     handleUserClick("");
   };
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
+  // Function to show Snackbar
+  const showSnackbar = (message, severity) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
+
   console.log(
     "Before return in page.. answer:",
     answeredQueryCount,
@@ -132,11 +151,26 @@ function QueriesPage(props) {
                   answeredQueryCount={answeredQueryCount}
                   setPendingQueryCount={setPendingQueryCount}
                   setAnsweredQueryCount={setAnsweredQueryCount}
+                  showSnackbar={showSnackbar}
                 />
               </div>
             </Grid>
           </Grid>
         </div>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <MuiAlert
+            onClose={handleSnackbarClose}
+            severity={snackbarSeverity}
+            sx={{ width: "100%" }}
+          >
+            {snackbarMessage}
+          </MuiAlert>
+        </Snackbar>
       </div>
     </SnackbarProvider>
   );

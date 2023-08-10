@@ -20,7 +20,7 @@
     text-align: left;
   }
 
-  @media (min-width: 595px) and (max-width: 768px) {
+  @media (min-width: 595px) and (max-width: 920px) {
     .block-dates {
       padding-left: 20px;
       width: 520px;

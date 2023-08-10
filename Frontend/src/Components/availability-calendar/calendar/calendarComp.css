@@ -13,7 +13,7 @@
     padding-right: 300px;
   }
 
-  @media (min-width: 897px) and (max-width: 1024px) {
+  @media (min-width: 921px) and (max-width: 1024px) {
     h4 {
       width: 380px;
     }
@@ -22,7 +22,7 @@
     }
   }
 
-  @media (min-width: 595px) and (max-width: 896px) {
+  @media (min-width: 595px) and (max-width: 920px) {
     h4 {
       width: 180px;
     }

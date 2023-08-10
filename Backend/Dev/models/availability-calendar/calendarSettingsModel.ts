@@ -1,16 +1,18 @@
-  /**
+/**
  * @author Taranjot Singh <tr548284@dal.ca/B00945917>
- */ 
-import mongoose, { Document, Model } from 'mongoose';
+ */
 
-export interface ICalendarSettings extends Document {
-  calendarSettingsData: object;
-}
+import mongoose from "mongoose";
 
-const calendarSettingsSchema = new mongoose.Schema({
-  calendarSettingsData: { type: Object, required: true },
-});
-
-const CalendarSettings: Model<ICalendarSettings> = mongoose.model<ICalendarSettings>('CalendarSettings', calendarSettingsSchema);
+const CalendarSettings = mongoose.model(
+  "CalendarSetting",
+  new mongoose.Schema({
+    mentorId: String,
+    timezone: String,
+    meetingLink: String,
+    bookingPeriod: String,
+    noticePeriod: String,
+  })
+);
 
 export default CalendarSettings;

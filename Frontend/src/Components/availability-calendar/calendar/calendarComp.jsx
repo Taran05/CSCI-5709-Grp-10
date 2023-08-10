@@ -86,7 +86,7 @@ const SaveButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function Calendar() {
-  const [timezone, setTimezone] = useState("");
+  const [timezone, setTimezone] = useState("GMT-3:00");
   const [meetingLink, setMeetingLink] = useState("");
   const [bookingPeriod, setBookingPeriod] = useState("");
   const [noticePeriodValue, setNoticePeriodValue] = useState("");

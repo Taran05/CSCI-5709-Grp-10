@@ -5,6 +5,19 @@ import "./availabilityCalendarPage.css";
 import React, { useEffect } from "react";
 import AvailabilityCalendarComp from "../../Components/availability-calendar/availability-calendarComp";
 import { useNavigate } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 330,
+      sm: 380,
+      md: 430,
+      lg: 1100,
+      xl: 1450,
+    },
+  },
+});
 
 function CalendarPage() {
   const navigate = useNavigate();
@@ -22,7 +35,7 @@ function CalendarPage() {
     checkLogin();
   }, []);
 
-  return <AvailabilityCalendarComp></AvailabilityCalendarComp>;
+  return <ThemeProvider theme={theme}><AvailabilityCalendarComp></AvailabilityCalendarComp></ThemeProvider>;
 }
 
 export default CalendarPage;

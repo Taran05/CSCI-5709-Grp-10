@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import "./scheduleComp.css";
 import "react-toastify/dist/ReactToastify.css";
-import { createTheme, styled } from "@mui/material/styles";
+import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import { Button, Grid } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import DefaultScheduleComp from "./defaultschedule/defaultscheduleComp";
@@ -84,15 +84,15 @@ export default function Schedule() {
       <Grid container spacing={2}>
         {selectedSchedule === "Default" ? (
           <Grid item sm={6}>
-            <DefaultScheduleComp />
+            <ThemeProvider theme={theme}><DefaultScheduleComp /></ThemeProvider>
           </Grid>
         ) : (
           <Grid item sm={6}>
-            <AlternateScheduleComp />
+            <ThemeProvider theme={theme}><AlternateScheduleComp /></ThemeProvider>
           </Grid>
         )}
         <Grid>
-          <BlockDatesComp />
+        <ThemeProvider theme={theme}><BlockDatesComp /></ThemeProvider>
         </Grid>
       </Grid>
     </>

@@ -1,20 +1,21 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
- */ 
+/**
+* @author Taranjot Singh <tr548284@dal.ca/B00945917>
+*/
 import React, { useState, useEffect } from "react";
 import "./alternatescheduleComp.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ThemeProvider, createTheme, styled} from "@mui/material/styles";
-import { Button, Grid} from "@mui/material";
+import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
+import { Button, Grid } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox, FormControl, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
 import { SAVE_ALTERNATE_SCHEDULE, GET_ALTERNATE_SCHEDULE } from "../../../../utils/apiUrls";
+import UseMediaQuery from "@mui/material/useMediaQuery";
 
 export default function AlternateSchedule() {
- 
+
     const theme = createTheme({
         breakpoints: {
             values: {
@@ -35,12 +36,14 @@ export default function AlternateSchedule() {
         Friday: { checked: false, startTime: '', endTime: '' },
         Saturday: { checked: false, startTime: '', endTime: '' },
         Sunday: { checked: false, startTime: '', endTime: '' }
-      });
+    });
 
     const [saveStatus, setSaveStatus] = useState(null);
     const [changesMade, setChangesMade] = useState(false);
     const [alternateScheduleData, setAlternateScheduleData] = useState([]);
     const [localUser, setLocalUser] = useState(null);
+
+    const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
 
     const startTimeOptions = [
         '12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM', '06:00 AM',
@@ -63,16 +66,16 @@ export default function AlternateSchedule() {
         color: theme.palette.getContrastText(grey[900]),
         backgroundColor: "#1D267D",
         "&:hover": {
-          backgroundColor: "#0C134F",
+            backgroundColor: "#0C134F",
         },
-      }));
+    }));
 
-      const SaveButtonContainer = styled('div')`
+    const SaveButtonContainer = styled('div')`
       position: absolute;
   right: 0;
   `;
 
-  const ScheduleNameContainer = styled('div')`
+    const ScheduleNameContainer = styled('div')`
   display: flex;
   align-items: center;
   position: relative;
@@ -89,12 +92,11 @@ export default function AlternateSchedule() {
             return;
         }
 
-        const alternateScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => 
-        {
-            if(checked){
+        const alternateScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => {
+            if (checked) {
                 return { day, startTime, endTime, mentorId: localUser.userName };
             }
-            else{
+            else {
                 return { day, startTime: "NAN", endTime: "NAN", mentorId: localUser.userName };
             }
         });
@@ -109,11 +111,11 @@ export default function AlternateSchedule() {
                 setSaveStatus('success');
                 setChangesMade(true);
                 return;
-              } else if (response.status === 200) {
+            } else if (response.status === 200) {
                 toast.success("Alternate Schedule Saved Successfully");
-              } else {
+            } else {
                 toast.error("Failed to Save Alternate Schedule");
-              }
+            }
         } catch (error) {
             setSaveStatus('error');
             console.error(error);
@@ -134,66 +136,66 @@ export default function AlternateSchedule() {
             const localUser = JSON.parse(localStorage.getItem("user"));
             console.log("Printing local user:", localUser);
             setLocalUser(localUser);
-          try {
-            const apiUrl = GET_ALTERNATE_SCHEDULE;
-            const params = {
-                mentorId: localUser.userName,
-              };
-            const response = await axios.get(apiUrl, { params });
-            const fetchedData = response?.data?.alternateSchedules;
-            console.log(fetchedData);
-            if (fetchedData && fetchedData.length > 0) {
+            try {
+                const apiUrl = GET_ALTERNATE_SCHEDULE;
+                const params = {
+                    mentorId: localUser.userName,
+                };
+                const response = await axios.get(apiUrl, { params });
+                const fetchedData = response?.data?.alternateSchedules;
                 console.log(fetchedData);
-                // Update the state with fetched data
-                const updatedAlternateScheduleData = {};
-                fetchedData.forEach((schedule) => {
-                    updatedAlternateScheduleData[schedule.day] = {
-                        startTime: schedule.startTime,
-                        endTime: schedule.endTime,
-                    };
-                });
-                setAlternateScheduleData((prevAlternateScheduleData) => ({
-                    ...prevAlternateScheduleData,
-                    ...updatedAlternateScheduleData,
-                }));
-                // Update the checkboxStates with fetched data
-    const updatedCheckboxStates = { ...checkboxStates };
-    fetchedData.forEach((schedule) => {
-        updatedCheckboxStates[schedule.day] = {
-            checked: true,
-            startTime: schedule.startTime,
-            endTime: schedule.endTime,
-        };
-    });
-    setCheckboxStates(updatedCheckboxStates);
-}
-            else{
-                console.log("Alternate Schedule data not available.");
-              }
-          }  catch (error) {
-            console.error(error);
-            toast.error('Failed to fetch alternate schedule');
-          }
+                if (fetchedData && fetchedData.length > 0) {
+                    console.log(fetchedData);
+                    // Update the state with fetched data
+                    const updatedAlternateScheduleData = {};
+                    fetchedData.forEach((schedule) => {
+                        updatedAlternateScheduleData[schedule.day] = {
+                            startTime: schedule.startTime,
+                            endTime: schedule.endTime,
+                        };
+                    });
+                    setAlternateScheduleData((prevAlternateScheduleData) => ({
+                        ...prevAlternateScheduleData,
+                        ...updatedAlternateScheduleData,
+                    }));
+                    // Update the checkboxStates with fetched data
+                    const updatedCheckboxStates = { ...checkboxStates };
+                    fetchedData.forEach((schedule) => {
+                        updatedCheckboxStates[schedule.day] = {
+                            checked: true,
+                            startTime: schedule.startTime,
+                            endTime: schedule.endTime,
+                        };
+                    });
+                    setCheckboxStates(updatedCheckboxStates);
+                }
+                else {
+                    console.log("Alternate Schedule data not available.");
+                }
+            } catch (error) {
+                console.error(error);
+                toast.error('Failed to fetch alternate schedule');
+            }
         };
 
         fetchAlternateSchedule();
-  }, []);
+    }, []);
 
     return (
         <>
             <Grid container spacing={2}>
                 <Grid item sm={6}>
-                    <div className="schedule-details">
-                    <ScheduleNameContainer>
-              <span style={{fontWeight:"bold", fontSize: "20px"}}>Alternate</span>
-              <SaveButtonContainer>
-                <SaveButton variant="contained" fullWidth onClick={handleSaveChanges}>
-                  Save
-                </SaveButton>
-              </SaveButtonContainer>
-            </ScheduleNameContainer>
+                    <div className="alternate-schedule-details" style={{ paddingLeft: isLargeScreen ? "5px" : "", paddingRight: isLargeScreen ? "5px" : "" }}>
+                        <ScheduleNameContainer>
+                            <span style={{ fontWeight: "bold", fontSize: "20px" }}>Alternate</span>
+                            <SaveButtonContainer>
+                                <SaveButton variant="contained" fullWidth onClick={handleSaveChanges}>
+                                    Save
+                                </SaveButton>
+                            </SaveButtonContainer>
+                        </ScheduleNameContainer>
                         <br></br>
-                        <div className="day-checkboxes">
+                        <div className="alternate-day-checkboxes">
                             <table>
                                 <tbody>
                                     <tr>
@@ -220,10 +222,11 @@ export default function AlternateSchedule() {
                                             {checkboxStates.Monday.checked ? (
                                                 <ThemeProvider theme={theme}>
                                                     <div className="time-dropdown">
+
                                                         <FormControl>
                                                             <Select
                                                                 labelId="start-time-label-Monday"
-                                                                id="start-time-select-Monday"
+                                                                id="alternate-start-time-select-Monday"
                                                                 value={checkboxStates.Monday.startTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -242,11 +245,11 @@ export default function AlternateSchedule() {
                                                                 ))}
                                                             </Select>
                                                         </FormControl>
-                                                        <span className="time-separator">-</span>
+                                                        <span className="alternate-time-separator">-</span>
                                                         <FormControl>
                                                             <Select
                                                                 labelId="end-time-label-Monday"
-                                                                id="end-time-select-Monday"
+                                                                id="alternate-end-time-select-Monday"
                                                                 value={checkboxStates.Monday.endTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -266,9 +269,10 @@ export default function AlternateSchedule() {
                                                             </Select>
                                                         </FormControl>
                                                     </div>
+
                                                 </ThemeProvider>
                                             ) : (
-                                                <span>Unavailable</span>
+                                                <span className="unavailable">Unavailable</span>
                                             )}
                                         </td>
                                     </tr>
@@ -296,10 +300,11 @@ export default function AlternateSchedule() {
                                             {checkboxStates.Tuesday.checked ? (
                                                 <ThemeProvider theme={theme}>
                                                     <div className="time-dropdown">
+
                                                         <FormControl>
                                                             <Select
                                                                 labelId="start-time-label-Tuesday"
-                                                                id="start-time-select-Tuesday"
+                                                                id="alternate-start-time-select-Tuesday"
                                                                 value={checkboxStates.Tuesday.startTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -318,11 +323,11 @@ export default function AlternateSchedule() {
                                                                 ))}
                                                             </Select>
                                                         </FormControl>
-                                                        <span className="time-separator">-</span>
+                                                        <span className="alternate-time-separator">-</span>
                                                         <FormControl>
                                                             <Select
                                                                 labelId="end-time-label-Tuesday"
-                                                                id="end-time-select-Tuesday"
+                                                                id="alternate-end-time-select-Tuesday"
                                                                 value={checkboxStates.Tuesday.endTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -342,9 +347,10 @@ export default function AlternateSchedule() {
                                                             </Select>
                                                         </FormControl>
                                                     </div>
+
                                                 </ThemeProvider>
                                             ) : (
-                                                <span>Unavailable</span>
+                                                <span className="unavailable">Unavailable</span>
                                             )}
                                         </td>
                                     </tr>
@@ -372,10 +378,11 @@ export default function AlternateSchedule() {
                                             {checkboxStates.Wednesday.checked ? (
                                                 <ThemeProvider theme={theme}>
                                                     <div className="time-dropdown">
+
                                                         <FormControl>
                                                             <Select
                                                                 labelId="start-time-label-Wednesday"
-                                                                id="start-time-select-Wednesday"
+                                                                id="alternate-start-time-select-Wednesday"
                                                                 value={checkboxStates.Wednesday.startTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -394,11 +401,11 @@ export default function AlternateSchedule() {
                                                                 ))}
                                                             </Select>
                                                         </FormControl>
-                                                        <span className="time-separator">-</span>
+                                                        <span className="alternate-time-separator">-</span>
                                                         <FormControl>
                                                             <Select
                                                                 labelId="end-time-label-Wednesday"
-                                                                id="end-time-select-Wednesday"
+                                                                id="alternate-end-time-select-Wednesday"
                                                                 value={checkboxStates.Wednesday.endTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -418,9 +425,10 @@ export default function AlternateSchedule() {
                                                             </Select>
                                                         </FormControl>
                                                     </div>
+
                                                 </ThemeProvider>
                                             ) : (
-                                                <span>Unavailable</span>
+                                                <span className="unavailable">Unavailable</span>
                                             )}
                                         </td>
                                     </tr>
@@ -448,10 +456,11 @@ export default function AlternateSchedule() {
                                             {checkboxStates.Thursday.checked ? (
                                                 <ThemeProvider theme={theme}>
                                                     <div className="time-dropdown">
+
                                                         <FormControl>
                                                             <Select
                                                                 labelId="start-time-label-Thursday"
-                                                                id="start-time-select-Thursday"
+                                                                id="alternate-start-time-select-Thursday"
                                                                 value={checkboxStates.Thursday.startTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -470,11 +479,11 @@ export default function AlternateSchedule() {
                                                                 ))}
                                                             </Select>
                                                         </FormControl>
-                                                        <span className="time-separator">-</span>
+                                                        <span className="alternate-time-separator">-</span>
                                                         <FormControl>
                                                             <Select
                                                                 labelId="end-time-label-Thursday"
-                                                                id="end-time-select-Thursday"
+                                                                id="alternate-end-time-select-Thursday"
                                                                 value={checkboxStates.Thursday.endTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -494,9 +503,10 @@ export default function AlternateSchedule() {
                                                             </Select>
                                                         </FormControl>
                                                     </div>
+
                                                 </ThemeProvider>
                                             ) : (
-                                                <span>Unavailable</span>
+                                                <span className="unavailable">Unavailable</span>
                                             )}
                                         </td>
                                     </tr>
@@ -524,10 +534,11 @@ export default function AlternateSchedule() {
                                             {checkboxStates.Friday.checked ? (
                                                 <ThemeProvider theme={theme}>
                                                     <div className="time-dropdown">
+
                                                         <FormControl>
                                                             <Select
                                                                 labelId="start-time-label-Friday"
-                                                                id="start-time-select-Friday"
+                                                                id="alternate-start-time-select-Friday"
                                                                 value={checkboxStates.Friday.startTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -546,11 +557,11 @@ export default function AlternateSchedule() {
                                                                 ))}
                                                             </Select>
                                                         </FormControl>
-                                                        <span className="time-separator">-</span>
+                                                        <span className="alternate-time-separator">-</span>
                                                         <FormControl>
                                                             <Select
                                                                 labelId="end-time-label-Friday"
-                                                                id="end-time-select-Friday"
+                                                                id="alternate-end-time-select-Friday"
                                                                 value={checkboxStates.Friday.endTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -570,9 +581,10 @@ export default function AlternateSchedule() {
                                                             </Select>
                                                         </FormControl>
                                                     </div>
+
                                                 </ThemeProvider>
                                             ) : (
-                                                <span>Unavailable</span>
+                                                <span className="unavailable">Unavailable</span>
                                             )}
                                         </td>
                                     </tr>
@@ -600,10 +612,11 @@ export default function AlternateSchedule() {
                                             {checkboxStates.Saturday.checked ? (
                                                 <ThemeProvider theme={theme}>
                                                     <div className="time-dropdown">
+
                                                         <FormControl>
                                                             <Select
                                                                 labelId="start-time-label-Saturday"
-                                                                id="start-time-select-Saturday"
+                                                                id="alternate-start-time-select-Saturday"
                                                                 value={checkboxStates.Saturday.startTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -622,11 +635,11 @@ export default function AlternateSchedule() {
                                                                 ))}
                                                             </Select>
                                                         </FormControl>
-                                                        <span className="time-separator">-</span>
+                                                        <span className="alternate-time-separator">-</span>
                                                         <FormControl>
                                                             <Select
                                                                 labelId="end-time-label-Saturday"
-                                                                id="end-time-select-Saturday"
+                                                                id="alternate-end-time-select-Saturday"
                                                                 value={checkboxStates.Saturday.endTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -646,9 +659,10 @@ export default function AlternateSchedule() {
                                                             </Select>
                                                         </FormControl>
                                                     </div>
+
                                                 </ThemeProvider>
                                             ) : (
-                                                <span>Unavailable</span>
+                                                <span className="unavailable">Unavailable</span>
                                             )}
                                         </td>
                                     </tr>
@@ -676,10 +690,11 @@ export default function AlternateSchedule() {
                                             {checkboxStates.Sunday.checked ? (
                                                 <ThemeProvider theme={theme}>
                                                     <div className="time-dropdown">
+
                                                         <FormControl>
                                                             <Select
                                                                 labelId="start-time-label-Sunday"
-                                                                id="start-time-select-Sunday"
+                                                                id="alternate-start-time-select-Sunday"
                                                                 value={checkboxStates.Sunday.startTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -698,11 +713,11 @@ export default function AlternateSchedule() {
                                                                 ))}
                                                             </Select>
                                                         </FormControl>
-                                                        <span className="time-separator">-</span>
+                                                        <span className="alternate-time-separator">-</span>
                                                         <FormControl>
                                                             <Select
                                                                 labelId="end-time-label-Sunday"
-                                                                id="end-time-select-Sunday"
+                                                                id="alternate-end-time-select-Sunday"
                                                                 value={checkboxStates.Sunday.endTime}
                                                                 onChange={(e) =>
                                                                     setCheckboxStates((prevState) => ({
@@ -722,9 +737,10 @@ export default function AlternateSchedule() {
                                                             </Select>
                                                         </FormControl>
                                                     </div>
+
                                                 </ThemeProvider>
                                             ) : (
-                                                <span>Unavailable</span>
+                                                <span className="unavailable">Unavailable</span>
                                             )}
                                         </td>
                                     </tr>

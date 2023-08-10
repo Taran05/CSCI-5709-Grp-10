@@ -1,21 +1,14 @@
   /**
  * @author Taranjot Singh <tr548284@dal.ca/B00945917>
  */ 
-.Contact {
-    text-align: center;
-  }
   
-  .contact-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
-    /* align-items: stretch; Ensure both columns have equal height */
-  }
-  
-  .left-form {
+  .left-schedule {
     padding: 2%;
   }
   
+  .calendar-form{
+    width: 100%;
+  } 
   .right-info {
     background-color: #ffffff;
     padding: 20px;
@@ -34,11 +27,6 @@
   @media (max-width: 768px) {
     .contact-container {
       grid-template-columns: 1fr; /* Display as a single column on mobile */
-    }
-  
-    .left-form,
-    .right-info {
-      width: 100%;
     }
   }
   

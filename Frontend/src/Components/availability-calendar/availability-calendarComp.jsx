@@ -8,6 +8,7 @@ import ScheduleComp from "../../Components/availability-calendar/schedule/schedu
 import CalendarComp from "../../Components/availability-calendar/calendar/calendarComp";
 import { Button, Grid } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import UseMediaQuery from "@mui/material/useMediaQuery";
 
 const theme = createTheme({
   breakpoints: {
@@ -50,6 +51,7 @@ const CalendarButton = styled(Button)(({ theme, showSelected }) => ({
 export default function AvailabilityCalendar() {
   // State variables to manage the selected component
   const [showSchedule, setShowSchedule] = useState(true);
+  const isSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   // Event handler for when the Schedule button is clicked
   const handleSchedule = () => {
@@ -64,7 +66,7 @@ export default function AvailabilityCalendar() {
   return (
     <div className="Calendar">
       <div className="calendar-container">
-        <div className="left-form">
+        <div className="left-schedule">
           <div className="calendar-form">
             <h1 className="calendar-form-header">AVAILABILITY</h1>
             <Grid item sm={12}>
@@ -75,6 +77,8 @@ export default function AvailabilityCalendar() {
                     onClick={handleSchedule}
                     fullWidth
                     showSelected={showSchedule}
+                    style= {isSmallScreen ? {width : "130px", height : "50px", fontSize : "12px"} : {} }
+                    className="schedule-button"
                   >
                     Schedule
                   </ScheduleButton>
@@ -85,6 +89,8 @@ export default function AvailabilityCalendar() {
                     onClick={handleCalendar}
                     fullWidth
                     showSelected={!showSchedule}
+                    style= {isSmallScreen ? {width : "130px", height : "50px", fontSize : "12px"} : {} }
+                    className="calendar-button"
                   >
                     Calendar Settings
                   </CalendarButton>

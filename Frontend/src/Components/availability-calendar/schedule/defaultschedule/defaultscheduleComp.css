@@ -57,7 +57,7 @@
      font-size: 22px;
    }
 
-   @media (min-width: 595px) and (max-width: 768px) {
+   @media (min-width: 595px) and (max-width: 920px) {
      .default-schedule-details {
        width: 550px;  
      }

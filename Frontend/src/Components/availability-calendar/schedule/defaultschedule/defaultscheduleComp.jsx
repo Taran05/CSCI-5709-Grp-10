@@ -81,6 +81,16 @@ export default function DefaultSchedule() {
   position: relative;
   `;
 
+    // Helper function to convert time to minutes
+    const convertTimeToMinutes = (time) => {
+        const [hours, minutes] = time.split(":");
+        let totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
+        if (time.includes("PM")) {
+            totalMinutes += 12 * 60; // Adding 12 hours for PM times
+        }
+        return totalMinutes;
+    };
+
     const handleSaveChanges = async () => {
 
         const invalidDays = Object.entries(checkboxStates).filter(
@@ -95,7 +105,10 @@ export default function DefaultSchedule() {
         let isTimeValid = true;
         const defaultScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => {
             if (checked) {
-                if (startTime >= endTime) {
+                const startMinutes = convertTimeToMinutes(startTime);
+                const endMinutes = convertTimeToMinutes(endTime);
+                console.log("SM : " + startMinutes + " EM : " + endMinutes);
+                if (startMinutes >= endMinutes) {
                     isTimeValid = false;
                 }
                 return { day, startTime, endTime, mentorId: localUser.userName };
@@ -110,7 +123,7 @@ export default function DefaultSchedule() {
             return;
         }
 
-        if(!isTimeValid){
+        if (!isTimeValid) {
             toast.error("Start time should be before end time!!!");
             return;
         }

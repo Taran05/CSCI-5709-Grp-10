@@ -81,6 +81,16 @@ export default function AlternateSchedule() {
   position: relative;
   `;
 
+    // Helper function to convert time to minutes
+    const convertTimeToMinutes = (time) => {
+        const [hours, minutes] = time.split(":");
+        let totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
+        if (time.includes("PM")) {
+            totalMinutes += 12 * 60; // Adding 12 hours for PM times
+        }
+        return totalMinutes;
+    };
+
     const handleSaveChanges = async () => {
 
         const invalidDays = Object.entries(checkboxStates).filter(
@@ -92,14 +102,31 @@ export default function AlternateSchedule() {
             return;
         }
 
+        let isTimeValid = true;
         const alternateScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => {
             if (checked) {
+                const startMinutes = convertTimeToMinutes(startTime);
+                const endMinutes = convertTimeToMinutes(endTime);
+                console.log("SM : " + startMinutes + " EM : " + endMinutes);
+                if (startMinutes >= endMinutes) {
+                    isTimeValid = false;
+                }
                 return { day, startTime, endTime, mentorId: localUser.userName };
             }
             else {
                 return { day, startTime: "NAN", endTime: "NAN", mentorId: localUser.userName };
             }
-        });
+        }).filter(schedule => schedule !== null); // Filter out null values
+
+        if (alternateScheduleData.length === 0) {
+            toast.error("Please select at least one day with valid time range.");
+            return;
+        }
+
+        if(!isTimeValid){
+            toast.error("Start time should be before end time!!!");
+            return;
+        }
 
         console.log(alternateScheduleData);
         const apiUrl = SAVE_ALTERNATE_SCHEDULE;

@@ -161,16 +161,19 @@ export default function Calendar() {
   };
 
   useEffect(() => {
+    const localUser = JSON.parse(localStorage.getItem("user"));
+    console.log("Printing local user:", localUser);
+    setLocalUser(localUser);
     const fetchedCalendarSettings = async () => {
-      const localUser = JSON.parse(localStorage.getItem("user"));
-      console.log("Printing local user:", localUser);
-      setLocalUser(localUser);
       try {
         const apiUrl = GET_CALENDAR_SETTINGS;
-        const response = await axios.get(apiUrl);
-        const fetchedSettings = response?.data?.calendarSettings?.calendarSettingsData;
+        const params = {
+          mentorId: localUser.userName,
+      };
+        const response = await axios.get(apiUrl, { params });
+        const fetchedSettings = response?.data?.calendarSettings;
+        console.log(fetchedSettings);
         if (fetchedSettings) {
-          console.log(fetchedSettings);
           setCalendarSettings(fetchedSettings);
           setTimezone(fetchedSettings.timezone);
           setMeetingLink(fetchedSettings.meetingLink);

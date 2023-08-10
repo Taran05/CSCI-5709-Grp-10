@@ -92,14 +92,28 @@ export default function DefaultSchedule() {
             return;
         }
 
+        let isTimeValid = true;
         const defaultScheduleData = Object.entries(checkboxStates).filter(([_, checked]) => checked).map(([day, { checked, startTime, endTime }]) => {
             if (checked) {
+                if (startTime >= endTime) {
+                    isTimeValid = false;
+                }
                 return { day, startTime, endTime, mentorId: localUser.userName };
             }
             else {
                 return { day, startTime: "NAN", endTime: "NAN", mentorId: localUser.userName };
             }
-        });
+        }).filter(schedule => schedule !== null); // Filter out null values
+
+        if (defaultScheduleData.length === 0) {
+            toast.error("Please select at least one day with valid time range.");
+            return;
+        }
+
+        if(!isTimeValid){
+            toast.error("Start time should be before end time!!!");
+            return;
+        }
 
         console.log(defaultScheduleData);
         const apiUrl = SAVE_DEFAULT_SCHEDULE;

@@ -1,6 +1,6 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
- */ 
+/**
+* @author Taranjot Singh <tr548284@dal.ca/B00945917>
+*/
 import React, { useState, useEffect } from "react";
 import "./blockdatesComp.css";
 import { toast } from "react-toastify";
@@ -11,12 +11,15 @@ import { styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import axios from 'axios';
 import { BLOCK_DATES, GET_UNAVAILABLE_DATES } from "../../../../utils/apiUrls";
+import UseMediaQuery from "@mui/material/useMediaQuery";
 
 export default function BlockDates() {
   const [showCalendarDialog, setShowCalendarDialog] = useState(false);
   const [selectedUnavailableDates, setSelectedUnavailableDates] = useState([]);
   const [fetchedUnavailableDates, setFetchedUnavailableDates] = useState([]);
   const [localUser, setLocalUser] = useState(null);
+
+  const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const today = new Date();
 
@@ -57,7 +60,7 @@ export default function BlockDates() {
       }
       const apiUrl = BLOCK_DATES;
       const response = await axios.post(apiUrl, BlockedDatesData);
-      
+
       if (response.status === 201) {
         toast.success("Dates blocked successfully!");
       } else if (response.status === 200) {
@@ -87,16 +90,16 @@ export default function BlockDates() {
         if (blockedDatesData) {
           console.log(response.data.blockedDates[0].blockedDatesData.dates);
           const fetchedDates = response.data.blockedDates[0].blockedDatesData.dates.map((dateStr) => {
-          const [year, month, day] = dateStr.split('-').map(Number);
-          return new Date(year, month - 1, day); // Month is zero-based in JavaScript Dates
-        });
-        console.log(fetchedDates);
-        setFetchedUnavailableDates(fetchedDates);
-      }
-      else{
-        console.log("Blocked dates data not available.");
-      }
-    }catch (error) {
+            const [year, month, day] = dateStr.split('-').map(Number);
+            return new Date(year, month - 1, day); // Month is zero-based in JavaScript Dates
+          });
+          console.log(fetchedDates);
+          setFetchedUnavailableDates(fetchedDates);
+        }
+        else {
+          console.log("Blocked dates data not available.");
+        }
+      } catch (error) {
         console.error(error);
         toast.error('Failed to fetch unavailable dates');
       }
@@ -114,7 +117,7 @@ export default function BlockDates() {
   return (
     <>
       <Grid item sm={6}>
-        <div className="block-dates">
+        <div className="block-dates" style={{ marginLeft: isLargeScreen ? "60px" : "" }}>
           <h2>Block Dates</h2>
           <p>Add dates when you will be unavailable to take calls</p>
           <BlockDatesButton variant="contained" fullWidth onClick={handleCalendarDialogOpen}>
@@ -123,7 +126,7 @@ export default function BlockDates() {
 
           <Dialog open={showCalendarDialog} onClose={handleCalendarDialogClose}>
             <DialogTitle align="left" fontSize={"18px"} fontWeight={"bold"}>Select Unavailable Dates
-            <Button onClick={handleCalendarDialogClose} color="primary" style={{ position: 'absolute', top: 13, right: 0 }}>
+              <Button onClick={handleCalendarDialogClose} color="primary" style={{ position: 'absolute', top: 13, right: 0 }}>
                 X
               </Button>
             </DialogTitle>

@@ -5,6 +5,19 @@ import "./paymentsPage.css";
 import React, { useEffect } from "react";
 import PaymentsComp from "../../Components/payments/paymentsComp";
 import { useNavigate } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  breakpoints: {
+    values: { 
+      xs: 330,
+      sm: 380,
+      md: 430,
+      lg: 1100,
+      xl: 1450,
+    },
+  },
+});
 
 function PaymentsPage() {
   const navigate = useNavigate();
@@ -22,7 +35,7 @@ function PaymentsPage() {
     checkLogin();
   }, []);
 
-  return <PaymentsComp></PaymentsComp>;
+  return <ThemeProvider theme={theme}><PaymentsComp></PaymentsComp></ThemeProvider>;
 }
 
 export default PaymentsPage;

@@ -49,10 +49,5 @@
     .payments-container {
       grid-template-columns: 1fr; /* Display as a single column on mobile */
     }
-  
-    .left-pay,
-    .right-pay {
-      width: 100%;
-    }
   }
-  
+    

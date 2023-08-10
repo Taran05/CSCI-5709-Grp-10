@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import FormInput from "../../../Components/MentorServiceBooking/studentDetails/formInput";
 import FormButton from "../../../Components/MentorServiceBooking/studentDetails/formButton";
 import { SAVE_STUDENT_BOOKING } from "../../../utils/apiUrls";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const StudentDetailsForm = () => {
   const [name, setName] = useState("");
@@ -147,10 +147,10 @@ const StudentDetailsForm = () => {
         }}
       >
         <Typography variant="body1" sx={{ color: "#555" }}>
-          Service Price: {servicePrice}
+          Service Price: ${servicePrice}
         </Typography>
         <Typography variant="body1" sx={{ color: "#555" }}>
-          Meeting Time: {serviceDuration}
+          Meeting Time: {serviceDuration} minutes
         </Typography>
       </Box>
       <form onSubmit={handleSubmit}>

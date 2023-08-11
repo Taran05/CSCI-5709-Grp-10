@@ -20,6 +20,7 @@ interface BookingRequest extends Request {
     price: string;
     bookingId: string;
     isCancelled: boolean;
+    isDefaultSchedule: boolean;
   };
 }
 
@@ -37,6 +38,7 @@ export const saveBooking = async (req: BookingRequest, res: Response) => {
     price: req.body.price,
     bookingId: req.body.bookingId,
     isCancelled: req.body.isCancelled,
+    isDefaultSchedule: req.body.isDefaultSchedule,
   });
 
   try {

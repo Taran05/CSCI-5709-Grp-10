@@ -27,9 +27,9 @@ const getUserDetails = async (req: Request, res: Response) => {
         lastName: user.lastName,
         reasonToJoin: user.reason,
         expertise: user.expertise,
-        aboutYou: user.aboutYou?user.aboutYou:'',
-        displayName: user.displayName?user.displayName:'',
-
+        aboutYou: user.aboutYou ? user.aboutYou : "",
+        displayName: user.displayName ? user.displayName : "",
+        isGoogle: user.isGoogle,
       },
     });
   } catch (error) {

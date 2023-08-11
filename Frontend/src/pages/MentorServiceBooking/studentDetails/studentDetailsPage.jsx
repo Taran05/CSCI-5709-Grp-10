@@ -9,6 +9,7 @@ import FormInput from "../../../Components/MentorServiceBooking/studentDetails/f
 import FormButton from "../../../Components/MentorServiceBooking/studentDetails/formButton";
 import { SAVE_STUDENT_BOOKING } from "../../../utils/apiUrls";
 import { v4 as uuidv4 } from "uuid";
+import "./studentDetailsForm.css";
 
 const StudentDetailsForm = () => {
   const [name, setName] = useState("");
@@ -122,35 +123,15 @@ const StudentDetailsForm = () => {
   };
 
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        padding: "20px",
-        height: "100%",
-        maxWidth: "500px",
-        margin: "auto",
-        backgroundColor: "#f7f7f7",
-      }}
-    >
-      <Typography
-        variant="h3"
-        gutterBottom
-        sx={{ color: "#3f3f3f", marginBottom: "25px" }}
-      >
-        Enter <span style={{ color: "#5C469C" }}>student's</span> details
+    <Paper elevation={3} className="paper-container">
+      <Typography variant="h3" gutterBottom className="heading">
+        Enter <span className="highlight">student's</span> details
       </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "25px",
-        }}
-      >
-        <Typography variant="body1" sx={{ color: "#555" }}>
+      <Box className="detail-box">
+        <Typography variant="body1" className="detail-text">
           Service Price: ${servicePrice}
         </Typography>
-        <Typography variant="body1" sx={{ color: "#555" }}>
+        <Typography variant="body1" className="detail-text">
           Meeting Time: {serviceDuration} minutes
         </Typography>
       </Box>

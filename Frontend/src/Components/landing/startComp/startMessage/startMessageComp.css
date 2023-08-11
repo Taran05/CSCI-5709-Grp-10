@@ -8,3 +8,10 @@
   padding-right: 15%;
   padding-top: 20%;
 }
+
+
+@media (max-width: 400px) {
+  .startMessageCompH2 {
+    font-size: xx-large !important;
+  }
+}

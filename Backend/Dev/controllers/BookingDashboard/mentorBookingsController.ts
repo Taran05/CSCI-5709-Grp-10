@@ -61,9 +61,25 @@ export const rescheduleBooking = async (req: Request, res: Response) => {
         .status(400)
         .send({ message: "Booking ID and new time are required" });
     }
-    const updatedBooking = await StudentBooking.findByIdAndUpdate(
-      bookingId,
-      { time: newTime },
+
+    // Parse the date and time from the ISO string
+    const dateTimeParts = newTime.split("T");
+    const selectedDate = dateTimeParts[0];
+    const time12Hour = new Date(newTime).toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+    console.log("Booking ID:", bookingId);
+    console.log("Selected Date:", selectedDate);
+    console.log("Selected Time:", time12Hour);
+
+    const updatedBooking = await StudentBooking.findOneAndUpdate(
+      { bookingId: bookingId },
+      {
+        selectedTime: time12Hour,
+        selectedDate: selectedDate + "T00:00:00.000+00:00",
+      },
       { new: true }
     );
 

@@ -1,3 +1,7 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
+
 import React, { useState } from "react";
 import axios from "axios";
 import { Card, CardContent, Button, Modal, Snackbar } from "@mui/material";

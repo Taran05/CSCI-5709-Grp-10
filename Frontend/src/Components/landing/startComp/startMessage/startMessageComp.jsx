@@ -39,6 +39,23 @@ function StartMessageComp() {
     navigate("/contact");
   };
 
+  const handleStart = (e) => {
+    // e.perventDefault();
+
+    const localUser = JSON.parse(localStorage.getItem("user"));
+    console.log(
+      "Printing local user from Start Mentor:",
+      localUser,
+      !localUser
+    );
+
+    if (!localUser) {
+      navigate("/register");
+    } else {
+      navigate("/services");
+    }
+  };
+
   return (
     <div className="startMessageComp">
       <Grid container spacing={4}>
@@ -57,7 +74,11 @@ function StartMessageComp() {
         <Grid item sm={12}>
           <Grid container spacing={2}>
             <Grid item sm={6}>
-              <StartPageButton variant="contained" href="/register" fullWidth>
+              <StartPageButton
+                variant="contained"
+                onClick={(e) => handleStart(e)}
+                fullWidth
+              >
                 Start My Page <ArrowForwardIcon AlignHorizontalRight />
               </StartPageButton>
             </Grid>

@@ -46,6 +46,7 @@ export default function ContactInfo() {
             sx={{
               color: "#ffffff",
               fontSize: isExtraSmallScreen ? "8px" : isSmallScreen ? "12px" : isMediumScreen ? "14px" : isLargeScreen ? "14px" : "19px",
+              textAlign: isExtraSmallScreen ? "left" : isSmallScreen ? "left" : isMediumScreen ? "left" : "center",
             }}
           >
             3367 Berlin Street, Halifax, NS B3L 3B4

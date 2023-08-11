@@ -44,10 +44,10 @@
   .contact-container {
     grid-template-columns: 1fr;
   }
+}
 
-  /* Make both sides take up the full width */
-  .left-form,
-  .right-info {
-    width: 100%;
+@media (min-width: 291px) and (max-width: 346px) {
+  #text-message, #text-subject{
+    width: 195px;
   }
 }

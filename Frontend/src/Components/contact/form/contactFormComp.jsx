@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import { ToastContainer, toast } from "react-toastify"; // Toast notifications library
 import "react-toastify/dist/ReactToastify.css"; // Import the toastify CSS
 import { useNavigate } from "react-router-dom";
+import UseMediaQuery from "@mui/material/useMediaQuery";
 
 // ContactForm functional component
 export default function ContactForm() {
@@ -24,6 +25,10 @@ export default function ContactForm() {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isSubjectValid, setIsSubjectValid] = useState(true);
   const [isMessageValid, setIsMessageValid] = useState(true);
+
+  const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMediumScreen = UseMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isExtraSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("xs"));
 
   // Get navigation function from react-router-dom
   const navigate = useNavigate();
@@ -117,7 +122,7 @@ export default function ContactForm() {
           }}
         />
         {/* Email input field */}
-        <TextField
+        <TextField 
           required
           id="outlined-required"
           placeholder="xyz@gmail.com"
@@ -134,10 +139,12 @@ export default function ContactForm() {
         {/* Subject input field */}
         <TextField
           required
-          id="outlined-required"
+          id="text-subject"
           placeholder="Subject"
           label="Subject"
           type="text"
+          multiline={isLargeScreen}
+          rows={isLargeScreen ? 3 : 1}
           InputLabelProps={{
             shrink: true,
           }}
@@ -149,11 +156,11 @@ export default function ContactForm() {
         {/* Message input field */}
         <TextField
           required
-          id="outlined-required"
+          id="text-message"
           placeholder="Message"
           label="Message"
           multiline
-          rows={5}
+          rows={isLargeScreen ? 3 : 5}
           type="text"
           InputLabelProps={{
             shrink: true,
@@ -164,6 +171,7 @@ export default function ContactForm() {
           helperText={!isMessageValid && "Message cannot be blank"}
         />
       </div>
+      <br/><br/>
       {/* Submit button */}
       <Button
         variant="contained"

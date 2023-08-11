@@ -60,7 +60,12 @@ function StartMessageComp() {
     <div className="startMessageComp">
       <Grid container spacing={4}>
         <Grid item sm={12}>
-          <Typography variant="h2" component="h2" fontWeight={600}>
+          <Typography
+            variant="h2"
+            className="startMessageCompH2"
+            component="h2"
+            fontWeight={600}
+          >
             Commence your side gig{" "}
             <span style={{ color: "#5C469C" }}>Today</span>.
           </Typography>

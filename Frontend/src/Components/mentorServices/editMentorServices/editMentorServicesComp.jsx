@@ -10,16 +10,11 @@ import axios from "axios";
 import { UPDATE_SERVICE_DETAILS } from "../../../utils/apiUrls";
 import "./editMentorServicesComp";
 import CloseIcon from "@mui/icons-material/Close";
-import SendIcon from "@mui/icons-material/Send";
-import { useSnackbar } from "notistack";
-import { purple, grey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 import EditIcon from "@mui/icons-material/Edit";
 
 import {
-  FormControl,
-  Grid,
-  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -30,7 +25,6 @@ import {
   Typography,
   Tooltip,
 } from "@mui/material";
-import ServiceCardComp from "../serviceCard/serviceCardComp";
 import { InputAdornment } from "@mui/material";
 
 const style = {
@@ -38,7 +32,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  // width: 400,
+  width: 250,
   minHeight: "500px",
   bgcolor: "background.paper",
   border: "2px solid #000",

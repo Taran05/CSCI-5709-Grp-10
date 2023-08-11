@@ -1,6 +1,5 @@
 /**
-* This component displays default schedule component.
-* Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+* @author Taranjot Singh <tr548284@dal.ca/B00945917>
 */
 import React, { useState, useEffect } from "react";
 import "./defaultscheduleComp.css";
@@ -17,7 +16,6 @@ import UseMediaQuery from "@mui/material/useMediaQuery";
 
 export default function DefaultSchedule() {
 
-    // Create a custom MUI theme with breakpoints
     const theme = createTheme({
         breakpoints: {
             values: {
@@ -30,7 +28,6 @@ export default function DefaultSchedule() {
         },
     });
 
-    // State variables
     const [checkboxStates, setCheckboxStates] = useState({
         Monday: { checked: false, startTime: '', endTime: '' },
         Tuesday: { checked: false, startTime: '', endTime: '' },
@@ -46,10 +43,8 @@ export default function DefaultSchedule() {
     const [defaultScheduleData, setDefaultScheduleData] = useState([]);
     const [localUser, setLocalUser] = useState(null);
 
-    // Using media queries for large screen size
     const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-    // Available options for start and end times
     const startTimeOptions = [
         '12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM', '06:00 AM',
         '07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '01:00 PM',
@@ -64,7 +59,6 @@ export default function DefaultSchedule() {
         '09:00 PM', '10:00 PM', '11:00 PM'
     ];
 
-    // Styled Button component for the Save button
     const SaveButton = styled(Button)(({ theme }) => ({
         height: "100%",
         width: "7%",
@@ -76,28 +70,26 @@ export default function DefaultSchedule() {
         },
     }));
 
-    // Styled container for the Save button
     const SaveButtonContainer = styled('div')`
       position: absolute;
   right: 0;
   `;
 
-    // Styled container for the schedule name
     const ScheduleNameContainer = styled('div')`
   display: flex;
   align-items: center;
   position: relative;
   `;
 
-    // Function to convert time to minutes
+    // Helper function to convert time to minutes
     const convertTimeToMinutes = (time) => {
         const [hours] = time.split(":");
         let totalHours = parseInt(hours);
-        if (totalHours == 12) {
-            if (time.includes("AM")) {
+        if(totalHours == 12){
+            if(time.includes("AM")){
                 totalHours = 0;
             }
-            else {
+            else{
                 totalHours = 12;
             }
         }
@@ -107,7 +99,6 @@ export default function DefaultSchedule() {
         return totalHours;
     };
 
-    // Function to handle saving changes
     const handleSaveChanges = async () => {
 
         const invalidDays = Object.entries(checkboxStates).filter(
@@ -124,6 +115,8 @@ export default function DefaultSchedule() {
             if (checked) {
                 const startMinutes = convertTimeToMinutes(startTime);
                 const endMinutes = convertTimeToMinutes(endTime);
+                console.log("ST : " + startMinutes);
+                console.log("ET : " + endMinutes);
                 if (startMinutes >= endMinutes) {
                     isTimeValid = false;
                 }
@@ -152,10 +145,10 @@ export default function DefaultSchedule() {
             if (response.status === 200 || response.status === 201) {
                 apiUrl = SWITCH_SCHEDULE;
                 const switchScheduleData = {
-                    mentorId: localUser.userName,
+                    mentorId: localUser.userName, 
                     scheduleName: "default",
-                }
-                console.log(switchScheduleData);
+                  }
+                  console.log(switchScheduleData);
                 try {
                     const response = await axios.post(apiUrl, switchScheduleData);
                     if (response.status === 201) {
@@ -186,7 +179,6 @@ export default function DefaultSchedule() {
         }
     };
 
-    // useEffect for handling save status
     useEffect(() => {
         if (saveStatus === 'success') {
             setChangesMade(false);

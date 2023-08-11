@@ -1,7 +1,6 @@
 /**
- * This component displays blocked dates component.
- * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
- */
+* @author Taranjot Singh <tr548284@dal.ca/B00945917>
+*/
 import React, { useState, useEffect } from "react";
 import "./blockdatesComp.css";
 import { toast } from "react-toastify";
@@ -24,7 +23,6 @@ export default function BlockDates() {
 
   const today = new Date();
 
-  // Styled component for BlockDatesButton
   const BlockDatesButton = styled(Button)(({ theme }) => ({
     height: "28%",
     width: "100%",
@@ -48,7 +46,6 @@ export default function BlockDates() {
   const handleBlockDates = async () => {
     try {
       const dates = [];
-      // Convert selectedUnavailableDates to the required date format
       for (let index = 0; index < selectedUnavailableDates.length; index++) {
         const day = selectedUnavailableDates[index].day;
         const month = selectedUnavailableDates[index].month;
@@ -56,6 +53,7 @@ export default function BlockDates() {
         const date = year + "-" + month + "-" + day;
         dates.push(date);
       }
+      console.log(dates);
       const BlockedDatesData = {
         mentorId: localUser.userName,
         dates: dates
@@ -63,7 +61,7 @@ export default function BlockDates() {
       const apiUrl = BLOCK_DATES;
       const response = await axios.post(apiUrl, BlockedDatesData);
 
-      if (response.status === 201 || response.status === 200) {
+      if (response.status === 201) {
         toast.success("Dates blocked successfully!");
       } else if (response.status === 200) {
         toast.success("Blocked Dates Updated Successfully");
@@ -81,6 +79,7 @@ export default function BlockDates() {
   useEffect(() => {
     // Fetch the unavailable dates from the backend API
     const localUser = JSON.parse(localStorage.getItem("user"));
+    console.log("Printing local user:", localUser);
     setLocalUser(localUser);
     const fetchUnavailableDates = async () => {
       try {
@@ -89,25 +88,27 @@ export default function BlockDates() {
           mentorId: localUser.userName,
         };
         const response = await axios.get(apiUrl, { params });
-        const blockedDatesData = response?.data?.blockedDates; 
+        const blockedDatesData = response?.data?.blockedDates;
+        console.log(blockedDatesData);
         if (blockedDatesData) {
           const fetchedDates = blockedDatesData.dates.map((dateStr) => {
             const [year, month, day] = dateStr.split('-').map(Number);
             return new Date(year, month - 1, day); // Month is zero-based in JavaScript Dates
           });
+          console.log(fetchedDates);
           setFetchedUnavailableDates(fetchedDates);
         }
         else {
           console.log("Blocked dates data not available.");
         }
       } catch (error) {
-          if(error.response.status==404){
-            console.log(error.response.data.message);
-          }
-          else{
-            console.log(error);
-            toast.error('Failed to fetch unavailable dates');
-          }
+        if(error.response.status==404){
+          console.log(error.response.data.message);
+        }
+        else{
+          console.log(error);
+          toast.error('Failed to fetch unavailable dates');
+        }
       }
     };
 

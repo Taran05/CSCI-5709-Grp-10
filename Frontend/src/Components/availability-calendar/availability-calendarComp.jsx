@@ -1,6 +1,9 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
- */ 
+/**
+ * This component displays an availability calendar and schedule options.
+ * Users can switch between the schedule and calendar view.
+ *
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
 import "./availability-calendarComp.css";
 import React, { useState } from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
@@ -10,6 +13,7 @@ import { Button, Grid } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
+// Define responsive breakpoints using MUI's createTheme
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -22,9 +26,11 @@ const theme = createTheme({
   },
 });
 
+// Styled components for Schedule and Calendar buttons
 const ScheduleButton = styled(Button)(({ theme, showSelected }) => ({
+  // Common styles for the buttons
   height: "100%",
-  padding: "10px 30px", 
+  padding: "10px 30px",
   fontWeight: 600,
   borderRadius: "50px",
   pointerEvents: showSelected ? "none" : "auto",
@@ -35,9 +41,11 @@ const ScheduleButton = styled(Button)(({ theme, showSelected }) => ({
   },
 }));
 
+// Styled component for the Calendar button
 const CalendarButton = styled(Button)(({ theme, showSelected }) => ({
+  // Common styles for the buttons
   height: "100%",
-  padding: "10px 30px", 
+  padding: "10px 30px",
   fontWeight: 600,
   borderRadius: "50px",
   pointerEvents: showSelected ? "none" : "auto",
@@ -72,24 +80,26 @@ export default function AvailabilityCalendar() {
             <Grid item sm={12}>
               <Grid container spacing={2}>
                 <Grid item sm={0}>
+                  {/* Schedule Button */}
                   <ScheduleButton
                     variant="contained"
                     onClick={handleSchedule}
                     fullWidth
                     showSelected={showSchedule}
-                    style= {isSmallScreen ? {width : "130px", height : "50px", fontSize : "12px"} : {} }
+                    style={isSmallScreen ? { width: "130px", height: "50px", fontSize: "12px" } : {}}
                     className="schedule-button"
                   >
                     Schedule
                   </ScheduleButton>
                 </Grid>
                 <Grid item sm={0}>
+                  {/* Calendar Button */}
                   <CalendarButton
                     variant="contained"
                     onClick={handleCalendar}
                     fullWidth
                     showSelected={!showSchedule}
-                    style= {isSmallScreen ? {width : "130px", height : "50px", fontSize : "12px"} : {} }
+                    style={isSmallScreen ? { width: "130px", height: "50px", fontSize: "12px" } : {}}
                     className="calendar-button"
                   >
                     Calendar Settings
@@ -97,9 +107,10 @@ export default function AvailabilityCalendar() {
                 </Grid>
               </Grid>
             </Grid>
-            <br></br>
+            <br />
             <hr />
-            <br></br>
+            <br />
+            {/* Conditionally render either ScheduleComp or CalendarComp */}
             <ThemeProvider theme={theme}>
               {showSchedule ? <ScheduleComp /> : <CalendarComp />}
             </ThemeProvider>

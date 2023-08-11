@@ -1,15 +1,22 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+/**
+ * This CSS defines styling rules for the header component div and its inner div.
+ * It sets the padding to 2% for responsive spacing.
+ *
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
  */
   .pagesHeaderCompDiv .pagesHeaderCompInnerDiv {
     padding: 2%;
   }
 
+  /* Media query for screen widths between 291px and 346px */
   @media (min-width: 291px) and (max-width: 346px) {
+    /* Style for calendar-button and schedule-button */
     .calendar-button {
+       /* Adjust width for small screens */
       width: "50px";
     }
     .schedule-button {
+       /* Adjust width for small screens */
       width: "50px";
     }
   }

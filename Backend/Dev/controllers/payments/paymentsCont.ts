@@ -1,5 +1,6 @@
 /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ * This module handles the controller functions for payments and account balance.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
  */
 
 import { Request, Response } from "express";
@@ -7,6 +8,7 @@ import PaymentDetails from "../../models/payments/paymentsModel";
 import AccountBalance from "../../models/payments/balanceModel";
 const nodemailer = require('nodemailer');
 
+// Define request interfaces for type checking
 interface PaymentRequest extends Request {
   body: {
     mentorId: string;
@@ -24,6 +26,11 @@ interface BalanceRequest extends Request {
   };
 }
 
+/**
+ * Saves payment details for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const savePaymentDetails = async (req: PaymentRequest, res: Response) => {
   const { mentorId, accountNumber, transitNumber, institutionNumber, email } = req.body;
   const emailConfig = {
@@ -74,6 +81,11 @@ export const savePaymentDetails = async (req: PaymentRequest, res: Response) => 
   }
 };
 
+/**
+ * Get payment details for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const getPaymentDetails = async (req: PaymentRequest, res: Response) => {
   const { mentorId } = req.query;
   try {
@@ -90,6 +102,11 @@ export const getPaymentDetails = async (req: PaymentRequest, res: Response) => {
   }
 };
 
+/**
+ * Get balance details for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const getBalanceDetails = async (req: BalanceRequest, res: Response) => {
   const { mentorId } = req.query;
   try {
@@ -106,6 +123,11 @@ export const getBalanceDetails = async (req: BalanceRequest, res: Response) => {
   }
 };
 
+/**
+ * Transfers amount to the account number of mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const transferAmount = async (req: Request, res: Response) => {
   const { mentorId, transferAmount, email, accountNumber } = req.body;
   const emailConfig = {
@@ -142,6 +164,11 @@ export const transferAmount = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Sends an email using nodemailer.
+ * @param emailConfig - Email configuration object.
+ * @param mailOptions - Email options object.
+ */
 async function sendEmail(emailConfig: any, mailOptions: any) {
   try {
     // Create a nodemailer transporter using the email configuration

@@ -1,7 +1,8 @@
 /**
- * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ * Author: Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
  */
+
 import React, { useState } from "react";
 import { Paper, Typography, Box, Snackbar, Alert } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -12,11 +13,14 @@ import { v4 as uuidv4 } from "uuid";
 import "./studentDetailsForm.css";
 
 const StudentDetailsForm = () => {
+  // State variables
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [callAbout, setCallAbout] = useState("");
   const location = useLocation();
   const [loading, setLoading] = useState(false);
+
+  // Get selected time, date, mentorId, service details from location state
   const selectedTime = location.state.selectedTime;
   const selectedDate = location.state.selectedDate;
   const mentorId = location.state.mentorId;
@@ -28,29 +32,36 @@ const StudentDetailsForm = () => {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("error");
 
+  // Handles name change
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
 
+  // Handles email change
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
+  // Handles call about change
   const handleCallAboutChange = (event) => {
     setCallAbout(event.target.value);
   };
 
+  // Handles snackbar close
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
 
+  // Handles email validation
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   };
 
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Validate form fields
     if (!name.trim() || !email.trim() || !callAbout.trim()) {
       setSnackbarMessage("All fields must be filled out");
       setSnackbarSeverity("error");
@@ -65,6 +76,7 @@ const StudentDetailsForm = () => {
       return;
     }
     setLoading(true);
+    // Create booking details
     const bookingId = uuidv4();
     const details = {
       serviceName: serviceName,
@@ -92,6 +104,7 @@ const StudentDetailsForm = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        // Handle API response
         setLoading(false);
         if (data.error) {
           setSnackbarMessage(data.error);
@@ -114,6 +127,7 @@ const StudentDetailsForm = () => {
         }
       })
       .catch((error) => {
+        // Handle fetch error
         console.error("Error:", error);
         setLoading(false);
         setSnackbarMessage("An error occurred while saving the booking.");

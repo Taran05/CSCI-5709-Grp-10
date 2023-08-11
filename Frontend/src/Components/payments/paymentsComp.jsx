@@ -1,6 +1,11 @@
 /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ * This component manages the Payments section of the application.
+ * It allows users to connect their payment account, view their balance, and transfer funds.
+ * The component includes a dialog for connecting the payment account and transferring funds.
+ *
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
  */
+
 import "./paymentsComp.css";
 import React, { useState } from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
@@ -13,6 +18,7 @@ import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
+// Theme for responsive breakpoints
 const theme = createTheme({
     breakpoints: {
         values: {
@@ -25,6 +31,7 @@ const theme = createTheme({
     },
 });
 
+// Styled ConnectButton using MUI's styled function
 const ConnectButton = styled(Button)(({ theme }) => ({
     height: "100%",
     width: "70%",
@@ -37,6 +44,7 @@ const ConnectButton = styled(Button)(({ theme }) => ({
     },
 }));
 
+// Styled CheckoutButton using MUI's styled function
 const CheckoutButton = styled(Button)(({ theme }) => ({
     height: "100%",
     width: "70%",
@@ -51,6 +59,7 @@ const CheckoutButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function Payments() {
+    // State variables
     const [openDialog, setOpenDialog] = useState(false);
     const [page, setPage] = useState(1);
     const [totalBalance, setTotalBalance] = useState(0);
@@ -63,29 +72,35 @@ export default function Payments() {
     const [localUser, setLocalUser] = useState(null);
     const [accountConnected, setAccountConnected] = useState(false);
 
+    // Media query for different screen sizes
     const isExtraSmallScreen = UseMediaQuery((theme) =>
         theme.breakpoints.down("xs")
     );
     const isMediumScreen = UseMediaQuery((theme) => theme.breakpoints.down("md"));
 
+    // Function for opening dialog box
     const handleDialogOpen = () => {
         setPage(1);
         setOpenDialog(true);
     };
 
+    // Function for closing dialog box
     const handleDialogClose = () => {
         setOpenDialog(false);
     };
 
+    // Function for opening transfer dialog box
     const handleTransferDialogOpen = () => {
         setTransferDialogOpen(true);
     };
 
+    // Function for closing transfer dialog box
     const handleTransferDialogClose = () => {
         setTransferDialogOpen(false);
         setTransferAmount("");
     };
 
+    // Function for handling amount transfer
     const handleTransfer = async () => {
         if (transferAmount === "") {
             toast.error("Please provide the transfer amount.");
@@ -128,7 +143,7 @@ export default function Payments() {
         }
     };
 
-
+    // Function for handling the second page
     const handleNextPage = () => {
         if (
             accountNumber.length === 7 &&
@@ -142,6 +157,7 @@ export default function Payments() {
         }
     };
 
+    // Function for connecting the account
     const handleConnect = async () => {
         if (page === 1) {
             handleNextPage();
@@ -171,7 +187,6 @@ export default function Payments() {
                         }, 2000);
                     } else {
                         console.log("Failed to Save Payment Details");
-                        toast.error("Failed to Save Payment Details");
                     }
                     setOpenDialog(false);
                 }
@@ -184,9 +199,12 @@ export default function Payments() {
     };
 
     useEffect(() => {
+        // Fetch local user from local storage
         const localUser = JSON.parse(localStorage.getItem("user"));
         console.log("Printing local user:", localUser);
         setLocalUser(localUser);
+
+        // Fetch total balance
         const fetchTotalBalance = async () => {
             try {
                 const apiUrl = GET_BALANCE_DETAILS;
@@ -206,6 +224,7 @@ export default function Payments() {
             }
         };
 
+         // Fetch payment details
         const fetchPaymentDetails = async () => {
             try {
                 const apiUrl = GET_PAYMENT_DETAILS;
@@ -226,10 +245,12 @@ export default function Payments() {
                 console.error(error);
             }
         };
+        // Call the fetch functions
         fetchTotalBalance();
         fetchPaymentDetails();
     }, []);
 
+    // rendering
     return (
         <>
             <br />
@@ -247,7 +268,7 @@ export default function Payments() {
                                 <VisibilityIcon style={{ fontSize: "40px" }} />
                                 <p style={{ fontSize: "18px" }}>Balance</p>
                             </div>
-                            <div className="balance-amount" style={{ marginTop: "-30px", marginLeft: "-10px" }}>
+                            <div className="balance-amount" style={ isExtraSmallScreen ? {marginTop: "-140px", marginLeft: "70px"} : { marginTop: "-30px", marginLeft: "-10px" }}>
                                 <br /><br />
                                 <strong style={{ fontSize: "30px", textAlign: "center" }}>$ {totalBalance}</strong>
                                 {totalBalance !== 0 && (

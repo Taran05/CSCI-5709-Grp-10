@@ -1,10 +1,17 @@
 /**
-* @author Taranjot Singh <tr548284@dal.ca/B00945917>
-*/
+ * This module handles the controller functions for managing alternate schedules.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
 import { Request, Response } from 'express';
 import AlternateSchedule, { IAlternateSchedule } from '../../models/availability-calendar/alternateScheduleModel';
 import BlockedDates from '../../models/availability-calendar/blockDatesModel';
 
+/**
+ * Save or update alternate schedules.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const saveAlternateSchedule = async (req: Request, res: Response) => {
   const alternateScheduleData: IAlternateSchedule[] = req.body;
   const updatedSchedules: IAlternateSchedule[] = [];
@@ -74,7 +81,11 @@ const saveAlternateSchedule = async (req: Request, res: Response) => {
   }
 };
 
-
+/**
+ * Get alternate schedules for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getAlternateSchedule = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {
@@ -88,6 +99,11 @@ const getAlternateSchedule = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get available dates based on alternate schedules.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getAlternateAvailableDates = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {

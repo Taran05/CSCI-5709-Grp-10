@@ -1,12 +1,19 @@
 /**
-* @author Taranjot Singh <tr548284@dal.ca/B00945917>
-*/
+ * This module handles the controller functions for managing default schedules.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
 import { Request, Response } from "express";
 import DefaultSchedule, {
   IDefaultSchedule,
 } from "../../models/availability-calendar/defaultScheduleModel";
 import BlockedDates from '../../models/availability-calendar/blockDatesModel';
 
+/**
+ * Save or update default schedules for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const saveDefaultSchedule = async (req: Request, res: Response) => {
   const defaultScheduleData: IDefaultSchedule[] = req.body;
   const updatedSchedules: IDefaultSchedule[] = [];
@@ -76,7 +83,11 @@ const saveDefaultSchedule = async (req: Request, res: Response) => {
   }
 };
 
-
+/**
+ * Get default schedules for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getDefaultSchedule = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {
@@ -90,6 +101,11 @@ const getDefaultSchedule = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get default available dates for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getDefaultAvailableDates = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {

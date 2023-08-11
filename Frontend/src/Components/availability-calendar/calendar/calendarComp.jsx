@@ -1,6 +1,8 @@
 /**
-* @author Taranjot Singh <tr548284@dal.ca/B00945917>
-*/
+ * This component handles the calendar settings form.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import "./calendarComp.css";
@@ -18,6 +20,7 @@ import axios from 'axios';
 import { SAVE_CALENDAR_SETTINGS, GET_CALENDAR_SETTINGS } from "../../../utils/apiUrls";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
+// Define breakpoints for responsive design
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -30,6 +33,7 @@ const theme = createTheme({
   },
 });
 
+// Define options for different settings
 const timezones = [
   { value: "GMT-10:00", label: "(GMT-10:00) Hawaii" },
   { value: "GMT-8:00", label: "(GMT-8:00) Alaska" },
@@ -72,6 +76,7 @@ const noticePeriodUnits = [
   { value: "weeks", label: "Weeks" },
 ];
 
+// Define styles for the SaveButton using the styled function
 const SaveButton = styled(Button)(({ theme }) => ({
   height: "100%",
   width: "25%",
@@ -86,6 +91,7 @@ const SaveButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function Calendar() {
+  // State variables to manage form input values and settings
   const [timezone, setTimezone] = useState("GMT-3:00");
   const [meetingLink, setMeetingLink] = useState("");
   const [bookingPeriod, setBookingPeriod] = useState("");
@@ -98,11 +104,14 @@ export default function Calendar() {
     bookingPeriod: "",
   });
   const [localUser, setLocalUser] = useState(null);
+
+  // Define media query hooks for different screen sizes
   const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
   const isMediumScreen = UseMediaQuery((theme) => theme.breakpoints.down("md"));
   const isSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("sm"));
   const isExtraSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("xs"));
 
+  // Event handlers for input value changes
   const handleTimezoneChange = (event) => {
     setTimezone(event.target.value);
   };
@@ -123,6 +132,7 @@ export default function Calendar() {
     setNoticePeriodUnit(event.target.value);
   };
 
+  // Event handler for saving calendar settings
   const handleSaveCalendarSettings = async () => {
     console.log("Selected Timezone:", timezone);
     console.log("Meeting Link:", meetingLink);
@@ -160,9 +170,9 @@ export default function Calendar() {
     }
   };
 
+  // Fetch initial calendar settings from the server upon component mount
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
-    console.log("Printing local user:", localUser);
     setLocalUser(localUser);
     const fetchedCalendarSettings = async () => {
       try {
@@ -183,8 +193,13 @@ export default function Calendar() {
           setNoticePeriodUnit(noticePeriodUnit);
         }
       } catch (error) {
-        console.error(error);
-        toast.error('Failed to fetch calendar settings');
+        if(error.response.status==404){
+          console.log(error.response.data.message);
+        }
+        else{
+          console.log(error);
+          toast.error('Failed to fetch calendar settings');
+        }
       }
     };
 

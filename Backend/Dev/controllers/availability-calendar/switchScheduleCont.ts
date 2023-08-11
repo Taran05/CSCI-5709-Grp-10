@@ -1,9 +1,16 @@
 /**
-* @author Taranjot Singh <tr548284@dal.ca/B00945917>
-*/
+ * This module handles the controller functions for switching and getting selected schedules.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
 import { Request, Response } from "express";
 import StudentBooking from "../../models/StudentBooking";
 
+/**
+ * Switches the mentor's schedule between default and alternate.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const switchSchedule = async (req: Request, res: Response) => {
     const { mentorId, scheduleName } = req.body;
     console.log(mentorId);
@@ -25,6 +32,11 @@ const switchSchedule = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get the mentor's currently selected schedule (default or alternate).
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getSelectedSchedule = async (req: Request, res: Response) => {
     console.log("Get selected schedule called");
     const { mentorId } = req.query;

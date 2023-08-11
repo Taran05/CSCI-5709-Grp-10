@@ -14,6 +14,7 @@ import defaultScheduleRoute from "./routes/availability-calendar/defaultSchedule
 import alternateScheduleRoute from "./routes/availability-calendar/alternateScheduleRoute";
 import blockDatesRoute from "./routes/availability-calendar/blockDatesRoute";
 import calendarSettingsRoute from "./routes/availability-calendar/calendarsettingsRoute";
+import switchScheduleRoute from "./routes/availability-calendar/switchScheduleRoute";
 import { userRegisterRoute } from "./routes/userAuthentication/userRegistrationRoute";
 import getServiceRoute from "./routes/servicesRoutes/getServiceRoute";
 import { userLoginRoute } from "./routes/userAuthentication/userLoginRoutes";
@@ -51,6 +52,7 @@ app.use("/api/", defaultScheduleRoute);
 app.use("/api/", alternateScheduleRoute);
 app.use("/api/", blockDatesRoute);
 app.use("/api/", calendarSettingsRoute);
+app.use("/api/", switchScheduleRoute);
 app.use("/api/", userRegisterRoute);
 app.use("/api/", userLoginRoute);
 app.use("/api/", queriesRoutes);

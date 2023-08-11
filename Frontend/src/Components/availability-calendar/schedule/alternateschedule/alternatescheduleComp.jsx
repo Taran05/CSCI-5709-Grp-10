@@ -11,7 +11,7 @@ import { grey } from "@mui/material/colors";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox, FormControl, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
-import { SAVE_ALTERNATE_SCHEDULE, GET_ALTERNATE_SCHEDULE } from "../../../../utils/apiUrls";
+import { SAVE_ALTERNATE_SCHEDULE, GET_ALTERNATE_SCHEDULE, SWITCH_SCHEDULE } from "../../../../utils/apiUrls";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
 export default function AlternateSchedule() {
@@ -83,12 +83,20 @@ export default function AlternateSchedule() {
 
     // Helper function to convert time to minutes
     const convertTimeToMinutes = (time) => {
-        const [hours, minutes] = time.split(":");
-        let totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
-        if (time.includes("PM")) {
-            totalMinutes += 12 * 60; // Adding 12 hours for PM times
+        const [hours] = time.split(":");
+        let totalHours = parseInt(hours);
+        if(totalHours == 12){
+            if(time.includes("AM")){
+                totalHours = 0;
+            }
+            else{
+                totalHours = 12;
+            }
         }
-        return totalMinutes;
+        else if (time.includes("PM")) {
+            totalHours += 12;
+        }
+        return totalHours;
     };
 
     const handleSaveChanges = async () => {
@@ -123,24 +131,44 @@ export default function AlternateSchedule() {
             return;
         }
 
-        if(!isTimeValid){
+        if (!isTimeValid) {
             toast.error("Start time should be before end time!!!");
             return;
         }
 
         console.log(alternateScheduleData);
-        const apiUrl = SAVE_ALTERNATE_SCHEDULE;
+        let apiUrl = SAVE_ALTERNATE_SCHEDULE;
         try {
             // Send the selectedDays data to the backend API
             const response = await axios.post(apiUrl, alternateScheduleData);
-            if (response.status === 201) {
-                toast.success("Alternate Schedule Saved Successfully!");
-                setSaveStatus('success');
-                setChangesMade(true);
-                return;
-            } else if (response.status === 200) {
-                toast.success("Alternate Schedule Saved Successfully");
-            } else {
+            if (response.status === 200 || response.status === 201) {
+                apiUrl = SWITCH_SCHEDULE;
+                const switchScheduleData = {
+                    mentorId: localUser.userName, 
+                    scheduleName: "alternate",
+                  }
+                  console.log(switchScheduleData);
+                try {
+                    const response = await axios.post(apiUrl, switchScheduleData);
+                    if (response.status === 201) {
+                        toast.success("Alternate Schedule Saved Successfully!");
+                        setSaveStatus('success');
+                        setChangesMade(true);
+                        return;
+                    }
+                    else if (response.status === 200) {
+                        toast.success("Alternate Schedule Saved Successfully");
+                    } else {
+                        toast.error("Failed to Save Alternate Schedule");
+                    }
+                }
+                catch (error) {
+                    setSaveStatus('error');
+                    console.error(error);
+                    toast.error('Failed to Save Alternate Schedule');
+                }
+            }
+            else {
                 toast.error("Failed to Save Alternate Schedule");
             }
         } catch (error) {

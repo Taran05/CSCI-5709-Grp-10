@@ -106,6 +106,7 @@ const RegisterAboutYouComp = () => {
       expertise: formData.expertise,
       userName: formData.pageLink.toLowerCase(),
       reason: formData.plan,
+      isGoogle: location.state.isGoogle,
     };
     console.log(user);
     axios

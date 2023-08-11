@@ -15,8 +15,8 @@ function LoginPage() {
         <div className="login-left-div">
           <div className="login-form">
             <h1 className="login-form-header">
-              LOG{" "}
-              <span style={{ marginLeft: "2px", color: "#5C469C" }}>IN</span>
+              LOG IN
+              {/* <span style={{ marginLeft: "2px", color: "#5C469C" }}>IN</span> */}
             </h1>
 
             {/* <h2 className="form-header-sub"></h2> */}

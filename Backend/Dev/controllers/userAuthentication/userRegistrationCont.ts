@@ -1,16 +1,28 @@
-/**
- * @author Amanjot Singh <am854663@dal.ca/B00942293>
- */
-
 import { Request, Response } from "express";
 import User, { IUser } from "../../models/usersModel";
 import { hashPassword } from "../../util/hashingUtil";
+
 const userRegisteration = async (req: Request, res: Response) => {
-  const { firstName, lastName, email, userName, password, reason, expertise } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    userName,
+    password,
+    reason,
+    expertise,
+    isGoogle,
+  } = req.body;
 
   try {
     const hashedPassword = await hashPassword(password);
+
+    // Check if there is an existing user with the same email and isGoogle value
+    const existingUser = await User.findOne({ email, isGoogle });
+
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists" });
+    }
 
     // Create a new user using the IUser interface with the hashed password
     const newUser: IUser = new User({
@@ -22,6 +34,7 @@ const userRegisteration = async (req: Request, res: Response) => {
       reason,
       expertise,
       displayName: firstName,
+      isGoogle: isGoogle,
     });
 
     // Save the new user to the database

@@ -20,10 +20,7 @@ router.get(
   "/registerUser/getUserDetails/:username",
   getUserDetailsCont.getUserDetails
 );
-router.get(
-  "/registerUser/checkEmailExist/:email",
-  checkEmailExist.checkEmailExist
-);
+router.post("/registerUser/checkEmailExist/", checkEmailExist.checkEmailExist);
 router.put("/updateUser", putUserDetails.putUserDetails);
 
 export const userRegisterRoute = router;

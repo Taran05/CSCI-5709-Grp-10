@@ -18,10 +18,15 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FormHelperText } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import GoogleIcon from "@mui/icons-material/Google";
+import { SiGoogle } from "react-icons/si";
+import { CHECK_EMAIL_EXIST } from "../../../utils/apiUrls";
 import axios from "axios";
 import { LOGIN_USER } from "../../../utils/apiUrls";
 import { useNavigate } from "react-router-dom";
-
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../../../utils/fireBase";
+const providerGoogle = new GoogleAuthProvider();
 export default function FormComp() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +36,66 @@ export default function FormComp() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, providerGoogle)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+
+        let email = result.user.email;
+        let name = result.user.displayName.split(" ");
+        let firstName = name[0];
+        let lastName = name[1];
+
+        const user = { email: email, isGoogle: true };
+        axios
+          .post(CHECK_EMAIL_EXIST, { user })
+          .then((response) => {
+            console.log("here");
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            handleSnackbarOpen(
+              "Successfully Logged in with Google. Redirecting..."
+            );
+            setTimeout(() => {
+              navigate("/", { state: response.data.user });
+            }, 2000);
+          })
+          .catch((err) => {
+            // Redirect to the next form after 1.5 seconds
+
+            handleSnackbarOpen(
+              "Successfully Signed in with Google. Redirecting..."
+            );
+
+            setTimeout(() => {
+              navigate("/about-you", {
+                state: {
+                  email,
+                  firstName,
+                  lastName,
+                  password: email,
+                  isGoogle: true,
+                },
+              });
+            }, 1500);
+          });
+
+        // Check if the email already exists in your backend using Axios
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
@@ -159,12 +224,12 @@ export default function FormComp() {
             </FormHelperText>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={12} lg={12} xl={12}>
+        <Grid item xs={12} md={6} lg={6} xl={6}>
           <Button
             variant="contained"
             type="submit"
             sx={{
-              width: "95%",
+              width: "90%",
               bgcolor: "#1D267D",
               color: "white",
               fontSize: "1rem",
@@ -176,6 +241,29 @@ export default function FormComp() {
             }}
           >
             Submit
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={6} lg={6} xl={6}>
+          {" "}
+          <Button
+            variant="contained"
+            startIcon={<SiGoogle style={{ color: "#DB4437" }} />}
+            onClick={handleGoogleLogin}
+            sx={{
+              width: "90%",
+              bgcolor: "#ffff",
+              borderColor: "#4285F4",
+              color: "#000000",
+              fontSize: "1rem",
+              marginTop: "3px",
+              // letterSpacing: "3px",
+              "&:hover": {
+                bgcolor: "#000000", // Reversing the button color on hover
+                color: "#ffff", // Reversing the text color on hover
+              },
+            }}
+          >
+            Continue with Google
           </Button>
         </Grid>
       </Grid>
@@ -190,7 +278,7 @@ export default function FormComp() {
         <Alert
           onClose={handleSnackbarClose}
           severity={
-            snackbarMessage === "Login successful. Redirecting..."
+            snackbarMessage.toLowerCase().includes("successfully")
               ? "success"
               : "error"
           }

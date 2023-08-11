@@ -1,26 +1,33 @@
-/**
- * @author Amanjot Singh <am854663@dal.ca/B00942293>
- */
-
 import { Request, Response } from "express";
 import User from "../../models/usersModel";
 
-// Fetch and return all the details of a user with a given username
 const checkEmailExist = async (req: Request, res: Response) => {
-  const { email } = req.params;
+  const { user } = req.body;
+  console.log(user);
 
   try {
-    // Find a user with the given username
-    const user = await User.findOne({ email: email });
+    // Find a user with the given email and isGoogle combination
+    const findUser = await User.findOne({
+      email: user.email,
+      isGoogle: user.isGoogle,
+    });
 
     // If the user was not found, return a 404 status
-    if (!user) {
+    if (!findUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
     // If the user was found, return the user object
     res.status(200).json({
-      message: "User not found",
+      message: "User found",
+      user: {
+        firstName: findUser.firstName,
+        lastName: findUser.lastName,
+        email: findUser.email,
+        userName: findUser.userName,
+        isGoogle: findUser.isGoogle,
+        // Include other user details as needed
+      },
     });
   } catch (error) {
     // Handle errors

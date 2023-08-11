@@ -1,3 +1,7 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
+
 import React, { useState } from "react";
 import axios from "axios";
 import { Card, CardContent, Button, Modal, Snackbar } from "@mui/material";
@@ -14,13 +18,26 @@ function BookingDashboardComp({ booking }) {
   const handleSnackBarClose = () => setSnackBarOpen(false);
   let dateContent;
 
+  const isBookingUpcoming = (selectedDate) => {
+    const today = new Date();
+    const bookingDate = new Date(selectedDate);
+    today.setHours(0, 0, 0, 0);
+    bookingDate.setHours(0, 0, 0, 0);
+
+    return bookingDate >= today;
+  };
+  let bookingStatus = isBookingUpcoming(booking.selectedDate)
+    ? "Upcoming"
+    : "Completed";
+
   const formattedDate = booking.selectedDate
     ? new Date(booking.selectedDate).toLocaleDateString()
     : "Not specified";
   if (booking.isCancelled) {
     dateContent = <span style={{ color: "red" }}>Cancelled</span>;
   } else {
-    dateContent = formattedDate;
+    dateContent =
+      formattedDate.split("/")[0] + "/" + formattedDate.split("/")[1];
   }
 
   const handleCancel = async () => {
@@ -57,13 +74,16 @@ function BookingDashboardComp({ booking }) {
           </div>
           <p className="booking-time">Time: {booking.selectedTime}</p>
           <div className="divider"></div>
-          <Button
-            variant="outlined"
-            className="call-details-btn"
-            onClick={handleOpen}
-          >
-            Call Details
-          </Button>
+          <div className="button-and-status">
+            <Button
+              variant="outlined"
+              className="call-details-btn"
+              onClick={handleOpen}
+            >
+              Call Details
+            </Button>
+            <p className="booking-status">{bookingStatus}</p>
+          </div>
           <Modal open={openModal} onClose={handleClose} centered>
             <div className="modal-content">
               <h4>Edit Booking Details</h4>

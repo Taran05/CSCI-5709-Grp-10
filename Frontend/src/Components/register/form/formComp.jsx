@@ -3,6 +3,7 @@
  */
 import "./formComp.css";
 import axios from "axios";
+import GoogleIcon from "@mui/icons-material/Google";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -18,8 +19,12 @@ import { useNavigate } from "react-router-dom";
 import { FormHelperText } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { SiGoogle } from "react-icons/si";
 import Grid from "@mui/material/Grid";
 import { CHECK_EMAIL_EXIST } from "../../../utils/apiUrls";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../../../utils/fireBase";
+const providerGoogle = new GoogleAuthProvider();
 export default function FormComp() {
   const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -51,6 +56,66 @@ export default function FormComp() {
     setSnackbarOpen(true);
   };
 
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, providerGoogle)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+
+        let email = result.user.email;
+        let name = result.user.displayName.split(" ");
+        let firstName = name[0];
+        let lastName = name[1];
+
+        const user = { email: email, isGoogle: true };
+        axios
+          .post(CHECK_EMAIL_EXIST, { user })
+          .then((response) => {
+            console.log("here");
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            handleSnackbarOpen(
+              "Successfully Signed in with Google. Redirecting..."
+            );
+            setTimeout(() => {
+              navigate("/", { state: response.data.user });
+            }, 2000);
+          })
+          .catch((err) => {
+            // Redirect to the next form after 1.5 seconds
+
+            handleSnackbarOpen(
+              "Data has been successfully saved. Redirecting..."
+            );
+
+            setTimeout(() => {
+              navigate("/about-you", {
+                state: {
+                  email,
+                  firstName,
+                  lastName,
+                  password: email,
+                  isGoogle: true,
+                },
+              });
+            }, 1500);
+          });
+
+        // Check if the email already exists in your backend using Axios
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -76,8 +141,9 @@ export default function FormComp() {
     // Form submission successful
     console.log("Form submitted:", { firstName, lastName, email, password });
     // Reset form fields
+    const user = { email: email, isGoogle: false };
     axios
-      .get(`${CHECK_EMAIL_EXIST}/${email}`)
+      .post(CHECK_EMAIL_EXIST, { user })
       .then((response) => {
         handleSnackbarOpen("Registration failed. Email Already Exist!");
       })
@@ -96,7 +162,7 @@ export default function FormComp() {
           setIsPasswordValid(true);
 
           navigate("/about-you", {
-            state: { email, firstName, lastName, password },
+            state: { email, firstName, lastName, password, isGoogle: false },
           });
         }, 1500);
       });
@@ -131,7 +197,9 @@ export default function FormComp() {
         <Alert
           onClose={handleSnackbarClose}
           severity={
-            snackbarMessage.includes("successful") ? "success" : "error"
+            snackbarMessage.toLowerCase().includes("successful")
+              ? "success"
+              : "error"
           }
           sx={{ width: "100%" }}
         >
@@ -141,6 +209,7 @@ export default function FormComp() {
 
       <Grid container spacing={0}>
         {/* <div className="form"> */}
+
         <Grid item xs={12} md={6} lg={6} xl={6}>
           <TextField
             required
@@ -235,12 +304,12 @@ export default function FormComp() {
           </FormControl>
         </Grid>
         {/* </div> */}
-        <Grid item xs={12} md={12} lg={12} xl={12}>
+        <Grid item xs={12} md={6} lg={6} xl={6}>
           <Button
             variant="contained"
             type="submit"
             sx={{
-              width: "95%",
+              width: "90%",
               bgcolor: "#1D267D",
               color: "white",
               fontSize: "1rem",
@@ -252,6 +321,29 @@ export default function FormComp() {
             }}
           >
             Submit
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={6} lg={6} xl={6}>
+          {" "}
+          <Button
+            variant="contained"
+            startIcon={<SiGoogle style={{ color: "#DB4437" }} />}
+            onClick={handleGoogleLogin}
+            sx={{
+              width: "90%",
+              bgcolor: "#ffff",
+              borderColor: "#4285F4",
+              color: "#000000",
+              fontSize: "1rem",
+              marginTop: "3px",
+              // letterSpacing: "3px",
+              "&:hover": {
+                bgcolor: "#000000", // Reversing the button color on hover
+                color: "#ffff", // Reversing the text color on hover
+              },
+            }}
+          >
+            Continue with Google
           </Button>
         </Grid>
       </Grid>

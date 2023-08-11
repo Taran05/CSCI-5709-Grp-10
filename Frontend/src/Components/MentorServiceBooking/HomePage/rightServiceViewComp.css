@@ -49,3 +49,48 @@
   top: 10px;
   right: 10px;
 }
+
+/* For tablets and larger mobile devices */
+@media only screen and (max-width: 768px) {
+  .grid-container {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .service-card {
+    padding-bottom: 4%;
+    margin-top: 4%;
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  .service-name {
+    margin-top: 10px;
+  }
+}
+
+/* For smaller mobile devices */
+@media only screen and (max-width: 480px) {
+  .grid-container {
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 5%;
+  }
+
+  .service-card {
+    height: auto; /* Allowing it to auto-adjust its height based on content */
+    padding-bottom: 3%;
+    margin-top: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .icon-box,
+  .icon-box-right {
+    top: 5px;
+  }
+
+  .service-name {
+    margin-top: 8px;
+  }
+}

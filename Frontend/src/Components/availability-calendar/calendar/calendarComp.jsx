@@ -1,6 +1,6 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
- */ 
+/**
+* @author Taranjot Singh <tr548284@dal.ca/B00945917>
+*/
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import "./calendarComp.css";
@@ -16,6 +16,7 @@ import { createTheme, styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import axios from 'axios';
 import { SAVE_CALENDAR_SETTINGS, GET_CALENDAR_SETTINGS } from "../../../utils/apiUrls";
+import UseMediaQuery from "@mui/material/useMediaQuery";
 
 const theme = createTheme({
   breakpoints: {
@@ -72,7 +73,7 @@ const noticePeriodUnits = [
 ];
 
 const SaveButton = styled(Button)(({ theme }) => ({
-  height: "100%", 
+  height: "100%",
   width: "25%",
   fontWeight: 600,
   marginTop: "3%",
@@ -85,7 +86,7 @@ const SaveButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function Calendar() {
-  const [timezone, setTimezone] = useState("");
+  const [timezone, setTimezone] = useState("GMT-3:00");
   const [meetingLink, setMeetingLink] = useState("");
   const [bookingPeriod, setBookingPeriod] = useState("");
   const [noticePeriodValue, setNoticePeriodValue] = useState("");
@@ -97,6 +98,10 @@ export default function Calendar() {
     bookingPeriod: "",
   });
   const [localUser, setLocalUser] = useState(null);
+  const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMediumScreen = UseMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const isExtraSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("xs"));
 
   const handleTimezoneChange = (event) => {
     setTimezone(event.target.value);
@@ -122,7 +127,7 @@ export default function Calendar() {
     console.log("Selected Timezone:", timezone);
     console.log("Meeting Link:", meetingLink);
     console.log("Booking Period:", bookingPeriod);
-    const noticePeriod = noticePeriodValue +" "+ noticePeriodUnit;
+    const noticePeriod = noticePeriodValue + " " + noticePeriodUnit;
     console.log("Notice Period:", noticePeriod);
 
     if (meetingLink.trim() !== "" && !/^https?:\/\//.test(meetingLink)) {
@@ -130,7 +135,7 @@ export default function Calendar() {
       return;
     }
 
-    try{
+    try {
       const calendarSettingsData = {
         timezone,
         meetingLink,
@@ -149,23 +154,26 @@ export default function Calendar() {
         toast.error("Failed to Block Dates");
       }
     }
-    catch(error){
+    catch (error) {
       console.log(error);
       toast.error('Failed to Save Calendar Settings');
     }
   };
 
   useEffect(() => {
+    const localUser = JSON.parse(localStorage.getItem("user"));
+    console.log("Printing local user:", localUser);
+    setLocalUser(localUser);
     const fetchedCalendarSettings = async () => {
-      const localUser = JSON.parse(localStorage.getItem("user"));
-      console.log("Printing local user:", localUser);
-      setLocalUser(localUser);
       try {
         const apiUrl = GET_CALENDAR_SETTINGS;
-        const response = await axios.get(apiUrl);
-        const fetchedSettings = response?.data?.calendarSettings?.calendarSettingsData;
-        if(fetchedSettings){
-          console.log(fetchedSettings);
+        const params = {
+          mentorId: localUser.userName,
+      };
+        const response = await axios.get(apiUrl, { params });
+        const fetchedSettings = response?.data?.calendarSettings;
+        console.log(fetchedSettings);
+        if (fetchedSettings) {
           setCalendarSettings(fetchedSettings);
           setTimezone(fetchedSettings.timezone);
           setMeetingLink(fetchedSettings.meetingLink);
@@ -186,128 +194,129 @@ export default function Calendar() {
 
   return (
     <>
-    <table>
-      <tbody>
-        <tr>
-          <td className="customTableCell">
-            <h3 style={{ display: "flex", alignItems: "center" }}><LocationOnIcon style={{ verticalAlign: "middle", marginRight: 8 }}/>Timezone</h3>
-            <h4>Required for timely communications</h4>
-          </td>
-          <td className="customTableCell">
-            <FormControl fullWidth>
-              <InputLabel htmlFor="timezone-select">Select Timezone</InputLabel>
-              <Select
-                value={timezone}
-                onChange={handleTimezoneChange}
-                label="Timezone"
-                inputProps={{
-                  name: 'timezone',
-                  id: 'timezone-select',
-                }}
-                style={{ width: 400 }}
-              >
-                {timezones.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h3 style={{ display: "flex", alignItems: "center" }}><InsertLinkIcon style={{ verticalAlign: "middle", marginRight: 8 }}/>Personal meeting link</h3>
-            <h4>All your 1:1 meetings will be redirected to this URL</h4>
-          </td>
-          <td>
-          <TextField
-              fullWidth
-              label="Add Meeting Link"
-              variant="outlined"
-              value={meetingLink}
-              onChange={handleMeetingLinkChange}
-              style={{ width: 400 }}
-            />     
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h3 style={{ display: "flex", alignItems: "center" }}><EventIcon style={{ verticalAlign: "middle", marginRight: 8 }}/>Booking Period</h3>
-            <h4>How far in the future can attendees book</h4>
-          </td>
-          <td>
-            <FormControl fullWidth>
-              <InputLabel htmlFor="booking-period-select">Select Booking Period</InputLabel>
-              <Select
-                value={bookingPeriod}
-                onChange={handleBookingPeriodChange}
-                label="Booking Period"
-                inputProps={{
-                  name: 'bookingPeriod',
-                  id: 'booking-period-select',
-                }}
-                style={{ width: 400 }}
-              >
-                {bookingPeriods.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h3 style={{ display: "flex", alignItems: "center" }}><EventNoteIcon style={{ verticalAlign: "middle", marginRight: 8 }}/>Notice Period</h3>
-            <h4>Set the minimum amount of notice that is required</h4>         
-          </td>
-          <td>
-          <div style={{ display: "flex", alignItems: "center" }}>
-              <TextField
-                fullWidth
-                type="number"
-                label="Add Notice"
-                value={noticePeriodValue}
-                onChange={handleNoticePeriodChange}
-                inputProps={{
-                  min: 0,
-                }}
-                style={{ width: 250 }}
-              />
-              <FormControl style={{ minWidth: 150 }}>
-              <InputLabel htmlFor="booking-period-select">Period</InputLabel>
+      <table>
+        <tbody>
+          <tr className="flex-container">
+            <td className="text-settings">
+              <h3 style={{ display: "flex", alignItems: "center" }}><LocationOnIcon style={{ verticalAlign: "middle", marginRight: 8 }} />Timezone</h3>
+              <h4>Required for timely communications</h4>
+            </td>
+            <td className="input-values">
+              <FormControl fullWidth>
+                <InputLabel htmlFor="timezone-select">Select Timezone</InputLabel>
                 <Select
-                  value={noticePeriodUnit}
-                  onChange={handleNoticePeriodUnitChange}
-                  label="Period"
+                  value={timezone}
+                  onChange={handleTimezoneChange}
+                  label="Timezone"
                   inputProps={{
-                    name: 'noticePeriodUnit',
-                    id: 'notice-period-unit',
+                    name: 'timezone',
+                    id: 'timezone-select',
                   }}
-                  
+                  style={isExtraSmallScreen ? { width: 250, marginLeft: 30 } : isSmallScreen ? { width: 310, marginLeft: 30 } : isMediumScreen ? { width: 350, marginLeft: 30 } : { width: 400 }}
                 >
-                  {noticePeriodUnits.map((option) => (
+                  {timezones.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <ToastContainer position="top-center" />
-    <SaveButton
-              variant="contained"
-              fullWidth
-              onClick={handleSaveCalendarSettings}
-            >
-              Save Calendar Settings
-        </SaveButton>
+            </td>
+          </tr>
+          <tr className="flex-container">
+            <td className="text-settings">
+              <h3 style={{ display: "flex", alignItems: "center" }}><InsertLinkIcon style={{ verticalAlign: "middle", marginRight: 8 }} />Personal meeting link</h3>
+              <h4>All your 1:1 meetings will be redirected to this URL</h4>
+            </td>
+            <td className="input-values">
+              <TextField
+                fullWidth
+                label="Add Meeting Link"
+                variant="outlined"
+                value={meetingLink}
+                onChange={handleMeetingLinkChange}
+                style={isExtraSmallScreen ? { width: 250, marginLeft: 30 } : isSmallScreen ? { width: 310, marginLeft: 30 } : isMediumScreen ? { width: 350, marginLeft: 30 } : { width: 400 }}
+              />
+            </td>
+          </tr>
+          <tr className="flex-container">
+            <td className="text-settings">
+              <h3 style={{ display: "flex", alignItems: "center" }}><EventIcon style={{ verticalAlign: "middle", marginRight: 8 }} />Booking Period</h3>
+              <h4>How far in the future can attendees book</h4>
+            </td>
+            <td className="input-values">
+              <FormControl fullWidth>
+                <InputLabel htmlFor="booking-period-select" style={isMediumScreen ? { paddingLeft: 25 } : {}}>Select Booking Period</InputLabel>
+                <Select
+                  value={bookingPeriod}
+                  onChange={handleBookingPeriodChange}
+                  label="Booking Period"
+                  inputProps={{
+                    name: 'bookingPeriod',
+                    id: 'booking-period-select',
+                  }}
+                  style={isExtraSmallScreen ? { width: 250, marginLeft: 30 } : isSmallScreen ? { width: 310, marginLeft: 30 } : isMediumScreen ? { width: 350, marginLeft: 30 } : { width: 400 }}
+                >
+                  {bookingPeriods.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </td>
+          </tr>
+          <tr className="flex-container">
+            <td className="text-settings">
+              <h3 style={{ display: "flex", alignItems: "center" }}><EventNoteIcon style={{ verticalAlign: "middle", marginRight: 8 }} />Notice Period</h3>
+              <h4>Set the minimum amount of notice that is required</h4>
+            </td>
+            <td className="input-values">
+              <div id="notice-period" style={{ display: "flex", alignItems: "center" }}>
+                <TextField
+                  fullWidth
+                  type="number"
+                  label="Add Notice"
+                  value={noticePeriodValue}
+                  onChange={handleNoticePeriodChange}
+                  inputProps={{
+                    min: 0,
+                  }}
+                  style={{ width: 250 }}
+                />
+                <FormControl style={{ minWidth: 150 }}>
+                  <InputLabel htmlFor="booking-period-select">Period</InputLabel>
+                  <Select
+                    value={noticePeriodUnit}
+                    onChange={handleNoticePeriodUnitChange}
+                    label="Period"
+                    inputProps={{
+                      name: 'noticePeriodUnit',
+                      id: 'notice-period-unit',
+                    }}
+
+                  >
+                    {noticePeriodUnits.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ToastContainer position="top-center" />
+      <SaveButton
+        variant="contained"
+        fullWidth
+        onClick={handleSaveCalendarSettings}
+        style={isMediumScreen ? { width: "100%", marginLeft: "3px" } : isLargeScreen ? { width: "40%", marginLeft: "190px" } : {}}
+      >
+        Save Calendar Settings
+      </SaveButton>
     </>
   );
 }

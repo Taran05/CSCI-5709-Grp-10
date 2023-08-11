@@ -1,6 +1,7 @@
 /**
  * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
  */
+
 .mentorBox {
   display: flex;
   flex-direction: column;
@@ -15,7 +16,7 @@
   margin-top: 10px;
 }
 
-/* For tablets */
+/* For tablets and larger mobile devices */
 @media only screen and (max-width: 768px) {
   .mentorBox {
     padding: 15% 0 0 4% !important;
@@ -33,15 +34,15 @@
   }
 }
 
-/* For mobile devices */
+/* For smaller mobile devices */
 @media only screen and (max-width: 480px) {
   .mentorBox {
     padding: 10% 0 0 3% !important;
   }
 
   .mentorAvatar {
-    width: 60px !important;
-    height: 60px !important;
+    width: 20px !important;
+    height: 20px !important;
   }
 
   .mentorName,

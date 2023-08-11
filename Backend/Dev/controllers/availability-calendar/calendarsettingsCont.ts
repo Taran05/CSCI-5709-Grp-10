@@ -2,42 +2,60 @@
  * @author Taranjot Singh <tr548284@dal.ca/B00945917>
  */ 
 import { Request, Response } from "express";
-import CalendarSettings, {
-  ICalendarSettings,
-} from '../../models/availability-calendar/calendarSettingsModel';
+import CalendarSettings from '../../models/availability-calendar/calendarSettingsModel';
 
-const saveCalendarSettings = async (req: Request, res: Response) => {
-  const calendarSettingsData: ICalendarSettings = req.body;
-  console.log(calendarSettingsData);
+interface CalendarSettingsRequest extends Request {
+  body: {
+    mentorId: string;
+    timezone: string;
+    meetingLink: string;
+    bookingPeriod: string;
+    noticePeriod: string;
+  };
+}
+
+const saveCalendarSettings = async (req: CalendarSettingsRequest, res: Response) => {
+  const { mentorId, timezone, meetingLink, bookingPeriod, noticePeriod } = req.body;
+  console.log(mentorId);
+  console.log(timezone);
+  console.log(meetingLink);
+  console.log(bookingPeriod);
+  console.log(noticePeriod);
   try {
-    const existingSettings = await CalendarSettings.findOne();
-    console.log(existingSettings);
-    if(existingSettings){
-      existingSettings.calendarSettingsData = calendarSettingsData;
-      await existingSettings.save();
-      res.status(200).json({ message: 'Calendar Settings Updated Successfully.' });
+    let calendarSettings = await CalendarSettings.findOne({ mentorId });
+    console.log(calendarSettings);
+    if(calendarSettings){
+      calendarSettings.timezone = timezone;
+      calendarSettings.meetingLink = meetingLink;
+      calendarSettings.bookingPeriod = bookingPeriod;
+      calendarSettings.noticePeriod = noticePeriod;
     }
     else{
-      const calendarSettings: ICalendarSettings = new CalendarSettings({
-        calendarSettingsData,
+      calendarSettings = new CalendarSettings({
+        mentorId,
+        timezone,
+        meetingLink,
+        bookingPeriod,
+        noticePeriod,
       });
-      await calendarSettings.save();
-    }  
-    res.status(201).json({ message: 'Calendar Settings Saved Successfully.' });
+    }
+    await calendarSettings.save();  
+    res.send({ message: "Calendar Settings Saved!" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to save Calendar Settings" });
+    res.status(500).send({ error: "Failed to save Calendar Settings" });
   }
 };
 
-const getCalendarSettings = async (_req: Request, res: Response) => {
+const getCalendarSettings = async (req: CalendarSettingsRequest, res: Response) => {
+  const { mentorId } = req.query;
   try {
-    const calendarSettings: ICalendarSettings[] = await CalendarSettings.find();
-    if (calendarSettings.length > 0) {
-      const settings = calendarSettings[0];
-      res.status(200).json({ calendarSettings: settings });
-    } else {
-      res.status(200).json({ calendarSettings: {} });
+    const calendarSettings = await CalendarSettings.findOne({ mentorId });
+    if (calendarSettings) {
+      res.status(200).json({ calendarSettings });
+    }
+    else {
+      res.status(404).json({ message: 'Calendar settings not found' });
     }
   } catch (error) {
     console.error(error);

@@ -19,3 +19,45 @@
     margin-bottom: 20px;
     text-align: left;
   }
+
+  @media (min-width: 595px) and (max-width: 920px) {
+    .block-dates {
+      padding-left: 20px;
+      width: 520px;
+      margin-left: 15px !important;
+      margin-top: 25px;
+    }
+  }
+
+  @media (min-width: 400px) and (max-width: 596px) {
+    .block-dates {
+      width: 350px;
+      margin-left: 15px !important;
+      margin-top: 25px;
+    }
+  }
+
+  @media (min-width: 347px) and (max-width: 399px) {
+    .block-dates {
+      width: 300px;
+      margin-left: 15px !important;
+      margin-top: 25px;
+    }
+
+    .block-dates p {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 291px) and (max-width: 346px) {
+    .block-dates {
+      width: 250px;
+      margin-left: 15px !important;
+      margin-top: 25px;
+    }
+
+    .block-dates p {
+      font-size: 14px;
+      text-align: justify;
+    }
+  }

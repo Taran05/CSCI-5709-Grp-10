@@ -17,9 +17,10 @@
 }
 
 /* For tablets and larger mobile devices */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 850px) {
   .mentorBox {
-    padding: 15% 0 0 4% !important;
+    /* padding: 15% 0 0 4% !important; */
+    padding: 10% 0 0 0% !important;
   }
 
   .mentorAvatar {

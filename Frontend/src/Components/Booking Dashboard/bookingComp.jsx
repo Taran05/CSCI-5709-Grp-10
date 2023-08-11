@@ -20,12 +20,21 @@ function BookingDashboardComp({ booking }) {
 
   const isBookingUpcoming = (selectedDate) => {
     const today = new Date();
-    const bookingDate = new Date(selectedDate);
-    today.setHours(0, 0, 0, 0);
-    bookingDate.setHours(0, 0, 0, 0);
 
-    return bookingDate >= today;
+    const todayMonth = today.getMonth();
+    const todayDate = today.getDate();
+    const bookingDate = new Date(selectedDate);
+    const bookingMonth = bookingDate.getMonth();
+    const bookingDateValue = bookingDate.getDate();
+
+    if (bookingMonth > todayMonth) {
+      return true;
+    } else if (bookingMonth === todayMonth && bookingDateValue >= todayDate) {
+      return true;
+    }
+    return false;
   };
+
   let bookingStatus = isBookingUpcoming(booking.selectedDate)
     ? "Upcoming"
     : "Completed";

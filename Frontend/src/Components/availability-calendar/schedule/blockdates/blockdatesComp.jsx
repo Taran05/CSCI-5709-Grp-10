@@ -89,7 +89,7 @@ export default function BlockDates() {
           mentorId: localUser.userName,
         };
         const response = await axios.get(apiUrl, { params });
-        const blockedDatesData = response?.data?.blockedDates;
+        const blockedDatesData = response?.data?.blockedDates; 
         if (blockedDatesData) {
           const fetchedDates = blockedDatesData.dates.map((dateStr) => {
             const [year, month, day] = dateStr.split('-').map(Number);
@@ -101,8 +101,13 @@ export default function BlockDates() {
           console.log("Blocked dates data not available.");
         }
       } catch (error) {
-        console.error(error);
-        toast.error('Failed to fetch unavailable dates');
+          if(error.response.status==404){
+            console.log(error.response.data.message);
+          }
+          else{
+            console.log(error);
+            toast.error('Failed to fetch unavailable dates');
+          }
       }
     };
 

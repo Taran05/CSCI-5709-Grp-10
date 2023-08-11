@@ -268,7 +268,7 @@ export default function Payments() {
                                 <VisibilityIcon style={{ fontSize: "40px" }} />
                                 <p style={{ fontSize: "18px" }}>Balance</p>
                             </div>
-                            <div className="balance-amount" style={{ marginTop: "-30px", marginLeft: "-10px" }}>
+                            <div className="balance-amount" style={ isExtraSmallScreen ? {marginTop: "-140px", marginLeft: "70px"} : { marginTop: "-30px", marginLeft: "-10px" }}>
                                 <br /><br />
                                 <strong style={{ fontSize: "30px", textAlign: "center" }}>$ {totalBalance}</strong>
                                 {totalBalance !== 0 && (

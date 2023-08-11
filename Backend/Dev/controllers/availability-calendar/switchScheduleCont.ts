@@ -4,7 +4,7 @@
  */
 
 import { Request, Response } from "express";
-import StudentBooking from "../../models/StudentBooking";
+import User from "../../models/usersModel";
 
 /**
  * Switches the mentor's schedule between default and alternate.
@@ -17,12 +17,12 @@ const switchSchedule = async (req: Request, res: Response) => {
      console.log(scheduleName);
     try {
         if(scheduleName == "alternate"){
-            let calendarSettings = await StudentBooking.updateMany({mentorId}, {isDefaultSchedule : false});
+            let calendarSettings = await User.updateOne({userName: mentorId}, {isDefaultSchedule : false});
             console.log(calendarSettings);
             res.send({ message: "Switched to alternate schedule!" });
         }
         else{
-            let calendarSettings = await StudentBooking.updateMany({mentorId}, {isDefaultSchedule : true});
+            let calendarSettings = await User.updateOne({userName: mentorId}, {isDefaultSchedule : true});
             console.log(calendarSettings);
             res.send({ message: "Switched to default schedule!" });
         }
@@ -38,12 +38,16 @@ const switchSchedule = async (req: Request, res: Response) => {
  * @param res - Express response object.
  */
 const getSelectedSchedule = async (req: Request, res: Response) => {
-    console.log("Get selected schedule called");
     const { mentorId } = req.query;
     console.log(mentorId);
     try {
-      const switchScheduleSettings = await StudentBooking.findOne({mentorId});
+      const switchScheduleSettings = await User.findOne({userName : mentorId});
+      if (switchScheduleSettings) {
         res.status(200).json({ switchScheduleSettings });
+      }
+      else {
+        res.status(404).json({ message: 'Schedule data not found' });
+      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Failed to get selected schedule' });

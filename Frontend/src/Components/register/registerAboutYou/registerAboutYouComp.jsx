@@ -107,6 +107,7 @@ const RegisterAboutYouComp = () => {
       userName: formData.pageLink.toLowerCase(),
       reason: formData.plan,
       isGoogle: location.state.isGoogle,
+      isDefaultSchedule: true,
     };
     console.log(user);
     axios

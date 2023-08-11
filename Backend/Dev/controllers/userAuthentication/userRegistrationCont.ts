@@ -12,6 +12,7 @@ const userRegisteration = async (req: Request, res: Response) => {
     reason,
     expertise,
     isGoogle,
+    isDefaultSchedule,
   } = req.body;
 
   try {
@@ -35,6 +36,7 @@ const userRegisteration = async (req: Request, res: Response) => {
       expertise,
       displayName: firstName,
       isGoogle: isGoogle,
+      isDefaultSchedule,
     });
 
     // Save the new user to the database

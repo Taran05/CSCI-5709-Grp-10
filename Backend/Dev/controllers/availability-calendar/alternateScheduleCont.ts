@@ -147,7 +147,7 @@ const getAlternateAvailableDates = async (req: Request, res: Response) => {
         const formattedDateString = date.toString();
         console.log(formattedDateString);
 
-        //apply loop here
+        //if blocked dates exists & match the current date, exclude it
         if (formattedDates != null && !formattedDates.includes(formattedDateString)) {
           const startDateTimeString = formattedDateString + ' ' + startTime;
           const endDateTimeString = formattedDateString + ' ' + endTime;
@@ -163,6 +163,24 @@ const getAlternateAvailableDates = async (req: Request, res: Response) => {
             availableHours,
           });
         }
+
+        // if blocked dates doesn't exists, then include the current date
+        else{
+          const startDateTimeString = formattedDateString + ' ' + startTime;
+          const endDateTimeString = formattedDateString + ' ' + endTime;
+          const startDateTime = new Date(startDateTimeString);
+          const endDateTime = new Date(endDateTimeString);
+          while (startDateTime < endDateTime) {
+            availableHours.push(intlDateTimeFormatter.format(startDateTime));
+            startDateTime.setHours(startDateTime.getHours() + 1);
+          }
+          availableDates.push({
+            date,
+            day,
+            availableHours,
+          });
+        }
+
       }
     }
     res.status(200).json({ availableDates });

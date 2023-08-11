@@ -75,7 +75,7 @@ const RightViewComponent = ({
         const fetchedScheduleData = scheduleResponse?.data?.switchScheduleSettings;
         console.log(fetchedScheduleData);
         let AVAILABILITY_URL = ""
-        if(fetchedScheduleData == null || fetchedScheduleData.isDefaultSchedule){
+        if(fetchedScheduleData.isDefaultSchedule){
           AVAILABILITY_URL = MENTOR_DEFAULT_AVAILABILITY_URL;
         }
         else{

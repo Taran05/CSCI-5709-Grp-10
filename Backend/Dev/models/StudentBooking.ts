@@ -22,7 +22,6 @@ const StudentBooking = mongoose.model(
     price: String,                // Price of the service
     bookingId: String,            // Unique identifier for the booking
     isCancelled: Boolean,         // Cancellation status (cancelled/not cancelled)
-    isDefaultSchedule: Boolean,   // Schedule type (default/alternate)
   })
 );
 

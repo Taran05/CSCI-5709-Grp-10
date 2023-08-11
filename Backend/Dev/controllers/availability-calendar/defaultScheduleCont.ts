@@ -117,11 +117,11 @@ const getDefaultAvailableDates = async (req: Request, res: Response) => {
     const defaultSchedules: IDefaultSchedule[] = await DefaultSchedule.find({ mentorId: mentorId });
     const blockedDates = await BlockedDates.findOne({ mentorId });
     const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
-
+    console.log(defaultSchedules);
     const firstDayAfterCurrent = new Date(today);
     firstDayAfterCurrent.setDate(today.getDate() + 1);
     let formattedDates;
-
+    
     if (blockedDates != null) {
       const dates = blockedDates.dates;
       formattedDates = dates.map(date => {
@@ -149,8 +149,25 @@ const getDefaultAvailableDates = async (req: Request, res: Response) => {
         const formattedDateString = date.toString();
         console.log(formattedDateString);
 
-        //apply loop here
+        //if blocked dates exists & match the current date, exclude it
         if (formattedDates != null && !formattedDates.includes(formattedDateString)) {
+          const startDateTimeString = formattedDateString + ' ' + startTime;
+          const endDateTimeString = formattedDateString + ' ' + endTime;
+          const startDateTime = new Date(startDateTimeString);
+          const endDateTime = new Date(endDateTimeString);
+          while (startDateTime < endDateTime) {
+            availableHours.push(intlDateTimeFormatter.format(startDateTime));
+            startDateTime.setHours(startDateTime.getHours() + 1);
+          }
+          availableDates.push({
+            date,
+            day,
+            availableHours,
+          });
+        }
+
+        // if blocked dates doesn't exists, then include the current date
+        else{
           const startDateTimeString = formattedDateString + ' ' + startTime;
           const endDateTimeString = formattedDateString + ' ' + endTime;
           const startDateTime = new Date(startDateTimeString);

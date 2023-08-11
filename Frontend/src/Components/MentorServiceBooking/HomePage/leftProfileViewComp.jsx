@@ -45,6 +45,23 @@ const LeftServiceViewComp = () => {
   const [mentor, setMentor] = useState({});
   const location = useLocation();
   const mentorId = location.pathname.split("/")[2];
+  const [avatarSize, setAvatarSize] = useState({
+    width: 100,
+    height: 100,
+  });
+
+  const [responsiveStyles, setResponsiveStyles] = useState({
+    avatar: {
+      width: 100,
+      height: 100,
+    },
+    mentorName: {
+      fontSize: "2rem",
+    },
+    mentorQuery: {
+      fontSize: "1rem",
+    },
+  });
 
   useEffect(() => {
     fetch(GET_MENTOR_DETAILS + "/" + mentorId)
@@ -52,20 +69,59 @@ const LeftServiceViewComp = () => {
       .then((data) => setMentor(data.user));
   }, [mentorId]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 480) {
+        // mobile
+        setResponsiveStyles({
+          avatar: { width: 60, height: 60 },
+          mentorName: { fontSize: "1.5rem" },
+          mentorQuery: { fontSize: "0.8rem" },
+        });
+      } else if (window.innerWidth <= 768) {
+        // tablet
+        setResponsiveStyles({
+          avatar: { width: 80, height: 80 },
+          mentorName: { fontSize: "1.8rem" },
+          mentorQuery: { fontSize: "0.9rem" },
+        });
+      } else {
+        // desktop
+        setResponsiveStyles({
+          avatar: { width: 100, height: 100 },
+          mentorName: { fontSize: "2rem" },
+          mentorQuery: { fontSize: "1rem" },
+        });
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // call it once to set the initial size
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const mentorName = mentor ? `${mentor.firstName} ${mentor.lastName}` : "";
 
   return (
     <Box className="mentorBox">
-      <Avatar {...stringAvatar(mentorName)} />
-      <Typography variant="h4" className="mentorName">
+      <Avatar {...stringAvatar(mentorName)} style={responsiveStyles.avatar} />
+      <Typography
+        variant="h4"
+        className="mentorName"
+        style={responsiveStyles.mentorName}
+      >
         {mentorName}
       </Typography>
-      <Typography variant="body1" className="mentorQuery">
+      <Typography
+        variant="body1"
+        className="mentorQuery"
+        style={responsiveStyles.mentorQuery}
+      >
         Have a query with our mentor?
       </Typography>
-      {/* <Button variant="outlined" color="primary" className="queryButton">
-        Ask a query
-      </Button> */}
 
       {/* Added This Comp here to ask queries */}
       <SendQueryComp mentorName={mentorName} mentorId={mentorId} />

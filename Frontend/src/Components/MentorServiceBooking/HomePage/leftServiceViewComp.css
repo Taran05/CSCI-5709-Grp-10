@@ -10,11 +10,6 @@
   padding: 20% 0 0 5%;
 }
 
-.mentorAvatar {
-  width: 100px;
-  height: 100px;
-}
-
 .mentorName,
 .mentorQuery,
 .queryButton {

@@ -125,7 +125,7 @@ function QueriesPage(props) {
 
         <div className="belowHeader container">
           <Grid container spacing={1}>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={3} md={3}>
               <div className="side-bar item">
                 <SidebarComp
                   handleUserClick={handleUserClick}
@@ -138,7 +138,7 @@ function QueriesPage(props) {
               </div>
             </Grid>
 
-            <Grid item xs={9}>
+            <Grid item xs={12} sm={9} md={9}>
               <div className="body item">
                 <BodyComp
                   userId={value}

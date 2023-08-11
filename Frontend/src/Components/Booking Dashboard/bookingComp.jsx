@@ -21,8 +21,6 @@ function BookingDashboardComp({ booking }) {
   const isBookingUpcoming = (selectedDate) => {
     const today = new Date();
     const bookingDate = new Date(selectedDate);
-
-    // Reset time components of both dates to compare only the date parts
     today.setHours(0, 0, 0, 0);
     bookingDate.setHours(0, 0, 0, 0);
 

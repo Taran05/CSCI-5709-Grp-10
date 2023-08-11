@@ -18,9 +18,9 @@ const BookingSchedulePage = () => {
   const servicePrice = service.price;
 
   return (
-    <Grid container className="mentor-booking-container">
+    <Grid container spacing={4} className="mentor-booking-container">
       <Grid item xs={12} md={4} className="left-component">
-        <Box>
+        <Box className="mentor-left-box">
           <LeftViewComponent
             serviceName={serviceName}
             serviceDuration={serviceDuration}
@@ -31,7 +31,7 @@ const BookingSchedulePage = () => {
         </Box>
       </Grid>
       <Grid item xs={12} md={8} className="right-component">
-        <Box>
+        <Box className="mentor-right-box">
           <RightViewComponent
             serviceName={serviceName}
             serviceDuration={serviceDuration}

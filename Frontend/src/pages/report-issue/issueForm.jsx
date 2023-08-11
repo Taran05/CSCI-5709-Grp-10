@@ -18,10 +18,12 @@ const IssueForm = ({ onNewIssue }) => {
   const [description, setDescription] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const navigate = useNavigate();
+  const localUser = JSON.parse(localStorage.getItem("user"));
+  const userName = localUser.userName;
 
   useEffect(() => {
     const checkLogin = async () => {
-      const localUser = JSON.parse(localStorage.getItem("user"));
+      
       console.log("Printing local user:", localUser);
 
       if (!localUser) {
@@ -44,7 +46,7 @@ const IssueForm = ({ onNewIssue }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const issueData = { title, description };
+    const issueData = { title, description, userName };
 
     const response = await fetch(CREATE_ISSUE, {
       method: "POST",

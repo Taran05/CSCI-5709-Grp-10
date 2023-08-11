@@ -1,32 +1,39 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
- */ 
-  
-  .left-schedule {
-    padding: 2%;
+/**
+ * This is the stylesheet for the availability-calendar page.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
+/* Styles for the left side of the schedule container */
+.left-schedule {
+  padding: 2%; /* Add padding to the left side content */
+}
+
+/* Styles for the calendar form */
+.calendar-form {
+  width: 100%; /* Make the calendar form take up the full width */
+} 
+
+/* Styles for the right side (information) of the schedule container */
+.right-info {
+  background-color: #ffffff; /* White background */
+  padding: 20px; /* Add padding to the content */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically center the content */
+  justify-content: center; /* Horizontally center the content */
+  color: #ffffff; /* Text color is white */
+}
+
+/* Styles for the information box */
+.info {
+  border-radius: 5px; /* Add rounded corners to the box */
+  padding: 7%; /* Add padding to the box content */
+  background-color: #1d267d; /* Dark blue background color */
+}
+
+/* Media query for screens with a maximum width of 768px */
+@media (max-width: 768px) {
+  /* Change layout to a single column on mobile */
+  .contact-container {
+    grid-template-columns: 1fr;
   }
-  
-  .calendar-form{
-    width: 100%;
-  } 
-  .right-info {
-    background-color: #ffffff;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-  }
-  
-  .info {
-    border-radius: 5px; /* Add rounded corners */
-    padding: 7%;
-    background-color: #1d267d;
-  }
-  
-  @media (max-width: 768px) {
-    .contact-container {
-      grid-template-columns: 1fr; /* Display as a single column on mobile */
-    }
-  }
-  
+}

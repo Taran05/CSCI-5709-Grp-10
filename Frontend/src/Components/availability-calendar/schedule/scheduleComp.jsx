@@ -1,8 +1,8 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
- */ 
+/**
+ * This component handles the schedule selection and rendering of different schedule components.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
 import React, { useState } from "react";
-import "./scheduleComp.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import { Button, Grid } from "@mui/material";
@@ -12,7 +12,7 @@ import BlockDatesComp from "./blockdates/blockdatesComp";
 import AlternateScheduleComp from "./alternateschedule/alternatescheduleComp";
 
 export default function Schedule() {
-
+  // Create a theme for responsive design
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -25,20 +25,23 @@ export default function Schedule() {
     },
   });
 
+  // State variable to track the selected schedule type
   const [selectedSchedule, setSelectedSchedule] = useState("Default");
 
+  // Styled component for the Default Schedule button
   const DefaultScheduleButton = styled(Button)(({ theme, isSelected }) => ({
     height: "100%",
     width: "100%",
     fontWeight: 600,
     pointerEvents: isSelected ? "none" : "auto",
-  color: isSelected ? theme.palette.getContrastText(grey[900]) : theme.palette.getContrastText(grey[50]),
-  backgroundColor: isSelected ? "#1D267D" : grey[50],
-  "&:hover": {
-    backgroundColor: isSelected ? "none" : "#D4ADFC",
-  },
+    color: isSelected ? theme.palette.getContrastText(grey[900]) : theme.palette.getContrastText(grey[50]),
+    backgroundColor: isSelected ? "#1D267D" : grey[50],
+    "&:hover": {
+      backgroundColor: isSelected ? "none" : "#D4ADFC",
+    },
   }));
 
+  // Styled component for the Alternate Schedule button
   const AlternateScheduleButton = styled(Button)(({ theme, isSelected }) => ({
     height: "100%",
     width: "100%",
@@ -51,12 +54,14 @@ export default function Schedule() {
     },
   }));
 
+  // Component rendering
   return (
     <>
+      {/* Schedule Selection Buttons */}
       <Grid item sm={12}>
         <Grid container spacing={2}>
           <Grid item sm={0}>
-          <DefaultScheduleButton
+            <DefaultScheduleButton
               variant="contained"
               fullWidth
               onClick={() => setSelectedSchedule("Default")}
@@ -66,7 +71,7 @@ export default function Schedule() {
             </DefaultScheduleButton>
           </Grid>
           <Grid item sm={0}>
-          <AlternateScheduleButton
+            <AlternateScheduleButton
               variant="contained"
               fullWidth
               onClick={() => setSelectedSchedule("Alternate")}
@@ -81,6 +86,8 @@ export default function Schedule() {
       <br></br>
       <br></br>
       <br></br>
+
+      {/* Rendering Schedule Components */}
       <Grid container spacing={2}>
         {selectedSchedule === "Default" ? (
           <Grid item sm={6}>
@@ -91,8 +98,10 @@ export default function Schedule() {
             <ThemeProvider theme={theme}><AlternateScheduleComp /></ThemeProvider>
           </Grid>
         )}
-        <Grid>
-        <ThemeProvider theme={theme}><BlockDatesComp /></ThemeProvider>
+
+        {/* Always render BlockDatesComp */}
+        <Grid item sm={6}>
+          <ThemeProvider theme={theme}><BlockDatesComp /></ThemeProvider>
         </Grid>
       </Grid>
     </>

@@ -1,175 +1,204 @@
-   /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+/**
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
  */
-   .schedule-name span {
-     font-size: 20px;
-   }
 
-   .alternate-schedule-details {
-     flex-direction: column;
-     padding-left: 10px;
-     border: 2px solid #1D267D;
-     width: 500px;
-     padding: 20px;
-   }
+/* Styling for the schedule name */
+.schedule-name span {
+  font-size: 20px;
+}
 
-   .day-checkboxes label {
-     display: flex;
-     margin-right: 10px;
-   }
+/* Styling for the alternate schedule details container */
+.alternate-schedule-details {
+  flex-direction: column;
+  padding-left: 10px;
+  border: 2px solid #1D267D;
+  width: 500px;
+  padding: 20px;
+}
 
-   .day-checkboxes {
-     display: flex;
-     align-items: flex-start;
-     flex-direction: column;
-     margin-top: 10px;
-   }
+/* Styling for the day checkboxes */
+.day-checkboxes label {
+  display: flex;
+  margin-right: 10px;
+}
 
-   .day-checkboxes label input {
-     margin-right: 10px;
-     display: inline;
-   }
+.day-checkboxes {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 10px;
+}
 
-   .day-checkboxes table {
-     border-collapse: collapse;
-     width: 60%;
-   }
+/* Styling for the day checkboxes input */
+.day-checkboxes label input {
+  margin-right: 10px;
+  display: inline;
+}
 
-   .alternate-day-checkboxes td {
-     padding: 18px;
-     border-bottom: 1px solid #ccc;
-     margin-bottom: 10px;
-   }
+/* Styling for the day checkboxes table */
+.day-checkboxes table {
+  border-collapse: collapse;
+  width: 60%;
+}
 
-   input {
-     cursor: pointer;
-   }
+/* Styling for alternate day checkboxes */
+.alternate-day-checkboxes td {
+  padding: 18px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
 
-   .time-dropdown {
-     display: flex;
-     align-items: center;
-   }
+/* Cursor style for input elements */
+input {
+  cursor: pointer;
+}
 
-   .alternate-time-separator {
-     margin: 0 15px;
-   }
+/* Styling for time dropdown */
+.time-dropdown {
+  display: flex;
+  align-items: center;
+}
 
-   .larger-label {
-     font-size: 22px;
-   }
+/* Styling for alternate time separator */
+.alternate-time-separator {
+  margin: 0 15px;
+}
 
-   @media (min-width: 595px) and (max-width: 920px) {
-     .alternate-schedule-details {
-       width: 550px;
-     }
-   }
+/* Styling for larger labels */
+.larger-label {
+  font-size: 22px;
+}
 
-   @media (min-width: 400px) and (max-width: 594px) {
-     .alternate-schedule-details {
-       width: 380px;
-     }
+/* Media queries for different screen sizes */
 
-     .alternate-day-checkboxes td {
-       padding: 1px;
-     }
+@media (min-width: 595px) and (max-width: 920px) {
+  /* Adjust width of alternate schedule details container */
+  .alternate-schedule-details {
+    width: 550px;
+  }
+}
 
-     #alternate-start-time-select-Monday,
-     #alternate-end-time-select-Monday,
-     #alternate-start-time-select-Tuesday,
-     #alternate-end-time-select-Tuesday,
-     #alternate-start-time-select-Wednesday,
-     #alternate-end-time-select-Wednesday,
-     #alternate-start-time-select-Thursday,
-     #alternate-end-time-select-Thursday,
-     #alternate-start-time-select-Friday,
-     #alternate-end-time-select-Friday,
-     #alternate-start-time-select-Saturday,
-     #alternate-end-time-select-Saturday,
-     #alternate-start-time-select-Sunday,
-     #alternate-end-time-select-Sunday {
-       padding-right: 26px;
-     }
+@media (min-width: 400px) and (max-width: 594px) {
+  /* Adjust width of alternate schedule details container */
+  .alternate-schedule-details {
+    width: 380px;
+  }
 
-     .alternate-time-separator {
-       margin: 0 7px;
-     }
-   }
+  /* Adjust padding for alternate day checkboxes on smaller screens */
+  .alternate-day-checkboxes td {
+    padding: 1px;
+  }
 
-   @media (min-width: 347px) and (max-width: 399px) {
-     .alternate-schedule-details {
-       width: 330px;
-     }
+  /* Adjust padding and font size for alternate time select inputs on smaller screens */
+  #alternate-start-time-select-Monday,
+  #alternate-end-time-select-Monday,
+  #alternate-start-time-select-Tuesday,
+  #alternate-end-time-select-Tuesday,
+  #alternate-start-time-select-Wednesday,
+  #alternate-end-time-select-Wednesday,
+  #alternate-start-time-select-Thursday,
+  #alternate-end-time-select-Thursday,
+  #alternate-start-time-select-Friday,
+  #alternate-end-time-select-Friday,
+  #alternate-start-time-select-Saturday,
+  #alternate-end-time-select-Saturday,
+  #alternate-start-time-select-Sunday,
+  #alternate-end-time-select-Sunday {
+    padding-right: 26px;
+  }
 
-     .alternate-day-checkboxes td {
-       padding: 1px;
-     }
+  /* Adjust margin of alternate time separator on smaller screens */
+  .alternate-time-separator {
+    margin: 0 7px;
+  }
+}
 
-     #alternate-start-time-select-Monday,
-     #alternate-end-time-select-Monday,
-     #alternate-start-time-select-Tuesday,
-     #alternate-end-time-select-Tuesday,
-     #alternate-start-time-select-Wednesday,
-     #alternate-end-time-select-Wednesday,
-     #alternate-start-time-select-Thursday,
-     #alternate-end-time-select-Thursday,
-     #alternate-start-time-select-Friday,
-     #alternate-end-time-select-Friday,
-     #alternate-start-time-select-Saturday,
-     #alternate-end-time-select-Saturday,
-     #alternate-start-time-select-Sunday,
-     #alternate-end-time-select-Sunday {
-       padding-right: 26px;
-       font-size: 11px;
-       padding-left: 12px;
-     }
+@media (min-width: 347px) and (max-width: 399px) {
+  /* Adjust width of alternate schedule details container */
+  .alternate-schedule-details {
+    width: 330px;
+  }
 
-     .alternate-time-separator {
-       margin: 0 7px;
-     }
+  /* Adjust padding for alternate day checkboxes on smaller screens */
+  .alternate-day-checkboxes td {
+    padding: 1px;
+  }
 
-     span {
-       font-size: 14px;
-     }
-   }
+  /* Adjust padding, font size, and alignment for alternate time select inputs on smaller screens */
+  #alternate-start-time-select-Monday,
+  #alternate-end-time-select-Monday,
+  #alternate-start-time-select-Tuesday,
+  #alternate-end-time-select-Tuesday,
+  #alternate-start-time-select-Wednesday,
+  #alternate-end-time-select-Wednesday,
+  #alternate-start-time-select-Thursday,
+  #alternate-end-time-select-Thursday,
+  #alternate-start-time-select-Friday,
+  #alternate-end-time-select-Friday,
+  #alternate-start-time-select-Saturday,
+  #alternate-end-time-select-Saturday,
+  #alternate-start-time-select-Sunday,
+  #alternate-end-time-select-Sunday {
+    padding-right: 26px;
+    font-size: 11px;
+    padding-left: 12px;
+  }
 
-   @media (min-width: 291px) and (max-width: 346px) {
-     .alternate-schedule-details {
-       width: 280px;
-     }
+  /* Adjust margin of alternate time separator on smaller screens */
+  .alternate-time-separator {
+    margin: 0 7px;
+  }
 
-     .alternate-day-checkboxes td {
-       padding: 1px;
-     }
+  /* Adjust font size for spans on smaller screens */
+  span {
+    font-size: 14px;
+  }
+}
 
-     #alternate-start-time-select-Monday,
-     #alternate-end-time-select-Monday,
-     #alternate-start-time-select-Tuesday,
-     #alternate-end-time-select-Tuesday,
-     #alternate-start-time-select-Wednesday,
-     #alternate-end-time-select-Wednesday,
-     #alternate-start-time-select-Thursday,
-     #alternate-end-time-select-Thursday,
-     #alternate-start-time-select-Friday,
-     #alternate-end-time-select-Friday,
-     #alternate-start-time-select-Saturday,
-     #alternate-end-time-select-Saturday,
-     #alternate-start-time-select-Sunday,
-     #alternate-end-time-select-Sunday {
-       padding-right: 21px;
-       font-size: 8px;
-       padding-left: 7px;
-     }
+@media (min-width: 291px) and (max-width: 346px) {
+  /* Adjust width of alternate schedule details container */
+  .alternate-schedule-details {
+    width: 280px;
+  }
 
-     .alternate-time-separator {
-       margin: 0 2px;
-     }
+  /* Adjust padding for alternate day checkboxes on smaller screens */
+  .alternate-day-checkboxes td {
+    padding: 1px;
+  }
 
-     span {
-       font-size: 13px;
-     }
+  /* Adjust padding, font size, and alignment for alternate time select inputs on smaller screens */
+  #alternate-start-time-select-Monday,
+  #alternate-end-time-select-Monday,
+  #alternate-start-time-select-Tuesday,
+  #alternate-end-time-select-Tuesday,
+  #alternate-start-time-select-Wednesday,
+  #alternate-end-time-select-Wednesday,
+  #alternate-start-time-select-Thursday,
+  #alternate-end-time-select-Thursday,
+  #alternate-start-time-select-Friday,
+  #alternate-end-time-select-Friday,
+  #alternate-start-time-select-Saturday,
+  #alternate-end-time-select-Saturday,
+  #alternate-start-time-select-Sunday,
+  #alternate-end-time-select-Sunday {
+    padding-right: 21px;
+    font-size: 8px;
+    padding-left: 7px;
+  }
 
-     .unavailable {
-       margin-left: 30px;
-       font-size: 15px;
-     }
-   }
+  /* Adjust margin of alternate time separator on smaller screens */
+  .alternate-time-separator {
+    margin: 0 2px;
+  }
+
+  /* Adjust font size for spans on smaller screens */
+  span {
+    font-size: 13px;
+  }
+
+  /* Adjust styling for unavailable class on smaller screens */
+  .unavailable {
+    margin-left: 30px;
+    font-size: 15px;
+  }
+}

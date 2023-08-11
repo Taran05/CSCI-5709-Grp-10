@@ -1,83 +1,105 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+/**
+ * This CSS file contains responsive styling for various screen sizes.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
  */
 
+/* Default styles for h4 element */
+h4 {
+  color: #161414be;
+  margin-left: 30px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Default styles for text-settings class */
+.text-settings {
+  padding-right: 300px;
+}
+
+/* Media query for screen width between 921px and 1024px */
+@media (min-width: 921px) and (max-width: 1024px) {
+  /* Adjust width of h4 element */
   h4 {
-    color: #161414be;
-    margin-left: 30px;
-    font-weight: bold;
-    font-size: 16px;
+    width: 380px;
   }
-
+  /* Adjust padding-right for text-settings class */
   .text-settings {
-    padding-right: 300px;
+    padding-right: 100px;
   }
+}
 
-  @media (min-width: 921px) and (max-width: 1024px) {
-    h4 {
-      width: 380px;
-    }
-    .text-settings {
-      padding-right: 100px;
-    }
+/* Media query for screen width between 595px and 920px */
+@media (min-width: 595px) and (max-width: 920px) {
+  /* Adjust width of h4 element */
+  h4 {
+    width: 180px;
   }
+  /* Adjust padding-right for text-settings class */
+  .text-settings {
+    padding-right: 100px;
+  }
+}
 
-  @media (min-width: 595px) and (max-width: 920px) {
-    h4 {
-      width: 180px;
-    }
-    .text-settings {
-      padding-right: 100px;
-    }
+/* Media query for screen width between 400px and 594px */
+@media (min-width: 400px) and (max-width: 594px) {
+  /* Adjust styles for flex-container class within a table row */
+  tr.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
+  /* Adjust margin and padding for text-settings class */
+  .text-settings {
+    margin-bottom: 10px;
+    padding-right: 0px;
+  }
+  /* Adjust width and padding-left for notice-period element */
+  #notice-period {
+    width: 350px;
+    padding-left: 30px;
+  }
+}
 
-  @media (min-width: 400px) and (max-width: 594px) {
-    tr.flex-container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .text-settings {
-      margin-bottom: 10px;
-      padding-right: 0px;
-    }
-    #notice-period{
-      width: 350px;
-      padding-left: 30px;
-    }
+/* Media query for screen width between 347px and 399px */
+@media (min-width: 347px) and (max-width: 399px) {
+  /* Adjust styles for flex-container class within a table row */
+  tr.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
+  /* Adjust margin and padding for text-settings class */
+  .text-settings {
+    margin-bottom: 10px;
+    padding-right: 0px;
+  }
+  /* Adjust width and padding-left for notice-period element */
+  #notice-period {
+    width: 310px;
+    padding-left: 30px;
+  }
+}
 
-  @media (min-width: 347px) and (max-width: 399px) {
-    tr.flex-container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .text-settings {
-      margin-bottom: 10px;
-      padding-right: 0px;
-    }
-    #notice-period{
-      width: 310px;
-      padding-left: 30px;
-    }
+/* Media query for screen width between 291px and 346px */
+@media (min-width: 291px) and (max-width: 346px) {
+  /* Adjust styles for flex-container class within a table row */
+  tr.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
-
-  @media (min-width: 291px) and (max-width: 346px) {
-    tr.flex-container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .text-settings {
-      margin-bottom: 10px;
-      padding-right: 0px;
-    }
-    #notice-period{
-      width: 250px;
-      padding-left: 30px;
-    }
-    h4{
-      width: 260px;
-    }
+  /* Adjust margin and padding for text-settings class */
+  .text-settings {
+    margin-bottom: 10px;
+    padding-right: 0px;
   }
+  /* Adjust width and padding-left for notice-period element */
+  #notice-period {
+    width: 250px;
+    padding-left: 30px;
+  }
+  /* Adjust width for h4 element */
+  h4 {
+    width: 260px;
+  }
+}

@@ -12,7 +12,7 @@ function RegisterPage() {
       <div className="register-container">
         <div className="register-left-div">
           <div className="register-form">
-            <h1 className="register-form-header">CREATE YOUR ACCOUNT</h1>
+            <h1 className="register-form-header"> CREATE ACCOUNT</h1>
 
             <h2 className="register-form-header-sub">
               Getting started with Learnly is simple,quick and easy

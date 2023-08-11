@@ -36,7 +36,7 @@ export default function FormComp() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-
+  // const [isGoogle, setIsGoogle] = useState(true);
   const handleGoogleLogin = () => {
     signInWithPopup(auth, providerGoogle)
       .then((result) => {
@@ -120,7 +120,7 @@ export default function FormComp() {
     setIsEmailValid(true);
     setIsPasswordValid(true);
     axios
-      .post(LOGIN_USER, { email, password })
+      .post(LOGIN_USER, { email, password, isGoogle: false })
       .then((response) => {
         if (response.status === 200) {
           handleSnackbarOpen("Login successful. Redirecting...");

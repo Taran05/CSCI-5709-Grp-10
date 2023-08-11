@@ -10,9 +10,9 @@ function StartPicsComp() {
   const [currImage, setCurrImage] = useState(0);
 
   let imageUrls = [
-    "assets/images/landing/start/laptop.jpg",
-    "assets/images/landing/start/phone.jpg",
-    "assets/images/landing/start/study.jpg",
+    "assets/images/landing/start/learning.png",
+    "assets/images/landing/start/teacher.png",
+    "assets/images/landing/start/boy.png",
   ];
 
   function changeImage() {

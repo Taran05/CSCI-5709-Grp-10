@@ -28,6 +28,7 @@ import {
   ToggleButton,
   Divider,
   Typography,
+  Tooltip,
 } from "@mui/material";
 import ServiceCardComp from "../serviceCard/serviceCardComp";
 import { InputAdornment } from "@mui/material";
@@ -320,7 +321,9 @@ export default function EditMentorServicesComp({
         color="inherit"
         // startIcon={}
       >
-        <EditIcon />
+        <Tooltip title="Edit Service" placement="bottom">
+          <EditIcon />
+        </Tooltip>
       </Button>
 
       <Modal

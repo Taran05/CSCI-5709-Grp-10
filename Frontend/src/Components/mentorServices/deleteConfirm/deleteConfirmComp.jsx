@@ -13,7 +13,7 @@ import { grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Tooltip, Typography } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -83,7 +83,9 @@ export default function DeleteConfirmComp({
         color="error"
         // startIcon={}
       >
-        <DeleteIcon />
+        <Tooltip title="Delete Service" placement="bottom">
+          <DeleteIcon />
+        </Tooltip>
       </Button>
       <Modal
         open={open}

@@ -17,20 +17,24 @@ import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 
 import { MenuItem, Select, TextField, Button, Typography } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  // width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
-export default function AddMentorServicesComp({ changeDisplayOption }) {
+export default function AddMentorServicesComp({
+  changeDisplayOption,
+  showSnackbar,
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -95,6 +99,11 @@ export default function AddMentorServicesComp({ changeDisplayOption }) {
       setDurationHelperText("Must be a Number");
 
       return false;
+    } else if (Number(duration) <= 10) {
+      setisValidDuration(false);
+      setDurationHelperText("Duration must be more that 10 minutes");
+
+      return false;
     }
 
     setisValidDuration(true);
@@ -111,6 +120,11 @@ export default function AddMentorServicesComp({ changeDisplayOption }) {
     } else if (isNaN(Number(price))) {
       setisValidPrice(false);
       setPriceHelperText("Must be a Number");
+
+      return false;
+    } else if (Number(price) < 0) {
+      setisValidPrice(false);
+      setPriceHelperText("Price can not be less than 0");
 
       return false;
     }
@@ -151,13 +165,15 @@ export default function AddMentorServicesComp({ changeDisplayOption }) {
       try {
         const response = await axios.post(apiUrl, postData);
         console.log(response.data);
+        showSnackbar("Service Created", "success");
         setDuration("");
         setTitle("");
         setPrice("");
         handleClose();
         changeDisplayOption(selectedService);
       } catch (error) {
-        console.error("Error saving query:", error);
+        console.error("Error saving service:", error);
+        showSnackbar("Error: Not able create Service", "error");
       }
     } else {
       // alert("Please fill all the fields before saving.");
@@ -273,6 +289,11 @@ export default function AddMentorServicesComp({ changeDisplayOption }) {
               error={!isValidDuration}
               // type="number"
               sx={{ mb: 2 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">minutes</InputAdornment>
+                ),
+              }}
             />
             <TextField
               label="Price"
@@ -284,6 +305,11 @@ export default function AddMentorServicesComp({ changeDisplayOption }) {
               helperText={priceHelperText}
               error={!isValidPrice}
               sx={{ mb: 2 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">$</InputAdornment>
+                ),
+              }}
             />
             <SaveButton type="submit" variant="contained" fullWidth>
               Save

@@ -4,12 +4,13 @@ import Issue, { IIssue } from '../../models/issueModel';
 
 const issueController = {
     createIssue: async (req: Request, res: Response) => {
-        const { title, description } = req.body;
+        const { title, description, userName } = req.body;
         try {
-            if (title && description) {
+            if (title && description && userName) {
                 const newIssue: IIssue = new Issue({
                     title,
-                    description
+                    description,
+                    userName
                 });
                 await newIssue.save();
                 res.status(201).json({ message: 'Issue reported successfully' });
@@ -23,9 +24,10 @@ const issueController = {
             res.status(500).json({ error: 'Failed to report issue' });
         }
     },
-    getAllIssues: async (_req: Request, res: Response) => {
+    getAllIssues: async (req: Request, res: Response) => {
+        const userName = req.params.userName
         try {
-            const issues = await Issue.find();
+            const issues = await Issue.find({userName: userName.toString()});
             res.status(200).json(issues);
 
         } catch (error) {

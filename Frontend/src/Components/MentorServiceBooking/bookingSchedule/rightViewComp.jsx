@@ -9,7 +9,8 @@ import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { grey } from "@mui/material/colors";
-import { MENTOR_AVAILABILITY_URL } from "../../../utils/apiUrls";
+import axios from 'axios';
+import { MENTOR_DEFAULT_AVAILABILITY_URL, MENTOR_ALTERNATE_AVAILABILITY_URL, GET_SELECTED_SCHEDULE } from "../../../utils/apiUrls";
 
 const SelectableBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -65,8 +66,23 @@ const RightViewComponent = ({
   useEffect(() => {
     const fetchAvailability = async () => {
       try {
+        const apiUrl = GET_SELECTED_SCHEDULE;
+        const params = {
+          mentorId: mentorId,
+        };
+        const scheduleResponse = await axios.get(apiUrl, { params });
+        console.log(scheduleResponse);
+        const fetchedScheduleData = scheduleResponse?.data?.switchScheduleSettings;
+        console.log(fetchedScheduleData);
+        let AVAILABILITY_URL = ""
+        if(fetchedScheduleData == null || fetchedScheduleData.isDefaultSchedule){
+          AVAILABILITY_URL = MENTOR_DEFAULT_AVAILABILITY_URL;
+        }
+        else{
+          AVAILABILITY_URL = MENTOR_ALTERNATE_AVAILABILITY_URL;
+        }
         const response = await fetch(
-          MENTOR_AVAILABILITY_URL + "?mentorId=" + mentorId
+          AVAILABILITY_URL + "?mentorId=" + mentorId
         );
         let data = await response.json();
 
@@ -159,7 +175,7 @@ const RightViewComponent = ({
               gap: "1rem",
             }}
             ref={datesContainerRef}
-          >
+          > 
             {availability.map((item) => (
               <SelectableBox
                 key={item.date}
@@ -170,7 +186,7 @@ const RightViewComponent = ({
                   {format(new Date(item.date), "MMM dd")}
                 </Typography>
                 <Typography variant="body1">
-                  {format(new Date(item.date), "EEEE")}
+                  {item.day}
                 </Typography>
               </SelectableBox>
             ))}
@@ -222,7 +238,7 @@ const RightViewComponent = ({
         <ConfirmButton
           variant="contained"
           color="primary"
-          onClick={() => {
+          onClick={() => { 
             navigate("/studentDetails", {
               state: {
                 selectedTime,

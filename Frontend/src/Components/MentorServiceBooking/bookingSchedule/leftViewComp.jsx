@@ -29,7 +29,9 @@ const LeftViewComponent = ({
         <div className="divider-vertical" />
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <EventIcon sx={{ fontSize: "1.2rem", marginRight: "4px" }} />
-          <Typography variant="h6">{serviceDuration} of meeting</Typography>
+          <Typography variant="h6">
+            {serviceDuration} minitues of meeting
+          </Typography>
         </Box>
       </Box>
     </Paper>

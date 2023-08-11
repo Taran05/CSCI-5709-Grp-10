@@ -1,3 +1,7 @@
+/**
+ * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
+ */
+
 import React, { useState } from "react";
 import axios from "axios";
 import {
@@ -30,6 +34,7 @@ function EditBookingComp({ booking, onReschedule, onCancel }) {
   const [actionType, setActionType] = useState(null);
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [selectedTime, setSelectedTime] = useState(dayjs());
+  const today = dayjs().startOf("day");
 
   const handleDialogOpen = (type) => {
     setActionType(type);
@@ -50,8 +55,8 @@ function EditBookingComp({ booking, onReschedule, onCancel }) {
 
       try {
         await axios.post(RESCHEDULE_MENTOR_BOOKING, {
-          bookingId: booking.id,
-          newTime: combinedDateTime.format(), // Or another format you require
+          bookingId: booking.bookingId,
+          newTime: combinedDateTime.format(),
         });
         setSnackbarMessage(
           `Rescheduled to ${combinedDateTime.format("YYYY-MM-DD HH:mm")}`
@@ -111,6 +116,7 @@ function EditBookingComp({ booking, onReschedule, onCancel }) {
                 <MobileDatePicker
                   value={selectedDate}
                   onChange={(date) => setSelectedDate(dayjs(date))}
+                  minDate={today}
                 />
                 <TimePicker
                   value={selectedTime}
@@ -148,7 +154,6 @@ function EditBookingComp({ booking, onReschedule, onCancel }) {
         )}
       </Dialog>
 
-      {/* Snackbar for feedback */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}

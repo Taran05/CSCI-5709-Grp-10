@@ -20,6 +20,7 @@ const StudentBooking = mongoose.model(
     price: String,
     bookingId: String,
     isCancelled: Boolean,
+    isDefaultSchedule: Boolean,
   })
 );
 

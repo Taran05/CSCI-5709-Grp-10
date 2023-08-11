@@ -54,6 +54,7 @@ export default function PageHeaderComp({
   pageTitle,
   changeDisplayOption,
   displayOption,
+  showSnackbar,
 }) {
   // State variables to manage the selected component
   // const [seleactedButton, setSeleactedButton] = useState("1:1");
@@ -111,6 +112,7 @@ export default function PageHeaderComp({
               HeaderButton={HeaderButton}
               changeDisplayOption={changeDisplayOption}
               displayOption={displayOption}
+              showSnackbar={showSnackbar}
             />
             {/* </Grid> */}
             {/* </Grid> */}

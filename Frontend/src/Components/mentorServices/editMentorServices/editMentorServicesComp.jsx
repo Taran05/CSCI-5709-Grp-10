@@ -30,13 +30,14 @@ import {
   Typography,
 } from "@mui/material";
 import ServiceCardComp from "../serviceCard/serviceCardComp";
+import { InputAdornment } from "@mui/material";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  // width: 400,
   minHeight: "500px",
   bgcolor: "background.paper",
   border: "2px solid #000",
@@ -47,6 +48,7 @@ const style = {
 export default function EditMentorServicesComp({
   service,
   changeDisplayOption,
+  showSnackbar,
 }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -140,6 +142,11 @@ export default function EditMentorServicesComp({
       setDurationHelperText("Must be a Number");
 
       return false;
+    } else if (Number(duration) <= 10) {
+      setisValidDuration(false);
+      setDurationHelperText("Duration must be more that 10 minutes");
+
+      return false;
     }
 
     setisValidDuration(true);
@@ -156,6 +163,11 @@ export default function EditMentorServicesComp({
     } else if (isNaN(Number(price))) {
       setisValidPrice(false);
       setPriceHelperText("Must be a Number");
+
+      return false;
+    } else if (Number(price) < 0) {
+      setisValidPrice(false);
+      setPriceHelperText("Price can not be less than 0");
 
       return false;
     }
@@ -186,6 +198,11 @@ export default function EditMentorServicesComp({
     } else if (isNaN(Number(percentage))) {
       setisValidPercentage(false);
       setPercentageHelperText("Must be a Number");
+
+      return false;
+    } else if (Number(percentage) < 0) {
+      setisValidPercentage(false);
+      setPercentageHelperText("Percentage can not be less than 0");
 
       return false;
     }
@@ -247,10 +264,12 @@ export default function EditMentorServicesComp({
         console.log(response.data);
         // changeDisplayOption("Query");
         changeDisplayOption(selectedService);
+        showSnackbar("Service updated Successfuly", "success");
         handleClose();
         // changeDisplayOption(selectedService);
       } catch (error) {
         console.error("Error Editing Serivce:", error);
+        showSnackbar("Failed to update Service", "error");
       }
     } else {
       // alert("Please fill all the fields before saving.");
@@ -388,6 +407,11 @@ export default function EditMentorServicesComp({
                   error={!isValidDuration}
                   // type="number"
                   sx={{ mb: 2 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">minutes</InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   label="Description"
@@ -413,6 +437,11 @@ export default function EditMentorServicesComp({
                   helperText={priceHelperText}
                   error={!isValidPrice}
                   sx={{ mb: 2 }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
                 />
 
                 <TextField
@@ -437,6 +466,11 @@ export default function EditMentorServicesComp({
                   helperText={percentageHelperText}
                   error={!isValidPercentage}
                   sx={{ mb: 2 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">%</InputAdornment>
+                    ),
+                  }}
                 />
               </>
             )}

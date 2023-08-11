@@ -91,7 +91,6 @@ const StudentDetailsForm = () => {
       price: "",
       bookingId: bookingId,
       isCancelled: false,
-      isDefaultSchedule: true,
     };
 
     // Send details to server, then navigate

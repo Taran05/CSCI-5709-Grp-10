@@ -24,7 +24,8 @@ function BookingDashboardComp({ booking }) {
   if (booking.isCancelled) {
     dateContent = <span style={{ color: "red" }}>Cancelled</span>;
   } else {
-    dateContent = formattedDate;
+    dateContent =
+      formattedDate.split("/")[0] + "/" + formattedDate.split("/")[1];
   }
 
   const handleCancel = async () => {

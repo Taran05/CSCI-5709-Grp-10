@@ -26,6 +26,7 @@ import paymentsRoute from "./routes/payments/paymentsRoute";
 import putServicesRoute from "./routes/servicesRoutes/putServicesRoute";
 import updateServicesRoute from "./routes/servicesRoutes/updateServiceRoute";
 import deleteServicesRoute from "./routes/servicesRoutes/deleteServiceRoute";
+import mailRoutes from "./routes/mailRoutes/mailRoutes";
 
 const app: Express = express();
 
@@ -65,6 +66,8 @@ app.use("/api/", paymentsRoute);
 app.use("/api/", putServicesRoute);
 app.use("/api/", updateServicesRoute);
 app.use("/api/", deleteServicesRoute);
+app.use("/api/", mailRoutes);
+
 const port: number = 3001;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

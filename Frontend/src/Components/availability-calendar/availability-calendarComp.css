@@ -7,9 +7,9 @@
 
 @media (min-width: 291px) and (max-width: 346px) {
   .calendar-button {
-    width: "50px";
+    width: 50px;
   }
   .schedule-button {
-    width: "50px";
+    width: 50px;
   }
 }

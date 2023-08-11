@@ -7,5 +7,5 @@
 }
 .profile-form,
 .profile-right-div {
-  font-family: "Roboto";
+  font-family: "Roboto", Arial, sans-serif !important;
 }

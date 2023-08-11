@@ -123,7 +123,7 @@ export default function FormComp() {
       .post(LOGIN_USER, { email, password, isGoogle: false })
       .then((response) => {
         if (response.status === 200) {
-          handleSnackbarOpen("Login successful. Redirecting...");
+          handleSnackbarOpen("Logged in successfully. Redirecting...");
 
           localStorage.setItem("user", JSON.stringify(response.data.user));
           setTimeout(() => {

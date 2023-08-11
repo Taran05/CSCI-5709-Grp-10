@@ -18,6 +18,20 @@ function BookingDashboardComp({ booking }) {
   const handleSnackBarClose = () => setSnackBarOpen(false);
   let dateContent;
 
+  const isBookingUpcoming = (selectedDate) => {
+    const today = new Date();
+    const bookingDate = new Date(selectedDate);
+
+    // Reset time components of both dates to compare only the date parts
+    today.setHours(0, 0, 0, 0);
+    bookingDate.setHours(0, 0, 0, 0);
+
+    return bookingDate >= today;
+  };
+  let bookingStatus = isBookingUpcoming(booking.selectedDate)
+    ? "Upcoming"
+    : "Completed";
+
   const formattedDate = booking.selectedDate
     ? new Date(booking.selectedDate).toLocaleDateString()
     : "Not specified";
@@ -62,13 +76,16 @@ function BookingDashboardComp({ booking }) {
           </div>
           <p className="booking-time">Time: {booking.selectedTime}</p>
           <div className="divider"></div>
-          <Button
-            variant="outlined"
-            className="call-details-btn"
-            onClick={handleOpen}
-          >
-            Call Details
-          </Button>
+          <div className="button-and-status">
+            <Button
+              variant="outlined"
+              className="call-details-btn"
+              onClick={handleOpen}
+            >
+              Call Details
+            </Button>
+            <p className="booking-status">{bookingStatus}</p>
+          </div>
           <Modal open={openModal} onClose={handleClose} centered>
             <div className="modal-content">
               <h4>Edit Booking Details</h4>

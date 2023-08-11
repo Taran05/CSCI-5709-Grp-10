@@ -3,14 +3,11 @@
  */
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-// import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-// import { TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { PUT_SERVICE_DETAILS, SAVE_QUERY } from "../../../utils/apiUrls";
 import "./addMentorServicesComp.css";
 import CloseIcon from "@mui/icons-material/Close";
-import SendIcon from "@mui/icons-material/Send";
 import { useSnackbar } from "notistack";
 import { purple, grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
@@ -24,7 +21,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  // width: 400,
+  width: 250,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,

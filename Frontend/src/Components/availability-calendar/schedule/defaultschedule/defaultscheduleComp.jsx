@@ -11,7 +11,7 @@ import { grey } from "@mui/material/colors";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox, FormControl, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
-import { SAVE_DEFAULT_SCHEDULE, GET_DEFAULT_SCHEDULE } from "../../../../utils/apiUrls";
+import { SAVE_DEFAULT_SCHEDULE, GET_DEFAULT_SCHEDULE, SWITCH_SCHEDULE } from "../../../../utils/apiUrls";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
 export default function DefaultSchedule() {
@@ -83,12 +83,20 @@ export default function DefaultSchedule() {
 
     // Helper function to convert time to minutes
     const convertTimeToMinutes = (time) => {
-        const [hours, minutes] = time.split(":");
-        let totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
-        if (time.includes("PM")) {
-            totalMinutes += 12 * 60; // Adding 12 hours for PM times
+        const [hours] = time.split(":");
+        let totalHours = parseInt(hours);
+        if(totalHours == 12){
+            if(time.includes("AM")){
+                totalHours = 0;
+            }
+            else{
+                totalHours = 12;
+            }
         }
-        return totalMinutes;
+        else if (time.includes("PM")) {
+            totalHours += 12;
+        }
+        return totalHours;
     };
 
     const handleSaveChanges = async () => {
@@ -107,7 +115,8 @@ export default function DefaultSchedule() {
             if (checked) {
                 const startMinutes = convertTimeToMinutes(startTime);
                 const endMinutes = convertTimeToMinutes(endTime);
-                console.log("SM : " + startMinutes + " EM : " + endMinutes);
+                console.log("ST : " + startMinutes);
+                console.log("ET : " + endMinutes);
                 if (startMinutes >= endMinutes) {
                     isTimeValid = false;
                 }
@@ -129,18 +138,38 @@ export default function DefaultSchedule() {
         }
 
         console.log(defaultScheduleData);
-        const apiUrl = SAVE_DEFAULT_SCHEDULE;
+        let apiUrl = SAVE_DEFAULT_SCHEDULE;
         try {
             // Send the selectedDays data to the backend API
             const response = await axios.post(apiUrl, defaultScheduleData);
-            if (response.status === 201) {
-                toast.success("Default Schedule Saved Successfully!");
-                setSaveStatus('success');
-                setChangesMade(true);
-                return;
-            } else if (response.status === 200) {
-                toast.success("Default Schedule Saved Successfully");
-            } else {
+            if (response.status === 200 || response.status === 201) {
+                apiUrl = SWITCH_SCHEDULE;
+                const switchScheduleData = {
+                    mentorId: localUser.userName, 
+                    scheduleName: "default",
+                  }
+                  console.log(switchScheduleData);
+                try {
+                    const response = await axios.post(apiUrl, switchScheduleData);
+                    if (response.status === 201) {
+                        toast.success("Default Schedule Saved Successfully!");
+                        setSaveStatus('success');
+                        setChangesMade(true);
+                        return;
+                    }
+                    else if (response.status === 200) {
+                        toast.success("Default Schedule Saved Successfully");
+                    } else {
+                        toast.error("Failed to Save Default Schedule");
+                    }
+                }
+                catch (error) {
+                    setSaveStatus('error');
+                    console.error(error);
+                    toast.error('Failed to Save Default Schedule');
+                }
+            }
+            else {
                 toast.error("Failed to Save Default Schedule");
             }
         } catch (error) {

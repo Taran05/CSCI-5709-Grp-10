@@ -78,18 +78,20 @@ export default function BlockDates() {
 
   useEffect(() => {
     // Fetch the unavailable dates from the backend API
+    const localUser = JSON.parse(localStorage.getItem("user"));
+    console.log("Printing local user:", localUser);
+    setLocalUser(localUser);
     const fetchUnavailableDates = async () => {
-      const localUser = JSON.parse(localStorage.getItem("user"));
-      console.log("Printing local user:", localUser);
-      setLocalUser(localUser);
       try {
         const apiUrl = GET_UNAVAILABLE_DATES;
-        const response = await axios.get(apiUrl);
-
-        const blockedDatesData = response?.data?.blockedDates?.[0]?.blockedDatesData;
+        const params = {
+          mentorId: localUser.userName,
+        };
+        const response = await axios.get(apiUrl, { params });
+        const blockedDatesData = response?.data?.blockedDates;
+        console.log(blockedDatesData);
         if (blockedDatesData) {
-          console.log(response.data.blockedDates[0].blockedDatesData.dates);
-          const fetchedDates = response.data.blockedDates[0].blockedDatesData.dates.map((dateStr) => {
+          const fetchedDates = blockedDatesData.dates.map((dateStr) => {
             const [year, month, day] = dateStr.split('-').map(Number);
             return new Date(year, month - 1, day); // Month is zero-based in JavaScript Dates
           });

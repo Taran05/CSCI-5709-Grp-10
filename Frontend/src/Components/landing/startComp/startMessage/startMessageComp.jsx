@@ -35,10 +35,6 @@ function StartMessageComp() {
     },
   }));
 
-  const handleStartMyPage = (e) => {
-    navigate("/register");
-  };
-
   const handleFeedbacks = (e) => {
     navigate("/contact");
   };
@@ -61,11 +57,7 @@ function StartMessageComp() {
         <Grid item sm={12}>
           <Grid container spacing={2}>
             <Grid item sm={6}>
-              <StartPageButton
-                variant="contained"
-                onClick={(e) => handleStartMyPage(e)}
-                fullWidth
-              >
+              <StartPageButton variant="contained" href="/register" fullWidth>
                 Start My Page <ArrowForwardIcon AlignHorizontalRight />
               </StartPageButton>
             </Grid>

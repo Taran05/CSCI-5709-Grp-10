@@ -6,11 +6,11 @@ import { Request, Response } from "express";
 import User, { IUser } from "../../models/usersModel";
 import { checkPassword } from "../../util/hashingUtil";
 const userLogin = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password, isGoogle } = req.body;
 
   try {
     // Find the user with the provided userName in the database
-    const user: IUser | null = await User.findOne({ email });
+    const user: IUser | null = await User.findOne({ email, isGoogle });
 
     // If the user is not found, return an error
     if (!user) {

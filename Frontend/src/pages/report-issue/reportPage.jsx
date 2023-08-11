@@ -16,10 +16,10 @@ import { GET_ALL_ISSUES } from "../../utils/apiUrls";
 const ReportPage = () => {
   const [issues, setIssues] = useState([]);
   const navigate = useNavigate();
-
+  const localUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     const checkLogin = async () => {
-      const localUser = JSON.parse(localStorage.getItem("user"));
+      
       console.log("Printing local user:", localUser);
 
       if (!localUser) {
@@ -32,7 +32,7 @@ const ReportPage = () => {
 
   const fetchIssues = async () => {
     try {
-      const res = await fetch(GET_ALL_ISSUES);
+      const res = await fetch(GET_ALL_ISSUES + `/${localUser.userName}`);
       if (!res.ok) {
         throw new Error(res.statusText);
       }

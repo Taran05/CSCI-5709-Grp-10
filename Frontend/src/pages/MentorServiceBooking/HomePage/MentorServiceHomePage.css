@@ -9,9 +9,11 @@
 .left-container {
   width: 25%;
   background-color: #e3e3e3;
+  position: fixed;
 }
 
 .right-container {
   width: 75%;
   background-color: #ffffff;
+  margin-left: 25%;
 }

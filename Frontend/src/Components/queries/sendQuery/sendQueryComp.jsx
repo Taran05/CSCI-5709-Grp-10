@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { TextField, Typography } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { SAVE_QUERY } from "../../../utils/apiUrls";
 import "./sendQueryComp.css";
@@ -18,7 +18,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  // width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -91,8 +91,6 @@ export default function SendQueryComp({ mentorId, mentorName }) {
       <Modal
         open={open}
         onClose={handleClose}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
         className="sendQueryStudentModal"
       >
         <Box sx={style}>
@@ -100,7 +98,7 @@ export default function SendQueryComp({ mentorId, mentorName }) {
             <Button
               variant="text"
               className="closeButton"
-              onClick={(e) => handleClose(e)}
+              onClick={handleClose}
             >
               <CloseIcon />
             </Button>
@@ -113,45 +111,51 @@ export default function SendQueryComp({ mentorId, mentorName }) {
             .
           </Typography>
           <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              variant="outlined"
-              fullWidth
-              required
-              margin="normal"
-              onChange={handleNameChange}
-            />
-
-            <TextField
-              label="Email"
-              variant="outlined"
-              fullWidth
-              required
-              type="email"
-              margin="normal"
-              onChange={handleEmailChange}
-            />
-
-            <TextField
-              label="Title"
-              variant="outlined"
-              fullWidth
-              required
-              margin="normal"
-              onChange={handleTitleChange}
-            />
-
-            <TextField
-              label="Content"
-              variant="outlined"
-              multiline
-              rows={5}
-              fullWidth
-              required
-              margin="normal"
-              onChange={handleContentChange}
-            />
-
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  label="Name"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  margin="normal"
+                  onChange={handleNameChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Email"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  type="email"
+                  margin="normal"
+                  onChange={handleEmailChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Title"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  margin="normal"
+                  onChange={handleTitleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Content"
+                  variant="outlined"
+                  multiline
+                  rows={5}
+                  fullWidth
+                  required
+                  margin="normal"
+                  onChange={handleContentChange}
+                />
+              </Grid>
+            </Grid>
             <div className="buttonUpperDiv">
               <Button type="submit" variant="contained" color="primary">
                 <SendIcon />

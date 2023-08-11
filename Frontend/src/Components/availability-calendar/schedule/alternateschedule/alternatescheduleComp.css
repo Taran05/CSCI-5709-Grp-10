@@ -1,13 +1,10 @@
-/**
- * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+   /**
+ * @author Taranjot Singh <tr548284@dal.ca/B00945917>
  */
-
-/* Styling for the schedule name */
-.schedule-name span {
+ .schedule-name span {
   font-size: 20px;
 }
 
-/* Styling for the alternate schedule details container */
 .alternate-schedule-details {
   flex-direction: column;
   padding-left: 10px;
@@ -16,7 +13,6 @@
   padding: 20px;
 }
 
-/* Styling for the day checkboxes */
 .day-checkboxes label {
   display: flex;
   margin-right: 10px;
@@ -29,67 +25,54 @@
   margin-top: 10px;
 }
 
-/* Styling for the day checkboxes input */
 .day-checkboxes label input {
   margin-right: 10px;
   display: inline;
 }
 
-/* Styling for the day checkboxes table */
 .day-checkboxes table {
   border-collapse: collapse;
   width: 60%;
 }
 
-/* Styling for alternate day checkboxes */
 .alternate-day-checkboxes td {
   padding: 18px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
 }
 
-/* Cursor style for input elements */
 input {
   cursor: pointer;
 }
 
-/* Styling for time dropdown */
 .time-dropdown {
   display: flex;
   align-items: center;
 }
 
-/* Styling for alternate time separator */
 .alternate-time-separator {
   margin: 0 15px;
 }
 
-/* Styling for larger labels */
 .larger-label {
   font-size: 22px;
 }
 
-/* Media queries for different screen sizes */
-
 @media (min-width: 595px) and (max-width: 920px) {
-  /* Adjust width of alternate schedule details container */
   .alternate-schedule-details {
     width: 550px;
   }
 }
 
 @media (min-width: 400px) and (max-width: 594px) {
-  /* Adjust width of alternate schedule details container */
   .alternate-schedule-details {
     width: 380px;
   }
 
-  /* Adjust padding for alternate day checkboxes on smaller screens */
   .alternate-day-checkboxes td {
     padding: 1px;
   }
 
-  /* Adjust padding and font size for alternate time select inputs on smaller screens */
   #alternate-start-time-select-Monday,
   #alternate-end-time-select-Monday,
   #alternate-start-time-select-Tuesday,
@@ -107,24 +90,20 @@ input {
     padding-right: 26px;
   }
 
-  /* Adjust margin of alternate time separator on smaller screens */
   .alternate-time-separator {
     margin: 0 7px;
   }
 }
 
 @media (min-width: 347px) and (max-width: 399px) {
-  /* Adjust width of alternate schedule details container */
   .alternate-schedule-details {
     width: 330px;
   }
 
-  /* Adjust padding for alternate day checkboxes on smaller screens */
   .alternate-day-checkboxes td {
     padding: 1px;
   }
 
-  /* Adjust padding, font size, and alignment for alternate time select inputs on smaller screens */
   #alternate-start-time-select-Monday,
   #alternate-end-time-select-Monday,
   #alternate-start-time-select-Tuesday,
@@ -144,29 +123,20 @@ input {
     padding-left: 12px;
   }
 
-  /* Adjust margin of alternate time separator on smaller screens */
   .alternate-time-separator {
     margin: 0 7px;
-  }
-
-  /* Adjust font size for spans on smaller screens */
-  span {
-    font-size: 14px;
   }
 }
 
 @media (min-width: 291px) and (max-width: 346px) {
-  /* Adjust width of alternate schedule details container */
   .alternate-schedule-details {
     width: 280px;
   }
 
-  /* Adjust padding for alternate day checkboxes on smaller screens */
   .alternate-day-checkboxes td {
     padding: 1px;
   }
 
-  /* Adjust padding, font size, and alignment for alternate time select inputs on smaller screens */
   #alternate-start-time-select-Monday,
   #alternate-end-time-select-Monday,
   #alternate-start-time-select-Tuesday,
@@ -186,17 +156,10 @@ input {
     padding-left: 7px;
   }
 
-  /* Adjust margin of alternate time separator on smaller screens */
   .alternate-time-separator {
     margin: 0 2px;
   }
 
-  /* Adjust font size for spans on smaller screens */
-  span {
-    font-size: 13px;
-  }
-
-  /* Adjust styling for unavailable class on smaller screens */
   .unavailable {
     margin-left: 30px;
     font-size: 15px;

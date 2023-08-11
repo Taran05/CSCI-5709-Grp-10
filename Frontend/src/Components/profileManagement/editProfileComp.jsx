@@ -17,6 +17,7 @@ import { GET_MENTOR_DETAILS } from "../../utils/apiUrls";
 import { PUT_USER_DATA } from "../../utils/apiUrls";
 import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -59,6 +60,7 @@ export default function BasicTabs() {
   const [aboutYou, setAboutYou] = React.useState("");
   const [isIdUnique, setIsIdUnique] = React.useState(true);
   const [userName, setUsername] = React.useState(true);
+  const [isGoogle, setIsGoogle] = React.useState(true);
   const [usernames, setUsernames] = React.useState([]); // State variable to store the usernames
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -134,6 +136,7 @@ export default function BasicTabs() {
           email: email,
           firstName: firstName,
           userName: userName,
+          isGoogle: isGoogle,
         };
         localStorage.setItem("user", JSON.stringify(newUser));
       })
@@ -167,6 +170,8 @@ export default function BasicTabs() {
           const data = response.data.user;
 
           // Set the states with the received data
+          setIsGoogle(response.data.user.isGoogle);
+          console.log(isGoogle);
           setUsername(data.username);
           setFirstName(data.firstName);
           setLastName(data.lastName);
@@ -214,19 +219,35 @@ export default function BasicTabs() {
               />
             </Grid>
             <Grid item xs={12} md={12} lg={12} xl={6}>
-              <TextField
-                required
-                id="outlined-required"
-                placeholder="xyz@gmail.com"
-                label="Email"
-                type="email"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                sx={{ width: "100%" }}
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
+              {isGoogle ? (
+                <TextField
+                  disabled
+                  id="outlined-required"
+                  placeholder="xyz@gmail.com"
+                  label="Email"
+                  type="email"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  sx={{ width: "100%" }}
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              ) : (
+                <TextField
+                  required
+                  id="outlined-required"
+                  placeholder="xyz@gmail.com"
+                  label="Email"
+                  type="email"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  sx={{ width: "100%" }}
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              )}
             </Grid>
             <br />
             <Grid item xs={12} md={12} lg={12} xl={12}>

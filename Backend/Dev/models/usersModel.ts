@@ -14,11 +14,12 @@ export interface IUser extends Document {
   expertise: string[];
   aboutYou: string;
   displayName: string;
+  isGoogle: boolean;
 }
 
 const userSchema = new mongoose.Schema({
   userName: { type: String, required: true, unique: true }, // Add unique: true here
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: false },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   password: { type: String, required: true },
@@ -26,6 +27,7 @@ const userSchema = new mongoose.Schema({
   expertise: { type: [String], required: true },
   aboutYou: { type: String, required: false },
   displayName: { type: String, required: false },
+  isGoogle: { type: Boolean, required: true },
 });
 
 const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);

@@ -34,6 +34,7 @@ function EditBookingComp({ booking, onReschedule, onCancel }) {
   const [actionType, setActionType] = useState(null);
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [selectedTime, setSelectedTime] = useState(dayjs());
+  const today = dayjs().startOf("day");
 
   const handleDialogOpen = (type) => {
     setActionType(type);
@@ -115,6 +116,7 @@ function EditBookingComp({ booking, onReschedule, onCancel }) {
                 <MobileDatePicker
                   value={selectedDate}
                   onChange={(date) => setSelectedDate(dayjs(date))}
+                  minDate={today}
                 />
                 <TimePicker
                   value={selectedTime}

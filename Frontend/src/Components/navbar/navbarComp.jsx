@@ -63,6 +63,8 @@ function ResponsiveAppBar() {
   }, [location]);
 
   const isXS = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMD = useMediaQuery(theme.breakpoints.down("md"));
+
   const toggleDrawer = (event) => {
     if (
       event.type === "keydown" &&
@@ -294,7 +296,7 @@ function ResponsiveAppBar() {
     <AppBar style={styles.appBarBackground} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {((isXS && user === null) || user !== null) && (
+          {((isMD && user === null) || user !== null) && (
             <Button sx={{ padding: "0" }} onClick={toggleDrawer}>
               <MenuIcon style={{ color: "white" }} />
             </Button>

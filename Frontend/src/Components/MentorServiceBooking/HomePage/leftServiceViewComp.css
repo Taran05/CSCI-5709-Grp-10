@@ -9,13 +9,44 @@
   padding: 20% 0 0 5%;
 }
 
-.mentorAvatar {
-  width: 100px;
-  height: 100px;
-}
-
 .mentorName,
 .mentorQuery,
 .queryButton {
   margin-top: 10px;
+}
+
+/* For tablets */
+@media only screen and (max-width: 768px) {
+  .mentorBox {
+    padding: 15% 0 0 4% !important;
+  }
+
+  .mentorAvatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .mentorName,
+  .mentorQuery,
+  .queryButton {
+    margin-top: 8px !important;
+  }
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 480px) {
+  .mentorBox {
+    padding: 10% 0 0 3% !important;
+  }
+
+  .mentorAvatar {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .mentorName,
+  .mentorQuery,
+  .queryButton {
+    margin-top: 6px !important;
+  }
 }

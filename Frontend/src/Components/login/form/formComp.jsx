@@ -20,7 +20,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import GoogleIcon from "@mui/icons-material/Google";
 import { SiGoogle } from "react-icons/si";
-import { CHECK_EMAIL_EXIST } from "../../../utils/apiUrls";
+import { CHECK_EMAIL_EXIST, SEND_MAIL } from "../../../utils/apiUrls";
 import axios from "axios";
 import { LOGIN_USER } from "../../../utils/apiUrls";
 import { useNavigate } from "react-router-dom";
@@ -119,6 +119,14 @@ export default function FormComp() {
     setPassword("");
     setIsEmailValid(true);
     setIsPasswordValid(true);
+    try {
+      axios.post(USER_DATA_UPDATE, {
+        body: `User logged in: ${email}`,
+        title: "User Loggedin",
+      });
+    } catch {
+      console.log("Not able to send mail");
+    }
     axios
       .post(LOGIN_USER, { email, password, isGoogle: false })
       .then((response) => {

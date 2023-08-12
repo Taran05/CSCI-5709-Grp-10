@@ -8,7 +8,7 @@ import mailCont from "../../controllers/mailCont/mailCont";
 const router = express.Router();
 
 // POST /api/fetch/fetchCity
-router.post("/sendMail", mailCont.sendMail);
+router.post("/userUpdates", mailCont.sendMail);
 
 
 const mailRoutes = router

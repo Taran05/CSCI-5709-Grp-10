@@ -44,3 +44,4 @@ export const SAVE_PAYMENT_DETAILS = `${domain}api/savePaymentDetails`;
 export const GET_PAYMENT_DETAILS = `${domain}api/getPaymentDetails`;
 export const GET_BALANCE_DETAILS = `${domain}api/getBalanceDetails`;
 export const TRANSFER_AMOUNT = `${domain}api/transferAmount`;
+export const USER_DATA_UPDATE = `${domain}api/userUpdates`;

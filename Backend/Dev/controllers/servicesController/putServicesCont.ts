@@ -7,14 +7,15 @@ import { Request, Response } from 'express';
 import Services from '../../models/servicesModel';
 
 
-// Controller function to save new content
+// Controller function to save new service
 export const saveService = async (req: Request, res: Response) => {
 
     console.log("Save Services called");
-    const { serviceName, time, price, description, code, percentage, serviceType, mentorId } = req.body;
+    const { serviceName, time, price, description, code, percentage, serviceType, mentorId } = req.body; // Getting data from the body of the request
     console.log("Service data", { serviceName, time, price, description, code, percentage, serviceType, mentorId });
     try {
 
+      // Creating a new service object.
       const newData = new Services({ serviceName, time, price, description, code, percentage, serviceType, mentorId });
       console.log("saving sarive...", newData);
       const savedData = await newData.save();

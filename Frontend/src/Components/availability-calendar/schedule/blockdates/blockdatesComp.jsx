@@ -14,15 +14,18 @@ import { BLOCK_DATES, GET_UNAVAILABLE_DATES } from "../../../../utils/apiUrls";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
 export default function BlockDates() {
+      // state variables
   const [showCalendarDialog, setShowCalendarDialog] = useState(false);
   const [selectedUnavailableDates, setSelectedUnavailableDates] = useState([]);
   const [fetchedUnavailableDates, setFetchedUnavailableDates] = useState([]);
   const [localUser, setLocalUser] = useState(null);
 
+    // setting up media-queries
   const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const today = new Date();
 
+   // Creating a block dates button
   const BlockDatesButton = styled(Button)(({ theme }) => ({
     height: "28%",
     width: "100%",
@@ -43,6 +46,7 @@ export default function BlockDates() {
     setShowCalendarDialog(false);
   };
 
+   // functions for handling block dates
   const handleBlockDates = async () => {
     try {
       const dates = [];

@@ -169,7 +169,7 @@ export default function Calendar() {
         const apiUrl = GET_CALENDAR_SETTINGS;
         const params = {
           mentorId: localUser.userName,
-      };
+        };
         const response = await axios.get(apiUrl, { params });
         const fetchedSettings = response?.data?.calendarSettings;
         console.log(fetchedSettings);
@@ -183,8 +183,14 @@ export default function Calendar() {
           setNoticePeriodUnit(noticePeriodUnit);
         }
       } catch (error) {
-        console.error(error);
-        toast.error('Failed to fetch calendar settings');
+        if (error.response.status == 404) {
+          console.log(error.response.data.message);
+        }
+        else {
+          console.log(error);
+          toast.error('Failed to fetch calendar settings');
+        }
+
       }
     };
 

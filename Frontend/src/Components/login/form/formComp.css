@@ -7,7 +7,7 @@
 }
 .form,
 .right-div {
-  font-family: "Roboto";
+  font-family: "Roboto", Arial, sans-serif !important;
 }
 .right-div {
   padding-top: 2%;

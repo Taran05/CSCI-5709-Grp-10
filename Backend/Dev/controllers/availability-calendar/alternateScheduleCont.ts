@@ -1,10 +1,17 @@
 /**
-* @author Taranjot Singh <tr548284@dal.ca/B00945917>
-*/
+ * This module handles the controller functions for managing alternate schedules.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
 import { Request, Response } from 'express';
 import AlternateSchedule, { IAlternateSchedule } from '../../models/availability-calendar/alternateScheduleModel';
 import BlockedDates from '../../models/availability-calendar/blockDatesModel';
 
+/**
+ * Save or update alternate schedules.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const saveAlternateSchedule = async (req: Request, res: Response) => {
   const alternateScheduleData: IAlternateSchedule[] = req.body;
   const updatedSchedules: IAlternateSchedule[] = [];
@@ -74,7 +81,11 @@ const saveAlternateSchedule = async (req: Request, res: Response) => {
   }
 };
 
-
+/**
+ * Get alternate schedules for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getAlternateSchedule = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {
@@ -88,6 +99,11 @@ const getAlternateSchedule = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get available dates based on alternate schedules.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getAlternateAvailableDates = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {
@@ -131,7 +147,7 @@ const getAlternateAvailableDates = async (req: Request, res: Response) => {
         const formattedDateString = date.toString();
         console.log(formattedDateString);
 
-        //apply loop here
+        //if blocked dates exists & match the current date, exclude it
         if (formattedDates != null && !formattedDates.includes(formattedDateString)) {
           const startDateTimeString = formattedDateString + ' ' + startTime;
           const endDateTimeString = formattedDateString + ' ' + endTime;
@@ -147,6 +163,24 @@ const getAlternateAvailableDates = async (req: Request, res: Response) => {
             availableHours,
           });
         }
+
+        // if blocked dates doesn't exists, then include the current date
+        else{
+          const startDateTimeString = formattedDateString + ' ' + startTime;
+          const endDateTimeString = formattedDateString + ' ' + endTime;
+          const startDateTime = new Date(startDateTimeString);
+          const endDateTime = new Date(endDateTimeString);
+          while (startDateTime < endDateTime) {
+            availableHours.push(intlDateTimeFormatter.format(startDateTime));
+            startDateTime.setHours(startDateTime.getHours() + 1);
+          }
+          availableDates.push({
+            date,
+            day,
+            availableHours,
+          });
+        }
+
       }
     }
     res.status(200).json({ availableDates });

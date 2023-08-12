@@ -15,6 +15,7 @@ export interface IUser extends Document {
   aboutYou: string;
   displayName: string;
   isGoogle: boolean;
+  isDefaultSchedule: boolean;
 }
 
 const userSchema = new mongoose.Schema({
@@ -28,6 +29,7 @@ const userSchema = new mongoose.Schema({
   aboutYou: { type: String, required: false },
   displayName: { type: String, required: false },
   isGoogle: { type: Boolean, required: true },
+  isDefaultSchedule: { type: Boolean, required: true },
 });
 
 const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);

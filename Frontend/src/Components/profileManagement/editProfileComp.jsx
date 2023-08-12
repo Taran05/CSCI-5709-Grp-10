@@ -64,6 +64,8 @@ export default function BasicTabs() {
   const [usernames, setUsernames] = React.useState([]); // State variable to store the usernames
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const wordLimit = 1000;
   const navigate = useNavigate();
 
   const handleTextFieldChange = (event) => {
@@ -110,6 +112,19 @@ export default function BasicTabs() {
     };
     fetchUsernames();
   }, []);
+
+  const handleTextareaChange = (event) => {
+    const inputText = event.target.value;
+    const words = inputText;
+
+    if (words.length <= wordLimit) {
+      setAboutYou(inputText);
+    } else {
+      handleSnackbarOpen(
+        "Failed: Maximum word count (1000 characters) exceeded!"
+      );
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const user = JSON.parse(localStorage.getItem("user")); // Adjust this line according to how your user object is structured
@@ -327,7 +342,7 @@ export default function BasicTabs() {
                   rows={4}
                   sx={{ width: "100%" }}
                   value={aboutYou}
-                  onChange={(event) => setAboutYou(event.target.value)}
+                  onChange={handleTextareaChange}
                   variant="filled"
                 />
               </Grid>

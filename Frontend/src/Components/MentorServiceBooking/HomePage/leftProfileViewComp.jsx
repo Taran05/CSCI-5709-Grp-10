@@ -11,6 +11,9 @@ import { useLocation } from "react-router-dom";
 import "./leftServiceViewComp.css";
 import SendQueryComp from "../../queries/sendQuery/sendQueryComp";
 import { GET_MENTOR_DETAILS } from "../../../utils/apiUrls";
+import Backdrop from "@mui/material/Backdrop";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
 
 function stringToColor(string) {
   let hash = 0;
@@ -29,7 +32,17 @@ function stringToColor(string) {
   }
   return color;
 }
-
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 300,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 function stringAvatar(name) {
   return {
     sx: {
@@ -45,6 +58,10 @@ const LeftServiceViewComp = () => {
   const [mentor, setMentor] = useState({});
   const location = useLocation();
   const mentorId = location.pathname.split("/")[2];
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const [avatarSize, setAvatarSize] = useState({
     width: 100,
     height: 100,
@@ -104,10 +121,12 @@ const LeftServiceViewComp = () => {
   }, []);
 
   const mentorName = mentor ? `${mentor.firstName} ${mentor.lastName}` : "";
-
+  console.log(mentor);
   return (
     <Box className="mentorBox">
       <Avatar {...stringAvatar(mentorName)} style={responsiveStyles.avatar} />
+      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+
       <Typography
         variant="h4"
         className="mentorName"
@@ -125,6 +144,68 @@ const LeftServiceViewComp = () => {
 
       {/* Added This Comp here to ask queries */}
       <SendQueryComp mentorName={mentorName} mentorId={mentorId} />
+
+      <Button
+        sx={{
+          marginTop: 1,
+          bgcolor: "#1D267D",
+          color: "white",
+          "&:hover": {
+            bgcolor: "#0C134F", // Set your desired hover color here
+          },
+        }}
+        onClick={handleOpen}
+        variant="contained"
+      >
+        Know more
+      </Button>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <Typography id="transition-modal-title" variant="h6" component="h2">
+              {mentor.displayName}
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+              {mentor.aboutYou}
+            </Typography>
+            <br />
+            {mentor.expertise
+              ? mentor.expertise.map((option) => (
+                  <Button
+                    key={option}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {}}
+                    className="toggleButton"
+                    sx={{
+                      bgcolor: "#1D267D",
+                      margin: "1px",
+                      color: "white",
+                      "&:hover": {
+                        bgcolor: "#0C134F", // Set your desired hover color here
+                      },
+                    }}
+                  >
+                    {option}
+                  </Button>
+                ))
+              : ""}
+          </Box>
+        </Fade>
+      </Modal>
     </Box>
   );
 };

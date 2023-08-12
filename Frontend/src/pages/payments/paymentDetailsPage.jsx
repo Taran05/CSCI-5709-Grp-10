@@ -1,7 +1,10 @@
 /**
- * @author Shivam Lakhanpal <sh475218@dal.ca/B00932887>
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
+ * This is the Payment Details Page component.
+ * Authors: Shivam Lakhanpal <sh475218@dal.ca/B00932887>,
+ *          Taranjot Singh <tr548284@dal.ca/B00945917>
  */
+
+// Import necessary components, libraries, and styles from MUI
 import React, { useState } from "react";
 import {
   Box,
@@ -22,6 +25,7 @@ import { Snackbar } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MAKE_PAYMENT } from "../../utils/apiUrls";
 
+// Styling for the container box
 const StyledBox = styled(Box)({
   maxWidth: "400px",
   margin: "auto",
@@ -32,29 +36,35 @@ const StyledBox = styled(Box)({
   backgroundColor: "#F7F7F7",
 });
 
+// PaymentDetailsPage functional component
 const PaymentDetailsPage = () => {
+  // State variables for card details and snackbar
   const [cardNumber, setCardNumber] = useState("");
   const [cardHolderName, setCardHolderName] = useState("");
   const [cvv, setCvv] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const location = useLocation();
+
+  // Extract data from location state
   const mentorId = location.state.mentorId;
   const price = location.state.servicePrice;
   const bookingId = location.state.bookingId;
   const [snackbarSeverity, setSnackbarSeverity] = useState("error");
 
   const navigate = useNavigate();
+
+  // Handle closing of the snackbar
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
     setSnackbarOpen(false);
   };
 
+  // Handle payment button click
   const handlePayButtonClick = () => {
-    console.log(location);
+    // Validate card details
     if (cardNumber.length !== 16) {
       setSnackbarMessage("Card number should be 16 digits");
       setSnackbarOpen(true);
@@ -71,6 +81,7 @@ const PaymentDetailsPage = () => {
       return;
     }
 
+    // Send payment request to the server
     fetch(MAKE_PAYMENT + "/" + mentorId, {
       method: "POST",
       headers: {
@@ -105,6 +116,7 @@ const PaymentDetailsPage = () => {
       });
   };
 
+  // Handlers for input changes
   const handleCardNumberChange = (event) => {
     setCardNumber(event.target.value);
   };
@@ -117,6 +129,7 @@ const PaymentDetailsPage = () => {
     setCvv(event.target.value);
   };
 
+  // Return the component JSX
   return (
     <StyledBox>
       <Typography
@@ -138,6 +151,7 @@ const PaymentDetailsPage = () => {
         </Typography>
         <Typography variant="h6" color="text.primary"></Typography>
       </Box>
+      {/* Card Number input */}
       <Box sx={{ marginBottom: "20px" }}>
         <FormControl fullWidth variant="outlined">
           <InputLabel htmlFor="card-number">Card Number</InputLabel>
@@ -154,6 +168,7 @@ const PaymentDetailsPage = () => {
           />
         </FormControl>
       </Box>
+      {/* Card Holder Name input */}
       <Box sx={{ marginBottom: "20px" }}>
         <FormControl fullWidth variant="outlined">
           <InputLabel htmlFor="card-holder-name">Card Holder Name</InputLabel>
@@ -170,6 +185,7 @@ const PaymentDetailsPage = () => {
           />
         </FormControl>
       </Box>
+      {/* CVV input */}
       <Box sx={{ marginBottom: "20px" }}>
         <FormControl fullWidth variant="outlined">
           <InputLabel htmlFor="cvv">CVV</InputLabel>
@@ -188,6 +204,7 @@ const PaymentDetailsPage = () => {
           />
         </FormControl>
       </Box>
+      {/* Payment button */}
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Button
           variant="contained"
@@ -208,6 +225,7 @@ const PaymentDetailsPage = () => {
           Pay
         </Button>
       </Box>
+      {/* Snackbar for displaying payment status */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}

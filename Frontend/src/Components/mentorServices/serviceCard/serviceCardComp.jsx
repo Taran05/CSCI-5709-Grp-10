@@ -3,7 +3,15 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { Card, Typography, Grid, Box, Divider, Button } from "@mui/material";
+import {
+  Card,
+  Typography,
+  Grid,
+  Box,
+  Divider,
+  Button,
+  Tooltip,
+} from "@mui/material";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./serviceCardComp.css";
@@ -17,35 +25,9 @@ import DeleteConfirmComp from "../deleteConfirm/deleteConfirmComp";
 
 const ServiceCardComp = ({ service, changeDisplayOption, showSnackbar }) => {
   const shareLink = useRef("abcxyz");
-  // const [mentor, setMentor] = useState({});
-  // const [serviceDetails, setServiceDetails] = useState([]);
   const location = useLocation();
-  // const mentorId = location.pathname.split("/")[2];
-  // useEffect(() => {
-  //   fetch(GET_MENTOR_DETAILS + "/" + mentorId)
-  //     .then((response) => response.json())
-  //     .then((data) => setMentor(data.user));
-  // }, [mentorId]);
-
-  // const mentorName = mentor ? `${mentor.firstName} ${mentor.lastName}` : "";
 
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(GET_SERVICE_DETAILS + "/" + mentorId);
-  //       setServiceDetails(response.data);
-  //     } catch (error) {
-  //       console.error("Failed to fetch mentor service details", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [mentorId]);
-
-  // const handleServiceClick = (service) => {
-  //   console.log(mentorName);
-  //   // navigate("/bookingSchedule", { state: { service, mentorId, mentorName } });
-  // };
 
   const handleShareButton = () => {
     console.log("share button click..", shareLink, shareLink.current);
@@ -53,10 +35,11 @@ const ServiceCardComp = ({ service, changeDisplayOption, showSnackbar }) => {
       const textElement = shareLink.current;
       textElement.select();
       document.execCommand("copy");
-      showSnackbar("Link Copied.", "info");
+      showSnackbar("Link Copied. Redirecting to Mentor Service Page", "info");
       // Optionally, you can add some visual feedback for the user
       // alert("Text copied to clipboard!");
     }
+    navigate(`/mentorServiceBooking/${service.mentorId}`);
   };
 
   return (
@@ -118,14 +101,17 @@ const ServiceCardComp = ({ service, changeDisplayOption, showSnackbar }) => {
               onClick={(e) => handleShareButton(e)}
               color="primary"
             >
-              <ShareIcon sx={{ margin: "0" }} />
+              <Tooltip title="Go to Mentor Service Page" placement="bottom">
+                <ShareIcon sx={{ margin: "0" }} />
+              </Tooltip>
             </Button>
-
-            <EditMentorServicesComp
-              service={service}
-              changeDisplayOption={changeDisplayOption}
-              showSnackbar={showSnackbar}
-            />
+            <Tooltip title="Edit Service" placement="bottom">
+              <EditMentorServicesComp
+                service={service}
+                changeDisplayOption={changeDisplayOption}
+                showSnackbar={showSnackbar}
+              />
+            </Tooltip>
           </div>
           <DeleteConfirmComp
             service={service}

@@ -102,8 +102,13 @@ export default function BlockDates() {
           console.log("Blocked dates data not available.");
         }
       } catch (error) {
-        console.error(error);
-        toast.error('Failed to fetch unavailable dates');
+        if(error.response.status==404){
+          console.log(error.response.data.message);
+        }
+        else{
+          console.log(error);
+          toast.error('Failed to fetch unavailable dates');
+        }
       }
     };
 

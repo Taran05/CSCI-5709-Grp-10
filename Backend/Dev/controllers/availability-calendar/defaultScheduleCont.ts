@@ -1,12 +1,19 @@
 /**
-* @author Taranjot Singh <tr548284@dal.ca/B00945917>
-*/
+ * This module handles the controller functions for managing default schedules.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
 import { Request, Response } from "express";
 import DefaultSchedule, {
   IDefaultSchedule,
 } from "../../models/availability-calendar/defaultScheduleModel";
 import BlockedDates from '../../models/availability-calendar/blockDatesModel';
 
+/**
+ * Save or update default schedules for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const saveDefaultSchedule = async (req: Request, res: Response) => {
   const defaultScheduleData: IDefaultSchedule[] = req.body;
   const updatedSchedules: IDefaultSchedule[] = [];
@@ -76,7 +83,11 @@ const saveDefaultSchedule = async (req: Request, res: Response) => {
   }
 };
 
-
+/**
+ * Get default schedules for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getDefaultSchedule = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {
@@ -90,6 +101,11 @@ const getDefaultSchedule = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get default available dates for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getDefaultAvailableDates = async (req: Request, res: Response) => {
   const { mentorId } = req.query;
   try {
@@ -101,11 +117,11 @@ const getDefaultAvailableDates = async (req: Request, res: Response) => {
     const defaultSchedules: IDefaultSchedule[] = await DefaultSchedule.find({ mentorId: mentorId });
     const blockedDates = await BlockedDates.findOne({ mentorId });
     const availableDates: { date: string; day: string; availableHours: string[] }[] = [];
-
+    console.log(defaultSchedules);
     const firstDayAfterCurrent = new Date(today);
     firstDayAfterCurrent.setDate(today.getDate() + 1);
     let formattedDates;
-
+    
     if (blockedDates != null) {
       const dates = blockedDates.dates;
       formattedDates = dates.map(date => {
@@ -133,8 +149,25 @@ const getDefaultAvailableDates = async (req: Request, res: Response) => {
         const formattedDateString = date.toString();
         console.log(formattedDateString);
 
-        //apply loop here
+        //if blocked dates exists & match the current date, exclude it
         if (formattedDates != null && !formattedDates.includes(formattedDateString)) {
+          const startDateTimeString = formattedDateString + ' ' + startTime;
+          const endDateTimeString = formattedDateString + ' ' + endTime;
+          const startDateTime = new Date(startDateTimeString);
+          const endDateTime = new Date(endDateTimeString);
+          while (startDateTime < endDateTime) {
+            availableHours.push(intlDateTimeFormatter.format(startDateTime));
+            startDateTime.setHours(startDateTime.getHours() + 1);
+          }
+          availableDates.push({
+            date,
+            day,
+            availableHours,
+          });
+        }
+
+        // if blocked dates doesn't exists, then include the current date
+        else{
           const startDateTimeString = formattedDateString + ' ' + startTime;
           const endDateTimeString = formattedDateString + ' ' + endTime;
           const startDateTime = new Date(startDateTimeString);

@@ -1,9 +1,14 @@
 /**
-* @author Taranjot Singh <tr548284@dal.ca/B00945917>
-*/
+ * This module handles the controller functions for managing blocked dates.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
 import { Request, Response } from "express";
 import BlockedDates from '../../models/availability-calendar/blockDatesModel';
 
+/**
+ * Interface for extending Request to include specific body properties.
+ */
 interface BlockedDatesRequest extends Request {
   body: {
     mentorId: string;
@@ -11,6 +16,11 @@ interface BlockedDatesRequest extends Request {
   };
 }
 
+/**
+ * Block specified dates for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const blockDates = async (req: BlockedDatesRequest, res: Response) => {
   console.log(req.body);
   const { mentorId, dates } = req.body;
@@ -37,6 +47,11 @@ const blockDates = async (req: BlockedDatesRequest, res: Response) => {
   }
 };
 
+/**
+ * Get blocked/unavailable dates for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getUnavailableDates = async (req: BlockedDatesRequest, res: Response) => {
   const { mentorId } = req.query;
   try {

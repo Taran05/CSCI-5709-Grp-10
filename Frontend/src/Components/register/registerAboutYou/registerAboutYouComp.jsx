@@ -15,7 +15,7 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 import LoadingProgressComp from "../loadingProgress/loadingProgressComp";
 import { useNavigate, useLocation } from "react-router-dom";
-import { REGISTER_USER } from "../../../utils/apiUrls";
+import { REGISTER_USER, USER_DATA_UPDATE } from "../../../utils/apiUrls";
 const steps = ["Basic Information", "Your Expertise"];
 
 const RegisterAboutYouComp = () => {
@@ -107,8 +107,17 @@ const RegisterAboutYouComp = () => {
       userName: formData.pageLink.toLowerCase(),
       reason: formData.plan,
       isGoogle: location.state.isGoogle,
+      isDefaultSchedule: true,
     };
     console.log(user);
+    try {
+      axios.post(USER_DATA_UPDATE, {
+        body: `User Registered: ${user.userName}`,
+        title: "New User",
+      });
+    } catch {
+      console.log("Not able to send mail");
+    }
     axios
       .post(REGISTER_USER, user)
       .then((response) => {

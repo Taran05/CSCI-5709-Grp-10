@@ -1,9 +1,14 @@
-  /**
- * @author Taranjot Singh <tr548284@dal.ca/B00945917>
- */ 
+/**
+ * This module handles the controller functions for managing calendar settings.
+ * Author: Taranjot Singh <tr548284@dal.ca/B00945917>
+ */
+
 import { Request, Response } from "express";
 import CalendarSettings from '../../models/availability-calendar/calendarSettingsModel';
 
+/**
+ * Interface for extending Request to include specific body properties.
+ */
 interface CalendarSettingsRequest extends Request {
   body: {
     mentorId: string;
@@ -14,6 +19,11 @@ interface CalendarSettingsRequest extends Request {
   };
 }
 
+/**
+ * Save or update calendar settings for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const saveCalendarSettings = async (req: CalendarSettingsRequest, res: Response) => {
   const { mentorId, timezone, meetingLink, bookingPeriod, noticePeriod } = req.body;
   console.log(mentorId);
@@ -47,6 +57,11 @@ const saveCalendarSettings = async (req: CalendarSettingsRequest, res: Response)
   }
 };
 
+/**
+ * Get calendar settings for a mentor.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 const getCalendarSettings = async (req: CalendarSettingsRequest, res: Response) => {
   const { mentorId } = req.query;
   try {

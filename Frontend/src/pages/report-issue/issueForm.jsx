@@ -21,6 +21,7 @@ const IssueForm = ({ onNewIssue }) => {
   const localUser = JSON.parse(localStorage.getItem("user"));
   const userName = localUser.userName;
 
+  //Checking if the user is logged in
   useEffect(() => {
     const checkLogin = async () => {
       
@@ -34,6 +35,7 @@ const IssueForm = ({ onNewIssue }) => {
     checkLogin();
   }, []);
 
+  //Closing the alert
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -43,6 +45,7 @@ const IssueForm = ({ onNewIssue }) => {
     navigate("/issues");
   };
 
+  //Function to create an issue
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -60,7 +63,8 @@ const IssueForm = ({ onNewIssue }) => {
       setSnackbarOpen(true);
     }
   };
-
+  
+  //Customizing submit button
   const SubmitIssueButton = styled(Button)(({ theme }) => ({
     height: "100%",
     padding: "10px 30px",
@@ -90,6 +94,7 @@ const IssueForm = ({ onNewIssue }) => {
           Issue created successfully!
         </Alert>
       </Snackbar>
+      {/* Form to get issue details */}
       <form onSubmit={handleSubmit}>
         <Typography variant="h3" style={{ marginBottom: "5%" }}>
           Report Issue

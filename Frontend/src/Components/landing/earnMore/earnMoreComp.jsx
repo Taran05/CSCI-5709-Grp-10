@@ -1,3 +1,4 @@
+//Author - Aadith Shameel B00929852
 import { Grid, Container, Typography, Box } from "@mui/material";
 import "./earnMoreComp.css";
 

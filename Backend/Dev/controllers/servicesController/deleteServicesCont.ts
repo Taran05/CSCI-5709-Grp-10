@@ -7,7 +7,7 @@ import { Request, Response } from 'express';
 import Services from '../../models/servicesModel';
 
 
-// Controller function to update existing service
+// Controller function to delete existing service
 export const deleteService = async (req: Request, res: Response) => {
   const { _id } = req.body; // Assuming the _id value is passed as a parameter in the URL
   

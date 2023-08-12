@@ -84,10 +84,11 @@ export const saveQuery = async (req: Request, res: Response) => {
     }
 };
 
-
+// Controller function to delete a Query
 const deleteQuery = async (req: Request, res: Response) => {
-    const { _id, userMail, mentor, query, title } = req.body; 
+    const { _id, userMail, mentor, query, title } = req.body;  // Getting details from the body of request
 
+    // Mail config 
     const emailConfig = {
       host: 'smtp.gmail.com',
     port: 465,
@@ -98,6 +99,7 @@ const deleteQuery = async (req: Request, res: Response) => {
       },
     };
     
+    // Mail options
     const mailOptions = {
       from: 'Learnly <learnly.io@gmail.com>',
       to: userMail,

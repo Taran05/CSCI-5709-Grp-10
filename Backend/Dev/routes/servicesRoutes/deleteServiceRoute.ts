@@ -1,13 +1,14 @@
 /**
  * @author Shubham Chauhan <sh572302@dal.ca/B00945891>
  */
-import express from "express";
 
+// Importing the necessary modules
+import express from "express";
 import deleteServicesCont from "../../controllers/servicesController/deleteServicesCont";
 
 const router = express.Router();
 
-// POST /api/fetch/fetchCity
+// Defining routes and associating them with respective controller functions
 router.post("/deleteService", deleteServicesCont.deleteService);
 
 

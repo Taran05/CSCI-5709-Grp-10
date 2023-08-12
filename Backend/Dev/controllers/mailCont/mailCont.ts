@@ -8,22 +8,24 @@ const nodemailer = require('nodemailer');
 
 
 
-// Controller function to update the content of a specific entry
+// Controller function to send mail
 const sendMail = async (req: Request, res: Response) => {
   console.log("in sendEmail api:",req.body);
 
   const { body, title } = req.body;
 
+  // Mail connigs
   const emailConfig = {
     host: 'smtp.gmail.com',
   port: 465,
   secure: true,
     auth: {
       user: 'learnly.io@gmail.com',
-      pass: 'mhlqblzgdqrjotzq',
+      pass: 'mhlqblzgdqrjotzq', //Auth tocken
     },
   };
   
+  // Mail data
   const mailOptions = {
     from: 'Learnly <learnly.io@gmail.com>',
     to: 'shubhamchauhan1211@gmail.com',

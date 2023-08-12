@@ -15,7 +15,7 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 import LoadingProgressComp from "../loadingProgress/loadingProgressComp";
 import { useNavigate, useLocation } from "react-router-dom";
-import { REGISTER_USER, SEND_MAIL } from "../../../utils/apiUrls";
+import { REGISTER_USER, USER_DATA_UPDATE } from "../../../utils/apiUrls";
 const steps = ["Basic Information", "Your Expertise"];
 
 const RegisterAboutYouComp = () => {

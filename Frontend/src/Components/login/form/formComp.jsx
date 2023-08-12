@@ -20,7 +20,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import GoogleIcon from "@mui/icons-material/Google";
 import { SiGoogle } from "react-icons/si";
-import { CHECK_EMAIL_EXIST, SEND_MAIL } from "../../../utils/apiUrls";
+import { CHECK_EMAIL_EXIST, USER_DATA_UPDATE } from "../../../utils/apiUrls";
 import axios from "axios";
 import { LOGIN_USER } from "../../../utils/apiUrls";
 import { useNavigate } from "react-router-dom";

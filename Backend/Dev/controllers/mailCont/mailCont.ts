@@ -12,7 +12,7 @@ const nodemailer = require('nodemailer');
 const sendMail = async (req: Request, res: Response) => {
   console.log("in sendEmail api:",req.body);
 
-  const {  body, title } = req.body;
+  const { body, title } = req.body;
 
   const emailConfig = {
     host: 'smtp.gmail.com',
@@ -26,7 +26,7 @@ const sendMail = async (req: Request, res: Response) => {
   
   const mailOptions = {
     from: 'Learnly <learnly.io@gmail.com>',
-    to: 'learnly.io@gmail.com',
+    to: 'shubhamchauhan1211@gmail.com',
     subject: title,
     text: body,
   };

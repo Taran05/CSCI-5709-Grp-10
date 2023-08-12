@@ -205,7 +205,7 @@ export default function Calendar() {
           <tr className="flex-container">
             <td className="text-settings">
               <h3 style={{ display: "flex", alignItems: "center" }}><LocationOnIcon style={{ verticalAlign: "middle", marginRight: 8 }} />Timezone</h3>
-              <h4>Required for timely communications</h4>
+              <h4 className="setting-heading">Required for timely communications</h4>
             </td>
             <td className="input-values">
               <FormControl fullWidth>
@@ -232,7 +232,7 @@ export default function Calendar() {
           <tr className="flex-container">
             <td className="text-settings">
               <h3 style={{ display: "flex", alignItems: "center" }}><InsertLinkIcon style={{ verticalAlign: "middle", marginRight: 8 }} />Personal meeting link</h3>
-              <h4>All your 1:1 meetings will be redirected to this URL</h4>
+              <h4 className="setting-heading">All your 1:1 meetings will be redirected to this URL</h4>
             </td>
             <td className="input-values">
               <TextField
@@ -248,7 +248,7 @@ export default function Calendar() {
           <tr className="flex-container">
             <td className="text-settings">
               <h3 style={{ display: "flex", alignItems: "center" }}><EventIcon style={{ verticalAlign: "middle", marginRight: 8 }} />Booking Period</h3>
-              <h4>How far in the future can attendees book</h4>
+              <h4 className="setting-heading">How far in the future can attendees book</h4>
             </td>
             <td className="input-values">
               <FormControl fullWidth>
@@ -275,7 +275,7 @@ export default function Calendar() {
           <tr className="flex-container">
             <td className="text-settings">
               <h3 style={{ display: "flex", alignItems: "center" }}><EventNoteIcon style={{ verticalAlign: "middle", marginRight: 8 }} />Notice Period</h3>
-              <h4>Set the minimum amount of notice that is required</h4>
+              <h4 className="setting-heading">Set the minimum amount of notice that is required</h4>
             </td>
             <td className="input-values">
               <div id="notice-period" style={{ display: "flex", alignItems: "center" }}>

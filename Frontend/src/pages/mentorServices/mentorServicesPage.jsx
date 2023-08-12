@@ -5,13 +5,9 @@
 import React, { useEffect, useState } from "react";
 import PageHeaderComp from "../../Components/mentorServices/header/headerComp";
 import "./mentorServicesPage.css";
-//import Querys from "../../assets/data/queries.json";
-import { Grid } from "@mui/material";
 import axios from "axios";
-import { GET_QUERY, GET_SERVICE_DETAILS } from "../../utils/apiUrls";
-import { SnackbarProvider } from "notistack";
+import { GET_SERVICE_DETAILS } from "../../utils/apiUrls";
 import { useNavigate } from "react-router-dom";
-// import EditMentorServicesComp from "../../Components/mentorServices/editMentorServices/editMentorServicesComp";
 import MentorServiceBodyComp from "../../Components/mentorServices/mentorServiceBody/mentorServiceBodyComp";
 import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
@@ -24,9 +20,10 @@ function MentorServicesPage(props) {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [serviceDetails, setServiceDetails] = useState([]);
 
+  // Function to fetch service details from database.
   const fetchData = async () => {
     const localUser = JSON.parse(localStorage.getItem("user"));
-    const mentorId = localUser.userName;
+    const mentorId = localUser.userName; // MentoId of the loggedin user
     try {
       const response = await axios.get(GET_SERVICE_DETAILS + "/" + mentorId);
       console.log("mentor body service data", response.data);
@@ -36,16 +33,18 @@ function MentorServicesPage(props) {
     }
   };
 
+  // Updated the display option
   const changeDisplayOption = (option) => {
     updateDisplayOption(option);
-    fetchData();
-    console.log("Again calling get");
+    fetchData(); // Calling fetch to update the data displayed on screen
   };
 
+  // UserEffect to call fetchData() whenever display option in updated
   useEffect(() => {
     fetchData();
   }, [displayOption]);
 
+  // UserEffect to call fetchData when page is loaded
   useEffect(() => {
     const fetchData = async () => {
       const localUser = JSON.parse(localStorage.getItem("user"));
@@ -58,12 +57,6 @@ function MentorServicesPage(props) {
 
     fetchData();
   }, []);
-
-  // const changeDisplayOption = (option) => {
-  //   console.log("Logging...", { option });
-  //   updateDisplayOption(option);
-  //   // handleUserClick("");
-  // };
 
   // Function to handle Snackbar close
   const handleSnackbarClose = (event, reason) => {
@@ -84,11 +77,6 @@ function MentorServicesPage(props) {
     // <SnackbarProvider maxSnack={3}>
     <div className="queryPageBody">
       <div className="header">
-        {/* <HeaderComp
-          changeDisplayOption={changeDisplayOption}
-          displayOption={displayOption}
-        /> */}
-
         <PageHeaderComp
           pageTitle="Services"
           changeDisplayOption={changeDisplayOption}

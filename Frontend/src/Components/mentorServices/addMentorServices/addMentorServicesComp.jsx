@@ -1,6 +1,13 @@
 /**
+ * This component provides a form for mentors to add new services to their profile.
+ * It includes fields for selecting service type, title, duration, and price.
+ * @param {function} changeDisplayOption - Callback to change the display option.
+ * @param {function} showSnackbar - Callback to show a snackbar notification.
+ * @returns The component for adding mentor services.
  * @author Shubham Chauhan <sh572302@dal.ca/B00945891>
  */
+
+// Import necessary dependencies
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -8,8 +15,7 @@ import axios from "axios";
 import { PUT_SERVICE_DETAILS, SAVE_QUERY } from "../../../utils/apiUrls";
 import "./addMentorServicesComp.css";
 import CloseIcon from "@mui/icons-material/Close";
-import { useSnackbar } from "notistack";
-import { purple, grey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -28,19 +34,23 @@ const style = {
   p: 4,
 };
 
+// Define the AddMentorServicesComp functional component
 export default function AddMentorServicesComp({
   changeDisplayOption,
   showSnackbar,
 }) {
+  // State for modal open/close
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // State for form fields
   const [selectedService, setSelectedService] = useState("");
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
 
+  // Validation states and helper texts
   const [isValidTitle, setisValidTitle] = useState(true);
   const [isValidDuration, setisValidDuration] = useState(true);
   const [isValidPrice, setisValidPrice] = useState(true);
@@ -49,12 +59,14 @@ export default function AddMentorServicesComp({
   const [durationHelperText, setDurationHelperText] = useState("");
   const [priceHelperText, setPriceHelperText] = useState("");
 
+  // Available service types
   const services = [
     { id: "1:1", name: "1:1" },
     { id: "Query", name: "Query" },
     { id: "Webniar", name: "Webniar" },
   ];
 
+  // Handlers for form field changes
   const handleServiceChange = (event) => {
     setSelectedService(event.target.value);
   };
@@ -131,6 +143,7 @@ export default function AddMentorServicesComp({
     return true;
   };
 
+  // Submit form handler
   const handleSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -173,7 +186,6 @@ export default function AddMentorServicesComp({
         showSnackbar("Error: Not able create Service", "error");
       }
     } else {
-      // alert("Please fill all the fields before saving.");
       console.log("Loging data", {
         isValidTitle,
         titleHelperText,
@@ -186,6 +198,7 @@ export default function AddMentorServicesComp({
     }
   };
 
+  // Styled component for Save button
   const SaveButton = styled(Button)(({ theme }) => ({
     height: "100%",
     padding: "10px 30px",
@@ -197,6 +210,7 @@ export default function AddMentorServicesComp({
     },
   }));
 
+  // Styled component for Add Services button
   const AddServicesButton = styled(Button)(({ theme, showSelected }) => ({
     height: "100%",
     padding: "10px 30px",
@@ -213,20 +227,15 @@ export default function AddMentorServicesComp({
     },
   }));
 
+  // Render the component
   return (
     <div className="sendQueryStudentDiv">
-      <AddServicesButton
-        // variant="outlined"
-        color="primary"
-        onClick={handleOpen}
-      >
+      <AddServicesButton color="primary" onClick={handleOpen}>
         <AddIcon /> Add Services
       </AddServicesButton>
       <Modal
         open={open}
         onClose={handleClose}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
         className="sendQueryStudentModal"
       >
         <Box sx={style}>
@@ -270,7 +279,6 @@ export default function AddMentorServicesComp({
               label="Title"
               value={title}
               onChange={handleTitleChange}
-              // required
               fullWidth
               helperText={titleHelperText}
               error={!isValidTitle}
@@ -280,11 +288,9 @@ export default function AddMentorServicesComp({
               label="Duration"
               value={duration}
               onChange={handleDurationChange}
-              // required
               fullWidth
               helperText={durationHelperText}
               error={!isValidDuration}
-              // type="number"
               sx={{ mb: 2 }}
               InputProps={{
                 endAdornment: (
@@ -296,9 +302,7 @@ export default function AddMentorServicesComp({
               label="Price"
               value={price}
               onChange={handlePriceChange}
-              // required
               fullWidth
-              // type="number"
               helperText={priceHelperText}
               error={!isValidPrice}
               sx={{ mb: 2 }}

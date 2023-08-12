@@ -16,6 +16,7 @@ import UseMediaQuery from "@mui/material/useMediaQuery";
 
 export default function AlternateSchedule() {
 
+    // creating theme
     const theme = createTheme({
         breakpoints: {
             values: {
@@ -28,6 +29,7 @@ export default function AlternateSchedule() {
         },
     });
 
+    // state variables
     const [checkboxStates, setCheckboxStates] = useState({
         Monday: { checked: false, startTime: '', endTime: '' },
         Tuesday: { checked: false, startTime: '', endTime: '' },
@@ -43,6 +45,7 @@ export default function AlternateSchedule() {
     const [alternateScheduleData, setAlternateScheduleData] = useState([]);
     const [localUser, setLocalUser] = useState(null);
 
+    // setting up media-queries
     const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
 
     const startTimeOptions = [
@@ -59,6 +62,7 @@ export default function AlternateSchedule() {
         '09:00 PM', '10:00 PM', '11:00 PM'
     ];
 
+    // Creating a save button
     const SaveButton = styled(Button)(({ theme }) => ({
         height: "100%",
         width: "7%",
@@ -85,11 +89,11 @@ export default function AlternateSchedule() {
     const convertTimeToMinutes = (time) => {
         const [hours] = time.split(":");
         let totalHours = parseInt(hours);
-        if(totalHours == 12){
-            if(time.includes("AM")){
+        if (totalHours == 12) {
+            if (time.includes("AM")) {
                 totalHours = 0;
             }
-            else{
+            else {
                 totalHours = 12;
             }
         }
@@ -99,6 +103,7 @@ export default function AlternateSchedule() {
         return totalHours;
     };
 
+    // functions for handling alternate schedule
     const handleSaveChanges = async () => {
 
         const invalidDays = Object.entries(checkboxStates).filter(
@@ -144,10 +149,10 @@ export default function AlternateSchedule() {
             if (response.status === 200 || response.status === 201) {
                 apiUrl = SWITCH_SCHEDULE;
                 const switchScheduleData = {
-                    mentorId: localUser.userName, 
+                    mentorId: localUser.userName,
                     scheduleName: "alternate",
-                  }
-                  console.log(switchScheduleData);
+                }
+                console.log(switchScheduleData);
                 try {
                     const response = await axios.post(apiUrl, switchScheduleData);
                     if (response.status === 201) {
@@ -178,6 +183,7 @@ export default function AlternateSchedule() {
         }
     };
 
+    // getting the user
     useEffect(() => {
         if (saveStatus === 'success') {
             setChangesMade(false);

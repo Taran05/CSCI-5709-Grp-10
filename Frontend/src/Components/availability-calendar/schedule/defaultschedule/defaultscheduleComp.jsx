@@ -16,6 +16,7 @@ import UseMediaQuery from "@mui/material/useMediaQuery";
 
 export default function DefaultSchedule() {
 
+    // creating theme
     const theme = createTheme({
         breakpoints: {
             values: {
@@ -28,6 +29,7 @@ export default function DefaultSchedule() {
         },
     });
 
+    // state variables
     const [checkboxStates, setCheckboxStates] = useState({
         Monday: { checked: false, startTime: '', endTime: '' },
         Tuesday: { checked: false, startTime: '', endTime: '' },
@@ -43,6 +45,7 @@ export default function DefaultSchedule() {
     const [defaultScheduleData, setDefaultScheduleData] = useState([]);
     const [localUser, setLocalUser] = useState(null);
 
+      // setting up media-queries
     const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
 
     const startTimeOptions = [
@@ -59,6 +62,7 @@ export default function DefaultSchedule() {
         '09:00 PM', '10:00 PM', '11:00 PM'
     ];
 
+    // Creating a save button
     const SaveButton = styled(Button)(({ theme }) => ({
         height: "100%",
         width: "7%",
@@ -98,6 +102,8 @@ export default function DefaultSchedule() {
         }
         return totalHours;
     };
+
+      // functions for handling default schedule
 
     const handleSaveChanges = async () => {
 
@@ -179,6 +185,7 @@ export default function DefaultSchedule() {
         }
     };
 
+      // getting the user
     useEffect(() => {
         if (saveStatus === 'success') {
             setChangesMade(false);

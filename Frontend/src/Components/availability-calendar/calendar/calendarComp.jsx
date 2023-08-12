@@ -18,6 +18,7 @@ import axios from 'axios';
 import { SAVE_CALENDAR_SETTINGS, GET_CALENDAR_SETTINGS } from "../../../utils/apiUrls";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
+// creating theme
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -30,6 +31,7 @@ const theme = createTheme({
   },
 });
 
+// setting up timezones
 const timezones = [
   { value: "GMT-10:00", label: "(GMT-10:00) Hawaii" },
   { value: "GMT-8:00", label: "(GMT-8:00) Alaska" },
@@ -56,6 +58,7 @@ const timezones = [
   { value: "GMT+13:00", label: "(GMT+13:00) Nuku'alofa" },
 ];
 
+// setting up booking-periods
 const bookingPeriods = [
   { value: "1 week", label: "1 week" },
   { value: "2 weeks", label: "2 weeks" },
@@ -65,6 +68,7 @@ const bookingPeriods = [
   { value: "3 months", label: "3 months" },
 ];
 
+// setting up notice-periods
 const noticePeriodUnits = [
   { value: "minutes", label: "Minutes" },
   { value: "hours", label: "Hours" },
@@ -72,6 +76,7 @@ const noticePeriodUnits = [
   { value: "weeks", label: "Weeks" },
 ];
 
+// Creating a save button
 const SaveButton = styled(Button)(({ theme }) => ({
   height: "100%",
   width: "25%",
@@ -86,6 +91,7 @@ const SaveButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function Calendar() {
+  // state variables
   const [timezone, setTimezone] = useState("GMT-3:00");
   const [meetingLink, setMeetingLink] = useState("");
   const [bookingPeriod, setBookingPeriod] = useState("");
@@ -98,10 +104,14 @@ export default function Calendar() {
     bookingPeriod: "",
   });
   const [localUser, setLocalUser] = useState(null);
+
+  // setting up media-queries
   const isLargeScreen = UseMediaQuery((theme) => theme.breakpoints.down("lg"));
   const isMediumScreen = UseMediaQuery((theme) => theme.breakpoints.down("md"));
   const isSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("sm"));
   const isExtraSmallScreen = UseMediaQuery((theme) => theme.breakpoints.down("xs"));
+
+  // functions for handling calendar settings
 
   const handleTimezoneChange = (event) => {
     setTimezone(event.target.value);
@@ -160,6 +170,7 @@ export default function Calendar() {
     }
   };
 
+  // getting the user
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
     console.log("Printing local user:", localUser);

@@ -4,10 +4,10 @@
 
 /* FormStep1.css */
 .MuiBox-root.css-1ynyhby {
-  margin-top: 8;
-  margin-bottom: 8;
+  margin-top: 8px;
+  margin-bottom: 8px;
   margin-left: 0;
-  margin-right: 8;
+  margin-right: 8px;
 }
 .content-wrapper {
   display: inline-block !important; /* Make the div take the width of its content */
@@ -33,7 +33,7 @@
   text-align: center !important;
 }
 .toggleButton {
-  font-family: "Roboto" !important;
+  font-family: "Roboto", Arial, sans-serif !important;
   font-size: 12px !important; /* Adjust the font size as needed */
   font-weight: 400 !important;
   text-transform: none !important;

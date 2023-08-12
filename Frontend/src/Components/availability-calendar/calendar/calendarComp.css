@@ -2,7 +2,7 @@
  * @author Taranjot Singh <tr548284@dal.ca/B00945917>
  */
 
- h4 {
+ .setting-heading {
   color: #161414be;
   margin-left: 30px;
   font-weight: bold;
@@ -14,7 +14,7 @@
 }
 
 @media (min-width: 921px) and (max-width: 1024px) {
-  h4 {
+  .setting-heading  {
     width: 380px;
   }
   .text-settings {
@@ -23,7 +23,7 @@
 }
 
 @media (min-width: 595px) and (max-width: 920px) {
-  h4 {
+  .setting-heading  {
     width: 180px;
   }
   .text-settings {
@@ -77,7 +77,7 @@
     width: 250px;
     padding-left: 30px;
   }
-  h4{
+  .setting-heading {
     width: 260px;
   }
 }

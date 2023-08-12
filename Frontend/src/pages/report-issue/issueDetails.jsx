@@ -50,6 +50,7 @@ const IssueDetails = () => {
     fetchIssue();
   }, [id]);
 
+  //Function to update the issue
   const updateIssue = async (e) => {
     e.preventDefault();
     try {
@@ -75,6 +76,7 @@ const IssueDetails = () => {
     }
   };
 
+  //Function to delete the issue
   const deleteIssue = async () => {
     try {
       const response = await fetch(DELETE_ISSUE + `/${id}`, {
@@ -86,6 +88,7 @@ const IssueDetails = () => {
       if (response.ok) {
         setSnackbarMessage("Issue deleted successfully");
         setSnackbarOpen(true);
+        //Keeping alert message on screen for 2 seconds
         setTimeout(() => navigate("/issues"), 2000);
       } else {
         console.error(data.error);
@@ -102,6 +105,7 @@ const IssueDetails = () => {
     setSnackbarOpen(false);
   };
 
+  //Customizing update button
   const UpdateIssueButton = styled(Button)(({ theme }) => ({
     height: "100%",
     padding: "10px 30px",
@@ -113,6 +117,7 @@ const IssueDetails = () => {
     },
   }));
 
+  //Customizing delete button
   const DeleteIssueButton = styled(Button)(({ theme }) => ({
     height: "100%",
     padding: "10px 30px",

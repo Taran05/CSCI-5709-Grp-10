@@ -60,7 +60,8 @@ const IssueForm = ({ onNewIssue }) => {
       setSnackbarOpen(true);
     }
   };
-
+  
+  //Customizing submit button
   const SubmitIssueButton = styled(Button)(({ theme }) => ({
     height: "100%",
     padding: "10px 30px",
@@ -90,6 +91,7 @@ const IssueForm = ({ onNewIssue }) => {
           Issue created successfully!
         </Alert>
       </Snackbar>
+      {/* Form to get issue details */}
       <form onSubmit={handleSubmit}>
         <Typography variant="h3" style={{ marginBottom: "5%" }}>
           Report Issue

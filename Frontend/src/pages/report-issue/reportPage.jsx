@@ -30,6 +30,7 @@ const ReportPage = () => {
     checkLogin();
   }, []);
 
+  // Fetching issues made only by the user
   const fetchIssues = async () => {
     try {
       const res = await fetch(GET_ALL_ISSUES + `/${localUser.userName}`);
@@ -46,7 +47,8 @@ const ReportPage = () => {
   useEffect(() => {
     fetchIssues();
   }, []);
-
+  
+  //Customizing submit button
   const ReportIssueButton = styled(Button)(({ theme }) => ({
     height: "100%",
     padding: "10px 30px",

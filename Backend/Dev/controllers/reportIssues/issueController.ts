@@ -27,6 +27,7 @@ const issueController = {
     getAllIssues: async (req: Request, res: Response) => {
         const userName = req.params.userName
         try {
+            //Finding documents in database using the username
             const issues = await Issue.find({userName: userName.toString()});
             res.status(200).json(issues);
 

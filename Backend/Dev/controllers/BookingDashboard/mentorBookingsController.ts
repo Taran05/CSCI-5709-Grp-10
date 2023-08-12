@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 import StudentBooking from "../../models/StudentBooking";
 
+/**
+ * Fetch all bookings for a specific mentor.
+ * @param req {Request} - Express request object containing mentor ID.
+ * @param res {Response} - Express response object.
+ * @returns {Response} Returns bookings or an error message.
+ */
 export const getMentorBookings = async (req: Request, res: Response) => {
   try {
     let { mentorId } = req.params;
@@ -27,6 +33,12 @@ export const getMentorBookings = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Cancel a booking by ID.
+ * @param req {Request} - Express request object containing booking ID.
+ * @param res {Response} - Express response object.
+ * @returns {Response} Returns a success message or an error message.
+ */
 export const cancelBooking = async (req: Request, res: Response) => {
   try {
     const { bookingId } = req.body;
@@ -53,6 +65,12 @@ export const cancelBooking = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Reschedule a booking to a new time.
+ * @param req {Request} - Express request object containing booking ID and new time.
+ * @param res {Response} - Express response object.
+ * @returns {Response} Returns the updated booking or an error message.
+ */
 export const rescheduleBooking = async (req: Request, res: Response) => {
   try {
     const { bookingId, newTime } = req.body;
@@ -70,9 +88,6 @@ export const rescheduleBooking = async (req: Request, res: Response) => {
       minute: "2-digit",
       hour12: true,
     });
-    console.log("Booking ID:", bookingId);
-    console.log("Selected Date:", selectedDate);
-    console.log("Selected Time:", time12Hour);
 
     const updatedBooking = await StudentBooking.findOneAndUpdate(
       { bookingId: bookingId },

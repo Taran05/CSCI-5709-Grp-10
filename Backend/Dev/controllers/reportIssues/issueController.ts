@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import Issue, { IIssue } from '../../models/issueModel';
 
 const issueController = {
+    //To create an issue
     createIssue: async (req: Request, res: Response) => {
         const { title, description, userName } = req.body;
         try {
@@ -24,6 +25,7 @@ const issueController = {
             res.status(500).json({ error: 'Failed to report issue' });
         }
     },
+    //Getting all issues made by the user
     getAllIssues: async (req: Request, res: Response) => {
         const userName = req.params.userName
         try {
@@ -36,6 +38,7 @@ const issueController = {
             res.status(500).json({ error: 'Failed to fetch issues' });
         }
     },
+    //Getting a specific issue
     getIssue: async (req: Request, res: Response) => {
 
         const id = req.params.id;
@@ -52,6 +55,7 @@ const issueController = {
             res.status(500).json({ messaage: 'Failed to fetch issue'})
         }
     },
+    //Updating a specific issue
     updateIssue: async (req: Request, res: Response) => {
 
         const id = req.params.id;
@@ -75,6 +79,7 @@ const issueController = {
             res.status(500).json({ message: 'Failed to update issue'})
         }
     },
+    //Deleting an issue
     deleteIssue: async (req: Request, res: Response) => {
 
         const id = req.params.id;

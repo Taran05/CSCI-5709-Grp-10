@@ -22,6 +22,7 @@ const IssueDetails = () => {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const navigate = useNavigate();
 
+  //Checking if user is logged in
   useEffect(() => {
     const checkLogin = async () => {
       const localUser = JSON.parse(localStorage.getItem("user"));
@@ -35,10 +36,10 @@ const IssueDetails = () => {
     checkLogin();
   }, []);
 
+  //Getting all the detials of the issue made by the user
   useEffect(() => {
     const fetchIssue = async () => {
       try {
-        // const api_uri = GET_ISSUE + `/${id}`;
         const response = await fetch(GET_ISSUE + `/${id}`);
         const data = await response.json();
         setTitle(data.title);
@@ -67,6 +68,7 @@ const IssueDetails = () => {
       if (response.ok) {
         setSnackbarMessage("Issue updated successfully");
         setSnackbarOpen(true);
+        //Making the alert message stay for 2 seconds
         setTimeout(() => navigate("/issues"), 2000);
       } else {
         console.error(data.error);
@@ -97,7 +99,7 @@ const IssueDetails = () => {
       console.error(error);
     }
   };
-
+  //Closing the alert
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;

@@ -18,6 +18,7 @@ const ReportPage = () => {
   const navigate = useNavigate();
   const localUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
+    //Checking if the user is logged in
     const checkLogin = async () => {
       
       console.log("Printing local user:", localUser);

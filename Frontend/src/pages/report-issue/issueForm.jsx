@@ -21,6 +21,7 @@ const IssueForm = ({ onNewIssue }) => {
   const localUser = JSON.parse(localStorage.getItem("user"));
   const userName = localUser.userName;
 
+  //Checking if the user is logged in
   useEffect(() => {
     const checkLogin = async () => {
       
@@ -34,6 +35,7 @@ const IssueForm = ({ onNewIssue }) => {
     checkLogin();
   }, []);
 
+  //Closing the alert
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -43,6 +45,7 @@ const IssueForm = ({ onNewIssue }) => {
     navigate("/issues");
   };
 
+  //Function to create an issue
   const handleSubmit = async (e) => {
     e.preventDefault();
 

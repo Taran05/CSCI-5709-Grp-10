@@ -27,10 +27,10 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs from "dayjs";
 
 function EditBookingComp({ booking, onReschedule, onCancel }) {
+  // Local component state for managing snackbar, dialogs, and selected times.
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [newTime, setNewTime] = useState("");
   const [actionType, setActionType] = useState(null);
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [selectedTime, setSelectedTime] = useState(dayjs());
@@ -71,6 +71,7 @@ function EditBookingComp({ booking, onReschedule, onCancel }) {
     }
   };
 
+  // Handle booking cancellation
   const handleCancel = async () => {
     try {
       console.log(booking);

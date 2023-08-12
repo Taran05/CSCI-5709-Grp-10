@@ -39,6 +39,7 @@ function BookingDashboardComp({ booking }) {
     ? "Upcoming"
     : "Completed";
 
+  // Format the date for display.
   const formattedDate = booking.selectedDate
     ? new Date(booking.selectedDate).toLocaleDateString()
     : "Not specified";
@@ -49,6 +50,7 @@ function BookingDashboardComp({ booking }) {
       formattedDate.split("/")[0] + "/" + formattedDate.split("/")[1];
   }
 
+  // Function to handle cancellation of the booking.
   const handleCancel = async () => {
     try {
       await axios.post("/cancelBooking", { bookingId: booking.id });
@@ -60,6 +62,7 @@ function BookingDashboardComp({ booking }) {
     }
   };
 
+  // Function to handle rescheduling of the booking.
   const handleReschedule = async () => {
     try {
       await axios.post("/reschedule", { bookingId: booking.id });
